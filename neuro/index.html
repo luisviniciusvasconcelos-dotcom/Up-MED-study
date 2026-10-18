@@ -1,0 +1,1395 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Up-MED study</title>
+<meta name="description" content="Neuroanatomia em questões, prova prática e ranking da turma.">
+<meta name="theme-color" content="#1B3A4B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: app clínico — barra lateral no computador, navegação inferior no celular; conteúdo em coluna de leitura */
+:root{
+  --petroleo:#1B3A4B; --teal:#2A9D8F; --ambar:#E9C46A;
+  --bg:#eef2f3; --surface:#ffffff; --surface2:#f6f8f9; --ink:#14232c; --muted:#5b6b74; --line:#d6dee2;
+  --brand:#1B3A4B; --brandInk:#ffffff; --accent:#2A9D8F; --accentInk:#ffffff; --hi:#E9C46A; --hiInk:#5a4300;
+  --ok:#23845f; --bad:#c2412f; --warn:#b07a00;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c161c; --surface:#13222b; --surface2:#182b35; --ink:#e3ecef; --muted:#93a6ae; --line:#26404d;
+  --brand:#0f2531; --brandInk:#e3ecef; --accent:#38b3a4; --accentInk:#06201c; --hi:#E9C46A; --hiInk:#2b2000;
+  --ok:#47c08f; --bad:#ff7a66; --warn:#e3b341; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c161c; --surface:#13222b; --surface2:#182b35; --ink:#e3ecef; --muted:#93a6ae; --line:#26404d;
+  --brand:#0f2531; --brandInk:#e3ecef; --accent:#38b3a4; --accentInk:#06201c; --hi:#E9C46A; --hiInk:#2b2000;
+  --ok:#47c08f; --bad:#ff7a66; --warn:#e3b341; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(26px,4.5vw,36px);font-weight:800}
+h2{font-size:clamp(20px,3.2vw,26px);font-weight:700}
+h3{font-size:18px;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- login ---------- */
+.auth{min-height:100vh;display:grid;grid-template-columns:1fr;background:var(--brand);color:var(--brandInk)}
+@media (min-width:900px){.auth{grid-template-columns:1.1fr 1fr}}
+.auth-hero{padding-block:40px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:24px;display:flex;flex-direction:column;justify-content:center;gap:18px;position:relative;overflow:hidden}
+.auth-hero .mark{font-family:var(--f-display);font-weight:800;font-size:clamp(40px,8vw,72px);line-height:.95;letter-spacing:-.03em}
+.auth-hero .mark span{color:var(--hi)}
+.auth-hero p{max-width:42ch;opacity:.85}
+.auth-hero svg{position:absolute;right:-40px;bottom:-40px;width:320px;opacity:.12;pointer-events:none}
+.auth-card{background:var(--surface);color:var(--ink);padding-block:32px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;justify-content:center}
+.auth-card form{display:grid;gap:12px;max-width:380px;width:100%;margin:0 auto}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:4px}
+.seg button{border:0;background:transparent;padding:8px;border-radius:999px;font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--brand);color:var(--brandInk)}
+label.f{display:grid;gap:4px;font-size:14px;font-weight:700}
+input.in,select.in,textarea.in{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:400}
+input.in:focus,select.in:focus{border-color:var(--accent);outline:none}
+.msg{font-size:14px;padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--line)}
+.msg.err{border-color:var(--bad);color:var(--bad)}
+.msg.ok{border-color:var(--ok);color:var(--ok)}
+.linkbtn{background:none;border:0;padding:0;color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:10px;border:1.5px solid transparent;font-weight:700;line-height:1.1;min-height:44px}
+.btn.pri{background:var(--accent);color:var(--accentInk)}
+.btn.dark{background:var(--brand);color:var(--brandInk)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.sm{padding:8px 12px;min-height:36px;font-size:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:700;min-height:36px}
+.chip[aria-pressed="true"]{background:var(--brand);color:var(--brandInk);border-color:var(--brand)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:1fr;min-height:100vh}
+@media (min-width:900px){.shell{grid-template-columns:232px 1fr}}
+.side{display:none}
+@media (min-width:900px){.side{display:flex;flex-direction:column;gap:4px;background:var(--brand);color:var(--brandInk);padding:20px 12px;position:sticky;top:0;height:100vh}}
+.side .logo{font-family:var(--f-display);font-weight:800;font-size:22px;padding:4px 10px 18px;letter-spacing:-.02em}
+.side .logo span{color:var(--hi)}
+.navb{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;color:inherit;padding:10px 12px;border-radius:10px;font-weight:700;opacity:.8}
+.navb:hover{opacity:1;background:rgba(255,255,255,.06)}
+.navb[aria-current="page"]{opacity:1;background:rgba(255,255,255,.12);box-shadow:inset 3px 0 0 var(--hi)}
+.navb svg{width:20px;height:20px;flex:0 0 auto}
+.side .foot{margin-top:auto;display:grid;gap:4px;font-size:13px;opacity:.85;padding:8px 10px}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--brand);color:var(--brandInk);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+@media (min-width:900px){.bottom{display:none}}
+.bottom .navb{flex-direction:column;gap:2px;font-size:11px;padding:8px 2px;border-radius:0;justify-content:center;text-align:center}
+.bottom .navb[aria-current="page"]{box-shadow:inset 0 3px 0 var(--hi);background:rgba(255,255,255,.08)}
+.main{min-width:0;padding-block:20px 96px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:900px){.main{padding-block:28px 48px;padding-left:32px;padding-right:32px}}
+.page{max-width:1080px;margin:0 auto;display:grid;gap:20px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.banner{padding:10px 14px;border-radius:10px;background:color-mix(in srgb,var(--hi) 22%,var(--surface));border:1px solid color-mix(in srgb,var(--hi) 60%,var(--line));font-size:14px}
+
+/* ---------- cartões ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:1fr}
+@media (min-width:640px){.g2{grid-template-columns:1fr 1fr}}
+.g3{grid-template-columns:1fr}
+@media (min-width:640px){.g3{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.g3{grid-template-columns:repeat(3,1fr)}}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;gap:2px}
+.stat b{font-family:var(--f-display);font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.mod{display:grid;gap:8px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;min-height:118px}
+.mod:hover{border-color:var(--accent)}
+.mod .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.meter{height:6px;background:var(--surface2);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.meter i{display:block;height:100%;background:var(--accent)}
+.meter i.lo{background:var(--bad)} .meter i.mid{background:var(--warn)}
+.game{display:grid;gap:10px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;position:relative;overflow:hidden}
+.game:hover{border-color:var(--accent)}
+.game .tag{justify-self:start}
+.tag{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--ink)}
+.tag.amb{background:color-mix(in srgb,var(--hi) 35%,transparent)}
+
+/* ---------- quiz ---------- */
+.qwrap{max-width:760px;width:100%;margin:0 auto;display:grid;gap:14px}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.bar{height:5px;background:var(--line);border-radius:5px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.stem{font-size:18px;line-height:1.45}
+.stem.case{background:var(--surface2);border-left:4px solid var(--hi);padding:12px 14px;border-radius:0 10px 10px 0}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;text-align:left;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);line-height:1.35;min-height:48px}
+.opt .k{font-family:var(--f-mono);font-weight:500;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);font-size:13px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,var(--surface))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 11%,var(--surface))}
+.opt:disabled{cursor:default}
+.vfrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface)}
+.vfrow.right{border-color:var(--ok)} .vfrow.wrong{border-color:var(--bad)}
+.tog{display:flex;gap:4px}
+.tog button{width:44px;height:40px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);font-weight:800}
+.tog button[aria-pressed="true"]{background:var(--brand);color:var(--brandInk);border-color:var(--brand)}
+.asrow{display:grid;grid-template-columns:1fr;gap:6px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface)}
+@media (min-width:560px){.asrow{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);align-items:center}}
+.asrow.right{border-color:var(--ok)} .asrow.wrong{border-color:var(--bad)}
+.asrow .fix{font-size:13px;color:var(--ok);grid-column:1/-1}
+.arbox{display:grid;gap:8px}
+.arbox div{padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--line)}
+.arbox b{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block}
+ol.seq{list-style:none;margin:0;padding:0;display:grid;gap:6px;counter-reset:s}
+ol.seq li{counter-increment:s;display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border-radius:8px;background:var(--surface2);border:1px solid var(--line)}
+ol.seq li::before{content:counter(s);font-family:var(--f-mono);color:var(--accent);font-weight:500}
+ol.seq li.right{border-color:var(--ok)} ol.seq li.wrong{border-color:var(--bad)}
+.fb{border-radius:12px;padding:14px 16px;background:var(--surface);border:1.5px solid var(--line);display:grid;gap:6px}
+.fb.good{border-color:var(--ok)} .fb.bad{border-color:var(--bad)}
+.fb .verdict{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.07em}
+.fb.good .verdict{color:var(--ok)} .fb.bad .verdict{color:var(--bad)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.score{font-family:var(--f-display);font-weight:800;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* ---------- ranking ---------- */
+.rank{display:grid;gap:6px}
+.rrow{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.rrow .pos{font-family:var(--f-display);font-weight:800;font-size:20px;text-align:center;font-variant-numeric:tabular-nums}
+.rrow.me{border-color:var(--accent);box-shadow:inset 4px 0 0 var(--accent)}
+.rrow .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.rrow .xp{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:500}
+.rrow .acc{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end}
+.pod{background:var(--surface);border:1px solid var(--line);border-radius:var(--r) var(--r) 0 0;padding:10px;text-align:center;display:grid;gap:2px;min-width:0}
+.pod b{font-family:var(--f-display);font-size:26px}
+.pod .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod.p1{min-height:150px;border-top:4px solid var(--hi)} .pod.p2{min-height:120px} .pod.p3{min-height:100px}
+
+/* ---------- estações ---------- */
+.stage{display:grid;gap:16px;align-items:start}
+@media (min-width:860px){.stage{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}}
+.fig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px;display:grid;gap:6px;min-width:0}
+.fig svg{width:100%;height:auto;display:block;max-height:70vh}
+.photo{position:relative;width:100%;line-height:0;border-radius:8px;overflow:hidden;background:#000;touch-action:manipulation}
+.photo img{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none;max-height:72vh;object-fit:contain}
+.photo .pin{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid var(--hi);box-shadow:0 0 0 2px rgba(0,0,0,.55);pointer-events:none}
+.photo .pin.pulse::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--hi);animation:pulse 1.4s ease-out infinite}
+.photo .pin.ok{border-color:var(--ok)} .photo .pin.bad{border-color:var(--bad)}
+.photo .pin.dot{width:16px;height:16px;margin:-8px 0 0 -8px;border-width:2px;background:rgba(0,0,0,.35)}
+.photo .pin.dot.cur{border-color:var(--hi);background:var(--hi)}
+.photo .lbl{position:absolute;transform:translate(-50%,-150%);background:rgba(0,0,0,.75);color:#fff;font-size:12px;line-height:1.2;padding:3px 6px;border-radius:6px;white-space:nowrap;pointer-events:none;font-family:var(--f-body)}
+.credit{font-size:12px;color:var(--muted);line-height:1.4}
+.credit a{color:inherit}
+.imgfail{line-height:1.5;color:#fff;padding:24px;text-align:center;font-size:14px}
+@keyframes pulse{0%{opacity:.9;transform:scale(.6)}100%{opacity:0;transform:scale(1.6)}}
+.timer{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:500}
+.timer.low{color:var(--bad)}
+.lvls{display:grid;gap:6px;grid-template-columns:1fr 1fr}
+@media (min-width:560px){.lvls{grid-template-columns:repeat(3,1fr)}}
+.lv{padding:10px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:14px;min-height:44px}
+.lv[aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface))}
+.lv.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--surface))}
+.lv.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.edlist{display:grid;gap:4px;max-height:52vh;overflow:auto;padding-right:4px}
+.edlist button{display:grid;grid-template-columns:18px 1fr auto;gap:8px;align-items:center;text-align:left;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-size:14px}
+.edlist button.cur{border-color:var(--hi);box-shadow:inset 3px 0 0 var(--hi)}
+.edlist .st{width:12px;height:12px;border-radius:50%;border:2px solid var(--line)}
+.edlist .st.on{background:var(--ok);border-color:var(--ok)}
+.edlist .st.skip{background:var(--muted);border-color:var(--muted)}
+
+/* ---------- SVG esquemas ---------- */
+.wm{fill:var(--sv-my);stroke:var(--sv-edge);stroke-width:.7}
+.tr{fill:var(--sv-my2);stroke:var(--sv-edge);stroke-width:.7}
+.base{fill:var(--sv-my)}
+.gm{fill:var(--sv-gray);stroke:var(--sv-grayEdge);stroke-width:.6}
+.sg{fill:var(--sv-gel);stroke:var(--sv-grayEdge);stroke-width:.6}
+.nt{fill:var(--sv-deep)}
+.cc{fill:var(--surface);stroke:var(--sv-grayEdge)}
+.cba{fill:var(--sv-my2);stroke:var(--sv-edge);stroke-width:.6}
+.fis{fill:var(--surface)}
+.sep{stroke:var(--surface);stroke-width:1.8}
+.outline{fill:none;stroke:var(--sv-pia);stroke-width:2}
+.nerve{fill:none;stroke:var(--sv-nerve);stroke-width:7;stroke-linecap:round}
+.thin{fill:none;stroke:var(--sv-nerve);stroke-width:2;stroke-linecap:round}
+.gang{fill:var(--sv-gang);stroke:var(--sv-nerve)}
+.hit{fill:none;stroke:transparent;stroke-width:16;pointer-events:stroke;stroke-linecap:round}
+.zone{fill:transparent;stroke:var(--muted);stroke-dasharray:3 3;stroke-opacity:.6}
+.cord{fill:var(--sv-gray);stroke:var(--sv-pia);stroke-width:1.5}
+.dura{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:6 4}
+.cist{fill:var(--sv-csf)}
+.deco{stroke:var(--sv-nerve);stroke-width:2;fill:none}
+.fil{stroke:var(--sv-pia);stroke-width:2;fill:none}
+.lab{font-family:var(--f-mono);font-size:9px;fill:var(--muted);letter-spacing:.08em}
+.tick{stroke:var(--line);stroke-width:1}
+.guide{stroke:var(--line);stroke-dasharray:2 3}
+:root{--sv-my:#2c3172;--sv-my2:#454ba3;--sv-edge:#9196dc;--sv-gray:#e7d5dc;--sv-grayEdge:#b99aa8;--sv-gel:#f6ecf0;--sv-deep:#ad7a91;--sv-pia:#7a2e4a;--sv-nerve:#c4b9a4;--sv-gang:#ab9d82;--sv-csf:#dbe8f4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sv-my:#343b8f;--sv-my2:#5058bb;--sv-edge:#8a90dd;--sv-gray:#cdb6bf;--sv-grayEdge:#9a7d8a;--sv-gel:#e6d6dc;--sv-deep:#9c6b81;--sv-pia:#c06a8a;--sv-nerve:#a89f8f;--sv-gang:#8f856f;--sv-csf:#1d3247}}
+:root[data-theme="dark"]{--sv-my:#343b8f;--sv-my2:#5058bb;--sv-edge:#8a90dd;--sv-gray:#cdb6bf;--sv-grayEdge:#9a7d8a;--sv-gel:#e6d6dc;--sv-deep:#9c6b81;--sv-pia:#c06a8a;--sv-nerve:#a89f8f;--sv-gang:#8f856f;--sv-csf:#1d3247}
+[data-id]{cursor:pointer}
+.hl:not(.ln):not(.hit){fill:var(--hi)!important;fill-opacity:1}
+.zone.hl{fill-opacity:.75!important;stroke:none}
+.ln.hl,.hit.hl{stroke:var(--hi)!important}
+.hit.hl,.hit.ok,.hit.bad{stroke-opacity:.35}
+.ok:not(.ln):not(.hit){fill:var(--ok)!important;fill-opacity:.9}
+.ln.ok,.hit.ok{stroke:var(--ok)!important}
+.bad:not(.ln):not(.hit){fill:var(--bad)!important;fill-opacity:.9}
+.ln.bad,.hit.bad{stroke:var(--bad)!important}
+.spin{fill:none;stroke:var(--hi);stroke-width:2.5;pointer-events:none}
+.spin.pulse{animation:pulse 1.4s ease-out infinite;transform-box:fill-box;transform-origin:center}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(5,15,20,.55);display:grid;place-items:center;padding:16px}
+.modal .box{background:var(--surface);border-radius:14px;max-width:620px;width:100%;max-height:86vh;overflow:auto;padding:20px;display:grid;gap:12px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;max-width:90vw}
+@media (min-width:900px){.toast{bottom:24px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<div id="app"><div style="padding:40px;text-align:center;font-family:system-ui">Carregando Up-MED study…</div></div>
+
+<!-- ============================================================
+     CONFIGURAÇÃO DO FIREBASE
+     Cole aqui os dados do seu projeto (Console do Firebase >
+     Configurações do projeto > Seus apps > Configuração do SDK).
+     Deixe apiKey vazio para usar o modo local (sem ranking da turma).
+     ============================================================ -->
+<script>
+window.FIREBASE_CONFIG = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
+</script>
+
+<!-- Camada 1: dados (banco de questões e games) -->
+<script>
+/* Camada 1 — dados. Sem dependências externas. */
+var QB=[];
+function mc(m,d,q,o,e){return{m:m,d:d,t:'mc',q:q,o:o,e:e}}
+function cs(m,d,q,o,e){return{m:m,d:d,t:'case',q:q,o:o,e:e}}
+function vf(m,d,q,s,e){return{m:m,d:d,t:'vf',q:q,s:s,e:e}}
+function as(m,d,q,p,e){return{m:m,d:d,t:'as',q:q,p:p,e:e}}
+function ar(m,d,a,r,k,e){return{m:m,d:d,t:'ar',a:a,r:r,k:k,e:e}}
+function od(m,d,q,s,e){return{m:m,d:d,t:'od',q:q,s:s,e:e}}
+function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
+
+var APP_VERSION='2.0.0';
+var VERSIONS=[
+ {v:'2.0.0',date:'18/10/2026',changes:['Reconstrução completa da plataforma, agora dedicada à neuroanatomia.','Login com e-mail e senha pelo Firebase, com modo local quando o Firebase não está configurado.','Banco inicial com 19 módulos e sete formatos de questão.','Games: prova prática com fotos reais e esquemas, montagem de vias, topografia da lesão e nervos cranianos contra o relógio.','Editor de estações para marcar estruturas em fotos (administradores).','Ranking da turma: geral, semanal e por módulo.'],
+  tests:['Criar conta, sair e entrar de novo no celular e no computador.','Responder 10 questões e conferir se o ranking atualiza no outro aparelho.','Montar uma estação com foto e jogá-la com outra conta.'],
+  analysis:'Primeira versão do novo desenho. As fotos reais dependem de alguém marcar as estruturas no editor. O ranking confia nos dados enviados por cada aluno, o que basta para uso em turma, mas não impede fraude.'}
+];
+
+var MODULES=[
+ {id:'intro',n:'Organização e desenvolvimento',s:'Divisões do sistema nervoso, neurulação e vesículas'},
+ {id:'tecido',n:'Tecido nervoso',s:'Neurônio, glia, sinapse, mielina e regeneração'},
+ {id:'nervos',n:'Nervos e terminações',s:'Envoltórios, receptores e placa motora'},
+ {id:'medmacro',n:'Medula: macroscopia e envoltórios',s:'Topografia, cauda equina, punção e anestesia'},
+ {id:'medest',n:'Medula: estrutura interna',s:'Colunas, funículos, tratos e síndromes medulares'},
+ {id:'tronco',n:'Tronco encefálico: macroscopia',s:'Bulbo, ponte, mesencéfalo e IV ventrículo'},
+ {id:'troncoest',n:'Tronco encefálico: estrutura',s:'Núcleos, lemniscos, formação reticular e síndromes'},
+ {id:'cerebelo',n:'Cerebelo',s:'Divisões, córtex, núcleos e síndromes'},
+ {id:'diencefalo',n:'Diencéfalo',s:'Tálamo, hipotálamo, epitálamo e subtálamo'},
+ {id:'telencefalo',n:'Telencéfalo: macroscopia',s:'Sulcos, giros, lobos e áreas corticais'},
+ {id:'telest',n:'Telencéfalo: estrutura',s:'Núcleos da base, cápsula interna e fibras'},
+ {id:'meninges',n:'Meninges, ventrículos e líquor',s:'Espaços, pregas da dura, circulação e hematomas'},
+ {id:'vasc',n:'Vascularização e barreiras',s:'Círculo arterial, territórios e barreira hematoencefálica'},
+ {id:'nervesp',n:'Nervos espinais',s:'Plexos, dermátomos, reflexos e radiculopatias'},
+ {id:'nervcran',n:'Nervos cranianos',s:'Origem, forames, funções e lesões'},
+ {id:'sna',n:'Sistema nervoso autônomo',s:'Simpático, parassimpático e síndrome de Horner'},
+ {id:'vias',n:'Grandes vias aferentes',s:'Dor, tato, propriocepção, visão e audição'},
+ {id:'eferentes',n:'Grandes vias eferentes',s:'Corticospinal, corticonuclear e neurônio motor'},
+ {id:'limbico',n:'Sistema límbico e memória',s:'Hipocampo, amígdala e circuito de Papez'}
+];
+var MOD=Object.fromEntries(MODULES.map(function(m){return[m.id,m]}));
+var TYPE_LABEL={mc:'Múltipla escolha',case:'Caso clínico',vf:'Verdadeiro ou falso',as:'Associação',ar:'Asserção e razão',od:'Ordenação',gp:'Complete'};
+var AR_OPTS=['As duas são verdadeiras, e a razão justifica a asserção','As duas são verdadeiras, mas a razão não justifica a asserção','A asserção é verdadeira e a razão é falsa','A asserção é falsa e a razão é verdadeira','As duas são falsas'];
+
+/* Banco — parte 1: organização, embriologia, tecido nervoso, nervos e terminações, medula (macro) */
+QB.push(
+/* ---------- intro: organização geral e embriologia ---------- */
+mc('intro',1,'Quais estruturas compõem o encéfalo?',['Cérebro, cerebelo e tronco encefálico','Cérebro, cerebelo e medula espinal','Telencéfalo, tronco encefálico e medula','Cérebro, diencéfalo e nervos cranianos'],'O SNC tem encéfalo e medula. O encéfalo inclui cérebro (telencéfalo + diencéfalo), cerebelo e tronco encefálico (mesencéfalo, ponte e bulbo).'),
+mc('intro',1,'O tronco encefálico é formado por:',['Mesencéfalo, ponte e bulbo','Diencéfalo, ponte e bulbo','Mesencéfalo, cerebelo e ponte','Tálamo, mesencéfalo e bulbo'],'O diencéfalo faz parte do cérebro, não do tronco. O cerebelo fica dorsal ao tronco, mas não o integra.'),
+as('intro',1,'Associe cada vesícula encefálica secundária ao que ela origina no adulto.',[['Telencéfalo','Hemisférios cerebrais'],['Diencéfalo','Tálamo e hipotálamo'],['Mesencéfalo','Mesencéfalo'],['Metencéfalo','Ponte e cerebelo'],['Mielencéfalo','Bulbo']],'Prosencéfalo → telencéfalo e diencéfalo; mesencéfalo não se divide; rombencéfalo → metencéfalo e mielencéfalo.'),
+as('intro',2,'Associe a cavidade do tubo neural à estrutura que a contém no adulto.',[['Ventrículos laterais','Telencéfalo'],['III ventrículo','Diencéfalo'],['Aqueduto cerebral','Mesencéfalo'],['IV ventrículo','Ponte e bulbo'],['Canal central','Medula espinal']],'A luz do tubo neural persiste como sistema ventricular.'),
+mc('intro',2,'Na medula embrionária, o sulco limitante separa:',['A lâmina alar, dorsal e sensitiva, da lâmina basal, ventral e motora','A placa do teto, dorsal e fina, da placa do assoalho, ventral e espessa','A crista neural, externa, do tubo neural, interno','A camada do manto, que forma a substância cinzenta, da camada marginal'],'Lâmina alar: neurônios sensitivos (coluna posterior). Lâmina basal: neurônios motores (colunas anterior e lateral).'),
+mc('intro',2,'Qual estrutura deriva da crista neural?',['Gânglios sensitivos dos nervos espinais','Neurônios motores da coluna anterior','Oligodendrócitos da substância branca','Células de Purkinje e células granulares do cerebelo'],'A crista neural origina gânglios sensitivos e autônomos, células de Schwann, células satélites, medula da adrenal e melanócitos.'),
+vf('intro',2,'Julgue as afirmativas sobre a divisão do sistema nervoso.',[['O sistema nervoso periférico inclui nervos, gânglios e terminações nervosas.',true],['O sistema nervoso autônomo é exclusivamente eferente.',false],['Os nervos cranianos fazem parte do sistema nervoso periférico.',true],['A divisão segmentar inclui o cerebelo.',false]],'O SNA tem componente aferente visceral. Na divisão funcional segmentar ficam a medula, o tronco e os nervos; cerebelo e cérebro formam o sistema suprassegmentar.'),
+ar('intro',2,'O cerebelo e o cérebro pertencem ao sistema nervoso suprassegmentar.','Ambos têm córtex e não se relacionam diretamente com os nervos.',0,'Machado divide o SN em segmentar (medula, tronco, nervos) e suprassegmentar (cérebro e cerebelo). Os órgãos suprassegmentares têm córtex e não emitem nervos.'),
+cs('intro',2,'Recém-nascido com falha de fechamento do neuróporo caudal apresenta tecido nervoso exposto na região lombar. O diagnóstico é:',['Mielomeningocele','Anencefalia','Espinha bífida oculta','Hidrocefalia congênita'],'O não fechamento do neuróporo caudal causa defeitos como mielomeningocele. Falha do neuróporo rostral leva à anencefalia. A suplementação de ácido fólico reduz o risco.'),
+gp('intro',1,'A vesícula primitiva que não se subdivide durante o desenvolvimento é o ____.',['mesencéfalo','mesencefalo'],'Prosencéfalo e rombencéfalo se dividem; o mesencéfalo permanece único.'),
+mc('intro',3,'A flexura cefálica do embrião ocorre na região do:',['Mesencéfalo','Bulbo, junto à medula','Diencéfalo','Metencéfalo, na ponte'],'Há três flexuras: cefálica (mesencéfalo), cervical (entre rombencéfalo e medula) e pontina (dorsal, no rombencéfalo).'),
+od('intro',2,'Ordene as etapas da neurulação.',['Espessamento do ectoderma, formando a placa neural','Formação da goteira neural com pregas laterais','Fusão das pregas, formando o tubo neural','Fechamento dos neuróporos rostral e caudal'],'O neuróporo rostral fecha por volta do 25º dia e o caudal por volta do 27º.'),
+
+/* ---------- tecido: tecido nervoso ---------- */
+mc('tecido',1,'Qual célula forma a bainha de mielina no sistema nervoso central?',['Oligodendrócito','Célula de Schwann','Astrócito protoplasmático','Micróglia'],'No SNC, um oligodendrócito mieliniza segmentos de vários axônios. No SNP, cada célula de Schwann mieliniza um único internodo.'),
+as('tecido',1,'Associe a célula glial à sua função principal.',[['Astrócito','Sustentação e barreira hematoencefálica'],['Oligodendrócito','Mielina no SNC'],['Micróglia','Defesa e fagocitose'],['Célula ependimária','Revestimento dos ventrículos'],['Célula de Schwann','Mielina no SNP']],'A micróglia tem origem mesodérmica (monocítica); as demais derivam do neuroectoderma ou da crista neural.'),
+mc('tecido',2,'Os neurônios dos gânglios sensitivos dos nervos espinais são classificados como:',['Pseudounipolares','Bipolares','Multipolares','Unipolares verdadeiros'],'Têm um prolongamento que se divide em T: um ramo periférico e outro central. Bipolares típicos ficam na retina, na mucosa olfatória e nos gânglios vestibular e coclear.'),
+vf('tecido',2,'Julgue sobre a sinapse química.',[['O impulso passa do elemento pré para o pós-sináptico em um só sentido.',true],['A sinapse elétrica depende de vesículas sinápticas.',false],['A entrada de cálcio no terminal desencadeia a exocitose.',true],['Toda sinapse química é excitatória.',false]],'A sinapse elétrica usa junções comunicantes. A química pode ser excitatória ou inibitória conforme o neurotransmissor e o receptor.'),
+ar('tecido',2,'A condução do impulso é mais rápida em fibras mielínicas.','Nelas o impulso salta de um nódulo de Ranvier para o seguinte.',0,'É a condução saltatória: a despolarização ocorre só nos nódulos.'),
+mc('tecido',2,'Após secção de um nervo periférico, a degeneração do coto distal é chamada de:',['Degeneração walleriana','Cromatólise central','Degeneração transneuronal','Desmielinização segmentar'],'O axônio e a mielina distais degeneram. No corpo celular ocorre cromatólise. A regeneração depende das células de Schwann, que formam faixas de Büngner.'),
+mc('tecido',3,'Por que a regeneração axonal é muito limitada no SNC?',['Oligodendrócitos e cicatriz glial inibem o crescimento axonal','Os neurônios centrais não têm corpo celular capaz de síntese proteica','A micróglia está ausente no tecido nervoso central adulto','Os axônios centrais não sofrem degeneração walleriana'],'Proteínas da mielina central (como Nogo) e a cicatriz astrocitária bloqueiam o crescimento. No SNP, as células de Schwann guiam e favorecem a regeneração.'),
+gp('tecido',1,'O espaço entre dois segmentos de mielina, onde ocorre a despolarização, é o nódulo de ____.',['ranvier'],'A condução saltatória depende desses nódulos.'),
+cs('tecido',3,'Mulher de 28 anos com neurite óptica e, meses depois, parestesias e fraqueza em membro inferior. A RM mostra placas periventriculares na substância branca. A célula primariamente lesada é:',['Oligodendrócito','Célula de Schwann','Neurônio motor inferior','Astrócito fibroso'],'Na esclerose múltipla há desmielinização central (oligodendrócitos). Doenças como Guillain-Barré afetam a mielina periférica (Schwann).'),
+mc('tecido',2,'O cone de implantação do axônio é importante porque:',['É o local onde normalmente se inicia o potencial de ação','É o local de síntese dos neurotransmissores','Contém a maior concentração de corpúsculos de Nissl do neurônio','Recebe a maioria das sinapses excitatórias'],'O segmento inicial tem alta densidade de canais de sódio dependentes de voltagem. Os corpúsculos de Nissl faltam no cone de implantação.'),
+
+/* ---------- nervos: nervos em geral e terminações ---------- */
+od('nervos',1,'Ordene os envoltórios conjuntivos do nervo, de dentro para fora.',['Endoneuro, ao redor de cada fibra','Perineuro, ao redor de cada fascículo','Epineuro, ao redor de todo o nervo'],'O perineuro forma a barreira hematoneural.'),
+as('nervos',2,'Associe o receptor à sensibilidade que detecta.',[['Corpúsculo de Meissner','Tato fino em pele glabra'],['Corpúsculo de Pacini','Vibração e pressão'],['Terminação nervosa livre','Dor e temperatura'],['Fuso neuromuscular','Estiramento do músculo'],['Órgão tendinoso de Golgi','Tensão no tendão']],'Fuso e órgão de Golgi são proprioceptores; Meissner e Pacini são mecanorreceptores encapsulados.'),
+mc('nervos',2,'Quanto à classificação de Sherrington, os receptores das vísceras são:',['Interoceptores','Exteroceptores','Proprioceptores','Telerreceptores'],'Exteroceptores: superfície corporal. Proprioceptores: músculos, tendões, articulações e labirinto. Interoceptores: vísceras e vasos.'),
+vf('nervos',2,'Julgue sobre a placa motora.',[['É uma junção entre axônio motor e fibra muscular esquelética.',true],['O neurotransmissor liberado é a noradrenalina.',false],['A miastenia grave afeta receptores pós-sinápticos de acetilcolina.',true],['Cada fibra muscular costuma receber várias placas motoras.',false]],'Na placa motora o transmissor é a acetilcolina. Em regra, cada fibra muscular tem uma única placa.'),
+mc('nervos',2,'Unidade motora é o conjunto formado por:',['Um neurônio motor e todas as fibras musculares que ele inerva','Um músculo inteiro e todos os neurônios motores que chegam a ele','Um fuso neuromuscular e suas fibras aferentes','Um segmento medular e o miótomo correspondente'],'Músculos de movimentos finos, como os extrínsecos do olho, têm unidades motoras pequenas.'),
+ar('nervos',3,'As fibras do tipo C conduzem a dor lenta, em queimação.','São fibras amielínicas de pequeno calibre.',0,'Fibras Aδ, finas e mielínicas, conduzem a dor rápida e bem localizada. Fibras C conduzem a dor lenta e difusa.'),
+gp('nervos',2,'A fibra intrafusal do fuso neuromuscular é inervada por neurônios motores ____.',['gama','γ','gamma'],'Os motoneurônios gama ajustam a sensibilidade do fuso; os alfa inervam as fibras extrafusais.'),
+cs('nervos',2,'Paciente com hanseníase perde a sensibilidade térmica e dolorosa nos pés e sofre queimaduras sem perceber. As fibras afetadas primeiro são:',['Fibras finas que terminam como terminações livres','Fibras grossas e mielínicas dos fusos neuromusculares','Axônios dos motoneurônios alfa','Fibras dos corpúsculos de Pacini'],'A hanseníase acomete nervos periféricos, com perda precoce das sensibilidades térmica e dolorosa, conduzidas por fibras finas.'),
+
+/* ---------- medmacro: medula — macroscopia e envoltórios ---------- */
+mc('medmacro',1,'No adulto, a medula espinal termina geralmente no nível de:',['L2, na borda entre L1 e L2','S2, junto ao fim do saco dural','T12, abaixo da última costela','L4, junto à crista ilíaca'],'Abaixo da medula seguem o filamento terminal e a cauda equina. No recém-nascido a medula vai até L3.'),
+as('medmacro',1,'Associe a estrutura à sua descrição.',[['Cone medular','Extremidade afilada da medula'],['Filamento terminal','Prolongamento da pia-máter até o cóccix'],['Cauda equina','Raízes abaixo do cone medular'],['Cisterna lombar','Espaço subaracnóideo entre L2 e S2'],['Ligamento denticulado','Expansão lateral da pia-máter']],'A cisterna lombar é o local da punção lombar.'),
+mc('medmacro',2,'Por que existem intumescências cervical e lombar?',['Saída dos plexos dos membros, com mais neurônios','Maior volume de líquor no espaço subaracnóideo nesses níveis','Presença da coluna lateral simpática','Passagem dos tratos espinocerebelares'],'A intumescência cervical se relaciona ao plexo braquial e a lombossacral ao plexo lombossacral.'),
+mc('medmacro',2,'Pela regra topográfica de C2 a T10, o processo espinhoso de T4 corresponde ao segmento medular:',['T6','T4','T5','T8'],'Entre C2 e T10 soma-se 2 ao número do processo espinhoso.'),
+mc('medmacro',3,'Os processos espinhosos de T11 e T12 correspondem aos segmentos medulares:',['Lombares','Sacrais','Torácicos inferiores','Coccígeos'],'A regra do +2 vale até T10. Os processos de T11 e T12 correspondem aos cinco segmentos lombares; o de L1 corresponde aos sacrais.'),
+gp('medmacro',1,'São ____ pares de nervos espinais.',['31','trinta e um'],'8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo.'),
+vf('medmacro',2,'Julgue sobre os envoltórios da medula.',[['O espaço epidural contém tecido adiposo e plexo venoso.',true],['O saco dural termina em L2, junto com a medula.',false],['O líquor circula no espaço subaracnóideo.',true],['A aracnoide forma os ligamentos denticulados.',false]],'O saco dural vai até S2. Os ligamentos denticulados são da pia-máter.'),
+ar('medmacro',2,'A punção lombar entre L3 e L4 tem baixo risco de lesar a medula.','No adulto, nesse nível existem apenas raízes da cauda equina.',0,'As raízes flutuam no líquor e se afastam da agulha.'),
+mc('medmacro',2,'Na anestesia peridural, o anestésico é colocado:',['Entre a dura-máter e o periósteo','Entre a aracnoide e a pia-máter','Entre a dura-máter e a aracnoide','No interior do canal central'],'O espaço epidural fica fora da dura. Na raquianestesia, o anestésico vai ao espaço subaracnóideo.'),
+cs('medmacro',3,'Homem com fratura do corpo de L1 após queda. Tem anestesia em sela, retenção urinária e disfunção erétil, de instalação súbita e simétrica, com força quase preservada nas pernas. A estrutura lesada é:',['Cone medular','Cauda equina','Intumescência lombar','Funículo posterior torácico'],'O cone medular fica no nível de L1–L2 e contém os segmentos sacrais (S3–Co), responsáveis pelos esfíncteres e pela sensibilidade perineal.'),
+cs('medmacro',3,'Mulher com hérnia de disco volumosa em L4–L5 tem dor ciática bilateral intensa, fraqueza flácida assimétrica e reflexo aquileu abolido. A estrutura comprimida é:',['Cauda equina','Cone medular','Medula lombar','Filamento terminal'],'Abaixo de L2 só há raízes. A síndrome da cauda equina é radicular, dolorosa e assimétrica, com sinais de neurônio motor inferior.'),
+mc('medmacro',2,'A raiz dorsal penetra na medula pelo:',['Sulco lateral posterior','Sulco mediano posterior','Sulco lateral anterior','Sulco intermédio posterior'],'A raiz ventral emerge pelo sulco lateral anterior. O sulco intermédio posterior separa os fascículos grácil e cuneiforme.')
+);
+
+/* Banco — parte 2: estrutura da medula, tronco encefálico, cerebelo */
+QB.push(
+/* ---------- medest: estrutura da medula ---------- */
+mc('medest',1,'A coluna lateral da medula existe nos segmentos:',['T1 a L2','C1 a C8','S2 a S4','C8 a L2'],'Contém neurônios pré-ganglionares simpáticos. Em S2–S4 há neurônios parassimpáticos, sem coluna lateral.'),
+mc('medest',2,'O fascículo cuneiforme aparece no funículo posterior:',['Acima de T6','Abaixo de T6','Só no segmento lombar','Em todos os segmentos'],'Leva informação do membro superior e da metade superior do tronco.'),
+as('medest',2,'Associe o trato ao funículo onde está.',[['Fascículo grácil','Funículo posterior'],['Trato corticospinal lateral','Funículo lateral'],['Trato corticospinal anterior','Funículo anterior'],['Trato espinocerebelar posterior','Periferia do funículo lateral']],'O espinotalâmico lateral também ocupa o funículo lateral, à frente do corticospinal lateral.'),
+mc('medest',2,'O núcleo torácico (dorsal de Clarke) dá origem ao:',['Trato espinocerebelar posterior','Trato espinotalâmico lateral do mesmo lado','Fascículo cuneiforme','Trato espinocerebelar anterior'],'Fica na base da coluna posterior, de C8 a L2.'),
+mc('medest',2,'A substância gelatinosa corresponde à lâmina de Rexed:',['II','I','V','IX'],'Lâmina II, no ápice da coluna posterior: modulação da dor (teoria do portão). A lâmina IX contém os motoneurônios.'),
+vf('medest',2,'Julgue sobre a substância cinzenta medular.',[['A coluna anterior contém motoneurônios alfa e gama.',true],['Os motoneurônios mais mediais inervam músculos distais dos membros.',false],['Na intumescência cervical, a coluna anterior é mais larga.',true],['A comissura cinzenta contém o canal central.',true]],'Motoneurônios mediais inervam a musculatura axial; os laterais, a musculatura distal dos membros.'),
+ar('medest',3,'Uma hemissecção medular causa perda de dor e temperatura do lado oposto.','As fibras do trato espinotalâmico cruzam na comissura branca anterior.',0,'Por isso a síndrome de Brown-Séquard tem déficit sensitivo dissociado.'),
+cs('medest',2,'Homem de 24 anos com ferimento por faca no dorso. Abaixo de T10: paresia espástica e perda de propriocepção na perna direita; perda de dor e temperatura na perna esquerda. A lesão é:',['Hemissecção medular direita','Hemissecção medular esquerda','Lesão da comissura branca anterior','Lesão do funículo posterior direito'],'Do lado da lesão caem o corticospinal lateral e o funículo posterior. Do lado oposto cai o espinotalâmico, que já cruzou.'),
+cs('medest',2,'Mulher com perda de dor e temperatura nos ombros e membros superiores, bilateral, em faixa, com tato e propriocepção preservados. A causa mais provável é:',['Siringomielia cervical','Tabes dorsalis','Esclerose lateral amiotrófica','Hemissecção cervical'],'A cavidade central rompe as fibras que cruzam na comissura branca anterior.'),
+cs('medest',3,'Paciente com anemia megaloblástica tem perda de vibração e propriocepção nos pés, hiper-reflexia e sinal de Babinski. Os funículos lesados são:',['Posteriores e laterais','Apenas os anteriores','Apenas os posteriores, bilateralmente','Anteriores e laterais'],'Na degeneração combinada subaguda (deficiência de B12) caem os funículos posteriores e os tratos corticospinais laterais.'),
+cs('medest',2,'Criança após quadro febril tem paralisia flácida, atrofia e arreflexia em uma perna, com sensibilidade normal. A estrutura lesada é:',['Coluna anterior','Trato corticospinal lateral','Raiz dorsal','Funículo posterior'],'Quadro de neurônio motor inferior sem déficit sensitivo, típico da poliomielite.'),
+cs('medest',3,'Paciente com fasciculações e atrofia nas mãos, hiper-reflexia e Babinski nas pernas, sem alteração sensitiva. A doença é:',['Esclerose lateral amiotrófica','Siringomielia','Tabes dorsalis','Síndrome da artéria espinal anterior'],'A ELA combina sinais de neurônio motor inferior (coluna anterior) e superior (corticospinal).'),
+cs('medest',3,'Após cirurgia de aorta, paciente tem paraplegia e perda de dor e temperatura abaixo de T8, com propriocepção e vibração preservadas. A artéria comprometida irriga:',['Os dois terços anteriores da medula','Os funículos posteriores e as raízes dorsais','Apenas a coluna lateral','A raiz dorsal de T8'],'Na síndrome da artéria espinal anterior os funículos posteriores, irrigados pelas artérias espinais posteriores, são poupados.'),
+gp('medest',2,'As fibras do trato espinotalâmico cruzam a linha média pela comissura branca ____.',['anterior'],'Essa é a estrutura lesada na siringomielia.'),
+mc('medest',3,'No arco reflexo patelar, o centro reflexo fica nos segmentos:',['L2 a L4','L5 a S1','S1 a S2','T12 a L1'],'Reflexo patelar: L2–L4 (nervo femoral). Reflexo aquileu: S1–S2.'),
+
+/* ---------- tronco: macroscopia do tronco encefálico ---------- */
+mc('tronco',1,'As pirâmides bulbares contêm fibras do trato:',['Corticospinal','Espinotalâmico','Rubrospinal','Espinocerebelar'],'Na parte caudal do bulbo, a maioria dessas fibras cruza na decussação das pirâmides.'),
+as('tronco',2,'Associe o nervo craniano ao local de origem aparente.',[['Oculomotor (III)','Fossa interpeduncular'],['Troclear (IV)','Face dorsal, abaixo dos colículos inferiores'],['Abducente (VI)','Sulco bulbopontino, junto à linha média'],['Hipoglosso (XII)','Sulco lateral anterior do bulbo'],['Glossofaríngeo (IX)','Sulco lateral posterior do bulbo']],'O troclear é o único que emerge da face dorsal do tronco.'),
+mc('tronco',2,'A oliva bulbar fica entre:',['Os sulcos lateral anterior e lateral posterior','A fissura mediana anterior e a pirâmide do mesmo lado','Os tubérculos grácil e cuneiforme','O pedúnculo cerebelar inferior e o óbex'],'Do sulco lateral anterior, à frente da oliva, sai o hipoglosso. Do sulco lateral posterior saem IX, X e XI.'),
+vf('tronco',2,'Julgue sobre o assoalho do IV ventrículo.',[['O colículo facial é formado pelo joelho do nervo facial sobre o núcleo do abducente.',true],['O trígono do hipoglosso fica lateral ao trígono do vago.',false],['As estrias medulares cruzam o assoalho transversalmente.',true],['A área vestibular ocupa a parte lateral do assoalho.',true]],'O trígono do hipoglosso é medial ao trígono do vago.'),
+mc('tronco',2,'Os pedúnculos cerebelares médios ligam o cerebelo:',['À ponte','Ao mesencéfalo','Ao bulbo','Ao tálamo'],'Inferior: bulbo. Médio: ponte. Superior: mesencéfalo.'),
+gp('tronco',1,'O nervo trigêmeo emerge entre a ponte e o pedúnculo cerebelar ____.',['medio','médio'],'A linha de emergência do trigêmeo marca o limite entre ponte e pedúnculo cerebelar médio.'),
+mc('tronco',2,'Os colículos superiores fazem parte de vias relacionadas à:',['Visão e reflexos visuais','Audição e reflexos auditivos','Gustação','Olfação'],'Os colículos inferiores são estações da via auditiva. Os superiores participam de reflexos visuais e movimentos oculares.'),
+ar('tronco',2,'O nervo troclear é o único nervo craniano que emerge da face dorsal do tronco.','Suas fibras cruzam antes de emergir, no véu medular superior.',1,'As duas afirmativas são verdadeiras, mas o cruzamento não explica a emergência dorsal. O nervo é dorsal e cruzado, duas características distintas.'),
+od('tronco',1,'Ordene as partes do tronco encefálico, de cranial para caudal.',['Mesencéfalo','Ponte','Bulbo'],'O bulbo continua a medula no forame magno.'),
+
+/* ---------- troncoest: estrutura do tronco, núcleos e formação reticular ---------- */
+as('troncoest',2,'Associe o núcleo ao nervo e à função.',[['Núcleo ambíguo','Motor branquial de IX, X e XI'],['Núcleo do trato solitário','Gustação e aferência visceral'],['Núcleo dorsal do vago','Parassimpático visceral'],['Núcleo de Edinger-Westphal','Constrição da pupila'],['Núcleo salivatório superior','Glândulas lacrimal e submandibular']],'O ambíguo inerva músculos da faringe e da laringe.'),
+mc('troncoest',2,'O lemnisco medial é formado por fibras que se originam:',['Nos núcleos grácil e cuneiforme','Na coluna posterior da medula','No núcleo ventral posterolateral do tálamo','No núcleo espinal do trigêmeo'],'As fibras arqueadas internas cruzam no bulbo e formam o lemnisco medial.'),
+cs('troncoest',3,'Paciente com hemiplegia à direita e ptose, midríase e olho desviado para baixo e para fora à esquerda. A lesão está em:',['Base do mesencéfalo à esquerda','Base da ponte à esquerda','Bulbo medial à direita','Cápsula interna, perna posterior, à direita'],'Síndrome de Weber: pedúnculo cerebral (corticospinal, cruzado) e fibras do oculomotor (do mesmo lado).'),
+cs('troncoest',3,'Paciente com rouquidão, disfagia, perda de dor e temperatura na hemiface esquerda e no hemicorpo direito, ataxia e síndrome de Horner à esquerda. A artéria ocluída é a:',['Cerebelar inferior posterior esquerda','Basilar, nos seus ramos paramedianos da ponte','Cerebral posterior esquerda','Espinal anterior direita'],'Síndrome bulbar lateral (Wallenberg): núcleo ambíguo, trato espinal do trigêmeo, espinotalâmico, pedúnculo cerebelar inferior e fibras simpáticas descendentes.'),
+cs('troncoest',3,'Paciente com hemiplegia à esquerda e língua que desvia para a direita ao ser protraída, com atrofia da hemilíngua direita. A lesão está em:',['Bulbo medial à direita','Bulbo lateral à direita','Ponte medial à esquerda','Mesencéfalo à direita'],'Síndrome bulbar medial: pirâmide (hemiplegia contralateral) e nervo hipoglosso (língua desvia para o lado lesado).'),
+cs('troncoest',3,'Paciente com hemiplegia à direita e estrabismo convergente à esquerda, sem conseguir abduzir o olho esquerdo. A lesão está em:',['Ponte, na base, à esquerda','Mesencéfalo, à esquerda','Bulbo, à direita','Ponte, no tegmento, à direita'],'Lesão da base da ponte com o trato corticospinal e as fibras do abducente.'),
+mc('troncoest',2,'O fascículo longitudinal medial integra principalmente:',['Núcleos dos nervos oculomotores e vestibulares','Núcleos da base com o tálamo e o córtex motor','Córtex motor primário e hemisférios cerebelares','Hipotálamo e hipófise, na regulação hormonal'],'Coordena movimentos conjugados dos olhos. Sua lesão causa oftalmoplegia internuclear, comum na esclerose múltipla.'),
+vf('troncoest',2,'Julgue sobre a formação reticular.',[['Contém o sistema ativador reticular ascendente, que mantém a vigília.',true],['Os núcleos da rafe são ricos em serotonina.',true],['O locus ceruleus é rico em dopamina.',false],['Tem centros respiratório e vasomotor no bulbo.',true]],'O locus ceruleus é noradrenérgico. A dopamina vem da substância negra e da área tegmentar ventral.'),
+mc('troncoest',2,'A substância negra fica no mesencéfalo entre:',['O tegmento e a base do pedúnculo','O teto e o aqueduto','O lemnisco medial e o núcleo rubro','Os colículos superior e inferior'],'Seus neurônios dopaminérgicos projetam-se ao estriado. Sua degeneração causa a doença de Parkinson.'),
+gp('troncoest',2,'O reflexo fotomotor tem a via eferente parassimpática no núcleo de ____ e no nervo oculomotor.',['edinger-westphal','edinger westphal','edinger'],'Aferência: nervo óptico e área pré-tectal. Eferência: Edinger-Westphal, III, gânglio ciliar e músculo esfíncter da pupila.'),
+ar('troncoest',3,'A lesão do núcleo do nervo facial causa paralisia de toda a hemiface do mesmo lado.','O núcleo facial recebe fibras corticais apenas do hemisfério oposto.',2,'A primeira é verdadeira (paralisia periférica). A razão é falsa: a parte do núcleo para a fronte recebe fibras dos dois hemisférios, o que explica a paralisia central só na metade inferior da face.'),
+
+/* ---------- cerebelo ---------- */
+as('cerebelo',2,'Associe a divisão filogenética do cerebelo à função.',[['Arquicerebelo','Equilíbrio'],['Paleocerebelo','Tônus e postura'],['Neocerebelo','Coordenação de movimentos finos']],'Arquicerebelo: lobo floculonodular. Paleocerebelo: lobo anterior, pirâmide e úvula. Neocerebelo: grande parte do lobo posterior.'),
+mc('cerebelo',2,'A única via de saída do córtex cerebelar são os axônios das células:',['De Purkinje','Granulares','Em cesto','De Golgi'],'As células de Purkinje são inibitórias (GABA) e projetam-se aos núcleos centrais e vestibulares.'),
+od('cerebelo',2,'Ordene os núcleos centrais do cerebelo, de lateral para medial.',['Denteado','Emboliforme','Globoso','Fastigial'],'Emboliforme e globoso formam o núcleo interpósito.'),
+mc('cerebelo',2,'As fibras trepadeiras do cerebelo vêm do:',['Complexo olivar inferior','Núcleos pontinos da base','Núcleo vestibular lateral, no bulbo','Núcleo rubro'],'Todas as demais aferências chegam como fibras musgosas.'),
+cs('cerebelo',2,'Paciente com tremor de intenção, dismetria e disdiadococinesia à esquerda, sem fraqueza. A lesão está:',['No hemisfério cerebelar esquerdo','No hemisfério cerebelar direito','No vérmis cerebelar','No núcleo rubro esquerdo'],'As lesões de um hemisfério cerebelar causam sinais do mesmo lado.'),
+cs('cerebelo',3,'Criança com marcha atáxica de base alargada e queda para trás, sem incoordenação dos membros. A RM mostra tumor no teto do IV ventrículo. A região afetada é:',['Vérmis e lobo floculonodular','Hemisférios cerebelares laterais','Núcleo denteado','Pedúnculo cerebelar médio'],'O meduloblastoma infantil costuma atingir o vérmis, gerando ataxia de tronco e da marcha.'),
+mc('cerebelo',3,'A via eferente do núcleo denteado segue principalmente para:',['O tálamo contralateral, pelo pedúnculo superior','O tálamo do mesmo lado, pelo pedúnculo cerebelar médio','A medula, pelo trato vestibulospinal','A oliva bulbar, pelo pedúnculo inferior'],'Denteado → pedúnculo cerebelar superior → decussação → núcleo ventral lateral do tálamo → córtex motor.'),
+vf('cerebelo',2,'Julgue sobre o cerebelo.',[['A tonsila cerebelar pode herniar pelo forame magno.',true],['O cerebelo controla diretamente os motoneurônios medulares.',false],['A camada molecular é a mais superficial do córtex cerebelar.',true],['O lobo anterior é separado do posterior pela fissura prima.',true]],'O cerebelo age indiretamente, modulando vias motoras como a corticospinal e a rubrospinal.'),
+ar('cerebelo',3,'Lesão de um hemisfério cerebelar causa incoordenação do mesmo lado do corpo.','A via cerebelar cruza duas vezes antes de agir sobre a medula.',0,'O denteado projeta-se ao córtex oposto, cujo trato corticospinal cruza de volta. O efeito final é homolateral.')
+);
+
+/* Banco — parte 3: diencéfalo, telencéfalo, núcleos da base, meninges e líquor, vascularização */
+QB.push(
+/* ---------- diencefalo ---------- */
+as('diencefalo',2,'Associe o núcleo talâmico à sua conexão principal.',[['Ventral posterolateral','Sensibilidade do corpo'],['Ventral posteromedial','Sensibilidade da face'],['Geniculado lateral','Via óptica'],['Geniculado medial','Via auditiva'],['Ventral lateral','Cerebelo e córtex motor']],'Os núcleos ventrais posteriores projetam-se ao giro pós-central.'),
+mc('diencefalo',2,'O sulco hipotalâmico separa:',['O tálamo do hipotálamo','O tálamo do epitálamo','O diencéfalo do mesencéfalo','O hipotálamo da hipófise'],'Corre na parede lateral do III ventrículo, do forame interventricular ao aqueduto.'),
+as('diencefalo',2,'Associe a região do hipotálamo à função.',[['Núcleo supraquiasmático e retina','Ritmo circadiano'],['Núcleos supraóptico e paraventricular','ADH e ocitocina'],['Hipotálamo lateral','Fome'],['Núcleo ventromedial','Saciedade'],['Hipotálamo anterior','Perda de calor']],'O hipotálamo posterior conserva calor.'),
+mc('diencefalo',2,'O epitálamo inclui:',['Glândula pineal e trígonos das habênulas','Corpos mamilares e túber cinéreo','Núcleo subtalâmico, zona incerta e campos de Forel','Pulvinar e corpos geniculados'],'A pineal produz melatonina. Corpos mamilares e túber são hipotalâmicos.'),
+cs('diencefalo',3,'Paciente com movimentos involuntários amplos e violentos de arremesso no braço direito após AVC. A estrutura lesada é:',['Núcleo subtalâmico esquerdo','Núcleo subtalâmico direito','Putame direito','Núcleo denteado esquerdo'],'Hemibalismo contralateral à lesão do núcleo subtalâmico.'),
+cs('diencefalo',3,'Após traumatismo, paciente urina mais de 6 litros por dia, com urina diluída e muita sede. Há lesão provável de:',['Núcleos supraóptico e paraventricular ou haste hipofisária','Núcleo supraquiasmático e retina','Corpos mamilares e fórnix','Núcleo ventromedial do hipotálamo'],'Diabetes insípido central por falta de ADH.'),
+vf('diencefalo',2,'Julgue sobre o diencéfalo.',[['O III ventrículo é a cavidade do diencéfalo.',true],['A aderência intertalâmica está presente em todas as pessoas.',false],['O quiasma óptico fica no assoalho do III ventrículo.',true],['A neuro-hipófise é uma expansão do hipotálamo.',true]],'A aderência intertalâmica falta em parte das pessoas.'),
+gp('diencefalo',2,'A síndrome talâmica, com dor contralateral intensa, é chamada síndrome de ____-Roussy.',['dejerine','déjerine','dejérine'],'Lesão vascular do tálamo, em geral por ramos da cerebral posterior.'),
+
+/* ---------- telencefalo: macroscopia ---------- */
+as('telencefalo',1,'Associe o sulco à estrutura que ele limita.',[['Sulco central','Separa lobos frontal e parietal'],['Sulco lateral','Separa lobo temporal de frontal e parietal'],['Sulco parieto-occipital','Separa lobos parietal e occipital na face medial'],['Sulco calcarino','Área visual primária'],['Sulco do cíngulo','Delimita o giro do cíngulo']],'O lobo da ínsula fica no fundo do sulco lateral.'),
+as('telencefalo',2,'Associe o giro à área funcional.',[['Giro pré-central','Área motora primária'],['Giro pós-central','Área somestésica primária'],['Giro temporal transverso','Área auditiva primária'],['Giro frontal inferior, parte opercular','Área de Broca'],['Giro do cíngulo','Sistema límbico']],'Áreas de Brodmann: 4 motora, 3-1-2 somestésica, 41-42 auditiva, 44-45 Broca.'),
+mc('telencefalo',2,'O giro do hipocampo e o úncus ficam na face:',['Inferior do lobo temporal','Medial do lobo frontal, junto ao giro reto','Lateral do lobo temporal','Medial do lobo occipital'],'O úncus pode herniar pela incisura da tenda, comprimindo o III nervo.'),
+cs('telencefalo',2,'Paciente com fala lenta e com esforço, frases curtas e boa compreensão, consciente do próprio déficit. A lesão está:',['No giro frontal inferior esquerdo','No giro temporal superior esquerdo','No fascículo longitudinal superior','No giro angular direito'],'Afasia de Broca (expressão).'),
+cs('telencefalo',2,'Paciente com fala fluente e cheia de parafasias, sem compreender o que ouve e sem perceber o erro. A lesão está:',['Na parte posterior do giro temporal superior esquerdo','Na parte opercular do giro frontal inferior esquerdo','No giro pré-central esquerdo e na cápsula interna','No lobo occipital esquerdo'],'Afasia de Wernicke (compreensão).'),
+vf('telencefalo',2,'Julgue sobre o corpo caloso.',[['Une áreas homólogas dos dois hemisférios.',true],['Suas partes são rostro, joelho, tronco e esplênio.',true],['É uma comissura de fibras de associação.',false],['O fórnix está aderido à sua face inferior.',true]],'O corpo caloso é formado por fibras comissurais, não de associação.'),
+gp('telencefalo',1,'A área visual primária fica nos lábios do sulco ____.',['calcarino','calcarina'],'Área 17 de Brodmann.'),
+mc('telencefalo',2,'O homúnculo motor mostra o membro inferior representado:',['Na face medial, no lóbulo paracentral','Na parte inferior do giro pré-central','Na ínsula, junto ao sulco lateral','No polo frontal'],'Por isso a oclusão da cerebral anterior afeta sobretudo a perna.'),
+
+/* ---------- telest: estrutura, núcleos da base, cápsula interna ---------- */
+as('telest',2,'Associe o componente dos núcleos da base.',[['Corpo estriado','Caudado e lentiforme'],['Núcleo lentiforme','Putame e globo pálido'],['Neoestriado','Caudado e putame'],['Paleoestriado','Globo pálido']],'Substância negra e núcleo subtalâmico se ligam funcionalmente aos núcleos da base.'),
+mc('telest',2,'A perna posterior da cápsula interna fica entre:',['O tálamo e o núcleo lentiforme','O núcleo caudado e o núcleo lentiforme','O lentiforme e o claustro','O tálamo e o caudado'],'Contém o trato corticospinal e radiações talâmicas sensitivas.'),
+cs('telest',3,'Paciente hipertenso com hemiplegia completa e proporcionada à direita (face, braço e perna), com hemi-hipoestesia direita. A lesão mais provável fica:',['Na cápsula interna esquerda','No giro pré-central esquerdo e na cápsula interna','Na base da ponte direita','No putame direito'],'Na cápsula as fibras estão concentradas, então pequena lesão gera déficit proporcionado. Lesões corticais tendem a ser desproporcionadas.'),
+cs('telest',2,'Paciente com tremor de repouso, rigidez em roda denteada e bradicinesia. A via afetada é:',['Nigroestriatal dopaminérgica','Cerebelotalâmica','Corticospinal lateral','Rubrospinal'],'Doença de Parkinson por perda de neurônios da parte compacta da substância negra.'),
+cs('telest',3,'Homem de 40 anos com movimentos coreicos e declínio cognitivo, com história familiar dominante. A estrutura atrofiada é:',['Núcleo caudado','Globo pálido','Núcleo subtalâmico','Substância negra compacta'],'Doença de Huntington, com atrofia do caudado e ventrículos laterais alargados.'),
+as('telest',2,'Associe o tipo de fibra do centro branco ao exemplo.',[['Fibras de associação','Fascículo longitudinal superior'],['Fibras comissurais','Corpo caloso'],['Fibras de projeção','Cápsula interna']],'As fibras de associação ligam áreas de um mesmo hemisfério.'),
+ar('telest',3,'A lesão parietal direita costuma causar negligência do hemiespaço esquerdo.','No hemisfério direito, a área de atenção espacial representa os dois lados do espaço.',0,'O hemisfério esquerdo atende só ao lado direito. Por isso a lesão direita gera negligência mais grave.'),
+mc('telest',3,'A área pré-frontal é mais relacionada a:',['Planejamento, comportamento e juízo crítico','Comando do movimento voluntário primário','Sensibilidade somática','Compreensão da linguagem falada e escrita'],'Lesões pré-frontais alteram personalidade, iniciativa e controle de impulsos.'),
+
+/* ---------- meninges: meninges, ventrículos e líquor ---------- */
+od('meninges',1,'Ordene as meninges e espaços, do crânio para o encéfalo.',['Dura-máter','Espaço subdural, virtual','Aracnoide','Espaço subaracnóideo, com líquor','Pia-máter'],'No crânio o espaço epidural é virtual, porque a dura adere ao osso.'),
+od('meninges',2,'Ordene a circulação do líquor.',['Plexos corioides dos ventrículos laterais','Forames interventriculares','III ventrículo','Aqueduto cerebral','IV ventrículo','Aberturas mediana e laterais','Espaço subaracnóideo','Granulações aracnóideas e seios venosos'],'A obstrução do aqueduto causa hidrocefalia dos ventrículos laterais e do III.'),
+as('meninges',2,'Associe a prega da dura-máter à sua posição.',[['Foice do cérebro','Entre os hemisférios cerebrais'],['Tenda do cerebelo','Entre cérebro e cerebelo'],['Foice do cerebelo','Entre os hemisférios cerebelares'],['Diafragma da sela','Cobre a sela túrcica']],'A tenda divide o crânio em compartimentos supra e infratentorial.'),
+cs('meninges',2,'Após trauma temporal, jovem tem perda breve da consciência, intervalo lúcido e piora rápida. A TC mostra coleção biconvexa. A fonte do sangramento é:',['Artéria meníngea média','Veias emissárias da calota','Veias-ponte cerebrais','Seio sagital superior'],'Hematoma epidural. O hematoma subdural vem das veias-ponte e tem forma de crescente.'),
+cs('meninges',2,'Idoso com quedas frequentes evolui em semanas com confusão. A TC mostra coleção em crescente sobre o hemisfério. Lesão das:',['Veias-ponte, no espaço subdural','Artérias do círculo arterial da base','Artéria meníngea média','Granulações aracnóideas'],'Hematoma subdural crônico, comum em idosos com atrofia cerebral.'),
+vf('meninges',2,'Julgue sobre o líquor.',[['É produzido principalmente pelos plexos corioides.',true],['O volume total no adulto fica em torno de 130 a 150 mL.',true],['É absorvido principalmente pelos plexos corioides.',false],['Na meningite bacteriana a glicose costuma estar baixa.',true]],'A absorção é feita pelas granulações aracnóideas, para os seios venosos.'),
+mc('meninges',2,'A hidrocefalia por estenose do aqueduto dilata:',['Ventrículos laterais e III ventrículo','Apenas o IV ventrículo','Todos os ventrículos e a cisterna magna','Apenas o espaço subaracnóideo'],'É hidrocefalia não comunicante; o IV ventrículo fica normal.'),
+gp('meninges',2,'A hemorragia subaracnóidea espontânea mais comum resulta da ruptura de ____ do círculo arterial do cérebro.',['aneurisma','aneurismas','aneurisma sacular'],'Cefaleia súbita intensa, "a pior da vida", com rigidez de nuca.'),
+
+/* ---------- vasc: vascularização e barreiras ---------- */
+as('vasc',2,'Associe a artéria ao território principal.',[['Cerebral anterior','Face medial dos lobos frontal e parietal'],['Cerebral média','Face lateral do hemisfério'],['Cerebral posterior','Lobo occipital e face inferior do temporal'],['Lenticuloestriadas','Cápsula interna e núcleos da base']],'As lenticuloestriadas, ramos da cerebral média, rompem na hemorragia hipertensiva.'),
+cs('vasc',2,'Paciente com hemiplegia de predomínio crural à direita e incontinência urinária. A artéria ocluída é a:',['Cerebral anterior esquerda','Cerebral média esquerda','Cerebral posterior esquerda','Basilar'],'A face medial (lóbulo paracentral) tem a representação da perna.'),
+cs('vasc',2,'Paciente com hemiparesia de predomínio braquiofacial à direita, afasia e desvio do olhar para a esquerda. A artéria ocluída é a:',['Cerebral média esquerda','Cerebral anterior esquerda','Cerebral média direita','Vertebral esquerda'],'Território lateral do hemisfério dominante.'),
+cs('vasc',2,'Paciente com hemianopsia homônima direita, com preservação macular. A artéria ocluída é a:',['Cerebral posterior esquerda','Cerebral posterior direita','Oftálmica esquerda','Cerebral média direita'],'A preservação da mácula se deve à irrigação colateral do polo occipital pela cerebral média.'),
+mc('vasc',2,'O círculo arterial do cérebro é formado por:',['Cerebrais anteriores e posteriores, comunicantes e carótidas internas','Vertebrais, basilar e as três artérias cerebelares de cada lado','Carótidas externas, cerebrais médias e vertebrais','Cerebrais médias, coroideas anteriores e carótidas externas'],'A cerebral média não faz parte do círculo.'),
+vf('vasc',2,'Julgue sobre a barreira hematoencefálica.',[['Depende de junções oclusivas entre células endoteliais.',true],['Os pés dos astrócitos participam da barreira.',true],['Existe igualmente em todo o encéfalo.',false],['A área postrema não tem barreira.',true]],'Os órgãos circunventriculares, como a área postrema e a neuro-hipófise, não têm barreira.'),
+gp('vasc',2,'A artéria basilar se forma pela união das duas artérias ____.',['vertebrais','vertebral'],'A união ocorre no sulco bulbopontino.'),
+ar('vasc',2,'A artéria cerebral média é a que mais sofre embolia.','Ela é a continuação direta da artéria carótida interna.',0,'O êmbolo segue o fluxo dominante, que vai da carótida interna para a cerebral média.'),
+mc('vasc',3,'O seio cavernoso contém no seu interior:',['Artéria carótida interna e nervo abducente','Nervos óptico e olfatório','Artéria cerebral média e nervo troclear, em sua parede','Artéria basilar e nervo oculomotor'],'III, IV, V1 e V2 correm na parede lateral; carótida interna e VI ficam dentro.')
+);
+
+/* Banco — parte 4: nervos espinais, nervos cranianos, SNA, vias aferentes e eferentes, sistema límbico */
+QB.push(
+/* ---------- nervesp: nervos espinais e plexos ---------- */
+as('nervesp',2,'Associe o dermátomo à região.',[['C6','Polegar'],['T4','Mamilo'],['T10','Umbigo'],['L4','Face medial da perna'],['S1','Borda lateral do pé']],'Dermátomos ajudam a localizar o nível de lesões medulares e radiculares.'),
+as('nervesp',2,'Associe o reflexo ao nível segmentar.',[['Bicipital','C5–C6'],['Tricipital','C7'],['Patelar','L3–L4'],['Aquileu','S1']],'Reflexos profundos testam raízes e segmentos específicos.'),
+mc('nervesp',2,'O ramo dorsal do nervo espinal inerva:',['Músculos profundos e pele do dorso','Membros superiores e inferiores','Músculos da parede anterior do abdome','Vísceras torácicas e abdominais'],'Os ramos ventrais formam os plexos e inervam membros e parede anterolateral.'),
+cs('nervesp',2,'Paciente com hérnia de disco L5–S1 tem dor na face posterior da perna, reflexo aquileu abolido e fraqueza para ficar na ponta dos pés. A raiz comprimida é:',['S1','L5','L4','S2'],'Na coluna lombar a hérnia posterolateral comprime a raiz que sai no forame abaixo.'),
+cs('nervesp',3,'Paciente com hérnia cervical C5–C6 tem dor irradiada para o polegar e reflexo bicipital diminuído. A raiz comprimida é:',['C6','C5','C7','C8'],'Na coluna cervical, a raiz tem o número da vértebra de baixo, porque C1 a C7 saem acima da vértebra correspondente.'),
+vf('nervesp',2,'Julgue sobre os plexos.',[['O plexo braquial forma-se dos ramos ventrais de C5 a T1.',true],['O nervo frênico vem principalmente de C3 a C5.',true],['Os nervos intercostais formam um plexo torácico.',false],['O nervo isquiático pertence ao plexo sacral.',true]],'Os ramos ventrais torácicos seguem como nervos intercostais, sem formar plexo.'),
+gp('nervesp',1,'A área da pele inervada por uma única raiz espinal chama-se ____.',['dermatomo','dermátomo'],'O conjunto de músculos inervados por uma raiz é o miótomo.'),
+ar('nervesp',2,'O nervo espinal é misto.','Ele resulta da união das raízes dorsal (sensitiva) e ventral (motora).',0,'A partir da união, todos os ramos levam fibras sensitivas e motoras.'),
+
+/* ---------- nervcran: nervos cranianos ---------- */
+as('nervcran',1,'Associe o nervo craniano ao forame por onde sai do crânio.',[['Óptico (II)','Canal óptico'],['Oculomotor (III)','Fissura orbital superior'],['Maxilar (V2)','Forame redondo'],['Mandibular (V3)','Forame oval'],['Facial (VII)','Meato acústico interno']],'IX, X e XI saem pelo forame jugular; XII pelo canal do hipoglosso.'),
+as('nervcran',2,'Associe o músculo ao nervo.',[['Oblíquo superior','Troclear (IV)'],['Reto lateral','Abducente (VI)'],['Masseter','Trigêmeo (V3)'],['Bucinador','Facial (VII)'],['Esternocleidomastóideo','Acessório (XI)']],'Regra prática LR6 SO4: reto lateral pelo VI, oblíquo superior pelo IV, demais pelo III.'),
+cs('nervcran',2,'Paciente com paralisia de toda a hemiface direita, sem conseguir franzir a testa nem fechar o olho, hiperacusia e perda do paladar anterior da língua. A lesão é:',['Do nervo facial direito, periférica','Do córtex motor esquerdo','Do nervo trigêmeo direito','Do núcleo do nervo facial no lado esquerdo'],'Paralisia facial periférica (de Bell), com lesão proximal ao nervo para o estapédio e à corda do tímpano.'),
+cs('nervcran',2,'Paciente com AVC tem paralisia da metade inferior da face esquerda, mas franze a testa normalmente. A lesão está:',['No córtex motor direito ou nas fibras corticonucleares','No nervo facial esquerdo','No núcleo do facial esquerdo, na ponte, com o VI nervo','No gânglio geniculado do nervo facial esquerdo, na parte petrosa'],'Paralisia facial central: a parte superior do núcleo recebe fibras dos dois hemisférios.'),
+cs('nervcran',3,'Paciente com diplopia ao descer escadas, com cabeça inclinada para o lado oposto. O nervo lesado é o:',['Troclear','Abducente','Oculomotor','Óptico'],'O oblíquo superior abaixa o olho em adução. A inclinação da cabeça compensa a extorsão.'),
+cs('nervcran',2,'Ao protrair a língua, ela desvia para a esquerda, com atrofia e fasciculações à esquerda. A lesão é:',['Do nervo hipoglosso esquerdo','Do nervo hipoglosso direito','Do nervo glossofaríngeo esquerdo','Do córtex motor esquerdo'],'O genioglosso do lado são empurra a língua para o lado paralisado.'),
+mc('nervcran',2,'O reflexo corneano tem aferência pelo nervo:',['Trigêmeo (V1) e eferência pelo facial (VII)','Facial (VII) e eferência pelo trigêmeo (V)','Óptico (II) e eferência pelo oculomotor (III)','Trigêmeo (V2) e eferência pelo oculomotor (III)'],'O toque na córnea provoca piscar bilateral pelo orbicular do olho.'),
+vf('nervcran',2,'Julgue sobre o nervo vago.',[['Leva fibras parassimpáticas até o colo transverso.',true],['Inerva os músculos intrínsecos da laringe.',true],['Sua lesão desvia a úvula para o lado lesado.',false],['Tem fibras motoras que se originam no núcleo ambíguo.',true]],'A úvula desvia para o lado são, porque os músculos do lado normal a puxam.'),
+mc('nervcran',2,'A gustação dos dois terços anteriores da língua é levada pelo nervo:',['Facial, via corda do tímpano','Trigêmeo, via nervo lingual','Glossofaríngeo','Vago, via laríngeo superior'],'O nervo lingual (V3) leva sensibilidade geral; as fibras gustativas da corda do tímpano seguem com ele.'),
+gp('nervcran',1,'O nervo craniano que inerva o músculo reto lateral do olho é o ____.',['abducente','vi','nervo abducente','6'],'Sua lesão causa estrabismo convergente.'),
+cs('nervcran',3,'Paciente com cefaleia súbita, ptose e midríase à direita, olho para baixo e para fora. A causa compressiva mais lembrada é aneurisma da artéria:',['Comunicante posterior','Comunicante anterior, junto ao quiasma','Cerebral média','Basilar, no topo'],'As fibras pupilares ficam na periferia do III nervo e são as primeiras afetadas por compressão.'),
+
+/* ---------- sna: sistema nervoso autônomo ---------- */
+as('sna',2,'Compare simpático e parassimpático.',[['Origem toracolombar','Simpático'],['Origem craniossacral','Parassimpático'],['Gânglios próximos ou dentro das vísceras','Parassimpático'],['Gânglios paravertebrais e pré-vertebrais','Simpático']],'A fibra pré-ganglionar simpática é curta; a parassimpática é longa.'),
+mc('sna',2,'O neurotransmissor das fibras pós-ganglionares simpáticas que inervam as glândulas sudoríparas é:',['Acetilcolina','Noradrenalina','Adrenalina','Dopamina'],'É a exceção clássica: fibra simpática colinérgica.'),
+cs('sna',2,'Paciente com ptose leve, miose e anidrose na hemiface direita, com tumor no ápice do pulmão direito. Há lesão da:',['Via simpática cervical','Via parassimpática do III nervo','Raiz motora do VII nervo','Divisão oftálmica do V'],'Síndrome de Horner. O tumor de Pancoast compromete a cadeia simpática.'),
+vf('sna',2,'Julgue sobre o SNA.',[['A medula da adrenal equivale a um gânglio simpático.',true],['O parassimpático sacral sai de S2 a S4.',true],['O simpático contrai o músculo detrusor da bexiga.',false],['O gânglio ciliar é parassimpático.',true]],'O parassimpático contrai o detrusor (micção); o simpático o relaxa.'),
+od('sna',3,'Ordene a via simpática para a pupila.',['Hipotálamo','Medula cervicotorácica, coluna lateral de T1','Tronco simpático','Gânglio cervical superior','Plexo carotídeo interno','Músculo dilatador da pupila'],'Lesão em qualquer ponto causa síndrome de Horner.'),
+gp('sna',2,'O gânglio parassimpático ligado à glândula parótida é o gânglio ____.',['otico','ótico'],'Fibras do glossofaríngeo, pelo nervo petroso menor.'),
+ar('sna',3,'Lesões medulares acima de T6 podem causar disreflexia autonômica.','Estímulos abaixo da lesão desencadeiam reflexo simpático sem controle supraespinal.',0,'Há hipertensão grave e bradicardia reflexa, muitas vezes por bexiga distendida.'),
+
+/* ---------- vias: grandes vias aferentes ---------- */
+od('vias',2,'Ordene a via de dor e temperatura do tronco e membros.',['Neurônio I no gânglio sensitivo','Neurônio II na coluna posterior','Cruzamento na comissura branca anterior','Trato espinotalâmico lateral do mesmo lado','Neurônio III no núcleo ventral posterolateral','Giro pós-central'],'A via cruza na medula, logo acima da entrada.'),
+od('vias',2,'Ordene a via de tato epicrítico e propriocepção consciente.',['Neurônio I no gânglio sensitivo','Fascículo grácil ou cuneiforme','Neurônio II nos núcleos grácil e cuneiforme','Fibras arqueadas internas, que cruzam','Lemnisco medial','Neurônio III no núcleo ventral posterolateral','Giro pós-central'],'A via só cruza no bulbo.'),
+od('vias',3,'Ordene a via óptica.',['Retina','Nervo óptico','Quiasma óptico','Trato óptico','Corpo geniculado lateral','Radiação óptica','Sulco calcarino'],'No quiasma cruzam as fibras das hemirretinas nasais.'),
+cs('vias',2,'Paciente com tumor de hipófise apresenta perda dos campos temporais nos dois olhos. A lesão está:',['No quiasma óptico','No nervo óptico direito','No trato óptico esquerdo','No lobo occipital'],'Hemianopsia bitemporal por compressão das fibras nasais que cruzam.'),
+cs('vias',3,'Paciente perde a visão do quadrante superior direito nos dois olhos. A lesão está:',['Na alça de Meyer, lobo temporal esquerdo','Na radiação óptica, na parte parietal, do lado direito','No quiasma óptico','No nervo óptico esquerdo'],'Quadrantanopsia superior homônima por lesão das fibras inferiores da radiação, que fazem a alça temporal.'),
+as('vias',2,'Associe a via auditiva à sua estação.',[['Neurônio I','Gânglio espiral'],['Núcleos cocleares','Bulbo, na junção com a ponte'],['Colículo inferior','Mesencéfalo'],['Corpo geniculado medial','Tálamo'],['Giro temporal transverso','Córtex auditivo']],'A via é bilateral, por isso a lesão cortical unilateral não causa surdez.'),
+vf('vias',2,'Julgue sobre as vias aferentes.',[['A via da sensibilidade da face usa o lemnisco trigeminal.',true],['A propriocepção inconsciente chega ao córtex cerebral.',false],['A via olfatória não passa pelo tálamo antes do córtex.',true],['O núcleo mesencefálico do V contém neurônios pseudounipolares.',true]],'A propriocepção inconsciente vai ao cerebelo pelos tratos espinocerebelares.'),
+
+/* ---------- eferentes: grandes vias eferentes ---------- */
+od('eferentes',2,'Ordene o trajeto do trato corticospinal.',['Giro pré-central','Coroa radiada','Perna posterior da cápsula interna','Base do pedúnculo cerebral','Base da ponte','Pirâmide bulbar','Decussação das pirâmides','Funículo lateral da medula','Coluna anterior'],'Cerca de 75 a 90% das fibras cruzam na decussação.'),
+as('eferentes',2,'Classifique o sinal como neurônio motor superior ou inferior.',[['Espasticidade','Neurônio motor superior'],['Fasciculações','Neurônio motor inferior'],['Sinal de Babinski','Neurônio motor superior'],['Atrofia acentuada precoce','Neurônio motor inferior'],['Hiper-reflexia','Neurônio motor superior']],'A lesão do neurônio motor inferior causa paralisia flácida com arreflexia.'),
+mc('eferentes',2,'O trato rubrospinal se origina no:',['Núcleo rubro, no mesencéfalo','Córtex pré-motor','Núcleo vestibular lateral, no bulbo','Teto do mesencéfalo'],'Suas fibras cruzam na decussação tegmentar ventral e controlam a musculatura distal.'),
+mc('eferentes',3,'A rigidez de descerebração, com extensão dos quatro membros, ocorre em lesões:',['Entre os núcleos rubro e vestibular','Acima do núcleo rubro, no diencéfalo','Da medula cervical alta','Do cerebelo lateral'],'O trato vestibulospinal fica sem a inibição de centros superiores. Na decorticação há flexão dos membros superiores.'),
+ar('eferentes',2,'A lesão aguda da medula pode causar inicialmente paralisia flácida e arreflexia.','No choque medular a atividade reflexa abaixo da lesão fica temporariamente deprimida.',0,'Depois de dias ou semanas surgem espasticidade e hiper-reflexia.'),
+gp('eferentes',1,'A extensão do hálux à estimulação plantar é o sinal de ____.',['babinski'],'Indica lesão do trato corticospinal.'),
+vf('eferentes',2,'Julgue sobre o trato corticonuclear.',[['Leva fibras do córtex aos núcleos motores dos nervos cranianos.',true],['A maioria dos núcleos motores recebe fibras dos dois hemisférios.',true],['O núcleo do hipoglosso recebe fibras apenas do mesmo lado.',false],['Passa pelo joelho da cápsula interna.',true]],'O hipoglosso recebe sobretudo fibras do córtex oposto.'),
+
+/* ---------- limbico: sistema límbico e funções superiores ---------- */
+od('limbico',3,'Ordene o circuito de Papez.',['Hipocampo','Fórnix','Corpo mamilar','Trato mamilotalâmico','Núcleo anterior do tálamo','Giro do cíngulo','Giro para-hipocampal'],'Circuito ligado à memória e às emoções.'),
+cs('limbico',2,'Paciente operado bilateralmente dos lobos temporais mediais não consegue formar novas memórias, mas lembra fatos antigos. A estrutura lesada é:',['Hipocampo','Corpo amigdaloide','Núcleo caudado','Giro do cíngulo'],'Amnésia anterógrada, como no caso histórico H.M.'),
+cs('limbico',3,'Alcoolista desnutrido com confusão, ataxia e oftalmoplegia, e depois amnésia com confabulação. As estruturas lesadas são:',['Corpos mamilares e tálamo medial','Hipocampos e amígdalas dos dois lados','Núcleos da base','Lobos frontais'],'Encefalopatia de Wernicke e síndrome de Korsakoff, por deficiência de tiamina.'),
+mc('limbico',2,'O corpo amigdaloide está mais relacionado a:',['Medo e emoções','Memória de procedimentos','Controle motor fino','Ritmo circadiano'],'Lesões bilaterais da amígdala, como na síndrome de Klüver-Bucy, reduzem o medo.'),
+vf('limbico',2,'Julgue sobre o sistema límbico.',[['O fórnix liga o hipocampo aos corpos mamilares.',true],['O hipotálamo é o principal efetor do sistema límbico.',true],['A área septal não participa do sistema límbico.',false],['O núcleo accumbens participa do circuito de recompensa.',true]],'A área septal faz parte do sistema límbico.'),
+gp('limbico',2,'A estrutura do lobo temporal medial essencial para a memória declarativa é o ____.',['hipocampo'],'Sua lesão bilateral causa amnésia anterógrada.')
+);
+
+/* Banco — parte 5: complementos (asserção-razão variadas e questões mistas) */
+QB.push(
+ar('medest',2,'O trato corticospinal lateral ocupa o funículo posterior da medula.','Suas fibras já cruzaram na decussação das pirâmides.',3,'A asserção é falsa: o trato fica no funículo lateral. A razão é verdadeira.'),
+ar('meninges',2,'O líquor é absorvido principalmente pelos plexos corioides.','Os plexos corioides ficam no espaço subaracnóideo da convexidade.',4,'As duas são falsas. A absorção ocorre nas granulações aracnóideas, e os plexos ficam dentro dos ventrículos.'),
+ar('vasc',3,'A oclusão da artéria cerebral anterior causa déficit predominante no membro inferior.','O membro inferior é representado na face lateral do giro pré-central.',2,'A asserção é verdadeira. A razão é falsa: a perna fica na face medial, no lóbulo paracentral.'),
+ar('cerebelo',2,'O cerebelo recebe informação proprioceptiva inconsciente.','Os tratos espinocerebelares chegam a ele pelos pedúnculos cerebelares.',1,'As duas são verdadeiras, mas a razão descreve o caminho e não justifica por que a informação é inconsciente.'),
+ar('nervcran',2,'A lesão do nervo abducente causa estrabismo divergente.','O músculo reto lateral é inervado pelo nervo oculomotor.',4,'As duas são falsas. O abducente inerva o reto lateral e sua lesão causa estrabismo convergente.'),
+ar('diencefalo',3,'O núcleo supraquiasmático regula o ritmo circadiano.','Ele recebe fibras diretas da retina pelo trato retino-hipotalâmico.',0,'A luz sincroniza o relógio biológico por essa via.'),
+ar('sna',2,'A estimulação parassimpática causa midríase.','O músculo esfíncter da pupila é inervado pelo parassimpático.',3,'A asserção é falsa: o parassimpático causa miose. A razão é verdadeira.'),
+mc('tronco',2,'O óbex marca:',['O ângulo inferior do IV ventrículo','A emergência do nervo hipoglosso','O limite entre ponte e mesencéfalo','A saída do aqueduto cerebral'],'Fica entre os tubérculos do núcleo grácil, na transição para a parte fechada do bulbo.'),
+mc('telest',2,'O claustro fica entre:',['As cápsulas externa e extrema','O putame e o globo pálido','O tálamo e a cápsula interna','O caudado e o ventrículo lateral'],'Da ínsula para dentro: córtex insular, cápsula extrema, claustro, cápsula externa, putame.'),
+od('telest',3,'Ordene as estruturas de lateral para medial num corte horizontal na altura do tálamo.',['Córtex da ínsula','Cápsula extrema','Claustro','Cápsula externa','Putame','Globo pálido','Cápsula interna, perna posterior','Tálamo'],'Sequência clássica de cortes horizontais.'),
+mc('nervos',2,'O reflexo miotático é desencadeado pela ativação de:',['Fusos neuromusculares','Órgãos tendinosos de Golgi','Corpúsculos de Pacini','Terminações nervosas livres'],'O estiramento do fuso ativa fibras Ia, que fazem sinapse direta com o motoneurônio alfa.'),
+mc('vias',2,'A sensibilidade da face chega ao córtex passando pelo núcleo talâmico:',['Ventral posteromedial','Ventral posterolateral','Geniculado lateral','Anterior'],'O VPM recebe o lemnisco trigeminal; o VPL recebe as vias do corpo.'),
+mc('limbico',2,'O hipocampo fica no assoalho do:',['Corno inferior do ventrículo lateral','Corno anterior do ventrículo lateral','III ventrículo','IV ventrículo'],'O corno inferior (temporal) contém o hipocampo e o plexo corioide.'),
+mc('intro',2,'A substância cinzenta do cerebelo e do cérebro forma um córtex. Na medula, ela fica:',['No centro, envolvida pela substância branca','Na superfície, envolvendo a substância branca','Em núcleos dispersos na substância branca','Apenas nas intumescências'],'Na medula, a substância cinzenta em forma de H é central.')
+);
+
+/* Camada 1 — dados dos games */
+
+/* ---- Fotos reais (Wikimedia Commons). As marcações são feitas no editor de estações. ---- */
+function commonsSrc(f,w){return 'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(f)+'?width='+(w||1280)}
+function commonsPage(f){return 'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(f.replace(/ /g,'_'))}
+var PHOTOS=[
+ {id:'medial',t:'Encéfalo: vista medial (corte sagital mediano)',f:'Human_brain_left_dissected_midsagittal_view.JPG',key:'Human_brain_left_dissected_midsagittal_view_description.JPG',
+  list:['Corpo caloso: joelho','Corpo caloso: tronco','Corpo caloso: esplênio','Septo pelúcido','Fórnix','Tálamo','Aderência intertalâmica','Hipotálamo','Corpo mamilar','Quiasma óptico','Glândula pineal','Comissura anterior','Mesencéfalo','Aqueduto cerebral','Ponte','Bulbo','IV ventrículo','Cerebelo: árvore da vida','Giro do cíngulo','Sulco do cíngulo','Lóbulo paracentral','Sulco parieto-occipital','Sulco calcarino','Cúneo','Giro lingual']},
+ {id:'inferior',t:'Encéfalo: vista inferior (base)',f:'Human_brain_inferior_view.JPG',key:'Human_brain_inferior_view_description.JPG',
+  list:['Bulbo olfatório','Trato olfatório','Giro reto','Giros orbitais','Nervo óptico','Quiasma óptico','Trato óptico','Túber cinéreo','Corpo mamilar','Fossa interpeduncular','Pedúnculo cerebral','Nervo oculomotor','Úncus','Giro para-hipocampal','Ponte','Nervo trigêmeo','Pirâmide','Oliva','Hemisfério cerebelar','Tonsila cerebelar','Polo temporal','Lobo occipital']},
+ {id:'lateral',t:'Encéfalo: vista lateral',f:'Human_brain_right_dissected_lateral_view.JPG',key:'Human_brain_right_dissected_lateral_view_description.JPG',
+  list:['Sulco central','Giro pré-central','Giro pós-central','Sulco pré-central','Giro frontal superior','Giro frontal médio','Giro frontal inferior','Sulco lateral','Giro temporal superior','Giro temporal médio','Giro temporal inferior','Giro supramarginal','Giro angular','Lobo occipital','Polo frontal','Cerebelo','Ponte','Bulbo']},
+ {id:'coronal',t:'Encéfalo: corte frontal (coronal)',f:'Human_brain_frontal_(coronal)_section.JPG',key:'',
+  list:['Fissura longitudinal do cérebro','Corpo caloso','Ventrículo lateral','Septo pelúcido','Núcleo caudado','Cápsula interna','Putame','Globo pálido','Cápsula externa','Claustro','Cápsula extrema','Ínsula','Sulco lateral','Tálamo','III ventrículo','Fórnix','Hipocampo','Corpo amigdaloide','Substância cinzenta cortical','Centro branco medular']},
+ {id:'horizontal',t:'Encéfalo: corte horizontal (ventrículos laterais)',f:'Brain;_horizontal_section_showing_lateral_ventricles._Colour_Wellcome_V0008401.jpg',key:'',
+  list:['Corno anterior do ventrículo lateral','Corno posterior do ventrículo lateral','Joelho do corpo caloso','Esplênio do corpo caloso','Septo pelúcido','Cabeça do núcleo caudado','Putame','Tálamo','Cápsula interna: perna anterior','Cápsula interna: joelho','Cápsula interna: perna posterior','Ínsula','Substância cinzenta cortical']},
+ {id:'tronco_ant',t:'Tronco encefálico: vista anterior',f:'Human_brainstem_anterior_view.JPG',key:'',
+  list:['Pedúnculo cerebral','Fossa interpeduncular','Corpo mamilar','Quiasma óptico','Trato óptico','Nervo oculomotor','Ponte','Sulco basilar','Nervo trigêmeo','Pedúnculo cerebelar médio','Nervo abducente','Nervo facial','Nervo vestibulococlear','Sulco bulbopontino','Pirâmide','Oliva','Nervo hipoglosso','Decussação das pirâmides','Medula espinal']},
+ {id:'tronco_post',t:'Tronco encefálico e tálamo: vista posterior',f:'Human_brainstem-thalamus_posterior_view.JPG',key:'',
+  list:['Tálamo','Pulvinar','Glândula pineal','Colículo superior','Colículo inferior','Corpo geniculado medial','Corpo geniculado lateral','Nervo troclear','Pedúnculo cerebelar superior','Pedúnculo cerebelar médio','Pedúnculo cerebelar inferior','Assoalho do IV ventrículo','Colículo facial','Estrias medulares','Tubérculo do núcleo grácil','Tubérculo do núcleo cuneiforme','Óbex']},
+ {id:'bulbo_post',t:'Bulbo e IV ventrículo: vista posterior',f:'Human_caudal_brainstem_posterior_view.JPG',key:'',
+  list:['Sulco mediano posterior','Fascículo grácil','Fascículo cuneiforme','Tubérculo do núcleo grácil','Tubérculo do núcleo cuneiforme','Óbex','Trígono do nervo hipoglosso','Trígono do nervo vago','Área vestibular','Pedúnculo cerebelar inferior']},
+ {id:'tronco_sag',t:'Tronco encefálico: vista sagital',f:'Human_brainstem_Sagittal_view.jpg',key:'',
+  list:['Mesencéfalo','Teto do mesencéfalo','Aqueduto cerebral','Ponte','Bulbo','IV ventrículo','Cerebelo','Corpo mamilar','Tálamo']},
+ {id:'cerebelo_post',t:'Cerebelo: vista posterior',f:'Human_cerebellum_posterior_view.JPG',key:'Human_cerebellum_posterior_view_description.JPG',
+  list:['Vérmis','Hemisfério cerebelar direito','Hemisfério cerebelar esquerdo','Fissura horizontal','Folhas do cerebelo','Tonsila cerebelar','Bulbo']},
+ {id:'medula_hist',t:'Medula espinal: corte transversal',f:'Spinal_Cord_Cross_Section_(50693709457).jpg',key:'',
+  list:['Coluna anterior','Coluna posterior','Coluna lateral','Substância gelatinosa','Comissura cinzenta','Canal central','Funículo anterior','Funículo lateral','Funículo posterior','Fissura mediana anterior','Sulco mediano posterior']}
+];
+var PHOTO=Object.fromEntries(PHOTOS.map(function(p){return[p.id,p]}));
+
+/* ---- Estações esquemáticas (desenho próprio, prontas para jogar) ---- */
+var SCH=[
+ {id:'fp',fig:'corte',n:'Funículo posterior',a:[270,95],i:'Entre o sulco mediano posterior e o sulco lateral posterior. Acima de T6 divide-se em fascículos grácil e cuneiforme.'},
+ {id:'fl',fig:'corte',n:'Funículo lateral',a:[362,180],i:'Entre os sulcos lateral posterior e lateral anterior. Contém corticospinal lateral, espinotalâmico lateral e espinocerebelares.'},
+ {id:'fa',fig:'corte',n:'Funículo anterior',a:[280,258],i:'Entre a fissura mediana anterior e o sulco lateral anterior.'},
+ {id:'gr',fig:'corte',n:'Fascículo grácil',a:[238,80],i:'Tato epicrítico, vibração e propriocepção consciente do membro inferior. Sobe sem cruzar até o bulbo.'},
+ {id:'cu',fig:'corte',n:'Fascículo cuneiforme',a:[210,70],i:'Mesma função do grácil para o membro superior. Existe só acima de T6.'},
+ {id:'csl',fig:'corte',n:'Trato corticospinal lateral',a:[168,135],i:'Motricidade voluntária. Já cruzou nas pirâmides: lesão medular dá déficit do mesmo lado.'},
+ {id:'ctl',fig:'corte',n:'Trato espinotalâmico lateral',a:[162,200],i:'Dor e temperatura. Cruzou na comissura branca anterior: déficit do lado oposto.'},
+ {id:'eta',fig:'corte',n:'Trato espinotalâmico anterior',a:[207,262],i:'Tato protopático e pressão do lado oposto.'},
+ {id:'ecp',fig:'corte',n:'Trato espinocerebelar posterior',a:[131,112],i:'Propriocepção inconsciente do mesmo lado, pelo pedúnculo cerebelar inferior.'},
+ {id:'eca',fig:'corte',n:'Trato espinocerebelar anterior',a:[118,195],i:'Propriocepção inconsciente, pelo pedúnculo cerebelar superior.'},
+ {id:'csa',fig:'corte',n:'Trato corticospinal anterior',a:[234,255],i:'Fibras que não cruzaram nas pirâmides; cruzam em níveis medulares.'},
+ {id:'cba',fig:'corte',n:'Comissura branca anterior',a:[250,177],i:'Local de cruzamento das fibras espinotalâmicas. Lesada na siringomielia.'},
+ {id:'cp',fig:'corte',n:'Coluna posterior',a:[284,132],i:'Recebe as fibras da raiz dorsal. Função sensitiva.'},
+ {id:'sg',fig:'corte',n:'Substância gelatinosa',a:[299,88],i:'Lâmina II de Rexed. Modulação da dor.'},
+ {id:'cl',fig:'corte',n:'Coluna lateral',a:[294,167],i:'De T1 a L2. Neurônios pré-ganglionares simpáticos.'},
+ {id:'ca',fig:'corte',n:'Coluna anterior',a:[290,212],i:'Motoneurônios alfa e gama.'},
+ {id:'nt',fig:'corte',n:'Núcleo torácico',a:[266,148],i:'De C8 a L2. Origem do trato espinocerebelar posterior.'},
+ {id:'szi',fig:'corte',n:'Substância cinzenta intermédia',a:[274,167],i:'Entre as colunas anterior e posterior; rica em interneurônios.'},
+ {id:'cgc',fig:'corte',n:'Comissura cinzenta',a:[241,165],i:'Une as duas metades e envolve o canal central.'},
+ {id:'cc',fig:'corte',n:'Canal central',a:[250,166],i:'Resquício da luz do tubo neural, revestido por epêndima.'},
+ {id:'fma',fig:'corte',n:'Fissura mediana anterior',a:[250,262],i:'Por ela penetram ramos da artéria espinal anterior.'},
+ {id:'smp',fig:'corte',n:'Sulco mediano posterior',a:[250,100],i:'Dele parte o septo mediano posterior.'},
+ {id:'rd',fig:'corte',n:'Raiz dorsal',a:[352,50],i:'Sensitiva. Entra pelo sulco lateral posterior.'},
+ {id:'ge',fig:'corte',n:'Gânglio sensitivo do nervo espinal',a:[424,62],i:'Corpos dos neurônios pseudounipolares.'},
+ {id:'rv',fig:'corte',n:'Raiz ventral',a:[395,232],i:'Motora. Sai pelo sulco lateral anterior.'},
+ {id:'ne',fig:'corte',n:'Nervo espinal',a:[482,92],i:'União das raízes; nervo misto.'},
+ {id:'int_c',fig:'vista',n:'Intumescência cervical',a:[170,130],i:'Origem do plexo braquial (C4–T1).'},
+ {id:'int_l',fig:'vista',n:'Intumescência lombossacral',a:[170,362],i:'Origem do plexo lombossacral.'},
+ {id:'cone',fig:'vista',n:'Cone medular',a:[170,402],i:'Termina entre L1 e L2 no adulto.'},
+ {id:'fil',fig:'vista',n:'Filamento terminal',a:[170,500],i:'Prolongamento da pia-máter até o cóccix.'},
+ {id:'cauda',fig:'vista',n:'Cauda equina',a:[150,452],i:'Raízes abaixo do cone medular.'},
+ {id:'cist',fig:'vista',n:'Cisterna lombar',a:[203,448],i:'Espaço subaracnóideo entre L2 e S2; local da punção lombar.'},
+ {id:'dura',fig:'vista',n:'Dura-máter (saco dural)',a:[214,250],i:'Termina em S2. Fora dela fica o espaço epidural.'}
+];
+var SCHM=Object.fromEntries(SCH.map(function(s){return[s.id,s]}));
+
+/* ---- Topografia da lesão ---- */
+var LEVELS=[['cortex','Córtex cerebral'],['capsula','Cápsula interna'],['mesen','Mesencéfalo'],['ponte','Ponte'],['bulbo','Bulbo'],['cerebelo','Cerebelo'],['medcerv','Medula cervical'],['medtor','Medula torácica'],['cone','Cone medular'],['cauda','Cauda equina'],['nervo','Nervo periférico']];
+var SIDES=[['E','Esquerdo'],['D','Direito'],['B','Bilateral ou mediano']];
+var LESIONS=[
+ {l:'mesen',s:'E',q:'Hemiplegia à direita. Ptose, midríase e olho para baixo e para fora à esquerda.',e:'Síndrome de Weber: pedúnculo cerebral e fibras do III nervo à esquerda.'},
+ {l:'bulbo',s:'E',q:'Rouquidão, disfagia, perda de dor e temperatura na hemiface esquerda e no hemicorpo direito, ataxia e Horner à esquerda.',e:'Síndrome bulbar lateral (Wallenberg) à esquerda.'},
+ {l:'bulbo',s:'D',q:'Hemiplegia à esquerda, perda de propriocepção à esquerda e língua que desvia para a direita.',e:'Síndrome bulbar medial à direita: pirâmide, lemnisco medial e hipoglosso.'},
+ {l:'ponte',s:'E',q:'Hemiplegia à direita, paralisia de toda a hemiface esquerda e estrabismo convergente do olho esquerdo.',e:'Síndrome de Millard-Gubler: base da ponte com fibras do VI e do VII à esquerda.'},
+ {l:'capsula',s:'E',q:'Hemiplegia proporcionada à direita, paralisia facial central à direita e hemi-hipoestesia direita. Sem afasia.',e:'Perna posterior da cápsula interna esquerda.'},
+ {l:'cortex',s:'E',q:'Afasia de expressão e paresia de predomínio braquiofacial à direita.',e:'Território da cerebral média esquerda, face lateral do hemisfério dominante.'},
+ {l:'cortex',s:'D',q:'Paresia de predomínio crural à esquerda e incontinência urinária.',e:'Território da cerebral anterior direita, lóbulo paracentral.'},
+ {l:'cortex',s:'E',q:'Hemianopsia homônima direita com preservação macular, sem déficit motor.',e:'Lobo occipital esquerdo (cerebral posterior).'},
+ {l:'cerebelo',s:'D',q:'Dismetria, tremor de intenção e disdiadococinesia à direita, sem fraqueza.',e:'Hemisfério cerebelar direito: sinais do mesmo lado.'},
+ {l:'medtor',s:'E',q:'Abaixo de T10: paresia espástica e perda de propriocepção à esquerda; perda de dor e temperatura à direita.',e:'Hemissecção medular torácica esquerda (Brown-Séquard).'},
+ {l:'medcerv',s:'B',q:'Perda bilateral de dor e temperatura em xale nos ombros e braços, com tato preservado.',e:'Siringomielia cervical: comissura branca anterior.'},
+ {l:'medcerv',s:'D',q:'Paresia de braço e perna à direita, perda de propriocepção à direita e perda de dor e temperatura à esquerda a partir do ombro.',e:'Hemissecção medular cervical direita.'},
+ {l:'cone',s:'B',q:'Anestesia em sela, retenção urinária súbita e disfunção erétil, simétricas, com pouca dor e força quase preservada.',e:'Síndrome do cone medular.'},
+ {l:'cauda',s:'B',q:'Dor radicular intensa nas duas pernas, fraqueza flácida assimétrica e arreflexia aquileu, após hérnia L4–L5.',e:'Síndrome da cauda equina.'},
+ {l:'nervo',s:'D',q:'Paralisia de toda a hemiface direita, incluindo a testa, com hiperacusia à direita.',e:'Paralisia facial periférica direita.'},
+ {l:'mesen',s:'B',q:'Paralisia do olhar vertical para cima e pupilas que não reagem à luz, em jovem com tumor da pineal.',e:'Síndrome de Parinaud, por compressão do teto do mesencéfalo.'},
+ {l:'ponte',s:'B',q:'Paciente consciente, que só move os olhos na vertical e pisca, com tetraplegia e sem fala.',e:'Síndrome do encarceramento: base da ponte bilateral (basilar).'},
+ {l:'nervo',s:'E',q:'Língua desvia para a esquerda, com atrofia à esquerda, sem outros déficits.',e:'Nervo hipoglosso esquerdo.'},
+ {l:'medcerv',s:'B',q:'Paralisia flácida nos braços e espástica nas pernas, com perda de dor e temperatura abaixo de C5 e propriocepção preservada.',e:'Síndrome da artéria espinal anterior na medula cervical.'}
+];
+
+/* ---- Nervos cranianos ---- */
+var NERVES=[
+ {r:'I',n:'Olfatório',fo:'Lâmina cribriforme do etmoide',fn:'Olfação',og:'Bulbo olfatório'},
+ {r:'II',n:'Óptico',fo:'Canal óptico',fn:'Visão',og:'Quiasma óptico'},
+ {r:'III',n:'Oculomotor',fo:'Fissura orbital superior',fn:'Constrição da pupila e elevação da pálpebra',og:'Fossa interpeduncular'},
+ {r:'IV',n:'Troclear',fo:'Fissura orbital superior',fn:'Músculo oblíquo superior',og:'Face dorsal, abaixo do colículo inferior'},
+ {r:'V',n:'Trigêmeo',fo:'Forame oval (ramo mandibular)',fn:'Sensibilidade geral da face e mastigação',og:'Entre ponte e pedúnculo cerebelar médio'},
+ {r:'VI',n:'Abducente',fo:'Fissura orbital superior',fn:'Músculo reto lateral',og:'Sulco bulbopontino, junto à linha média'},
+ {r:'VII',n:'Facial',fo:'Forame estilomastóideo',fn:'Músculos da mímica',og:'Sulco bulbopontino, lateral ao VI'},
+ {r:'VIII',n:'Vestibulococlear',fo:'Meato acústico interno',fn:'Audição e equilíbrio',og:'Ângulo pontocerebelar'},
+ {r:'IX',n:'Glossofaríngeo',fo:'Forame jugular',fn:'Gustação do terço posterior da língua',og:'Sulco lateral posterior do bulbo, mais cranial'},
+ {r:'X',n:'Vago',fo:'Forame jugular',fn:'Parassimpático das vísceras torácicas e abdominais',og:'Sulco lateral posterior do bulbo'},
+ {r:'XI',n:'Acessório',fo:'Forame jugular',fn:'Músculos trapézio e esternocleidomastóideo',og:'Bulbo e medula cervical alta'},
+ {r:'XII',n:'Hipoglosso',fo:'Canal do hipoglosso',fn:'Músculos da língua',og:'Sulco lateral anterior do bulbo'}
+];
+var NERVE_KEYS=[['fo','Por onde sai do crânio?'],['fn','Qual a função?'],['og','Qual a origem aparente?']];
+
+/* Camada 1 — esquemas em SVG (desenho próprio) */
+var GRAYP={
+ szi:'M258,158 L286,160 L288,176 L258,174 Z',
+ cp:'M258,160 C270,135 282,115 290,98 C295,103 302,104 308,100 C300,125 292,145 286,162 Z',
+ sg:'M290,98 C288,88 292,78 300,75 C308,76 311,84 308,100 C302,104 295,103 290,98 Z',
+ cl:'M286,159 L306,166 L288,177 Z',
+ ca:'M258,172 L288,174 C300,180 312,195 314,215 C316,238 298,250 280,245 C266,240 260,215 258,172 Z'
+};
+var TRACTS={
+ gr:'250,40 276,40 272,62 263,120 257,158 250,158',
+ cu:'276,40 314,40 306,82 258,160 257,158 263,120 272,62',
+ csl:'305,108 350,102 366,148 326,168 298,158',
+ ecp:'330,55 420,55 420,150 372,150 356,100 328,82',
+ eca:'374,156 420,156 420,232 360,232 368,196',
+ ctl:'318,178 362,174 356,226 316,216',
+ csa:'256,218 276,222 286,300 258,300',
+ eta:'278,250 312,250 332,300 287,300'
+};
+function grayHalf(){
+ return '<path class="gm" data-id="szi" d="'+GRAYP.szi+'"/><path class="gm" data-id="cp" d="'+GRAYP.cp+'"/><path class="sg" data-id="sg" d="'+GRAYP.sg+'"/><path class="gm" data-id="cl" d="'+GRAYP.cl+'"/><path class="gm" data-id="ca" d="'+GRAYP.ca+'"/><circle class="nt" data-id="nt" cx="266" cy="148" r="5"/>';
+}
+function svgCorte(){
+ var tr=Object.keys(TRACTS).map(function(k){return '<polygon class="tr" data-id="'+k+'" points="'+TRACTS[k]+'"/>'}).join('');
+ return '<svg viewBox="88 30 424 268" role="img" aria-label="Corte transversal esquemático da medula espinal torácica alta">'+
+ '<defs><clipPath id="cordClip"><ellipse cx="250" cy="165" rx="150" ry="110"/></clipPath></defs>'+
+ '<text class="lab" x="250" y="44" text-anchor="middle">POSTERIOR</text><text class="lab" x="250" y="292" text-anchor="middle">ANTERIOR</text>'+
+ '<ellipse class="base" cx="250" cy="165" rx="150" ry="110"/>'+
+ '<g clip-path="url(#cordClip)">'+
+ '<polygon class="wm" data-id="fp" points="250,40 314,40 306,82 258,160 250,160"/>'+
+ '<polygon class="wm" data-id="fl" points="314,40 420,40 420,300 400,300 322,262 300,238 314,215 306,166 286,160 306,82"/>'+
+ '<polygon class="wm" data-id="fa" points="250,300 400,300 322,262 300,238 280,246 258,174 250,174"/>'+
+ '<g transform="matrix(-1 0 0 1 500 0)">'+tr+'</g></g>'+
+ grayHalf()+'<g transform="matrix(-1 0 0 1 500 0)">'+grayHalf()+'</g>'+
+ '<rect class="gm" data-id="cgc" x="240" y="159" width="20" height="14"/>'+
+ '<rect class="cba" data-id="cba" x="242" y="173" width="16" height="8"/>'+
+ '<circle class="cc" data-id="cc" cx="250" cy="166" r="4"/>'+
+ '<circle class="hit" data-id="cc" cx="250" cy="166" r="3" style="stroke-width:8"/>'+
+ '<circle class="hit" data-id="nt" cx="266" cy="148" r="3" style="stroke-width:8"/>'+
+ '<circle class="hit" data-id="nt" cx="234" cy="148" r="3" style="stroke-width:8"/>'+
+ '<path class="fis" data-id="fma" d="M244,280 L250,238 L256,280 Z"/>'+
+ '<line class="sep ln" data-id="smp" x1="250" y1="55" x2="250" y2="157"/>'+
+ '<line class="hit" data-id="smp" x1="250" y1="55" x2="250" y2="150" style="stroke-width:10"/>'+
+ '<ellipse class="outline" cx="250" cy="165" rx="150" ry="110"/>'+
+ '<path class="nerve ln" data-id="rd" d="M310,64 C335,50 370,48 404,56"/><path class="hit" data-id="rd" d="M310,64 C335,50 370,48 404,56"/>'+
+ '<path class="nerve ln" data-id="rv" d="M322,262 C372,262 428,160 450,84"/><path class="hit" data-id="rv" d="M322,262 C372,262 428,160 450,84"/>'+
+ '<path class="nerve ln" data-id="ne" style="stroke-width:10" d="M444,68 C462,72 480,86 500,106"/><path class="hit" data-id="ne" d="M444,68 C462,72 480,86 500,106"/>'+
+ '<ellipse class="gang" data-id="ge" cx="424" cy="62" rx="21" ry="13"/>'+
+ '</svg>';
+}
+function hw(y){
+ if(y<60)return 13; if(y<190)return 13+9*Math.sin(Math.PI*(y-60)/130); if(y<320)return 12;
+ if(y<395)return 12+6*Math.sin(Math.PI*(y-320)/90); return Math.max(1,14*(422-y)/27);
+}
+function svgVista(){
+ var deco='',y,d,drop,i;
+ for(y=44;y<=372;y+=16){d=hw(y)-2;drop=4+(y-30)*0.16;
+  deco+='<path class="deco" d="M'+(170-d)+','+y+' L126,'+(y+drop*.6)+' L108,'+(y+drop)+'"/><path class="deco" d="M'+(170+d)+','+y+' L214,'+(y+drop*.6)+' L232,'+(y+drop)+'"/>';}
+ var cauda='',hits='';
+ for(i=0;i<5;i++){
+  var sxL=162-i*2,sy=384+i*6,exL=156-i*5,sxR=340-sxL,exR=340-exL;
+  var pl='M'+sxL+','+sy+' C'+sxL+','+(sy+60)+' '+exL+',488 '+exL+',548',pr='M'+sxR+','+sy+' C'+sxR+','+(sy+60)+' '+exR+',488 '+exR+',548';
+  cauda+='<path class="thin ln" data-id="cauda" d="'+pl+'"/><path class="thin ln" data-id="cauda" d="'+pr+'"/>';
+  hits+='<path class="hit" data-id="cauda" style="stroke-width:9" d="'+pl+'"/><path class="hit" data-id="cauda" style="stroke-width:9" d="'+pr+'"/>';
+ }
+ var lv=[['FORAME MAGNO',22],['C1',36],['T1',188],['T10',300],['L1',396],['L2',420],['S2',507],['CÓCCIX',548]];
+ var ruler=lv.map(function(a){return '<line class="tick" x1="66" y1="'+a[1]+'" x2="74" y2="'+a[1]+'"/><line class="guide" x1="76" y1="'+a[1]+'" x2="124" y2="'+a[1]+'"/><text class="lab" x="62" y="'+(a[1]+3)+'" text-anchor="end">'+a[0]+'</text>'}).join('');
+ return '<svg viewBox="0 8 300 552" role="img" aria-label="Vista posterior esquemática da medula espinal e do saco dural">'+
+ '<line class="tick" x1="70" y1="18" x2="70" y2="552"/>'+ruler+
+ '<path class="cist" data-id="cist" d="M128,424 L212,424 L212,470 C212,492 194,503 170,505 C146,503 128,492 128,470 Z"/>'+deco+
+ '<path class="cord" d="M157,30 C152,70 148,110 148,130 C148,155 154,170 156,190 L158,320 C154,340 152,355 152,365 C152,385 160,405 170,420 C180,405 188,385 188,365 C188,355 186,340 182,320 L184,190 C186,170 192,155 192,130 C192,110 188,70 183,30 Z"/>'+
+ '<ellipse class="zone" data-id="int_c" cx="170" cy="130" rx="26" ry="44"/>'+
+ '<ellipse class="zone" data-id="int_l" cx="170" cy="362" rx="22" ry="28"/>'+
+ '<path class="zone" data-id="cone" d="M155,392 L185,392 L170,422 Z"/>'+cauda+hits+
+ '<line class="fil ln" data-id="fil" x1="170" y1="420" x2="170" y2="552"/>'+
+ '<line class="hit" data-id="fil" x1="170" y1="424" x2="170" y2="552" style="stroke-width:10"/>'+
+ '<path class="dura ln" data-id="dura" d="M126,14 L214,14 L214,470 C214,495 195,506 170,508 C145,506 126,495 126,470 Z"/>'+
+ '<path class="hit" data-id="dura" style="stroke-width:10" d="M126,14 L214,14 L214,470 C214,495 195,506 170,508 C145,506 126,495 126,470 Z"/>'+
+ '</svg>';
+}
+var SCH_STATIONS=[
+ {id:'sch-corte',kind:'svg',fig:'corte',t:'Medula: corte transversal (esquema)',note:'Tratos na metade esquerda; funículos e raízes na direita. Estruturas da substância cinzenta valem dos dois lados.'},
+ {id:'sch-vista',kind:'svg',fig:'vista',t:'Medula e saco dural: vista posterior (esquema)',note:'Níveis vertebrais à esquerda.'}
+];
+
+</script>
+
+<!-- Camada 2: armazenamento e aplicação (funciona sem Firebase) -->
+<script>
+/* Camada 2 — armazenamento. O modo local funciona sempre; o Firebase entra só se configurado e carregado. */
+function lsGet(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+function cyrb53(str,seed){seed=seed||0;var h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+function weekId(d){d=d||new Date();var t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));var day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);var y=new Date(Date.UTC(t.getUTCFullYear(),0,1));return t.getUTCFullYear()+'-S'+Math.ceil(((t-y)/864e5+1)/7)}
+
+var LocalStore={
+ mode:'local',
+ _cb:null,
+ init:function(){return Promise.resolve()},
+ onUser:function(cb){this._cb=cb;var uid=lsGet('upmed2_session',null);var u=uid&&this._users()[uid];cb(u?this._pub(u):null)},
+ _users:function(){return lsGet('upmed2_users',{})},
+ _pub:function(u){return{uid:u.uid,name:u.name,email:u.email,turma:u.turma}},
+ signUp:function(name,email,pass,turma){
+  var users=this._users();email=email.trim().toLowerCase();
+  for(var k in users){if(users[k].email===email)return Promise.reject({code:'auth/email-already-in-use'})}
+  if(pass.length<6)return Promise.reject({code:'auth/weak-password'});
+  var uid='L'+cyrb53(email+Date.now());var salt=cyrb53(String(Math.random()));
+  users[uid]={uid:uid,name:name,email:email,turma:turma,salt:salt,h:cyrb53(salt+pass,7)};
+  if(!lsGet('upmed2_admins',null))lsSet('upmed2_admins',{});var ad=lsGet('upmed2_admins',{});if(!Object.keys(ad).length){ad[uid]=true;lsSet('upmed2_admins',ad)}
+  lsSet('upmed2_users',users);lsSet('upmed2_session',uid);var p=this._pub(users[uid]);this._cb&&this._cb(p);return Promise.resolve(p)},
+ signIn:function(email,pass){
+  var users=this._users();email=email.trim().toLowerCase();
+  for(var k in users){var u=users[k];if(u.email===email){if(u.h===cyrb53(u.salt+pass,7)){lsSet('upmed2_session',u.uid);var p=this._pub(u);this._cb&&this._cb(p);return Promise.resolve(p)}return Promise.reject({code:'auth/invalid-credential'})}}
+  return Promise.reject({code:'auth/invalid-credential'})},
+ signOut:function(){try{localStorage.removeItem('upmed2_session')}catch(e){}this._cb&&this._cb(null);return Promise.resolve()},
+ reset:function(){return Promise.reject({code:'local/no-reset'})},
+ isAdmin:function(uid){return Promise.resolve(!!lsGet('upmed2_admins',{})[uid])},
+ loadPrivate:function(uid){return Promise.resolve(lsGet('upmed2_priv_'+uid,null))},
+ savePrivate:function(uid,p){lsSet('upmed2_priv_'+uid,p);return Promise.resolve()},
+ saveScore:function(uid,s){var all=lsGet('upmed2_scores',{});all[uid]=s;lsSet('upmed2_scores',all);return Promise.resolve()},
+ listScores:function(){return Promise.resolve(lsGet('upmed2_scores',{}))},
+ listStations:function(){return Promise.resolve(lsGet('upmed2_stations',{}))},
+ saveStation:function(st){var all=lsGet('upmed2_stations',{});all[st.id]=st;if(!lsSet('upmed2_stations',all))return Promise.reject({code:'local/quota'});return Promise.resolve()},
+ deleteStation:function(id){var all=lsGet('upmed2_stations',{});delete all[id];lsSet('upmed2_stations',all);return Promise.resolve()}
+};
+
+/* Firebase (SDK compat, scripts clássicos). Carregado sob demanda; se falhar, o app segue no modo local. */
+var FB_VER='10.12.2';
+function loadScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.async=true;s.onload=res;s.onerror=function(){rej(new Error('load '+src))};document.head.appendChild(s)})}
+var FirebaseStore={
+ mode:'firebase',
+ init:function(cfg){
+  var base='https://www.gstatic.com/firebasejs/'+FB_VER+'/';
+  var self=this;
+  var timeout=new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'))},12000)});
+  return Promise.race([loadScript(base+'firebase-app-compat.js').then(function(){return Promise.all([loadScript(base+'firebase-auth-compat.js'),loadScript(base+'firebase-database-compat.js')])}),timeout]).then(function(){
+   if(!firebase.apps.length)firebase.initializeApp(cfg);
+   self.auth=firebase.auth();self.db=firebase.database();
+  });
+ },
+ onUser:function(cb){var self=this;this.auth.onAuthStateChanged(function(u){
+   if(!u){cb(null);return}
+   self.db.ref('profiles/'+u.uid).once('value').then(function(s){var p=s.val()||{};var pd=self._pending||{};cb({uid:u.uid,email:u.email,name:p.name||pd.name||u.displayName||u.email.split('@')[0],turma:p.turma||pd.turma||''})}).catch(function(){cb({uid:u.uid,email:u.email,name:u.displayName||u.email.split('@')[0],turma:''})});
+ })},
+ signUp:function(name,email,pass,turma){var self=this;self._pending={name:name,turma:turma};
+  return this.auth.createUserWithEmailAndPassword(email.trim(),pass).then(function(cred){
+   return Promise.all([cred.user.updateProfile({displayName:name}),self.db.ref('profiles/'+cred.user.uid).set({name:name,turma:turma,createdAt:Date.now()})]).then(function(){return{uid:cred.user.uid,name:name,email:cred.user.email,turma:turma}})})},
+ signIn:function(email,pass){return this.auth.signInWithEmailAndPassword(email.trim(),pass)},
+ signOut:function(){return this.auth.signOut()},
+ reset:function(email){return this.auth.sendPasswordResetEmail(email.trim())},
+ isAdmin:function(uid){return this.db.ref('admins/'+uid).once('value').then(function(s){return s.val()===true}).catch(function(){return false})},
+ loadPrivate:function(uid){return this.db.ref('private/'+uid).once('value').then(function(s){return s.val()})},
+ savePrivate:function(uid,p){return this.db.ref('private/'+uid).set(JSON.parse(JSON.stringify(p)))},
+ saveScore:function(uid,s){return this.db.ref('scores/'+uid).set(s)},
+ listScores:function(){return this.db.ref('scores').once('value').then(function(s){return s.val()||{}})},
+ listStations:function(){return this.db.ref('stations').once('value').then(function(s){return s.val()||{}})},
+ saveStation:function(st){return this.db.ref('stations/'+st.id).set(JSON.parse(JSON.stringify(st)))},
+ deleteStation:function(id){return this.db.ref('stations/'+id).remove()}
+};
+
+/* Camada 2 — aplicação. Não depende do Firebase para funcionar. */
+(function(){
+'use strict';
+var $=function(s,r){return(r||document).querySelector(s)};
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function norm(s){return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
+function lev(a,b){var m=a.length,n=b.length,d=[],i,j;for(i=0;i<=m;i++)d[i]=[i];for(j=0;j<=n;j++)d[0][j]=j;for(i=1;i<=m;i++)for(j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n]}
+function close(ans,target){var a=norm(ans),b=norm(target);if(!a)return false;if(a===b)return true;var stop=/\b(do|da|de|dos|das|o|a|e|nervo|trato|nucleo)\b/g;var a2=a.replace(stop,'').replace(/\s+/g,' ').trim(),b2=b.replace(stop,'').replace(/\s+/g,' ').trim();if(a2===b2)return true;if(lev(a2,b2)<=Math.max(1,Math.floor(b2.length*0.18)))return true;var tw=b2.split(' ').filter(function(w){return w.length>2}),aw=a2.split(' ');return tw.length>0&&aw.length<=tw.length+2&&tw.every(function(t){return aw.some(function(w){return lev(w,t)<=Math.floor(t.length*0.25)})})}
+function pct(c,a){return a?Math.round(100*c/a):0}
+function fmtDate(t){var d=new Date(t);return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}
+
+/* ---------- preparação do banco ---------- */
+QB.forEach(function(q){var base=q.q||q.a;q.id=q.m+'_'+cyrb53(q.t+'|'+base)});
+var QBY=Object.fromEntries(QB.map(function(q){return[q.id,q]}));
+var XPD={1:10,2:15,3:20};
+
+/* ---------- estado ---------- */
+var Store=LocalStore;
+var S={user:null,admin:false,priv:null,view:'painel',sub:null,stations:{},scores:null,fbError:null};
+function blankPriv(){return{stats:{answered:0,correct:0,xp:0,mods:{},week:{id:weekId(),xp:0}},w:{},seen:{},errs:{},hist:[]}}
+
+var saveT=null;
+function persist(){
+ if(!S.user)return;clearTimeout(saveT);
+ saveT=setTimeout(function(){
+  var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
+  Store.savePrivate(S.user.uid,p).catch(function(e){console.warn(e)});
+  var mods={};Object.keys(st.mods).forEach(function(k){mods[k]={a:st.mods[k].a,c:st.mods[k].c,xp:st.mods[k].xp||0}});
+  Store.saveScore(S.user.uid,{name:S.user.name,turma:S.user.turma||'',xp:st.xp,answered:st.answered,correct:st.correct,week:st.week,mods:mods,at:Date.now()}).then(function(){S.scores=null}).catch(function(e){console.warn(e)});
+ },1200);
+}
+function record(q,ok,partial){
+ var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
+ var gain=ok?XPD[q.d]:Math.round((partial||0)*XPD[q.d]*0.5);
+ st.answered++;if(ok)st.correct++;st.xp+=gain;st.week.xp+=gain;
+ var m=st.mods[q.m]||(st.mods[q.m]={a:0,c:0,xp:0});m.a++;if(ok)m.c++;m.xp=(m.xp||0)+gain;
+ var w=p.w[q.id]||1;p.w[q.id]=ok?Math.max(.35,+(w*.6).toFixed(2)):Math.min(6,w+1.5);
+ p.seen[q.id]=(p.seen[q.id]||0)+1;
+ if(ok){if(p.errs[q.id]){p.errs[q.id]--;if(p.errs[q.id]<=0)delete p.errs[q.id]}}else p.errs[q.id]=2;
+ persist();return gain;
+}
+function addGameXp(game,pts){
+ var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
+ st.xp+=pts;st.week.xp+=pts;p.hist.unshift({t:Date.now(),k:'game',g:game,xp:pts});p.hist=p.hist.slice(0,60);persist();
+}
+function pickQuestions(pool,n){
+ var w=S.priv.w,seen=S.priv.seen;var out=[],left=pool.slice();
+ while(out.length<n&&left.length){
+  var tot=0,ws=left.map(function(q){var v=(w[q.id]||1)*(seen[q.id]?1:2.2);tot+=v;return v});
+  var r=Math.random()*tot,i=0;for(;i<left.length;i++){r-=ws[i];if(r<=0)break}
+  out.push(left.splice(Math.min(i,left.length-1),1)[0]);
+ }
+ return out;
+}
+
+/* ---------- ícones ---------- */
+var IC={
+ painel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+ estudar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M9 8h6"/></svg>',
+ games:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>',
+ ranking:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21V11M16 21V7M12 21V3M4 21h16"/></svg>',
+ perfil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>'
+};
+var NAV=[['painel','Painel'],['estudar','Questões'],['games','Games'],['ranking','Ranking'],['perfil','Perfil']];
+
+/* ---------- utilidades de UI ---------- */
+function toast(t){var el=document.createElement('div');el.className='toast';el.setAttribute('role','status');el.textContent=t;document.body.appendChild(el);setTimeout(function(){el.remove()},2600)}
+function modal(html){var m=document.createElement('div');m.className='modal';m.innerHTML='<div class="box" role="dialog" aria-modal="true">'+html+'</div>';m.addEventListener('click',function(e){if(e.target===m||e.target.closest('[data-close]'))m.remove()});document.body.appendChild(m);return m}
+function errMsg(e){var c=(e&&e.code)||'';return({
+ 'auth/invalid-email':'O e-mail não parece válido. Confira se digitou certo.',
+ 'auth/email-already-in-use':'Já existe uma conta com esse e-mail. Use "Entrar" ou recupere a senha.',
+ 'auth/weak-password':'A senha precisa ter pelo menos 6 caracteres.',
+ 'auth/invalid-credential':'E-mail ou senha incorretos.',
+ 'auth/wrong-password':'E-mail ou senha incorretos.',
+ 'auth/user-not-found':'E-mail ou senha incorretos.',
+ 'auth/too-many-requests':'Muitas tentativas seguidas. Espere alguns minutos e tente de novo.',
+ 'auth/network-request-failed':'Sem conexão com a internet. Verifique a rede e tente de novo.',
+ 'auth/operation-not-allowed':'O login por e-mail e senha não está ativado no Firebase (Authentication > Sign-in method).',
+ 'local/no-reset':'No modo local não há recuperação por e-mail. Crie outra conta neste aparelho.',
+ 'local/quota':'O armazenamento deste navegador está cheio. Use uma foto menor ou o modo online.',
+ 'PERMISSION_DENIED':'O Firebase recusou a gravação. Confira as regras do banco de dados.'
+})[c]||('Algo deu errado: '+((e&&e.message)||c||'erro desconhecido'))}
+
+/* ---------- tema ---------- */
+function applyTheme(t){if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);else document.documentElement.removeAttribute('data-theme')}
+applyTheme(lsGet('upmed2_theme','system'));
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+var authMode='in';
+function renderAuth(msg,msgType){
+ var app=$('#app');
+ app.innerHTML='<div class="auth"><section class="auth-hero"><div class="eyebrow" style="color:inherit;opacity:.7">UNCISAL · Medicina</div><div class="mark">Up-MED<br><span>study</span></div><p>Neuroanatomia em questões, prova prática com peças reais e ranking da turma.</p>'+
+ '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3"><path d="M100 20c-40 0-70 30-70 70 0 25 12 40 25 50l5 40h80l5-40c13-10 25-25 25-50 0-40-30-70-70-70z"/><path d="M100 20v160M60 60c15 10 25 10 40 0M100 60c15 10 25 10 40 0M55 105c20 8 30 8 45 0M100 105c15 8 25 8 45 0"/></svg></section>'+
+ '<section class="auth-card"><form id="authForm" novalidate>'+
+ '<div class="seg" role="group" aria-label="Entrar ou criar conta"><button type="button" data-am="in" aria-pressed="'+(authMode==='in')+'">Entrar</button><button type="button" data-am="up" aria-pressed="'+(authMode==='up')+'">Criar conta</button></div>'+
+ (Store.mode==='local'?'<div class="msg">Versão de teste: sua conta e seu progresso ficam salvos só neste aparelho e navegador. '+(S.fbError?esc(S.fbError):'O ranking compartilhado da turma chega numa próxima versão.')+'</div>':'')+
+ (authMode==='up'?'<label class="f">Nome que aparece no ranking<input class="in" id="aName" autocomplete="name" maxlength="40" required></label><label class="f">Turma<input class="in" id="aTurma" placeholder="Ex.: MED 52" maxlength="20"></label>':'')+
+ '<label class="f">E-mail<input class="in" id="aEmail" type="email" autocomplete="email" inputmode="email" required></label>'+
+ '<label class="f">Senha<input class="in" id="aPass" type="password" autocomplete="'+(authMode==='up'?'new-password':'current-password')+'" minlength="6" required></label>'+
+ (msg?'<div class="msg '+(msgType||'err')+'" role="alert">'+esc(msg)+'</div>':'')+
+ '<button class="btn pri" type="submit" id="aSubmit">'+(authMode==='up'?'Criar conta':'Entrar')+'</button>'+
+ (authMode==='in'?'<button type="button" class="linkbtn" id="aReset">Esqueci a senha</button>':'')+
+ '</form></section></div>';
+}
+document.addEventListener('submit',function(e){
+ if(e.target.id!=='authForm')return;e.preventDefault();
+ var email=$('#aEmail').value,pass=$('#aPass').value,btn=$('#aSubmit');
+ if(!email||!pass){renderAuthKeep('Preencha e-mail e senha.');return}
+ btn.disabled=true;btn.textContent='Aguarde…';
+ var p;
+ if(authMode==='up'){var name=$('#aName').value.trim(),turma=$('#aTurma').value.trim();if(!name){btn.disabled=false;renderAuthKeep('Digite seu nome.');return}
+  p=Store.signUp(name,email,pass,turma).then(function(u){if(S.user&&S.user.uid===u.uid){S.user.name=u.name;S.user.turma=u.turma;persist();render()}});}
+ else p=Store.signIn(email,pass);
+ p.catch(function(err){renderAuthKeep(errMsg(err))});
+});
+function renderAuthKeep(m,t){var e=$('#aEmail')&&$('#aEmail').value,n=$('#aName')&&$('#aName').value,tu=$('#aTurma')&&$('#aTurma').value;renderAuth(m,t);if(e)$('#aEmail').value=e;if(n&&$('#aName'))$('#aName').value=n;if(tu&&$('#aTurma'))$('#aTurma').value=tu}
+
+/* =========================================================
+   SHELL
+   ========================================================= */
+function shell(inner){
+ var nav=function(cls){return NAV.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
+ return '<div class="shell"><aside class="side"><div class="logo">Up-MED <span>study</span></div>'+nav()+
+ '<div class="foot"><span>'+esc(S.user.name)+'</span><span class="muted" style="color:inherit;opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Modo local')+'</span></div></aside>'+
+ '<main class="main" id="main"><div class="page">'+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav()+'</nav></div>';
+}
+function render(){
+ if(!S.user){renderAuth();return}
+ var v=S.view,html;
+ if(v==='painel')html=vPainel();
+ else if(v==='estudar')html=vEstudar();
+ else if(v==='quiz')html=vQuiz();
+ else if(v==='games')html=vGames();
+ else if(v==='pratica')html=vPratica();
+ else if(v==='via')html=vVia();
+ else if(v==='lesao')html=vLesao();
+ else if(v==='nervos')html=vNervos();
+ else if(v==='ranking')html=vRanking();
+ else if(v==='perfil')html=vPerfil();
+ else if(v==='editor')html=vEditor();
+ else html=vPainel();
+ var y=window.scrollY;
+ $('#app').innerHTML=shell(html);
+ if(S.keepScroll)window.scrollTo(0,y);S.keepScroll=false;
+ after();
+}
+function go(v,sub){S.view=v;S.sub=sub||null;stopTimers();render();window.scrollTo(0,0)}
+var afterFns=[];function after(){var f=afterFns;afterFns=[];f.forEach(function(fn){fn()})}
+
+/* =========================================================
+   PAINEL
+   ========================================================= */
+function modStats(id){var m=S.priv.stats.mods[id]||{a:0,c:0};var tot=QB.filter(function(q){return q.m===id}).length;var seen=QB.filter(function(q){return q.m===id&&S.priv.seen[q.id]}).length;return{a:m.a,c:m.c,tot:tot,seen:seen,acc:pct(m.c,m.a)}}
+function meter(acc,a){var cls=!a?'':acc<50?'lo':acc<70?'mid':'';return '<div class="meter" aria-hidden="true"><i class="'+cls+'" style="width:'+(a?acc:0)+'%"></i></div>'}
+function vPainel(){
+ var st=S.priv.stats,errs=Object.keys(S.priv.errs).filter(function(k){return QBY[k]}).length;
+ var first=S.user.name.split(' ')[0];
+ if(!S.scores)loadScores();
+ var pos=myPos();
+ return (Store.mode==='local'?'<div class="banner">Versão de teste: progresso e ranking ficam salvos só neste aparelho e navegador.</div>':'')+
+ '<div class="top"><div><div class="eyebrow">Neuroanatomia · '+QB.length+' questões em '+MODULES.length+' módulos</div><h1>Olá, '+esc(first)+'</h1></div>'+
+ '<div class="actions"><button class="btn pri" data-act="sim">Simulado misto</button>'+(errs?'<button class="btn ghost" data-act="errs">Revisar erros ('+errs+')</button>':'')+'</div></div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Questões</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div><div class="stat"><span class="eyebrow">Posição na turma</span><b>'+(pos?pos+'º':'–')+'</b></div></div>'+
+ '<div class="game" style="background:var(--brand);color:var(--brandInk);border-color:var(--brand)"><span class="tag amb">Prova prática</span><h2>Treine com peças reais e esquemas</h2><p style="opacity:.85">Estações cronometradas como na prova, com resposta escrita.</p><div class="actions"><button class="btn pri" data-nav="games">Abrir games</button></div></div>'+
+ '<div class="top"><h2>Módulos</h2><span class="muted small">Toque para estudar</span></div>'+
+ '<div class="grid g3">'+MODULES.map(function(m){var s=modStats(m.id);return '<button class="mod" data-mod="'+m.id+'"><div class="row"><h3>'+esc(m.n)+'</h3></div><p class="muted small">'+esc(m.s)+'</p>'+meter(s.acc,s.a)+'<div class="row small muted num"><span>'+s.seen+'/'+s.tot+' vistas</span><span>'+(s.a?s.acc+'% de acerto':'não iniciado')+'</span></div></button>'}).join('')+'</div>';
+}
+function myPos(){if(!S.scores)return 0;var arr=Object.keys(S.scores).map(function(k){return{uid:k,xp:S.scores[k].xp||0}}).sort(function(a,b){return b.xp-a.xp});var i=arr.findIndex(function(r){return r.uid===S.user.uid});return i<0?0:i+1}
+function loadScores(){if(S._loadingScores)return;S._loadingScores=true;Store.listScores().then(function(s){S.scores=s||{};S._loadingScores=false;if(S.view==='painel'||S.view==='ranking'){S.keepScroll=true;render()}}).catch(function(e){S._loadingScores=false;S.scores={};S.scoreErr=errMsg(e)})}
+
+/* =========================================================
+   ESTUDAR (filtros) e QUIZ
+   ========================================================= */
+var F={mod:'',types:{},diff:0,n:10};
+function vEstudar(){
+ var pool=filterPool();
+ return '<div class="top"><div><div class="eyebrow">Banco de questões</div><h1>Montar sessão</h1></div></div>'+
+ '<div class="card grid"><label class="f">Módulo<select class="in" id="fMod"><option value="">Todos os módulos</option>'+MODULES.map(function(m){return '<option value="'+m.id+'" '+(F.mod===m.id?'selected':'')+'>'+esc(m.n)+'</option>'}).join('')+'</select></label>'+
+ '<div class="grid" style="gap:6px"><span class="f" style="font-size:14px;font-weight:700">Formatos</span><div class="chips">'+Object.keys(TYPE_LABEL).map(function(t){return '<button class="chip" data-ft="'+t+'" aria-pressed="'+!!F.types[t]+'">'+TYPE_LABEL[t]+'</button>'}).join('')+'</div><span class="muted small">Nenhum marcado inclui todos.</span></div>'+
+ '<div class="grid" style="gap:6px"><span class="f" style="font-size:14px;font-weight:700">Dificuldade</span><div class="chips">'+[[0,'Todas'],[1,'Básica'],[2,'Intermediária'],[3,'Avançada']].map(function(d){return '<button class="chip" data-fd="'+d[0]+'" aria-pressed="'+(F.diff===d[0])+'">'+d[1]+'</button>'}).join('')+'</div></div>'+
+ '<div class="grid" style="gap:6px"><span class="f" style="font-size:14px;font-weight:700">Quantidade</span><div class="chips">'+[5,10,20,30].map(function(n){return '<button class="chip" data-fn="'+n+'" aria-pressed="'+(F.n===n)+'">'+n+'</button>'}).join('')+'</div></div>'+
+ '<div class="actions"><button class="btn pri" data-act="startF" '+(pool.length?'':'disabled')+'>Começar ('+Math.min(F.n,pool.length)+' de '+pool.length+' disponíveis)</button></div></div>'+
+ '<div class="card grid"><h3>Distribuição do banco</h3><div class="grid g2" style="gap:6px">'+MODULES.map(function(m){var n=QB.filter(function(q){return q.m===m.id}).length;return '<div class="small" style="display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:4px 0"><span>'+esc(m.n)+'</span><span class="num muted">'+n+'</span></div>'}).join('')+'</div></div>';
+}
+function filterPool(){var types=Object.keys(F.types).filter(function(k){return F.types[k]});return QB.filter(function(q){return(!F.mod||q.m===F.mod)&&(!types.length||types.indexOf(q.t)>=0)&&(!F.diff||q.d===F.diff)})}
+function startQuiz(list,title){
+ S.quiz={title:title,list:list.map(prepQ),i:0,ok:0,xp:0,done:false,ans:null,results:[]};go('quiz');
+}
+function prepQ(q){
+ var p={q:q};
+ if(q.t==='mc'||q.t==='case'){p.order=shuffle(q.o.map(function(_,i){return i}))}
+ if(q.t==='vf'){p.order=shuffle(q.s.map(function(_,i){return i}));p.v={}}
+ if(q.t==='as'){p.left=shuffle(q.p.map(function(_,i){return i}));var rights=[];q.p.forEach(function(x){if(rights.indexOf(x[1])<0)rights.push(x[1])});p.rights=shuffle(rights);p.v={}}
+ if(q.t==='od'){p.pool=shuffle(q.s.map(function(_,i){return i}));p.seq=[]}
+ if(q.t==='ar'){p.v=null}
+ return p;
+}
+function vQuiz(){
+ var Z=S.quiz;if(!Z)return vPainel();
+ if(Z.finished){
+  var miss=Z.results.filter(function(r){return!r.ok});
+  return '<div class="qwrap"><div class="eyebrow">'+esc(Z.title)+' · resultado</div><div class="score">'+Z.ok+'<span class="muted" style="font-size:32px">/'+Z.list.length+'</span></div><p>Você ganhou <b>'+Z.xp+' pontos</b>.</p>'+
+  (miss.length?'<div class="card grid"><h3>Para revisar</h3>'+miss.map(function(r){var q=r.q;return '<div style="border-top:1px solid var(--line);padding-top:8px"><span class="tag">'+esc(MOD[q.m].n)+'</span><p style="margin-top:4px">'+esc(q.q||q.a)+'</p><p class="small muted" style="margin-top:4px">'+esc(q.e)+'</p></div>'}).join('')+'</div>':'<p>Sessão sem erros.</p>')+
+  '<div class="actions"><button class="btn pri" data-act="again">Nova sessão igual</button><button class="btn ghost" data-nav="painel">Voltar ao painel</button></div></div>';
+ }
+ var P=Z.list[Z.i],q=P.q,done=Z.done;
+ var h='<div class="qwrap"><div class="qhead"><span class="eyebrow">'+esc(Z.title)+'</span><span class="small muted num">'+(Z.i+1)+' de '+Z.list.length+' · '+Z.ok+' acertos</span></div><div class="bar"><i style="width:'+(100*(Z.i+(done?1:0))/Z.list.length)+'%"></i></div>'+
+ '<div class="chips"><span class="tag">'+esc(MOD[q.m].n)+'</span><span class="tag amb">'+TYPE_LABEL[q.t]+'</span><span class="tag">'+['','Básica','Intermediária','Avançada'][q.d]+'</span></div>';
+ var L='ABCDE';
+ if(q.t==='mc'||q.t==='case'){
+  h+='<p class="stem'+(q.t==='case'?' case':'')+'">'+esc(q.q)+'</p><div class="opts">'+P.order.map(function(oi,k){var c='';if(done){if(oi===0)c='right';else if(oi===P.pick)c='wrong'}return '<button class="opt '+c+'" data-pick="'+oi+'" '+(done?'disabled':'')+'><span class="k">'+L[k]+'</span><span>'+esc(q.o[oi])+'</span></button>'}).join('')+'</div>';
+ } else if(q.t==='vf'){
+  h+='<p class="stem">'+esc(q.q)+'</p><div class="opts">'+P.order.map(function(si){var s=q.s[si],v=P.v[si];var c=done?(v===s[1]?'right':'wrong'):'';return '<div class="vfrow '+c+'"><span>'+esc(s[0])+(done&&v!==s[1]?' <b class="small" style="color:var(--ok)">('+(s[1]?'Verdadeira':'Falsa')+')</b>':'')+'</span><div class="tog"><button data-vf="'+si+'" data-val="1" aria-pressed="'+(v===true)+'" '+(done?'disabled':'')+' aria-label="Verdadeira">V</button><button data-vf="'+si+'" data-val="0" aria-pressed="'+(v===false)+'" '+(done?'disabled':'')+' aria-label="Falsa">F</button></div></div>'}).join('')+'</div>'+
+  (done?'':'<div class="actions"><button class="btn pri" data-act="check" '+(Object.keys(P.v).length===q.s.length?'':'disabled')+'>Conferir</button></div>');
+ } else if(q.t==='as'){
+  h+='<p class="stem">'+esc(q.q)+'</p><div class="opts">'+P.left.map(function(li){var pr=q.p[li],v=P.v[li];var c=done?(v===pr[1]?'right':'wrong'):'';return '<div class="asrow '+c+'"><b>'+esc(pr[0])+'</b><select class="in" data-as="'+li+'" '+(done?'disabled':'')+' aria-label="Associação para '+esc(pr[0])+'"><option value="">Escolha…</option>'+P.rights.map(function(r){return '<option '+(v===r?'selected':'')+'>'+esc(r)+'</option>'}).join('')+'</select>'+(done&&v!==pr[1]?'<span class="fix">Correto: '+esc(pr[1])+'</span>':'')+'</div>'}).join('')+'</div>'+
+  (done?'':'<div class="actions"><button class="btn pri" data-act="check" '+(Object.keys(P.v).filter(function(k){return P.v[k]}).length===q.p.length?'':'disabled')+'>Conferir</button></div>');
+ } else if(q.t==='ar'){
+  h+='<div class="arbox"><div><b>Asserção</b>'+esc(q.a)+'</div><div><b>Razão</b>'+esc(q.r)+'</div></div><div class="opts">'+AR_OPTS.map(function(o,i){var c='';if(done){if(i===q.k)c='right';else if(i===P.pick)c='wrong'}return '<button class="opt '+c+'" data-pick="'+i+'" '+(done?'disabled':'')+'><span class="k">'+L[i]+'</span><span>'+esc(o)+'</span></button>'}).join('')+'</div>';
+ } else if(q.t==='od'){
+  h+='<p class="stem">'+esc(q.q)+'</p><p class="small muted">Toque nos itens na ordem certa. Toque em um item já colocado para devolvê-lo.</p><ol class="seq">'+P.seq.map(function(si,pos){var c=done?(si===pos?'right':'wrong'):'';return '<li class="'+c+'"><span>'+esc(q.s[si])+'</span>'+(done?'':'<button class="btn ghost sm" data-unod="'+pos+'" aria-label="Devolver">Devolver</button>')+'</li>'}).join('')+'</ol>'+
+  (done?(P.seq.some(function(si,pos){return si!==pos})?'<div class="card small"><b>Ordem correta:</b><ol style="margin:6px 0 0;padding-left:20px">'+q.s.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></div>':''):
+  '<div class="opts">'+P.pool.filter(function(i){return P.seq.indexOf(i)<0}).map(function(i){return '<button class="opt" data-od="'+i+'" style="grid-template-columns:1fr"><span>'+esc(q.s[i])+'</span></button>'}).join('')+'</div><div class="actions"><button class="btn pri" data-act="check" '+(P.seq.length===q.s.length?'':'disabled')+'>Conferir</button></div>');
+ } else if(q.t==='gp'){
+  h+='<p class="stem">'+esc(q.q).replace('____','<b>______</b>')+'</p><form id="gpForm" class="actions" style="align-items:stretch"><input class="in" id="gpIn" style="flex:1;min-width:180px" autocomplete="off" '+(done?'disabled value="'+esc(P.typed||'')+'"':'')+' aria-label="Sua resposta"><button class="btn pri" '+(done?'disabled':'')+'>Conferir</button></form>';
+ }
+ if(done){var ok=P.ok;h+='<div class="fb '+(ok?'good':'bad')+'" role="status"><span class="verdict">'+(ok?'Correto · +'+P.gain+' pontos':(P.partial?'Parcial · '+Math.round(P.partial*100)+'% certo':'Incorreto'))+'</span>'+(q.t==='gp'&&!ok?'<p><b>Resposta:</b> '+esc(q.a[0])+'</p>':'')+'<p>'+esc(q.e)+'</p></div><div class="actions"><button class="btn dark" data-act="next">'+(Z.i+1>=Z.list.length?'Ver resultado':'Próxima')+'</button></div>';}
+ if(!done&&q.t==='gp')afterFns.push(function(){var i=$('#gpIn');i&&i.focus({preventScroll:true})});
+ return h+'</div>';
+}
+function finishQ(ok,partial){var Z=S.quiz,P=Z.list[Z.i];P.ok=ok;P.partial=partial||0;Z.done=true;var g=record(P.q,ok,partial);P.gain=g;Z.xp+=g;if(ok)Z.ok++;Z.results.push({q:P.q,ok:ok});S.keepScroll=true;render()}
+
+/* =========================================================
+   GAMES — menu
+   ========================================================= */
+function vGames(){
+ var pub=Object.keys(S.stations).length;
+ return '<div class="top"><div><div class="eyebrow">Prova prática e raciocínio</div><h1>Games</h1></div></div><div class="grid g2">'+
+ '<button class="game" data-nav="pratica"><span class="tag amb">Prova prática</span><h2>Estações de identificação</h2><p class="muted">Fotos reais de peças e cortes, além de esquemas. Identifique, localize ou faça o simulado cronometrado com resposta escrita.</p><span class="small muted">'+(pub+SCH_STATIONS.length)+' estações disponíveis</span></button>'+
+ '<button class="game" data-nav="via"><span class="tag">Vias</span><h2>Monte a via</h2><p class="muted">Coloque em ordem os neurônios, cruzamentos e estações de cada via e sequência do banco.</p><span class="small muted">'+QB.filter(function(q){return q.t==='od'}).length+' sequências</span></button>'+
+ '<button class="game" data-nav="lesao"><span class="tag">Topografia</span><h2>Onde está a lesão?</h2><p class="muted">Leia o quadro clínico, aponte o nível e o lado da lesão.</p><span class="small muted">'+LESIONS.length+' casos</span></button>'+
+ '<button class="game" data-nav="nervos"><span class="tag">60 segundos</span><h2>Nervos cranianos contra o relógio</h2><p class="muted">Forames, funções e origens aparentes. Acertos seguidos valem bônus.</p><span class="small muted">12 pares</span></button>'+
+ '</div>';
+}
+
+/* =========================================================
+   PROVA PRÁTICA
+   ========================================================= */
+function allStations(){
+ var list=SCH_STATIONS.map(function(s){return{id:s.id,kind:'svg',fig:s.fig,t:s.t,note:s.note,pins:SCH.filter(function(p){return p.fig===s.fig}).map(function(p){return{n:p.n,sid:p.id,i:p.i}})}});
+ Object.keys(S.stations).forEach(function(k){var s=S.stations[k];if(s&&s.pins&&s.pins.length>=2)list.push({id:k,kind:'img',t:s.t,src:s.src,photo:s.photo,credit:s.credit,pins:s.pins})});
+ return list;
+}
+var PR=null;var timerH=null;
+function stopTimers(){clearInterval(timerH);timerH=null}
+function vPratica(){
+ if(!PR||PR.phase==='menu'){
+  var sts=allStations();
+  PR=PR||{phase:'menu',mode:'spot',sel:{}};
+  return '<div class="top"><div><div class="eyebrow">Games · Prova prática</div><h1>Estações</h1></div>'+(S.admin?'<button class="btn ghost" data-nav="editor">Editor de estações</button>':'')+'</div>'+
+  '<div class="card grid"><span class="f" style="font-size:14px;font-weight:700">Modo</span><div class="chips">'+[['spot','Identifique (alternativas)'],['tap','Localize (toque na estrutura)'],['exam','Simulado (cronômetro e resposta escrita)']].map(function(m){return '<button class="chip" data-prm="'+m[0]+'" aria-pressed="'+(PR.mode===m[0])+'">'+m[1]+'</button>'}).join('')+'</div>'+
+  '<p class="small muted">'+({spot:'10 perguntas. A estrutura aparece marcada e você escolhe o nome.',tap:'10 perguntas. O jogo dá o nome e você toca no lugar certo.',exam:'10 estações, 45 segundos cada, como na prova. Digite o nome da estrutura marcada; pequenos erros de grafia são aceitos.'})[PR.mode]+'</p>'+
+  '<span class="f" style="font-size:14px;font-weight:700">Estações incluídas</span><div class="grid" style="gap:6px">'+sts.map(function(s){var on=PR.sel[s.id]!==false;return '<label style="display:flex;gap:10px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:10px"><input type="checkbox" data-prs="'+s.id+'" '+(on?'checked':'')+' style="width:20px;height:20px"><span style="flex:1;min-width:0">'+esc(s.t)+'</span><span class="tag'+(s.kind==='img'?' amb':'')+'">'+(s.kind==='img'?'Foto':'Esquema')+' · '+s.pins.length+'</span></label>'}).join('')+'</div>'+
+  (Object.keys(S.stations).length?'':'<p class="small muted">As fotos reais aparecem aqui quando um administrador marcar as estruturas no editor.</p>')+
+  '<div class="actions"><button class="btn pri" data-act="prStart">Começar</button></div></div>';
+ }
+ if(PR.phase==='end'){
+  var miss=PR.items.filter(function(it){return!it.ok});
+  return '<div class="qwrap"><div class="eyebrow">Prova prática · resultado</div><div class="score">'+PR.ok+'<span class="muted" style="font-size:32px">/'+PR.items.length+'</span></div><p>Você ganhou <b>'+PR.pts+' pontos</b>.</p>'+
+  (miss.length?'<div class="card grid"><h3>Para revisar</h3>'+miss.map(function(it){return '<div class="small" style="border-top:1px solid var(--line);padding-top:6px"><b>'+esc(it.pin.n)+'</b> · '+esc(it.st.t)+(it.typed?' · você escreveu “'+esc(it.typed)+'”':'')+'</div>'}).join('')+'</div>':'')+
+  '<div class="actions"><button class="btn pri" data-act="prAgain">Jogar de novo</button><button class="btn ghost" data-act="prMenu">Trocar estações</button></div></div>';
+ }
+ var it=PR.items[PR.i],st=it.st,pin=it.pin,done=it.done;
+ var side='';
+ var head='<div class="qhead"><span class="eyebrow">Estação '+(PR.i+1)+' de '+PR.items.length+'</span>'+(PR.mode==='exam'?'<span class="timer num" id="timer">'+(done?'–':PR.left+' s')+'</span>':'<span class="small muted num">'+PR.ok+' acertos</span>')+'</div><div class="bar"><i style="width:'+(100*(PR.i+(done?1:0))/PR.items.length)+'%"></i></div>';
+ if(PR.mode==='spot'){
+  side='<h2>Qual é a estrutura marcada?</h2><div class="opts">'+it.opts.map(function(o,k){var c='';if(done){if(o===pin.n)c='right';else if(o===it.pick)c='wrong'}return '<button class="opt '+c+'" data-prp="'+esc(o)+'" '+(done?'disabled':'')+'><span class="k">'+'ABCD'[k]+'</span><span>'+esc(o)+'</span></button>'}).join('')+'</div>';
+ } else if(PR.mode==='tap'){
+  side='<h2>Toque em: <span style="color:var(--accent)">'+esc(pin.n)+'</span></h2>'+(st.note&&!done?'<p class="small muted">'+esc(st.note)+'</p>':'');
+ } else {
+  side='<h2>Qual é a estrutura marcada?</h2><form id="exForm" class="actions" style="align-items:stretch"><input class="in" id="exIn" style="flex:1;min-width:180px" autocomplete="off" '+(done?'disabled value="'+esc(it.typed||'')+'"':'')+' aria-label="Nome da estrutura"><button class="btn pri" '+(done?'disabled':'')+'>Responder</button></form>';
+  if(!done)afterFns.push(function(){var i=$('#exIn');i&&i.focus({preventScroll:true})});
+ }
+ if(done){side+='<div class="fb '+(it.ok?'good':'bad')+'"><span class="verdict">'+(it.ok?'Correto':(it.timeout?'Tempo esgotado':'Incorreto'))+'</span><h3>'+esc(pin.n)+'</h3>'+(pin.i?'<p>'+esc(pin.i)+'</p>':'')+(it.tapName&&!it.ok?'<p class="small muted">Você tocou em: '+esc(it.tapName)+'</p>':'')+'</div><div class="actions"><button class="btn dark" data-act="prNext">'+(PR.i+1>=PR.items.length?'Ver resultado':'Próxima estação')+'</button></div>'}
+ afterFns.push(function(){paintStation(it)});
+ return '<div class="qwrap" style="max-width:1080px">'+head+'<div class="stage">'+figure(st)+'<section class="grid" style="gap:12px;min-width:0">'+side+'</section></div></div>';
+}
+function figure(st){
+ if(st.kind==='svg')return '<figure class="fig" id="fig">'+(st.fig==='corte'?svgCorte():svgVista())+'<figcaption class="credit">Esquema didático original.</figcaption></figure>';
+ return '<figure class="fig"><div class="photo" id="photo"><img src="'+esc(st.src)+'" alt="'+esc(st.t)+'" draggable="false" id="phImg"></div><figcaption class="credit">'+esc(st.t)+(st.credit?' · <a href="'+esc(st.credit)+'" target="_blank" rel="noopener">fonte e licença</a>':'')+'</figcaption></figure>';
+}
+function paintStation(it){
+ var st=it.st,pin=it.pin,done=it.done;
+ if(st.kind==='svg'){
+  var svg=$('#fig svg');if(!svg)return;var p=SCHM[pin.sid];
+  var mark=function(id,cls){svg.querySelectorAll('[data-id="'+id+'"]').forEach(function(e){e.classList.add(cls)})};
+  if(PR.mode!=='tap'||done){mark(pin.sid,done?(it.ok?'ok':'hl'):'hl');
+   if(PR.mode!=='tap'){var ns='http://www.w3.org/2000/svg';[['spin pulse',9],['spin',6]].forEach(function(a){var c=document.createElementNS(ns,'circle');c.setAttribute('class',a[0]);c.setAttribute('cx',p.a[0]);c.setAttribute('cy',p.a[1]);c.setAttribute('r',a[1]);svg.appendChild(c)})}}
+  if(done&&it.tapSid&&!it.ok)mark(it.tapSid,'bad');
+  if(done&&PR.mode==='tap'&&it.ok)mark(pin.sid,'ok');
+ } else {
+  var box=$('#photo');if(!box)return;var img=$('#phImg');
+  img.onerror=function(){box.innerHTML='<div class="imgfail">A imagem não carregou. Verifique a internet ou abra a fonte original.</div>'};
+  var add=function(x,y,cls){var d=document.createElement('span');d.className='pin '+cls;d.style.left=(x*100)+'%';d.style.top=(y*100)+'%';box.appendChild(d)};
+  if(PR.mode!=='tap'||done)add(pin.x,pin.y,(done?(it.ok?'ok':''):'pulse'));
+  if(done&&it.tapXY&&!it.ok)add(it.tapXY[0],it.tapXY[1],'bad dot');
+ }
+}
+function prStart(){
+ var sts=allStations().filter(function(s){return PR.sel[s.id]!==false});
+ if(!sts.length){toast('Marque pelo menos uma estação.');return}
+ var pool=[];sts.forEach(function(s){s.pins.forEach(function(p){pool.push({st:s,pin:p})})});
+ var items=shuffle(pool).slice(0,10).map(function(x){
+  var others=shuffle(x.st.pins.filter(function(p){return p.n!==x.pin.n}).map(function(p){return p.n}));
+  if(others.length<3){var extra=shuffle(SCH.map(function(p){return p.n}).filter(function(n){return n!==x.pin.n&&others.indexOf(n)<0}));others=others.concat(extra)}
+  return{st:x.st,pin:x.pin,opts:shuffle([x.pin.n].concat(others.slice(0,3))),done:false}});
+ PR.items=items;PR.i=0;PR.ok=0;PR.pts=0;PR.phase='play';go('pratica');startPrTimer();
+}
+function startPrTimer(){stopTimers();if(PR.mode!=='exam')return;PR.left=45;timerH=setInterval(function(){PR.left--;var t=$('#timer');if(t){t.textContent=PR.left+' s';t.classList.toggle('low',PR.left<=10)}if(PR.left<=0){stopTimers();var it=PR.items[PR.i];if(!it.done){var v=$('#exIn')&&$('#exIn').value;prAnswer(v?close(v,it.pin.n):false,{typed:v||'',timeout:!v})}}},1000)}
+function prAnswer(ok,extra){var it=PR.items[PR.i];if(it.done)return;stopTimers();Object.assign(it,extra||{});it.done=true;it.ok=ok;if(ok){PR.ok++;PR.pts+=PR.mode==='exam'?15:10}S.keepScroll=true;render()}
+
+/* =========================================================
+   MONTE A VIA
+   ========================================================= */
+var VI=null;
+function vVia(){
+ var seqs=QB.filter(function(q){return q.t==='od'});
+ if(!VI){VI={idx:Math.floor(Math.random()*seqs.length),seq:[],err:0,pts:0,done:0}}
+ var q=seqs[VI.idx%seqs.length];if(!VI.pool)VI.pool=shuffle(q.s.map(function(_,i){return i}));
+ var fin=VI.seq.length===q.s.length;
+ return '<div class="qwrap"><div class="qhead"><span class="eyebrow">Games · Monte a via</span><span class="small muted num">'+VI.done+' concluídas · '+VI.pts+' pontos</span></div>'+
+ '<div class="chips"><span class="tag">'+esc(MOD[q.m].n)+'</span></div><h2>'+esc(q.q)+'</h2><p class="small muted">Toque no próximo passo. Erros custam pontos.</p>'+
+ '<ol class="seq">'+VI.seq.map(function(i){return '<li class="right"><span>'+esc(q.s[i])+'</span><span></span></li>'}).join('')+'</ol>'+
+ (fin?'<div class="fb good"><span class="verdict">Sequência completa · '+VI.err+' erro'+(VI.err===1?'':'s')+'</span><p>'+esc(q.e)+'</p></div><div class="actions"><button class="btn pri" data-act="viaNext">Próxima sequência</button><button class="btn ghost" data-nav="games">Sair</button></div>':
+ '<div class="opts">'+VI.pool.filter(function(i){return VI.seq.indexOf(i)<0}).map(function(i){return '<button class="opt" data-vi="'+i+'" style="grid-template-columns:1fr"><span>'+esc(q.s[i])+'</span></button>'}).join('')+'</div><p class="small muted num">Erros nesta sequência: '+VI.err+'</p>')+'</div>';
+}
+
+/* =========================================================
+   ONDE ESTÁ A LESÃO
+   ========================================================= */
+var LE=null;
+function vLesao(){
+ if(!LE)LE={items:shuffle(LESIONS).slice(0,8),i:0,pts:0,ok:0,l:null,s:null,done:false};
+ if(LE.i>=LE.items.length)return '<div class="qwrap"><div class="eyebrow">Onde está a lesão · resultado</div><div class="score">'+LE.ok+'<span class="muted" style="font-size:32px">/'+LE.items.length+'</span></div><p>Você ganhou <b>'+LE.pts+' pontos</b>.</p><div class="actions"><button class="btn pri" data-act="leAgain">Nova rodada</button><button class="btn ghost" data-nav="games">Sair</button></div></div>';
+ var c=LE.items[LE.i],d=LE.done;
+ var lv=function(arr,key,ans){return arr.map(function(a){var cls='';if(d){if(a[0]===ans)cls='right';else if(a[0]===LE[key])cls='wrong'}return '<button class="lv '+cls+'" data-le'+key+'="'+a[0]+'" aria-pressed="'+(LE[key]===a[0])+'" '+(d?'disabled':'')+'>'+a[1]+'</button>'}).join('')};
+ return '<div class="qwrap"><div class="qhead"><span class="eyebrow">Caso '+(LE.i+1)+' de '+LE.items.length+'</span><span class="small muted num">'+LE.pts+' pontos</span></div><div class="bar"><i style="width:'+(100*(LE.i+(d?1:0))/LE.items.length)+'%"></i></div>'+
+ '<p class="stem case">'+esc(c.q)+'</p><h3>Nível da lesão</h3><div class="lvls">'+lv(LEVELS,'l',c.l)+'</div><h3>Lado</h3><div class="lvls">'+lv(SIDES,'s',c.s)+'</div>'+
+ (d?'<div class="fb '+(LE.l===c.l&&LE.s===c.s?'good':'bad')+'"><span class="verdict">'+(LE.l===c.l?'Nível certo':'Nível errado')+' · '+(LE.s===c.s?'lado certo':'lado errado')+'</span><p>'+esc(c.e)+'</p></div><div class="actions"><button class="btn dark" data-act="leNext">'+(LE.i+1>=LE.items.length?'Ver resultado':'Próximo caso')+'</button></div>':
+ '<div class="actions"><button class="btn pri" data-act="leCheck" '+(LE.l&&LE.s?'':'disabled')+'>Conferir</button></div>')+'</div>';
+}
+
+/* =========================================================
+   NERVOS CRANIANOS CONTRA O RELÓGIO
+   ========================================================= */
+var NV=null;
+function nvQ(){var n=NERVES[Math.floor(Math.random()*NERVES.length)],k=NERVE_KEYS[Math.floor(Math.random()*NERVE_KEYS.length)];var vals=[];NERVES.forEach(function(x){if(x[k[0]]!==n[k[0]]&&vals.indexOf(x[k[0]])<0)vals.push(x[k[0]])});return{n:n,k:k,opts:shuffle([n[k[0]]].concat(shuffle(vals).slice(0,3)))}}
+function vNervos(){
+ if(!NV||NV.phase==='intro')return '<div class="qwrap"><div class="eyebrow">Games · Nervos cranianos</div><h1>60 segundos</h1><p>Para cada nervo, escolha o forame, a função ou a origem aparente. Cada acerto vale 10 pontos, e a sequência de acertos soma bônus.</p>'+(NV&&NV.best?'<p class="muted">Seu melhor nesta sessão: '+NV.best+' pontos.</p>':'')+'<div class="actions"><button class="btn pri" data-act="nvStart">Começar</button></div></div>';
+ if(NV.phase==='end')return '<div class="qwrap"><div class="eyebrow">Tempo esgotado</div><div class="score">'+NV.pts+'</div><p>'+NV.ok+' acertos em '+NV.n+' respostas. Maior sequência: '+NV.maxStreak+'.</p><div class="actions"><button class="btn pri" data-act="nvStart">Jogar de novo</button><button class="btn ghost" data-nav="games">Sair</button></div></div>';
+ var q=NV.q;
+ return '<div class="qwrap"><div class="qhead"><span class="timer num" id="nvT">'+NV.left+' s</span><span class="small muted num">'+NV.pts+' pontos · sequência '+NV.streak+'</span></div>'+
+ '<div class="card" style="text-align:center;display:grid;gap:4px"><span class="eyebrow">Nervo '+q.n.r+'</span><h1>'+esc(q.n.n)+'</h1><p class="muted">'+esc(q.k[1])+'</p></div>'+
+ '<div class="opts" id="nvOpts">'+q.opts.map(function(o,k){return '<button class="opt" data-nv="'+esc(o)+'"><span class="k">'+'ABCD'[k]+'</span><span>'+esc(o)+'</span></button>'}).join('')+'</div></div>';
+}
+function nvStart(){var best=NV&&NV.best||0;NV={phase:'play',left:60,pts:0,ok:0,n:0,streak:0,maxStreak:0,best:best,q:nvQ()};go('nervos');
+ timerH=setInterval(function(){NV.left--;var t=$('#nvT');if(t){t.textContent=NV.left+' s';t.classList.toggle('low',NV.left<=10)}if(NV.left<=0){stopTimers();NV.phase='end';NV.best=Math.max(NV.best,NV.pts);if(NV.pts)addGameXp('nervos',Math.round(NV.pts/2));render()}},1000)}
+
+/* =========================================================
+   RANKING
+   ========================================================= */
+var RK={tab:'geral',mod:'',turma:false};
+function vRanking(){
+ if(!S.scores){loadScores();return '<div class="top"><h1>Ranking</h1></div><p class="muted">Carregando o ranking da turma…</p>'}
+ var arr=Object.keys(S.scores).map(function(k){var s=S.scores[k]||{};var v=RK.tab==='geral'?(s.xp||0):RK.tab==='semana'?((s.week&&s.week.id===weekId())?s.week.xp:0):((s.mods&&s.mods[RK.mod]&&s.mods[RK.mod].xp)||0);var a=RK.tab==='modulo'?((s.mods&&s.mods[RK.mod])||{a:0,c:0}):s;return{uid:k,name:s.name||'Estudante',turma:s.turma||'',v:v,acc:pct(a.c||a.correct||0,a.a||a.answered||0)}});
+ if(RK.turma&&S.user.turma)arr=arr.filter(function(r){return r.turma===S.user.turma});
+ arr=arr.filter(function(r){return r.v>0||r.uid===S.user.uid}).sort(function(a,b){return b.v-a.v});
+ var top=arr.slice(0,3);
+ var pod=top.length>=3?'<div class="podium">'+[1,0,2].map(function(i){var r=top[i];return '<div class="pod p'+(i+1)+'"><b>'+(i+1)+'º</b><span class="nm">'+esc(r.name)+'</span><span class="num small muted">'+r.v+' pts</span></div>'}).join('')+'</div>':'';
+ return '<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Modo local · só este aparelho')+'</div><h1>Ranking</h1></div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
+ '<div class="chips">'+[['geral','Geral'],['semana','Esta semana'],['modulo','Por módulo']].map(function(t){return '<button class="chip" data-rk="'+t[0]+'" aria-pressed="'+(RK.tab===t[0])+'">'+t[1]+'</button>'}).join('')+(S.user.turma?'<button class="chip" data-act="rkTurma" aria-pressed="'+RK.turma+'">Só '+esc(S.user.turma)+'</button>':'')+'</div>'+
+ (RK.tab==='modulo'?'<select class="in" id="rkMod" aria-label="Módulo">'+MODULES.map(function(m){return '<option value="'+m.id+'" '+(RK.mod===m.id?'selected':'')+'>'+esc(m.n)+'</option>'}).join('')+'</select>':'')+
+ pod+'<div class="rank">'+(arr.length?arr.map(function(r,i){return '<div class="rrow'+(r.uid===S.user.uid?' me':'')+'"><span class="pos">'+(i+1)+'</span><span class="nm">'+esc(r.name)+(r.turma?' <span class="small muted" style="font-weight:400">· '+esc(r.turma)+'</span>':'')+'</span><span class="xp">'+r.v+'</span><span class="acc">'+r.acc+'%</span></div>'}).join(''):'<p class="muted">Ninguém pontuou ainda neste recorte.</p>')+'</div>'+
+ '<p class="small muted">Pontos: 10, 15 ou 20 por acerto conforme a dificuldade, mais pontos dos games. A porcentagem é o acerto nas questões.</p>';
+}
+
+/* =========================================================
+   PERFIL
+   ========================================================= */
+function vPerfil(){
+ var st=S.priv.stats,th=lsGet('upmed2_theme','system');
+ return '<div class="top"><div><div class="eyebrow">'+esc(S.user.email)+'</div><h1>'+esc(S.user.name)+'</h1>'+(S.user.turma?'<p class="muted">'+esc(S.user.turma)+'</p>':'')+'</div><button class="btn ghost" data-act="logout">Sair</button></div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Esta semana</span><b>'+(st.week.id===weekId()?st.week.xp:0)+'</b></div><div class="stat"><span class="eyebrow">Respondidas</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div></div>'+
+ '<div class="card grid"><h3>Desempenho por módulo</h3>'+MODULES.map(function(m){var s=modStats(m.id);return '<div style="display:grid;gap:4px"><div style="display:flex;justify-content:space-between;gap:8px" class="small"><span>'+esc(m.n)+'</span><span class="num muted">'+(s.a?s.acc+'% · '+s.a+' resp.':'–')+'</span></div>'+meter(s.acc,s.a)+'</div>'}).join('')+'</div>'+
+ '<div class="card grid"><h3>Aparência</h3><div class="chips">'+[['system','Automático'],['light','Claro'],['dark','Escuro']].map(function(t){return '<button class="chip" data-theme-set="'+t[0]+'" aria-pressed="'+(th===t[0])+'">'+t[1]+'</button>'}).join('')+'</div></div>'+
+ (S.admin?'<div class="card grid"><h3>Administração</h3><p class="small muted">Você pode criar estações de prova prática com fotos.</p><div class="actions"><button class="btn dark" data-nav="editor">Editor de estações</button></div></div>':'')+
+ '<div class="card grid"><h3>Sobre</h3><p class="small muted">Up-MED study · versão '+APP_VERSION+' · '+(Store.mode==='firebase'?'online':'modo local')+'</p><div class="actions"><button class="btn ghost sm" data-act="versions">Histórico de versões</button></div></div>';
+}
+function showVersions(){modal('<h2>Histórico de versões</h2>'+VERSIONS.map(function(v){return '<div class="grid" style="gap:6px;border-top:1px solid var(--line);padding-top:10px"><h3>'+v.v+' · '+v.date+'</h3><b class="small">Mudanças</b><ul class="small" style="margin:0;padding-left:18px">'+v.changes.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul><b class="small">Critérios de teste</b><ul class="small" style="margin:0;padding-left:18px">'+v.tests.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul><b class="small">Análise crítica</b><p class="small">'+esc(v.analysis)+'</p></div>'}).join('')+'<div class="actions"><button class="btn dark" data-close>Fechar</button></div>')}
+
+/* =========================================================
+   EDITOR DE ESTAÇÕES (administradores)
+   ========================================================= */
+var ED=null;
+function vEditor(){
+ if(!S.admin)return '<p>Somente administradores podem editar estações.</p>';
+ if(!ED||!ED.st){
+  var mine=Object.keys(S.stations).map(function(k){return S.stations[k]});
+  return '<div class="top"><div><div class="eyebrow">Administração</div><h1>Editor de estações</h1></div><button class="btn ghost" data-nav="pratica">Voltar</button></div>'+
+  '<div class="card grid"><h3>Fotos do acervo aberto</h3><p class="small muted">Escolha uma foto, toque em cada estrutura da lista e depois no lugar dela na imagem. Use o gabarito legendado quando houver.</p><div class="grid" style="gap:6px">'+PHOTOS.map(function(p){var done=S.stations['ph-'+p.id];return '<button class="mod" style="min-height:0" data-edph="'+p.id+'"><div class="row"><b>'+esc(p.t)+'</b><span class="tag'+(done?'':' amb')+'">'+(done?done.pins.length+' marcadas':'pendente')+'</span></div></button>'}).join('')+'</div></div>'+
+  '<div class="card grid"><h3>Sua própria foto</h3><p class="small muted">Foto do laboratório. A imagem é reduzida antes de salvar.</p><label class="f">Título da estação<input class="in" id="edTitle" placeholder="Ex.: Peça 3 · base do encéfalo"></label><label class="f">Arquivo<input class="in" type="file" id="edFile" accept="image/*"></label><label class="f">ou endereço de imagem (https)<input class="in" id="edUrl" placeholder="https://…"></label><div class="actions"><button class="btn pri" data-act="edOwn">Abrir no editor</button></div></div>'+
+  (mine.filter(function(s){return!s.photo}).length?'<div class="card grid"><h3>Estações próprias</h3>'+mine.filter(function(s){return!s.photo}).map(function(s){return '<div style="display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:8px"><span>'+esc(s.t)+' <span class="muted small">· '+s.pins.length+'</span></span><span class="actions"><button class="btn ghost sm" data-edopen="'+s.id+'">Editar</button></span></div>'}).join('')+'</div>':'');
+ }
+ var st=ED.st,cur=ED.cur;
+ var names=ED.list;
+ return '<div class="top"><div><div class="eyebrow">Editor</div><h2>'+esc(st.t)+'</h2></div><div class="actions"><button class="btn ghost sm" data-act="edBack">Voltar</button>'+(S.stations[st.id]?'<button class="btn ghost sm" data-act="edDel">Excluir</button>':'')+'<button class="btn pri sm" data-act="edSave">Salvar e publicar</button></div></div>'+
+ '<div class="stage"><figure class="fig"><div class="photo" id="photo" style="cursor:crosshair"><img src="'+esc(st.src)+'" alt="" id="phImg" draggable="false"></div><figcaption class="credit">'+(st.credit?'<a href="'+esc(st.credit)+'" target="_blank" rel="noopener">Fonte e licença</a>':'Foto própria')+(ED.key?' · <a href="'+esc(ED.key)+'" target="_blank" rel="noopener">Gabarito legendado</a>':'')+'</figcaption></figure>'+
+ '<section class="grid" style="gap:10px;min-width:0"><p class="small">'+(cur!=null?'Agora toque na foto para marcar: <b>'+esc(names[cur])+'</b>':'Escolha uma estrutura na lista.')+'</p>'+
+ '<div class="edlist">'+names.map(function(n,i){var pn=st.pins.find(function(p){return p.n===n});var sk=ED.skip[n];return '<button class="'+(i===cur?'cur':'')+'" data-edn="'+i+'"><span class="st '+(pn?'on':sk?'skip':'')+'"></span><span>'+esc(n)+'</span><span class="small muted">'+(pn?'marcada':sk?'não visível':'')+'</span></button>'}).join('')+'</div>'+
+ '<div class="actions">'+(cur!=null?'<button class="btn ghost sm" data-act="edSkip">Não visível nesta foto</button>':'')+(cur!=null&&st.pins.find(function(p){return p.n===names[cur]})?'<button class="btn ghost sm" data-act="edUnpin">Apagar marcação</button>':'')+'</div>'+
+ '<form id="edAddForm" class="actions"><input class="in" id="edAdd" placeholder="Outra estrutura" style="flex:1;min-width:150px"><button class="btn ghost sm">Adicionar</button></form>'+
+ '<p class="small muted num">'+st.pins.length+' estruturas marcadas. Uma estação precisa de pelo menos 2.</p></section></div>';
+}
+function edOpen(st,list,key){ED={st:st,list:list.slice(),cur:0,skip:{},key:key||''};st.pins.forEach(function(p){if(ED.list.indexOf(p.n)<0)ED.list.push(p.n)});go('editor')}
+function edPaint(){
+ var box=$('#photo');if(!box||!ED)return;var im=$('#phImg');if(im&&!im.dataset.h){im.dataset.h='1';im.onerror=function(){box.innerHTML='<div class="imgfail">A imagem não carregou. Verifique a internet ou o endereço da foto.</div>'}}
+ box.querySelectorAll('.pin,.lbl').forEach(function(e){e.remove()});
+ ED.st.pins.forEach(function(p){var d=document.createElement('span');var isCur=ED.list[ED.cur]===p.n;d.className='pin dot'+(isCur?' cur':'');d.style.left=(p.x*100)+'%';d.style.top=(p.y*100)+'%';box.appendChild(d);
+  if(isCur){var l=document.createElement('span');l.className='lbl';l.textContent=p.n;l.style.left=(p.x*100)+'%';l.style.top=(p.y*100)+'%';box.appendChild(l)}});
+}
+function resizeImage(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){var img=new Image();img.onload=function(){var max=1100,w=img.width,h=img.height,s=Math.min(1,max/Math.max(w,h));var c=document.createElement('canvas');c.width=Math.round(w*s);c.height=Math.round(h*s);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.78))};img.onerror=rej;img.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
+
+/* =========================================================
+   EVENTOS
+   ========================================================= */
+document.addEventListener('click',function(e){
+ var b=e.target.closest('button,[data-prs]');
+ /* login */
+ if(b&&b.dataset.am){authMode=b.dataset.am;renderAuthKeep();return}
+ if(b&&b.id==='aReset'){var em=$('#aEmail').value;if(!em){renderAuthKeep('Digite seu e-mail acima e toque de novo em "Esqueci a senha".');return}Store.reset(em).then(function(){renderAuthKeep('Enviamos um link de redefinição para '+em+'.','ok')}).catch(function(err){renderAuthKeep(errMsg(err))});return}
+ /* toque em foto (jogo e editor) */
+ var ph=e.target.closest('#photo');
+ if(ph&&!b){var r=ph.getBoundingClientRect(),img=$('#phImg');if(img){var ir=img.getBoundingClientRect();var x=(e.clientX-ir.left)/ir.width,y=(e.clientY-ir.top)/ir.height;if(x<0||x>1||y<0||y>1)return;
+   if(S.view==='editor'&&ED&&ED.cur!=null){var n=ED.list[ED.cur];ED.st.pins=ED.st.pins.filter(function(p){return p.n!==n});ED.st.pins.push({n:n,x:+x.toFixed(4),y:+y.toFixed(4)});delete ED.skip[n];var nx=ED.list.findIndex(function(nm,i){return i>ED.cur&&!ED.st.pins.find(function(p){return p.n===nm})&&!ED.skip[nm]});ED.cur=nx<0?null:nx;S.keepScroll=true;render();return}
+   if(S.view==='pratica'&&PR&&PR.phase==='play'&&PR.mode==='tap'){var it=PR.items[PR.i];if(it.done)return;var W=ir.width,H=ir.height;var best=null,bd=1e9;it.st.pins.forEach(function(p){var d=Math.hypot((p.x-x)*W,(p.y-y)*H);if(d<bd){bd=d;best=p}});var ok=best===it.pin&&bd<0.12*W;prAnswer(ok,{tapXY:[x,y],tapName:best?best.n:''});return}
+  }}
+ /* toque em SVG */
+ var sv=e.target.closest('#fig [data-id]');
+ if(sv&&S.view==='pratica'&&PR&&PR.phase==='play'&&PR.mode==='tap'){var it2=PR.items[PR.i];if(!it2.done){var sid=sv.dataset.id;prAnswer(sid===it2.pin.sid,{tapSid:sid,tapName:(SCHM[sid]||{}).n||''})}return}
+ if(!b)return;
+ var d=b.dataset;
+ if(d.nav){if(d.nav==='pratica'&&PR)PR.phase='menu';if(d.nav==='nervos'&&NV)NV.phase='intro';if(d.nav==='lesao'&&LE&&LE.i>=LE.items.length)LE=null;if(d.nav==='editor')ED=null;go(d.nav);if(d.nav==='games'||d.nav==='pratica'||d.nav==='editor')refreshStations();return}
+ if(d.mod){startQuiz(pickQuestions(QB.filter(function(q){return q.m===d.mod}),10),MOD[d.mod].n);return}
+ if(d.act==='sim'){startQuiz(pickQuestions(QB,20),'Simulado misto');return}
+ if(d.act==='errs'){var ids=Object.keys(S.priv.errs).filter(function(k){return QBY[k]});startQuiz(shuffle(ids.map(function(k){return QBY[k]})).slice(0,20),'Revisão de erros');return}
+ /* filtros */
+ if(d.ft){F.types[d.ft]=!F.types[d.ft];S.keepScroll=true;render();return}
+ if(d.fd!=null){F.diff=+d.fd;S.keepScroll=true;render();return}
+ if(d.fn){F.n=+d.fn;S.keepScroll=true;render();return}
+ if(d.act==='startF'){var pool=filterPool();startQuiz(pickQuestions(pool,F.n),F.mod?MOD[F.mod].n:'Sessão personalizada');return}
+ /* quiz */
+ var Z=S.quiz,P=Z&&!Z.finished&&Z.list[Z.i];
+ if(d.pick!=null&&P&&!Z.done){P.pick=+d.pick;finishQ(P.q.t==='ar'?P.pick===P.q.k:P.pick===0);return}
+ if(d.vf!=null&&P&&!Z.done){P.v[d.vf]=d.val==='1';S.keepScroll=true;render();return}
+ if(d.od!=null&&P&&!Z.done){P.seq.push(+d.od);S.keepScroll=true;render();return}
+ if(d.unod!=null&&P&&!Z.done){P.seq.splice(+d.unod,1);S.keepScroll=true;render();return}
+ if(d.act==='check'&&P&&!Z.done){var q=P.q,okc=0,tot=0;
+  if(q.t==='vf'){q.s.forEach(function(s,i){tot++;if(P.v[i]===s[1])okc++})}
+  if(q.t==='as'){q.p.forEach(function(p,i){tot++;if(P.v[i]===p[1])okc++})}
+  if(q.t==='od'){q.s.forEach(function(_,i){tot++;if(P.seq[i]===i)okc++})}
+  finishQ(okc===tot,okc/tot);return}
+ if(d.act==='next'&&Z){if(Z.i+1>=Z.list.length){Z.finished=true;S.priv.hist.unshift({t:Date.now(),k:'quiz',title:Z.title,ok:Z.ok,n:Z.list.length,xp:Z.xp});S.priv.hist=S.priv.hist.slice(0,60);persist()}else{Z.i++;Z.done=false}render();window.scrollTo(0,0);return}
+ if(d.act==='again'&&Z){var same=Z.list.map(function(p){return p.q});var m=same[0].m,all=same.every(function(q){return q.m===m});startQuiz(pickQuestions(all?QB.filter(function(q){return q.m===m}):QB,same.length),Z.title);return}
+ /* prática */
+ if(d.prm){PR.mode=d.prm;S.keepScroll=true;render();return}
+ if(d.act==='prStart'){prStart();return}
+ if(d.prp!=null&&PR&&PR.phase==='play'){var it3=PR.items[PR.i];if(!it3.done){it3.pick=d.prp;prAnswer(d.prp===it3.pin.n)}return}
+ if(d.act==='prNext'){if(PR.i+1>=PR.items.length){PR.phase='end';if(PR.pts)addGameXp('pratica',PR.pts)}else{PR.i++;startPrTimer()}render();window.scrollTo(0,0);return}
+ if(d.act==='prAgain'){prStart();return}
+ if(d.act==='prMenu'){PR.phase='menu';go('pratica');return}
+ /* via */
+ if(d.vi!=null&&VI){var seqs=QB.filter(function(q){return q.t==='od'});var qq=seqs[VI.idx%seqs.length];var i=+d.vi;if(i===VI.seq.length){VI.seq.push(i);if(VI.seq.length===qq.s.length){var pts=Math.max(2,qq.s.length*3-VI.err*3);VI.pts+=pts;VI.done++;addGameXp('via',pts)}S.keepScroll=true;render()}else{VI.err++;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake','wrong');setTimeout(function(){b.classList.remove('wrong')},400);var ce=document.querySelector('.qwrap p.num:last-child');if(ce)ce.textContent='Erros nesta sequência: '+VI.err}return}
+ if(d.act==='viaNext'){var sq=QB.filter(function(q){return q.t==='od'});VI.idx=(VI.idx+1+Math.floor(Math.random()*(sq.length-1)))%sq.length;VI.seq=[];VI.err=0;VI.pool=null;render();window.scrollTo(0,0);return}
+ /* lesão */
+ if(d.lel&&LE&&!LE.done){LE.l=d.lel;S.keepScroll=true;render();return}
+ if(d.les&&LE&&!LE.done){LE.s=d.les;S.keepScroll=true;render();return}
+ if(d.act==='leCheck'){var c=LE.items[LE.i];LE.done=true;var g=(LE.l===c.l?10:0)+(LE.s===c.s?5:0);LE.pts+=g;if(LE.l===c.l&&LE.s===c.s)LE.ok++;S.keepScroll=true;render();return}
+ if(d.act==='leNext'){LE.i++;LE.l=LE.s=null;LE.done=false;if(LE.i>=LE.items.length&&LE.pts)addGameXp('lesao',LE.pts);render();window.scrollTo(0,0);return}
+ if(d.act==='leAgain'){LE=null;render();return}
+ /* nervos */
+ if(d.act==='nvStart'){nvStart();return}
+ if(d.nv!=null&&NV&&NV.phase==='play'){var okn=d.nv===NV.q.n[NV.q.k[0]];NV.n++;if(okn){NV.ok++;NV.streak++;NV.maxStreak=Math.max(NV.maxStreak,NV.streak);NV.pts+=10+Math.min(10,(NV.streak-1)*2)}else NV.streak=0;
+  b.classList.add(okn?'right':'wrong');if(!okn){var rb=Array.prototype.find.call(document.querySelectorAll('[data-nv]'),function(x){return x.dataset.nv===NV.q.n[NV.q.k[0]]});rb&&rb.classList.add('right')}
+  document.querySelectorAll('[data-nv]').forEach(function(x){x.disabled=true});setTimeout(function(){if(NV.phase!=='play')return;NV.q=nvQ();render()},okn?350:1100);return}
+ /* ranking */
+ if(d.rk){RK.tab=d.rk;if(d.rk==='modulo'&&!RK.mod)RK.mod=MODULES[0].id;S.keepScroll=true;render();return}
+ if(d.act==='rkTurma'){RK.turma=!RK.turma;S.keepScroll=true;render();return}
+ if(d.act==='rkRefresh'){S.scores=null;render();return}
+ /* perfil */
+ if(d.themeSet){lsSet('upmed2_theme',d.themeSet);applyTheme(d.themeSet);S.keepScroll=true;render();return}
+ if(d.act==='logout'){Store.signOut();return}
+ if(d.act==='versions'){showVersions();return}
+ /* editor */
+ if(d.edph){var p=PHOTO[d.edph];var ex=S.stations['ph-'+p.id];edOpen(ex?JSON.parse(JSON.stringify(ex)):{id:'ph-'+p.id,photo:p.id,t:p.t,src:commonsSrc(p.f),credit:commonsPage(p.f),pins:[]},p.list,p.key?commonsPage(p.key):'');return}
+ if(d.edopen){var s=JSON.parse(JSON.stringify(S.stations[d.edopen]));edOpen(s,[],'');return}
+ if(d.act==='edOwn'){var t=$('#edTitle').value.trim()||'Estação própria',f=$('#edFile').files[0],u=$('#edUrl').value.trim();var id='own-'+cyrb53(t+Date.now());
+  if(f){b.disabled=true;b.textContent='Preparando…';resizeImage(f).then(function(src){edOpen({id:id,t:t,src:src,credit:'',pins:[]},[],'')}).catch(function(){toast('Não foi possível ler essa imagem.');b.disabled=false;b.textContent='Abrir no editor'})}
+  else if(/^https:\/\//.test(u))edOpen({id:id,t:t,src:u,credit:u,pins:[]},[],'');else toast('Escolha um arquivo ou cole um endereço https.');return}
+ if(d.edn!=null){ED.cur=+d.edn;S.keepScroll=true;render();return}
+ if(d.act==='edSkip'){var nm=ED.list[ED.cur];ED.skip[nm]=true;ED.st.pins=ED.st.pins.filter(function(p){return p.n!==nm});var nx=ED.list.findIndex(function(n2,i){return i>ED.cur&&!ED.st.pins.find(function(p){return p.n===n2})&&!ED.skip[n2]});ED.cur=nx<0?null:nx;S.keepScroll=true;render();return}
+ if(d.act==='edUnpin'){var nm2=ED.list[ED.cur];ED.st.pins=ED.st.pins.filter(function(p){return p.n!==nm2});S.keepScroll=true;render();return}
+ if(d.act==='edBack'){ED=null;go('editor');return}
+ if(d.act==='edSave'){if(ED.st.pins.length<2){toast('Marque pelo menos 2 estruturas.');return}ED.st.by=S.user.uid;ED.st.at=Date.now();b.disabled=true;Store.saveStation(ED.st).then(function(){S.stations[ED.st.id]=ED.st;toast('Estação publicada para a turma.');ED=null;go('editor')}).catch(function(err){b.disabled=false;toast(errMsg(err))});return}
+ if(d.act==='edDel'){if(b.dataset.confirm!=='1'){b.dataset.confirm='1';b.textContent='Tocar de novo para excluir';return}Store.deleteStation(ED.st.id).then(function(){delete S.stations[ED.st.id];toast('Estação excluída.');ED=null;go('editor')}).catch(function(err){toast(errMsg(err))});return}
+});
+document.addEventListener('change',function(e){
+ var t=e.target;
+ if(t.id==='fMod'){F.mod=t.value;S.keepScroll=true;render();return}
+ if(t.dataset&&t.dataset.as!=null){var P=S.quiz.list[S.quiz.i];P.v[t.dataset.as]=t.value;S.keepScroll=true;render();return}
+ if(t.dataset&&t.dataset.prs){PR.sel[t.dataset.prs]=t.checked;return}
+ if(t.id==='rkMod'){RK.mod=t.value;S.keepScroll=true;render();return}
+});
+document.addEventListener('submit',function(e){
+ if(e.target.id==='gpForm'){e.preventDefault();var Z=S.quiz,P=Z.list[Z.i];if(Z.done)return;var v=$('#gpIn').value;if(!v.trim())return;P.typed=v;finishQ(P.q.a.some(function(a){return close(v,a)}));return}
+ if(e.target.id==='exForm'){e.preventDefault();var it=PR.items[PR.i];if(it.done)return;var v2=$('#exIn').value;if(!v2.trim())return;prAnswer(close(v2,it.pin.n),{typed:v2});return}
+ if(e.target.id==='edAddForm'){e.preventDefault();var n=$('#edAdd').value.trim();if(!n)return;if(ED.list.indexOf(n)<0)ED.list.push(n);ED.cur=ED.list.indexOf(n);S.keepScroll=true;render();return}
+});
+var _after=after;after=function(){_after();if(S.view==='editor'&&ED&&ED.st)edPaint()};
+
+function refreshStations(){Store.listStations().then(function(s){var before=JSON.stringify(Object.keys(S.stations));S.stations=s||{};if(before!==JSON.stringify(Object.keys(S.stations))&&(S.view==='games'||(S.view==='pratica'&&PR&&PR.phase==='menu')||(S.view==='editor'&&!(ED&&ED.st)))){S.keepScroll=true;render()}}).catch(function(){})}
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+function onUser(u){
+ if(!u){S.user=null;S.priv=null;S.scores=null;S.admin=false;authMode='in';render();return}
+ S.user=u;$('#app').innerHTML='<div style="padding:40px;text-align:center" class="muted">Carregando seu progresso…</div>';
+ Promise.all([Store.loadPrivate(u.uid).catch(function(){return null}),Store.isAdmin(u.uid),Store.listStations().catch(function(){return{}})]).then(function(r){
+  var p=r[0]||blankPriv();var b=blankPriv();Object.keys(b).forEach(function(k){if(p[k]==null)p[k]=b[k]});if(!p.stats.mods)p.stats.mods={};if(!p.stats.week)p.stats.week=b.stats.week;if(!Array.isArray(p.hist))p.hist=Object.values(p.hist||{});
+  S.priv=p;S.admin=r[1];S.stations=r[2]||{};S.view='painel';render();persist();
+ });
+}
+function boot(){
+ var cfg=window.FIREBASE_CONFIG;
+ if(cfg&&cfg.apiKey&&cfg.databaseURL){
+  $('#app').innerHTML='<div style="padding:40px;text-align:center" class="muted">Conectando…</div>';
+  FirebaseStore.init(cfg).then(function(){Store=FirebaseStore;Store.onUser(onUser)}).catch(function(e){console.warn(e);S.fbError='Não foi possível conectar ao Firebase agora.';Store=LocalStore;Store.onUser(onUser)});
+ } else {Store=LocalStore;Store.onUser(onUser)}
+}
+window.UPMED={boot:boot};
+boot();
+})();
+
+</script>
+</body>
+</html>
