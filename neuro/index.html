@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Up-MED study</title>
 <meta name="description" content="Neuroanatomia em questões, prova prática e ranking da turma.">
-<meta name="theme-color" content="#F5F7F4">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2711%27 fill=%27%231E6B4E%27/%3E%3Cellipse cx=%2720%27 cy=%2720.5%27 rx=%2713.5%27 ry=%2710.5%27 fill=%27%23F2F7F4%27/%3E%3C/svg%3E">
+<meta name="theme-color" content="#D3E8DA">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
 <meta http-equiv="Cache-Control" content="no-cache">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -520,6 +522,31 @@ input.in,select.in,textarea.in{border-color:var(--line);border-radius:10px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sv-my:#2C5A4C;--sv-my2:#477F6D;--sv-edge:#8DB5A4;--sv-gray:#D6CDC4;--sv-grayEdge:#A8998D;--sv-gel:#E6DED5;--sv-deep:#A0846F;--sv-pia:#C08A78;--sv-nerve:#A99F8D;--sv-gang:#8F856F;--sv-csf:#1C3530}}
 :root[data-theme="dark"]{--sv-my:#2C5A4C;--sv-my2:#477F6D;--sv-edge:#8DB5A4;--sv-gray:#D6CDC4;--sv-grayEdge:#A8998D;--sv-gel:#E6DED5;--sv-deep:#A0846F;--sv-pia:#C08A78;--sv-nerve:#A99F8D;--sv-gang:#8F856F;--sv-csf:#1C3530}
 
+/* ===== v2.3 — barra lateral verde-sálvia, telas em branco, ícone M ===== */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface2:#F3F7F4; --line:#E3EAE5;
+  --brand:#D3E8DA; --brandInk:#16382A; --navHover:rgba(22,56,42,.07); --navActive:#FFFFFF; --sideLine:rgba(22,56,42,.14); --logoEm:#3F7A60;
+  --logoBg:#1E6B4E; --logoFg:#FFFFFF; --logoUp:#D4AF4F;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--logoUp:#E2C46A}}
+:root[data-theme="dark"]{--logoUp:#E2C46A}
+.side{border-right:1px solid var(--sideLine)}
+.side .foot{border-top-color:var(--sideLine)}
+.side .wmark b{color:var(--brandInk)}
+.navb{color:color-mix(in srgb,var(--brandInk) 72%,transparent)}
+.navb:hover{color:var(--brandInk)}
+.navb[aria-current="page"]{background:var(--navActive);color:var(--accent);box-shadow:0 1px 3px rgba(22,56,42,.10)}
+.side .av{border-color:var(--surface)}
+.bottom{background:var(--brand);border-top:1px solid var(--sideLine);box-shadow:none}
+.bottom .navb{color:color-mix(in srgb,var(--brandInk) 72%,transparent)}
+.bottom .navb[aria-current="page"]{color:var(--accent)}
+.bottom .navb[aria-current="page"] svg{background:var(--navActive)}
+.auth{background:var(--brand);color:var(--brandInk)}
+.auth-hero .mark span{color:var(--accent)}
+.auth-hero p{color:color-mix(in srgb,var(--brandInk) 80%,transparent)}
+.auth-logo .logo-mark{--logoBg:#1E6B4E;--logoFg:#FFFFFF}
+.card,.stat,.mod,.game,.fig,.badge,.sres,.rrow{box-shadow:0 1px 2px rgba(16,40,30,.04),0 4px 14px rgba(16,40,30,.05)}
+
 </style>
 </head>
 <body>
@@ -555,8 +582,11 @@ function ar(m,d,a,r,k,e){return{m:m,d:d,t:'ar',a:a,r:r,k:k,e:e}}
 function od(m,d,q,s,e){return{m:m,d:d,t:'od',q:q,s:s,e:e}}
 function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 
-var APP_VERSION='2.2.0';
+var APP_VERSION='2.3.0';
 var VERSIONS=[
+ {v:'2.3.0',date:'18/10/2026',changes:['Novo ícone: letra M com seta ascendente, em todo o site e no ícone do app.','Barra lateral (e barra inferior no celular) em verde-sálvia; demais telas com fundo branco.','Instalável no celular como aplicativo, com ícone próprio e funcionamento sem internet.','Atualização automática: a plataforma sempre busca a versão mais nova quando há conexão.','Atalhos de teclado no computador: A–E ou 1–5 escolhem a alternativa, Enter avança.'],
+  tests:['Instalar na tela inicial do tablet e abrir sem internet.','Conferir se a próxima atualização aparece sem limpar o cache.'],
+  analysis:'O cache do navegador vinha atrasando as atualizações; o novo service worker busca sempre a versão da rede primeiro e só usa a cópia salva sem conexão.'},
  {v:'2.2.0',date:'18/10/2026',changes:['Nova logo: corte transversal da medula espinal estilizado, com marca nominal Up-MED study.','Paleta refinada: verde-floresta, branco e dourado discreto; tema claro por padrão.','Barra lateral e barra inferior brancas, com item ativo destacado em verde.','Tipografia nova (Sora nos títulos, Source Sans 3 no texto), etiquetas mais limpas e sombras suaves nos cartões.','Esquemas recoloridos em tons harmônicos com a identidade.','Tela de login e cartão de compartilhamento com a nova identidade.'],
   tests:['Abrir no celular e no computador e conferir a nova identidade no tema claro.','Trocar para o tema escuro em Perfil e conferir contraste.'],
   analysis:'O visual ficou mais sóbrio e coeso. O tema escuro foi ajustado junto, mas o claro é o principal.'},
@@ -1909,7 +1939,7 @@ var AREAS=[
 ];
 var AREA_OF={};AREAS.forEach(function(a){a.mods.forEach(function(m){AREA_OF[m]=a})});
 function glyph(mod,size){var a=AREA_OF[mod];return '<span class="glyph" style="--ac:'+a.c+';width:'+(size||44)+'px;height:'+(size||44)+'px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+a.g+'</svg></span>'}
-var LOGO='<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="var(--logoBg)"/><ellipse cx="20" cy="20.5" rx="13.5" ry="10.5" fill="var(--logoFg)"/><path fill="var(--logoBg)" d="M20 19.3C19 19.3 18.2 18.4 17.4 16.6L15.2 11.6C14.9 11 14.1 11.2 14.3 11.9L15.9 17.6C16.1 18.4 15.9 19 15.2 19.5C13.6 20.5 12.8 21.9 13 23.6C13.2 25.4 14.6 26.5 16.2 26C17.6 25.6 18.4 24.2 19 23.2C19.4 22.6 19.7 22.4 20 22.4C20.3 22.4 20.6 22.6 21 23.2C21.6 24.2 22.4 25.6 23.8 26C25.4 26.5 26.8 25.4 27 23.6C27.2 21.9 26.4 20.5 24.8 19.5C24.1 19 23.9 18.4 24.1 17.6L25.7 11.9C25.9 11.2 25.1 11 24.8 11.6L22.6 16.6C21.8 18.4 21 19.3 20 19.3Z"/><circle cx="20" cy="20.8" r=".9" fill="var(--logoFg)"/><path d="M20 31V28.6" stroke="var(--logoBg)" stroke-width="1.2" stroke-linecap="round"/></svg>';
+var LOGO='<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--logoBg)"/><path d="M10.5 29.5V14L20 24L29.5 14V29.5" fill="none" stroke="var(--logoFg)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.7 12.6L29.5 8.8L33.3 12.6" fill="none" stroke="var(--logoUp)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 /* ---- som (opcional) ---- */
 var AC=null;
@@ -2305,6 +2335,18 @@ document.addEventListener('submit',function(e){
 });
 document.addEventListener('change',function(e){if(e.target.id==='rk2Mod'){RK2.mod=e.target.value;S.keepScroll=true;render()}});
 function avatarImage(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){var img=new Image();img.onload=function(){var s=96,c=document.createElement('canvas');c.width=s;c.height=s;var g=c.getContext('2d');var m=Math.min(img.width,img.height);g.drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);res(c.toDataURL('image/jpeg',0.8))};img.onerror=rej;img.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
+
+/* ---------- atalhos de teclado nas questões ---------- */
+document.addEventListener('keydown',function(e){
+ if(e.target.closest('input,textarea,select')||e.ctrlKey||e.metaKey||e.altKey)return;
+ if(S.view!=='quiz'&&S.view!=='pratica')return;
+ var k=e.key.toLowerCase(),idx='abcde'.indexOf(k);if(idx<0&&/^[1-5]$/.test(k))idx=+k-1;
+ if(idx>=0){var opts=document.querySelectorAll('.opts .opt:not([disabled])');if(opts[idx]){opts[idx].click();e.preventDefault()}return}
+ if(k==='enter'){var nx=document.querySelector('[data-act="next"],[data-act="prNext"],[data-act="check"]:not([disabled])');if(nx){nx.click();e.preventDefault()}}
+});
+
+/* ---------- aplicativo instalável e atualização automática ---------- */
+if('serviceWorker' in navigator&&location.protocol==='https:'){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
 
 window.UPMED={boot:boot};
 boot();
