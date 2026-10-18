@@ -255,6 +255,147 @@ ol.seq li.right{border-color:var(--ok)} ol.seq li.wrong{border-color:var(--bad)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;max-width:90vw}
 @media (min-width:900px){.toast{bottom:24px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.cereb{fill:var(--sv-gray);stroke:var(--sv-grayEdge);opacity:.75}
+.peduncle{fill:var(--sv-my2);stroke:var(--sv-edge)}
+.pcm{fill:var(--sv-my);stroke:var(--sv-edge)}
+.pons{fill:var(--sv-gray);stroke:var(--sv-pia);stroke-width:1.5}
+.medulla{fill:var(--sv-gray);stroke:var(--sv-pia);stroke-width:1.5}
+.pyr{fill:var(--sv-my2);stroke:var(--sv-edge)}
+.olive{fill:var(--sv-deep);stroke:var(--sv-pia)}
+.fossa{fill:var(--sv-csf);stroke:var(--sv-grayEdge)}
+.mam,.mamS{fill:var(--sv-deep);stroke:var(--sv-pia)}
+.chiasm{fill:var(--sv-nerve);stroke:var(--sv-gang)}
+.optic{fill:none;stroke:var(--sv-nerve);stroke-width:8;stroke-linecap:round}
+.nervef{fill:none;stroke:var(--sv-nerve);stroke-width:4;stroke-linecap:round}
+.nerveT{fill:none;stroke:var(--sv-nerve);stroke-width:9;stroke-linecap:round}
+.rootl{fill:none;stroke:var(--sv-nerve);stroke-width:2.5;stroke-linecap:round}
+.ln.hl .rootl,.ln.hl .dec{stroke:var(--hi)} .ln.ok .rootl,.ln.ok .dec{stroke:var(--ok)} .ln.bad .rootl,.ln.bad .dec{stroke:var(--bad)}
+.dec{stroke:var(--sv-my2);stroke-width:3}
+.sulc{stroke:var(--sv-pia);stroke-width:1.5}
+.cordS{fill:var(--sv-gray);stroke:var(--sv-pia);stroke-width:1.5}
+.cortex{fill:var(--sv-gray);stroke:var(--sv-pia);stroke-width:2}
+.gyrus{fill:none;stroke:var(--sv-gel);stroke-width:14;stroke-linecap:round;opacity:.9}
+.sulcL{fill:none;stroke:var(--sv-pia);stroke-width:2;stroke-linecap:round}
+.septum{fill:var(--sv-gel);stroke:var(--sv-grayEdge)}
+.wmS{fill:none;stroke:var(--sv-my2);stroke-width:15;stroke-linecap:round}
+.fornix{fill:none;stroke:var(--sv-my);stroke-width:7;stroke-linecap:round}
+.thal{fill:var(--sv-deep);stroke:var(--sv-pia)}
+.hypo{fill:var(--sv-gel);stroke:var(--sv-grayEdge)}
+.deepS{fill:var(--sv-my2)}
+.optS{fill:var(--sv-nerve)}
+.hypoph{fill:var(--sv-gang);stroke:var(--sv-nerve)}
+.mes{fill:var(--sv-gel);stroke:var(--sv-grayEdge)}
+.coll{fill:var(--sv-deep)}
+.pine{fill:var(--sv-gang)}
+.aq{fill:none;stroke:var(--sv-csf);stroke-width:5;stroke-linecap:round}
+.ponsS,.bulbS{fill:var(--sv-gel);stroke:var(--sv-grayEdge)}
+.v4{fill:var(--sv-csf);stroke:var(--sv-grayEdge)}
+.cerebS{fill:var(--sv-gray);stroke:var(--sv-pia);stroke-width:1.5}
+.arbor path{stroke:var(--sv-my2);stroke-width:3;fill:none;stroke-linecap:round}
+
+/* ===== v2.1 ===== */
+.side .logo{display:flex;align-items:center;gap:10px}
+.side .logo em{font-style:normal;color:var(--hi)}
+.logo-mark{width:34px;height:34px;flex:0 0 auto}
+.side-sep{height:1px;background:rgba(255,255,255,.12);margin:8px 10px}
+.side .foot{display:flex;align-items:center;gap:10px}
+.av{display:inline-grid;place-items:center;border-radius:50%;object-fit:cover;flex:0 0 auto;background:color-mix(in srgb,var(--accent) 30%,var(--surface2));color:var(--ink);font-weight:700;font-family:var(--f-display);border:2px solid var(--surface)}
+.side .av{border-color:rgba(255,255,255,.25)}
+.hello{display:flex;align-items:center;gap:14px;min-width:0}
+.row-b{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.btn svg{width:18px;height:18px}
+.glyph{display:inline-grid;place-items:center;border-radius:12px;background:color-mix(in srgb,var(--ac) 16%,var(--surface));color:var(--ac);flex:0 0 auto}
+.glyph svg{width:58%;height:58%}
+.mod{grid-template-columns:auto 1fr;align-items:start;column-gap:12px}
+.mod .mod-t{display:grid;gap:4px;min-width:0}
+.mod .meter,.mod .row{grid-column:1/-1}
+.area{display:grid;gap:10px}
+.area-h{display:flex;align-items:center;gap:10px}
+.area-h .dot{width:10px;height:10px;border-radius:3px}
+.hero-grid{display:grid;gap:12px}
+@media (min-width:900px){.hero-grid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}}
+.sdcard{display:grid;gap:12px}
+.sd-body{display:grid;gap:12px}
+@media (min-width:640px){.sd-body{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start}}
+.sdfig .fig{padding:4px}
+.sdfig .fig svg{max-height:300px}
+.sdfig .photo img{max-height:300px}
+.rev{display:grid;gap:8px;align-content:start}
+.big{font-family:var(--f-display);font-size:44px;font-weight:800;line-height:1}
+.streak{display:grid;grid-template-columns:auto auto;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:10px;margin-top:4px;gap:2px 8px}
+.streak .eyebrow{grid-column:1/-1}
+.streak b{font-family:var(--f-display);font-size:24px}
+.heat{width:100%;height:auto;display:block}
+.hm{fill:var(--surface2);stroke:var(--line);stroke-width:.5}
+.hm.l1{fill:color-mix(in srgb,var(--accent) 30%,var(--surface2))}
+.hm.l2{fill:color-mix(in srgb,var(--accent) 55%,var(--surface2))}
+.hm.l3{fill:color-mix(in srgb,var(--accent) 80%,var(--surface2))}
+.hm.l4{fill:var(--accent)}
+.chart{width:100%;height:auto;display:block}
+.cgrid{stroke:var(--line);stroke-width:1}
+.clab{fill:var(--muted);font-size:10px;font-family:var(--f-mono)}
+.cline{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.carea{fill:color-mix(in srgb,var(--accent) 16%,transparent)}
+.cdot{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.cdot.last{fill:var(--accent)}
+.weak{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center}
+.weak > div{display:grid;gap:4px}
+.resumo ul{margin:0;padding-left:20px;display:grid;gap:8px}
+.resumo li{line-height:1.45}
+.resumo.clin{background:color-mix(in srgb,var(--hi) 12%,var(--surface))}
+.favbtn{margin-left:auto;background:none;border:0;font-size:22px;line-height:1;color:var(--hi);padding:4px 6px;border-radius:8px;min-height:36px}
+.favbtn[aria-pressed="false"]{color:var(--muted)}
+.chips .favbtn{margin-left:auto}
+.result-hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.rev-item{border-top:1px solid var(--line);padding-top:10px;display:grid;gap:6px}
+.sres{display:grid;gap:4px;text-align:left;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.sres:hover{border-color:var(--accent)}
+.cq{display:grid;gap:8px}
+details summary{cursor:pointer;color:var(--accent);font-weight:700}
+.badges{display:grid;gap:10px;grid-template-columns:1fr}
+@media (min-width:640px){.badges{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.badges{grid-template-columns:1fr 1fr 1fr}}
+.badge{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
+.badge:not(.on){opacity:.7}
+.medal{width:52px;height:52px}
+.medals{display:flex;flex-wrap:wrap;gap:6px}
+.medals .medal{width:44px;height:44px}
+.badge-toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:70;display:flex;gap:12px;align-items:center;background:var(--surface);color:var(--ink);border:1px solid var(--hi);box-shadow:0 10px 30px rgba(0,0,0,.25);padding:10px 16px;border-radius:14px;animation:drop .5s cubic-bezier(.2,1.4,.4,1)}
+.badge-toast b{display:block}
+@keyframes drop{from{transform:translate(-50%,-40px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.xpfloat{position:fixed;left:50%;top:40%;z-index:65;font-family:var(--f-display);font-weight:800;font-size:40px;color:var(--ok);pointer-events:none;animation:floatup 1.1s ease-out forwards}
+@keyframes floatup{from{transform:translate(-50%,0);opacity:1}to{transform:translate(-50%,-80px);opacity:0}}
+.fb.good{animation:pop .35s cubic-bezier(.2,1.5,.4,1)}
+.fb.bad{animation:shake .35s}
+@keyframes pop{from{transform:scale(.94)}to{transform:scale(1)}}
+.game.feature{background:var(--brand);color:var(--brandInk);border-color:var(--brand)}
+.sect{margin-top:6px}
+.code{font-family:var(--f-mono);font-size:13px;word-break:break-all;resize:vertical}
+.duel-res{display:flex;justify-content:space-around;align-items:center;text-align:center}
+.duel-res div{display:grid;gap:4px}
+.roomcode{font-family:var(--f-mono);font-size:56px;font-weight:500;letter-spacing:.2em;color:var(--accent)}
+.mem{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (min-width:640px){.mem{grid-template-columns:repeat(4,1fr)}}
+.memc{min-height:92px;border-radius:12px;border:1.5px solid var(--line);background:var(--brand);color:var(--brandInk);font-size:14px;line-height:1.25;padding:8px;display:grid;place-items:center;transition:transform .25s}
+.memc.up{background:var(--surface);color:var(--ink);transform:rotateY(0)}
+.memc.s1.up{background:color-mix(in srgb,var(--hi) 14%,var(--surface))}
+.memc.got{border-color:var(--ok);opacity:.85}
+.numpin circle{fill:var(--hi);stroke:#000;stroke-opacity:.5;stroke-width:1.5;cursor:pointer}
+.numpin text{font-family:var(--f-mono);font-size:11px;font-weight:700;fill:#1B3A4B;pointer-events:none}
+.numpin.set circle{fill:var(--accent)}
+.numpin.ok circle{fill:var(--ok)} .numpin.bad circle{fill:var(--bad)}
+.numpin-h{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:2px solid rgba(0,0,0,.5);background:var(--hi);color:#1B3A4B;font:700 13px/1 var(--f-mono);display:grid;place-items:center;padding:0;line-height:26px}
+.numpin-h.set{background:var(--accent);color:#fff} .numpin-h.ok{background:var(--ok);color:#fff} .numpin-h.bad{background:var(--bad);color:#fff}
+.zoomwrap{position:relative;overflow:hidden;touch-action:pan-y}
+.zoomwrap.zoomed{touch-action:none;cursor:grab}
+.zoomer{transform-origin:0 0;position:relative}
+.photo{text-align:center;background:#0b1114}
+.photo .zoomer{display:inline-block;line-height:0;vertical-align:top}
+.photo img{width:auto;max-width:100%;max-height:70vh}
+.zctl{position:absolute;right:8px;bottom:8px;display:flex;gap:4px;z-index:3}
+.zctl button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 88%,transparent);color:var(--ink);font:700 16px var(--f-mono);display:grid;place-items:center;padding:0}
+:root[data-theme="dark"] .fig,.fig{box-shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .photo img{filter:brightness(.95)}}
 
 </style>
 </head>
@@ -291,8 +432,11 @@ function ar(m,d,a,r,k,e){return{m:m,d:d,t:'ar',a:a,r:r,k:k,e:e}}
 function od(m,d,q,s,e){return{m:m,d:d,t:'od',q:q,s:s,e:e}}
 function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 
-var APP_VERSION='2.0.0';
+var APP_VERSION='2.1.0';
 var VERSIONS=[
+ {v:'2.1.0',date:'18/10/2026',changes:['Novo visual: logotipo, cores e ícones por área, painel com estação do dia, sequência de estudo, calendário, gráfico de acerto e pontos fracos.','Revisão do dia com repetição espaçada.','Página de cada módulo com pontos-chave e correlação clínica.','Busca em questões, resumos, estruturas e casos.','Caderno com favoritas, erros e revisão.','Modo prova com cronômetro e gabarito comentado no final.','Animação e som opcional ao responder; cartão de resultado para compartilhar.','Zoom e arrastar nas imagens.','Dois novos esquemas: tronco encefálico em vista anterior e encéfalo em corte sagital mediano.','Novos games: rótulos, memória, desafio da semana, duelo por código e corrida da turma (esta só no modo online).','Conquistas, foto de perfil, faculdade e filtros no ranking.'],
+  tests:['Responder a estação do dia e conferir se ela some até o dia seguinte.','Errar uma questão e conferir se ela volta na revisão do dia seguinte.','Fazer um modo prova até o fim e ler o gabarito.','Gerar o cartão de resultado no celular e compartilhar.','Criar um duelo, abrir o código em outro aparelho e devolver a resposta.','Dar zoom com dois dedos numa foto do editor e marcar uma estrutura.'],
+  analysis:'O painel ficou mais rico, mas também mais longo no celular; vale observar se a turma rola até os módulos. A corrida da turma não pôde ser testada sem o Firebase. Os resumos são enxutos e servem de revisão rápida, não substituem o livro. A explicação em três níveis por questão ainda depende de ampliar o conteúdo.'},
  {v:'2.0.0',date:'18/10/2026',changes:['Reconstrução completa da plataforma, agora dedicada à neuroanatomia.','Login com e-mail e senha pelo Firebase, com modo local quando o Firebase não está configurado.','Banco inicial com 19 módulos e sete formatos de questão.','Games: prova prática com fotos reais e esquemas, montagem de vias, topografia da lesão e nervos cranianos contra o relógio.','Editor de estações para marcar estruturas em fotos (administradores).','Ranking da turma: geral, semanal e por módulo.'],
   tests:['Criar conta, sair e entrar de novo no celular e no computador.','Responder 10 questões e conferir se o ranking atualiza no outro aparelho.','Montar uma estação com foto e jogá-la com outra conta.'],
   analysis:'Primeira versão do novo desenho. As fotos reais dependem de alguém marcar as estruturas no editor. O ranking confia nos dados enviados por cada aluno, o que basta para uso em turma, mas não impede fraude.'}
@@ -561,6 +705,9 @@ od('telest',3,'Ordene as estruturas de lateral para medial num corte horizontal 
 mc('nervos',2,'O reflexo miotático é desencadeado pela ativação de:',['Fusos neuromusculares','Órgãos tendinosos de Golgi','Corpúsculos de Pacini','Terminações nervosas livres'],'O estiramento do fuso ativa fibras Ia, que fazem sinapse direta com o motoneurônio alfa.'),
 mc('vias',2,'A sensibilidade da face chega ao córtex passando pelo núcleo talâmico:',['Ventral posteromedial','Ventral posterolateral','Geniculado lateral','Anterior'],'O VPM recebe o lemnisco trigeminal; o VPL recebe as vias do corpo.'),
 mc('limbico',2,'O hipocampo fica no assoalho do:',['Corno inferior do ventrículo lateral','Corno anterior do ventrículo lateral','III ventrículo','IV ventrículo'],'O corno inferior (temporal) contém o hipocampo e o plexo corioide.'),
+od('cerebelo',2,'Ordene as camadas do córtex cerebelar, da superfície para a profundidade.',['Camada molecular','Camada de células de Purkinje','Camada granular','Substância branca'],'As células de Purkinje formam uma única fileira entre as camadas molecular e granular.'),
+od('telest',3,'Ordene as camadas do isocórtex, da superfície para a profundidade.',['I · Molecular','II · Granular externa','III · Piramidal externa','IV · Granular interna','V · Piramidal interna','VI · Multiforme'],'A camada V é a origem do trato corticospinal (células de Betz na área motora); a IV é a principal receptora talâmica.'),
+od('nervcran',2,'Ordene a via do reflexo fotomotor direto.',['Retina','Nervo óptico','Área pré-tectal','Núcleo de Edinger-Westphal','Nervo oculomotor','Gânglio ciliar','Músculo esfíncter da pupila'],'A área pré-tectal projeta-se aos dois núcleos de Edinger-Westphal, o que explica o reflexo consensual.'),
 mc('intro',2,'A substância cinzenta do cerebelo e do cérebro forma um córtex. Na medula, ela fica:',['No centro, envolvida pela substância branca','Na superfície, envolvendo a substância branca','Em núcleos dispersos na substância branca','Apenas nas intumescências'],'Na medula, a substância cinzenta em forma de H é central.')
 );
 
@@ -674,6 +821,57 @@ var NERVES=[
  {r:'XII',n:'Hipoglosso',fo:'Canal do hipoglosso',fn:'Músculos da língua',og:'Sulco lateral anterior do bulbo'}
 ];
 var NERVE_KEYS=[['fo','Por onde sai do crânio?'],['fn','Qual a função?'],['og','Qual a origem aparente?']];
+SCH.push(
+ {id:'quiasma',fig:'tronco',n:'Quiasma óptico',a:[160,48],i:'Cruzamento das fibras das hemirretinas nasais.'},
+ {id:'n2',fig:'tronco',n:'Nervo óptico',a:[202,22],i:'II par. Sai da órbita pelo canal óptico.'},
+ {id:'trato',fig:'tronco',n:'Trato óptico',a:[214,82],i:'Contorna o pedúnculo cerebral até o corpo geniculado lateral.'},
+ {id:'mamilar',fig:'tronco',n:'Corpo mamilar',a:[168,94],i:'Hipotálamo posterior; parte do circuito de Papez.'},
+ {id:'pedunculo',fig:'tronco',n:'Pedúnculo cerebral',a:[200,100],i:'Base do mesencéfalo, com fibras corticospinais e corticonucleares.'},
+ {id:'fossa',fig:'tronco',n:'Fossa interpeduncular',a:[160,112],i:'Entre os pedúnculos; origem aparente do III.'},
+ {id:'n3',fig:'tronco',n:'Nervo oculomotor',a:[222,146],i:'III par. Emerge na fossa interpeduncular.'},
+ {id:'ponte',fig:'tronco',n:'Ponte',a:[200,200],i:'Parte basilar com núcleos pontinos e fibras transversais.'},
+ {id:'basilar',fig:'tronco',n:'Sulco basilar',a:[160,170],i:'Aloja a artéria basilar.'},
+ {id:'pcm',fig:'tronco',n:'Pedúnculo cerebelar médio',a:[262,190],i:'Liga a ponte ao cerebelo.'},
+ {id:'n5',fig:'tronco',n:'Nervo trigêmeo',a:[270,172],i:'V par. Emerge entre a ponte e o pedúnculo cerebelar médio.'},
+ {id:'n6',fig:'tronco',n:'Nervo abducente',a:[176,214],i:'VI par. Sulco bulbopontino, junto à linha média.'},
+ {id:'n7',fig:'tronco',n:'Nervo facial',a:[250,230],i:'VII par. Sulco bulbopontino, lateral ao VI.'},
+ {id:'n8',fig:'tronco',n:'Nervo vestibulococlear',a:[262,244],i:'VIII par. Ângulo pontocerebelar.'},
+ {id:'piramide',fig:'tronco',n:'Pirâmide bulbar',a:[170,290],i:'Feixe corticospinal na face anterior do bulbo.'},
+ {id:'oliva',fig:'tronco',n:'Oliva',a:[204,282],i:'Contém o núcleo olivar inferior, origem das fibras trepadeiras.'},
+ {id:'n12',fig:'tronco',n:'Nervo hipoglosso',a:[191,258],i:'XII par. Sulco lateral anterior, entre pirâmide e oliva.'},
+ {id:'n910',fig:'tronco',n:'Nervos glossofaríngeo e vago',a:[236,270],i:'IX e X. Sulco lateral posterior, atrás da oliva.'},
+ {id:'decuss',fig:'tronco',n:'Decussação das pirâmides',a:[160,334],i:'Cruzamento da maioria das fibras corticospinais.'},
+ {id:'medula',fig:'tronco',n:'Medula espinal',a:[160,392],i:'Continua o bulbo abaixo do forame magno.'},
+ {id:'cereb',fig:'tronco',n:'Hemisfério cerebelar',a:[260,290],i:'Visível lateralmente ao bulbo na vista anterior.'},
+ {id:'joelho',fig:'medial',n:'Joelho do corpo caloso',a:[124,138],i:'Curvatura anterior do corpo caloso.'},
+ {id:'tronco_cc',fig:'medial',n:'Tronco do corpo caloso',a:[230,94],i:'Maior porção; fibras comissurais entre os hemisférios.'},
+ {id:'esplenio',fig:'medial',n:'Esplênio do corpo caloso',a:[332,136],i:'Extremidade posterior espessa.'},
+ {id:'cingulo',fig:'medial',n:'Giro do cíngulo',a:[200,76],i:'Parte do lobo límbico e do circuito de Papez.'},
+ {id:'scingulo',fig:'medial',n:'Sulco do cíngulo',a:[180,56],i:'Limita superiormente o giro do cíngulo.'},
+ {id:'scentral',fig:'medial',n:'Sulco central',a:[265,30],i:'Chega à face medial no lóbulo paracentral.'},
+ {id:'paracentral',fig:'medial',n:'Lóbulo paracentral',a:[284,40],i:'Representação motora e sensitiva do membro inferior.'},
+ {id:'sparieto',fig:'medial',n:'Sulco parieto-occipital',a:[350,100],i:'Separa os lobos parietal e occipital na face medial.'},
+ {id:'scalc',fig:'medial',n:'Sulco calcarino',a:[380,166],i:'Seus lábios contêm a área visual primária (17).'},
+ {id:'cuneo',fig:'medial',n:'Cúneo',a:[380,134],i:'Entre os sulcos parieto-occipital e calcarino.'},
+ {id:'lingual',fig:'medial',n:'Giro lingual',a:[366,192],i:'Abaixo do sulco calcarino.'},
+ {id:'septo',fig:'medial',n:'Septo pelúcido',a:[196,128],i:'Lâmina entre o corpo caloso e o fórnix; separa os ventrículos laterais.'},
+ {id:'fornix',fig:'medial',n:'Fórnix',a:[236,140],i:'Liga o hipocampo ao corpo mamilar.'},
+ {id:'talamo',fig:'medial',n:'Tálamo',a:[256,160],i:'Parede lateral do III ventrículo; principal relé sensitivo.'},
+ {id:'hipotalamo',fig:'medial',n:'Hipotálamo',a:[214,192],i:'Abaixo do sulco hipotalâmico; controle autônomo e endócrino.'},
+ {id:'comissura',fig:'medial',n:'Comissura anterior',a:[182,176],i:'Fibras comissurais entre os lobos temporais.'},
+ {id:'quiasmaM',fig:'medial',n:'Quiasma óptico',a:[186,214],i:'No assoalho do III ventrículo.'},
+ {id:'hipofise',fig:'medial',n:'Hipófise',a:[202,238],i:'Presa ao hipotálamo pelo infundíbulo.'},
+ {id:'mamilarM',fig:'medial',n:'Corpo mamilar',a:[224,210],i:'Recebe o fórnix; circuito de Papez.'},
+ {id:'mesencefalo',fig:'medial',n:'Mesencéfalo',a:[250,222],i:'Entre o diencéfalo e a ponte; contém o aqueduto.'},
+ {id:'coliculos',fig:'medial',n:'Colículos (teto do mesencéfalo)',a:[300,190],i:'Superiores: visão. Inferiores: audição.'},
+ {id:'pineal',fig:'medial',n:'Glândula pineal',a:[304,166],i:'Epitálamo; produz melatonina.'},
+ {id:'aqueduto',fig:'medial',n:'Aqueduto cerebral',a:[278,206],i:'Liga o III ao IV ventrículo; sua estenose causa hidrocefalia.'},
+ {id:'ponteM',fig:'medial',n:'Ponte',a:[256,262],i:'Entre o mesencéfalo e o bulbo.'},
+ {id:'v4',fig:'medial',n:'IV ventrículo',a:[290,262],i:'Entre a ponte e o bulbo, à frente do cerebelo.'},
+ {id:'bulboM',fig:'medial',n:'Bulbo',a:[264,304],i:'Continua-se com a medula no forame magno.'},
+ {id:'cerebeloM',fig:'medial',n:'Cerebelo (árvore da vida)',a:[350,276],i:'A substância branca ramificada forma a árvore da vida.'}
+);
+SCHM=Object.fromEntries(SCH.map(function(s){return[s.id,s]}));
 
 /* Camada 1 — esquemas em SVG (desenho próprio) */
 var GRAYP={
@@ -759,6 +957,124 @@ var SCH_STATIONS=[
  {id:'sch-vista',kind:'svg',fig:'vista',t:'Medula e saco dural: vista posterior (esquema)',note:'Níveis vertebrais à esquerda.'}
 ];
 
+/* ---- Tronco encefálico: vista anterior (esquema) ---- */
+function mirrorX(svg){return '<g transform="matrix(-1 0 0 1 320 0)">'+svg+'</g>'}
+function svgTronco(){
+ var under=
+ '<path class="cereb" data-id="cereb" d="M108,236 C70,226 30,240 22,275 C16,305 40,332 92,332 C108,330 118,320 122,300 Z"/>'+
+ '<polygon class="peduncle" data-id="pedunculo" points="104,84 140,86 150,142 112,146"/>'+
+ '<path class="pcm" data-id="pcm" d="M88,160 C60,160 40,172 38,190 C40,206 58,214 88,212 Z"/>';
+ var over=
+ '<path class="nervef ln" data-id="n3" d="M150,128 C130,134 112,142 94,152"/><path class="hit" data-id="n3" d="M150,128 C130,134 112,142 94,152"/>'+
+ '<path class="nerveT ln" data-id="n5" d="M90,180 C70,178 52,174 30,166"/><path class="hit" data-id="n5" d="M90,180 C70,178 52,174 30,166"/>'+
+ '<path class="nervef ln" data-id="n6" d="M152,236 C150,222 146,212 140,198"/><path class="hit" data-id="n6" d="M152,236 C150,222 146,212 140,198"/>'+
+ '<path class="nervef ln" data-id="n7" d="M116,234 C96,230 76,228 54,228"/><path class="hit" data-id="n7" d="M116,234 C96,230 76,228 54,228"/>'+
+ '<path class="nervef ln" data-id="n8" d="M110,241 C92,242 70,244 46,246" style="stroke-width:5"/><path class="hit" data-id="n8" d="M110,241 C92,242 70,244 46,246"/>'+
+ '<g class="ln" data-id="n12"><path class="rootl" d="M129,256 L106,262"/><path class="rootl" d="M129,266 L104,274"/><path class="rootl" d="M129,276 L104,286"/></g><path class="hit" data-id="n12" d="M129,252 L129,280 L104,286"/>'+
+ '<g class="ln" data-id="n910"><path class="rootl" d="M108,256 L76,252"/><path class="rootl" d="M108,266 L74,266"/><path class="rootl" d="M108,276 L74,282"/><path class="rootl" d="M108,286 L76,298"/></g><path class="hit" data-id="n910" d="M108,254 L108,288 M76,252 L74,298"/>'+
+ '<path class="optic ln" data-id="n2" d="M144,40 C130,30 116,22 98,16"/><path class="hit" data-id="n2" d="M144,40 C130,30 116,22 98,16"/>'+
+ '<path class="optic ln" data-id="trato" d="M146,54 C126,66 104,82 92,104" style="stroke-width:7"/><path class="hit" data-id="trato" d="M146,54 C126,66 104,82 92,104"/>';
+ var lower='<polygon class="pyr" data-id="piramide" points="132,238 158,238 158,328 142,330"/><ellipse class="olive" data-id="oliva" cx="118" cy="272" rx="9" ry="22"/>';
+ return '<svg viewBox="0 0 320 440" role="img" aria-label="Esquema do tronco encefálico em vista anterior">'+
+ '<text class="lab" x="160" y="10" text-anchor="middle">ANTERIOR (VENTRAL)</text>'+
+ under+mirrorX(under)+
+ '<polygon class="fossa" data-id="fossa" points="140,86 180,86 168,140 152,140"/>'+
+ '<circle class="mam" data-id="mamilar" cx="152" cy="94" r="7"/><circle class="mam" data-id="mamilar" cx="168" cy="94" r="7"/>'+
+ '<polygon class="chiasm" data-id="quiasma" points="144,40 176,40 174,56 146,56"/>'+
+ '<path class="pons" data-id="ponte" d="M90,156 C110,138 210,138 230,156 C246,176 246,214 230,232 C210,240 110,240 90,232 C74,214 74,176 90,156 Z"/>'+
+ '<line class="sulc ln" data-id="basilar" x1="160" y1="146" x2="160" y2="232"/><line class="hit" data-id="basilar" x1="160" y1="150" x2="160" y2="228" style="stroke-width:10"/>'+
+ '<path class="medulla" d="M112,236 L208,236 L190,330 L130,330 Z"/>'+
+ lower+mirrorX(lower)+
+ '<line class="sulc" x1="160" y1="240" x2="160" y2="318"/>'+
+ '<g class="ln" data-id="decuss"><path class="dec" d="M146,318 L174,346"/><path class="dec" d="M174,318 L146,346"/><path class="dec" d="M150,324 L170,352"/><path class="dec" d="M170,324 L150,352"/></g><rect class="hit" data-id="decuss" x="146" y="320" width="28" height="30" style="stroke-width:4;fill:transparent;pointer-events:all"/>'+
+ '<rect class="cordS" data-id="medula" x="140" y="350" width="40" height="84" rx="6"/>'+
+ over+mirrorX(over)+
+ '</svg>';
+}
+
+/* ---- Encéfalo: vista medial (esquema) ---- */
+function svgMedial(){
+ return '<svg viewBox="0 0 440 330" role="img" aria-label="Esquema do encéfalo em corte sagital mediano">'+
+ '<text class="lab" x="30" y="322">ANTERIOR</text><text class="lab" x="410" y="322" text-anchor="end">POSTERIOR</text>'+
+ '<path class="cortex" d="M44,205 C18,150 36,62 122,34 C200,8 300,12 360,56 C414,96 430,152 412,190 C400,214 378,222 352,218 L300,206 L230,212 L170,222 L110,232 C80,236 56,228 44,205 Z"/>'+
+ '<polygon class="zone" data-id="paracentral" points="222,22 300,20 304,58 228,62"/>'+
+ '<polygon class="zone" data-id="cuneo" points="352,80 334,146 404,170 406,118"/>'+
+ '<polygon class="zone" data-id="lingual" points="332,160 410,182 392,206 338,204"/>'+
+ '<path class="gyrus ln" data-id="cingulo" d="M128,140 C112,98 160,74 220,70 C280,68 330,82 348,112"/><path class="hit" data-id="cingulo" d="M128,140 C112,98 160,74 220,70 C280,68 330,82 348,112"/>'+
+ '<path class="sulcL ln" data-id="scingulo" d="M110,120 C112,72 170,52 230,52 C290,52 340,66 356,92 L364,40"/><path class="hit" data-id="scingulo" d="M110,120 C112,72 170,52 230,52 C290,52 340,66 356,92 L364,40"/>'+
+ '<path class="sulcL ln" data-id="scentral" d="M262,16 L268,46"/><path class="hit" data-id="scentral" d="M262,16 L268,46"/>'+
+ '<path class="sulcL ln" data-id="sparieto" d="M366,58 L332,146"/><path class="hit" data-id="sparieto" d="M366,58 L332,146"/>'+
+ '<path class="sulcL ln" data-id="scalc" d="M332,152 C360,160 390,168 418,176"/><path class="hit" data-id="scalc" d="M332,152 C360,160 390,168 418,176"/>'+
+ '<polygon class="septum" data-id="septo" points="160,122 232,112 214,146 170,154"/>'+
+ '<path class="wmS ln" data-id="joelho" d="M156,170 C120,160 114,120 150,106"/><path class="hit" data-id="joelho" d="M156,170 C120,160 114,120 150,106"/>'+
+ '<path class="wmS ln" data-id="tronco_cc" d="M150,106 C210,90 270,92 314,112"/><path class="hit" data-id="tronco_cc" d="M150,106 C210,90 270,92 314,112"/>'+
+ '<path class="wmS ln" data-id="esplenio" d="M314,112 C340,124 340,150 318,158"/><path class="hit" data-id="esplenio" d="M314,112 C340,124 340,150 318,158"/>'+
+ '<path class="fornix ln" data-id="fornix" d="M296,128 C258,132 214,148 196,192"/><path class="hit" data-id="fornix" d="M296,128 C258,132 214,148 196,192"/>'+
+ '<ellipse class="thal" data-id="talamo" cx="250" cy="160" rx="34" ry="18"/>'+
+ '<polygon class="hypo" data-id="hipotalamo" points="196,176 236,180 228,204 198,206"/>'+
+ '<circle class="deepS" data-id="comissura" cx="182" cy="176" r="6"/>'+
+ '<ellipse class="optS" data-id="quiasmaM" cx="186" cy="214" rx="11" ry="5"/>'+
+ '<path class="hypoph" data-id="hipofise" d="M200,212 L203,226 C214,226 220,234 214,244 C204,250 188,246 188,236 C188,228 194,226 200,226 Z"/>'+
+ '<circle class="mamS" data-id="mamilarM" cx="224" cy="210" r="6"/>'+
+ '<path class="mes" data-id="mesencefalo" d="M234,196 L292,176 L304,202 L258,236 Z"/>'+
+ '<circle class="coll" data-id="coliculos" cx="296" cy="182" r="6"/><circle class="coll" data-id="coliculos" cx="303" cy="196" r="6"/>'+
+ '<ellipse class="pine" data-id="pineal" cx="304" cy="166" rx="9" ry="6"/>'+
+ '<path class="aq ln" data-id="aqueduto" d="M272,190 L284,222"/><path class="hit" data-id="aqueduto" d="M272,190 L284,222"/>'+
+ '<path class="ponsS" data-id="ponteM" d="M258,236 C236,240 230,276 254,286 L278,280 L282,240 Z"/>'+
+ '<polygon class="v4" data-id="v4" points="284,240 306,264 280,282"/>'+
+ '<path class="bulbS" data-id="bulboM" d="M252,286 L280,282 L276,326 L256,326 Z"/>'+
+ '<path class="cerebS" data-id="cerebeloM" d="M300,232 C340,214 396,226 400,262 C402,296 360,312 320,300 C300,294 290,282 298,268 Z"/>'+
+ '<g class="arbor" style="pointer-events:none"><path d="M304,268 L340,262 M340,262 L370,240 M340,262 L380,262 M340,262 L372,286 M322,264 L340,244 M322,266 L338,290"/></g>'+
+ '</svg>';
+}
+SCH_STATIONS.push(
+ {id:'sch-tronco',kind:'svg',fig:'tronco',t:'Tronco encefálico: vista anterior (esquema)',note:'Estruturas pares valem dos dois lados.'},
+ {id:'sch-medial',kind:'svg',fig:'medial',t:'Encéfalo: corte sagital mediano (esquema)',note:'Anterior à esquerda.'}
+);
+var SVGF={corte:svgCorte,vista:svgVista,tronco:svgTronco,medial:svgMedial};
+
+/* Camada 1 — resumos por módulo: pontos-chave e correlação clínica */
+var RESUMO={
+ intro:{pts:['O sistema nervoso central (SNC) tem encéfalo e medula; o periférico (SNP) tem nervos, gânglios e terminações.','Encéfalo = cérebro (telencéfalo + diencéfalo), cerebelo e tronco encefálico (mesencéfalo, ponte, bulbo).','Divisão funcional: SN segmentar (medula, tronco e nervos) e suprassegmentar (cérebro e cerebelo, com córtex).','Neurulação: placa neural → goteira → tubo neural; neuróporo rostral fecha por volta do 25º dia e o caudal por volta do 27º.','Vesículas primárias: prosencéfalo, mesencéfalo e rombencéfalo. Secundárias: telencéfalo, diencéfalo, mesencéfalo, metencéfalo e mielencéfalo.','Sulco limitante separa a lâmina alar (dorsal, sensitiva) da lâmina basal (ventral, motora).','Crista neural: gânglios sensitivos e autônomos, células de Schwann, medula da adrenal e melanócitos.'],
+  clin:['Falha do neuróporo caudal: espinha bífida e mielomeningocele.','Falha do neuróporo rostral: anencefalia.','Ácido fólico antes e no início da gestação reduz defeitos do tubo neural.']},
+ tecido:{pts:['Neurônio: corpo celular, dendritos e axônio; o potencial de ação nasce no segmento inicial do axônio.','Classificação: multipolares (maioria), bipolares (retina, olfato, gânglios do VIII) e pseudounipolares (gânglios sensitivos).','Glia do SNC: astrócitos, oligodendrócitos, micróglia e células ependimárias. No SNP: células de Schwann e satélites.','Mielina: oligodendrócito no SNC (vários axônios), Schwann no SNP (um internodo).','Condução saltatória entre nódulos de Ranvier torna a fibra mielínica mais rápida.','Sinapse química: entrada de cálcio no terminal libera neurotransmissor; o sentido é único.','Lesão axonal: degeneração walleriana distal e cromatólise no corpo celular. Regeneração boa no SNP e muito limitada no SNC.'],
+  clin:['Esclerose múltipla: desmielinização central (oligodendrócitos).','Síndrome de Guillain-Barré: desmielinização periférica (Schwann).','Gliomas derivam da glia; astrocitomas são os mais comuns.']},
+ nervos:{pts:['Envoltórios: endoneuro (fibra), perineuro (fascículo, barreira hematoneural) e epineuro (nervo).','Receptores: exteroceptores, proprioceptores e interoceptores.','Meissner: tato fino. Pacini: vibração. Terminações livres: dor e temperatura.','Fuso neuromuscular detecta estiramento; órgão tendinoso de Golgi detecta tensão.','Motoneurônios alfa inervam fibras extrafusais; gama inervam fibras intrafusais.','Placa motora: acetilcolina sobre receptores nicotínicos da fibra esquelética.','Unidade motora = um motoneurônio e as fibras que ele inerva.'],
+  clin:['Miastenia grave: anticorpos contra receptores de acetilcolina.','Hanseníase: perda precoce de dor e temperatura por lesão de fibras finas.']},
+ medmacro:{pts:['A medula vai do forame magno até L2 no adulto (L3 no recém-nascido).','Intumescência cervical (plexo braquial) e lombossacral (plexo lombossacral).','Abaixo do cone medular: filamento terminal e cauda equina.','31 pares de nervos espinais: 8 C, 12 T, 5 L, 5 S e 1 Co.','Topografia: de C2 a T10 soma-se 2 ao processo espinhoso; T11–T12 correspondem aos segmentos lombares; L1 aos sacrais.','Saco dural termina em S2; cisterna lombar entre L2 e S2.','Ligamentos denticulados são expansões da pia-máter.'],
+  clin:['Punção lombar entre L3–L4 ou L4–L5, abaixo do fim da medula.','Peridural: espaço epidural. Raquianestesia: espaço subaracnóideo.','Cone medular: quadro simétrico, esfíncteres precoces. Cauda equina: radicular, doloroso, assimétrico.']},
+ medest:{pts:['Substância cinzenta em H: colunas anterior (motora), posterior (sensitiva) e lateral (T1–L2, simpática).','Lâmina II de Rexed = substância gelatinosa (modulação da dor); lâmina IX = motoneurônios.','Núcleo torácico (C8–L2) origina o trato espinocerebelar posterior.','Funículo posterior: fascículos grácil e cuneiforme (acima de T6) — tato epicrítico e propriocepção, sem cruzar.','Funículo lateral: corticospinal lateral (já cruzado), espinotalâmico lateral (cruzado) e espinocerebelares.','Fibras espinotalâmicas cruzam na comissura branca anterior.','Motoneurônios mediais: musculatura axial; laterais: distal dos membros.'],
+  clin:['Brown-Séquard: déficit motor e proprioceptivo do mesmo lado; dor e temperatura do lado oposto.','Siringomielia: perda de dor e temperatura em xale, bilateral.','Tabes dorsalis: funículos posteriores, Romberg positivo.','Degeneração combinada (B12): funículos posteriores e laterais.','Artéria espinal anterior: poupa os funículos posteriores.']},
+ tronco:{pts:['Bulbo: pirâmides, decussação das pirâmides, olivas, tubérculos grácil e cuneiforme, óbex.','Ponte: base com sulco basilar, pedúnculos cerebelares médios.','Mesencéfalo: pedúnculos cerebrais, fossa interpeduncular, colículos superiores (visão) e inferiores (audição).','Origens aparentes: III fossa interpeduncular; IV dorsal; V lateral na ponte; VI, VII e VIII no sulco bulbopontino.','XII no sulco lateral anterior do bulbo; IX, X e XI no sulco lateral posterior.','IV ventrículo: colículo facial, trígonos do hipoglosso (medial) e do vago (lateral), área vestibular.','Pedúnculos cerebelares: inferior (bulbo), médio (ponte) e superior (mesencéfalo).'],
+  clin:['O troclear é o único nervo que emerge da face dorsal e o mais longo no trajeto intracraniano.','Herniação tonsilar comprime o bulbo e os centros respiratórios.']},
+ troncoest:{pts:['Lemnisco medial: fibras arqueadas internas que cruzam no bulbo.','Núcleo ambíguo: motor de IX, X e XI (faringe e laringe).','Núcleo do trato solitário: gustação e aferência visceral.','Núcleo de Edinger-Westphal: parassimpático da pupila (III).','Fascículo longitudinal medial: integra núcleos oculomotores e vestibulares.','Formação reticular: vigília (SARA), centros respiratório e vasomotor; rafe serotoninérgica, locus ceruleus noradrenérgico.','Substância negra dopaminérgica entre tegmento e base do pedúnculo.'],
+  clin:['Weber: hemiplegia contralateral e III do mesmo lado (base do mesencéfalo).','Millard-Gubler: hemiplegia contralateral e VI/VII do mesmo lado (base da ponte).','Wallenberg: síndrome bulbar lateral (artéria cerebelar inferior posterior).','Síndrome bulbar medial: hemiplegia contralateral e língua desviando para o lado lesado.']},
+ cerebelo:{pts:['Arquicerebelo (floculonodular): equilíbrio. Paleocerebelo (vérmis anterior): tônus e postura. Neocerebelo (hemisférios): coordenação fina.','Córtex: camadas molecular, de Purkinje e granular.','Células de Purkinje são a única saída do córtex e são inibitórias (GABA).','Núcleos centrais, de lateral para medial: denteado, emboliforme, globoso e fastigial.','Fibras trepadeiras vêm da oliva inferior; as demais aferências são musgosas.','Via denteado → pedúnculo superior → tálamo (VL) contralateral → córtex motor.','Efeito final homolateral: as vias cruzam duas vezes.'],
+  clin:['Lesão de hemisfério: dismetria, tremor de intenção, disdiadococinesia do mesmo lado.','Lesão de vérmis: ataxia de tronco e marcha (ex.: meduloblastoma infantil).','Alcoolismo crônico: degeneração do vérmis anterior.']},
+ diencefalo:{pts:['Partes: tálamo, hipotálamo, epitálamo e subtálamo; cavidade = III ventrículo.','Sulco hipotalâmico separa tálamo de hipotálamo.','Núcleos talâmicos: VPL (corpo), VPM (face), geniculado lateral (visão), geniculado medial (audição), VL (motor).','Hipotálamo: supraquiasmático (ritmo circadiano), supraóptico e paraventricular (ADH e ocitocina), lateral (fome), ventromedial (saciedade).','Hipotálamo anterior perde calor; posterior conserva calor.','Epitálamo: pineal (melatonina) e habênulas.','Subtálamo: núcleo subtalâmico, ligado aos núcleos da base.'],
+  clin:['Hemibalismo: núcleo subtalâmico contralateral.','Diabetes insípido central: falta de ADH.','Síndrome talâmica (Dejerine-Roussy): dor contralateral intensa.']},
+ telencefalo:{pts:['Sulcos principais: central, lateral, parieto-occipital, calcarino e do cíngulo.','Lobos: frontal, parietal, temporal, occipital, ínsula e límbico.','Giro pré-central: área motora (4). Giro pós-central: somestésica (3, 1, 2).','Área visual (17) nos lábios do sulco calcarino; auditiva (41, 42) no giro temporal transverso.','Broca (44, 45): giro frontal inferior esquerdo. Wernicke: parte posterior do giro temporal superior esquerdo.','Membro inferior representado no lóbulo paracentral (face medial).','Corpo caloso: rostro, joelho, tronco e esplênio; fibras comissurais.'],
+  clin:['Afasia de Broca: expressão comprometida, compreensão preservada.','Afasia de Wernicke: fala fluente sem sentido, compreensão comprometida.','Herniação do úncus: compressão do III nervo (midríase).']},
+ telest:{pts:['Corpo estriado = caudado + lentiforme (putame + globo pálido).','Neoestriado = caudado + putame; paleoestriado = globo pálido.','Cápsula interna: perna anterior (caudado/lentiforme), joelho e perna posterior (tálamo/lentiforme).','Perna posterior contém o corticospinal e radiações sensitivas; joelho contém o corticonuclear.','De lateral para medial: ínsula, cápsula extrema, claustro, cápsula externa, putame, globo pálido, cápsula interna, tálamo.','Fibras de associação (mesmo hemisfério), comissurais (entre hemisférios) e de projeção.','Área pré-frontal: planejamento, comportamento e juízo crítico.'],
+  clin:['Lesão capsular: hemiplegia proporcionada contralateral.','Parkinson: perda dopaminérgica nigroestriatal.','Huntington: atrofia do caudado e coreia.','Negligência espacial: lesão parietal direita.']},
+ meninges:{pts:['Dura-máter, aracnoide e pia-máter; espaço subaracnóideo com líquor.','Pregas da dura: foice do cérebro, tenda do cerebelo, foice do cerebelo e diafragma da sela.','Líquor: produzido pelos plexos corioides, absorvido pelas granulações aracnóideas.','Circulação: ventrículos laterais → forames interventriculares → III → aqueduto → IV → aberturas → espaço subaracnóideo.','Volume total no adulto em torno de 130–150 mL.','No crânio o espaço epidural é virtual; na coluna é real.'],
+  clin:['Hematoma epidural: artéria meníngea média, forma biconvexa, intervalo lúcido.','Hematoma subdural: veias-ponte, forma em crescente, comum em idosos.','Hemorragia subaracnóidea: ruptura de aneurisma, cefaleia súbita intensa.','Estenose do aqueduto: hidrocefalia não comunicante.']},
+ vasc:{pts:['Sistema carotídeo (carótidas internas) e vertebrobasilar (vertebrais → basilar).','Círculo arterial: cerebrais anteriores e posteriores, comunicantes e carótidas internas. A cerebral média não faz parte.','Cerebral anterior: face medial frontal e parietal. Média: face lateral. Posterior: occipital e face inferior do temporal.','Lenticuloestriadas (da cerebral média) irrigam cápsula interna e núcleos da base.','Barreira hematoencefálica: junções oclusivas endoteliais e pés de astrócitos.','Órgãos circunventriculares (área postrema, neuro-hipófise) não têm barreira.','Seio cavernoso: carótida interna e VI dentro; III, IV, V1 e V2 na parede.'],
+  clin:['Cerebral anterior: déficit crural contralateral.','Cerebral média: déficit braquiofacial e afasia (hemisfério dominante).','Cerebral posterior: hemianopsia homônima com preservação macular.','Hemorragia hipertensiva: ruptura das lenticuloestriadas.']},
+ nervesp:{pts:['Nervo espinal = raiz dorsal (sensitiva) + raiz ventral (motora); é misto.','Ramo dorsal: músculos profundos e pele do dorso. Ramo ventral: membros e parede anterolateral.','Plexos: cervical (C1–C4), braquial (C5–T1), lombar e sacral. Nervos torácicos seguem como intercostais.','Dermátomos de referência: C6 polegar, T4 mamilo, T10 umbigo, L4 face medial da perna, S1 borda lateral do pé.','Reflexos: bicipital C5–C6, tricipital C7, patelar L3–L4 (L2–L4), aquileu S1.','Frênico: C3–C5.'],
+  clin:['Hérnia lombar posterolateral comprime a raiz que sai no forame abaixo (L5–S1 → S1).','Hérnia cervical: a raiz tem o número da vértebra de baixo (C5–C6 → C6).']},
+ nervcran:{pts:['I olfação; II visão; III, IV e VI motricidade ocular; V sensibilidade da face e mastigação.','VII mímica, gustação dos 2/3 anteriores e glândulas; VIII audição e equilíbrio.','IX gustação do 1/3 posterior; X parassimpático visceral e laringe; XI trapézio e esternocleidomastóideo; XII língua.','Forames: canal óptico (II), fissura orbital superior (III, IV, V1, VI), redondo (V2), oval (V3), meato acústico interno (VII, VIII), jugular (IX, X, XI), canal do hipoglosso (XII).','Reflexo corneano: aferência V1, eferência VII. Fotomotor: aferência II, eferência III.','Núcleo facial superior recebe fibras dos dois hemisférios.'],
+  clin:['Paralisia facial periférica: toda a hemiface. Central: só a metade inferior, contralateral.','Lesão do XII: língua desvia para o lado lesado.','Lesão do X: úvula desvia para o lado são.','Aneurisma da comunicante posterior: III com midríase.']},
+ sna:{pts:['Simpático: origem toracolombar (T1–L2), gânglios paravertebrais e pré-vertebrais, pré-ganglionar curta.','Parassimpático: origem craniossacral (III, VII, IX, X e S2–S4), gânglios junto às vísceras.','Pré-ganglionares: acetilcolina. Pós-ganglionares simpáticas: noradrenalina (exceto sudoríparas: acetilcolina).','Medula da adrenal equivale a um gânglio simpático.','Gânglios parassimpáticos da cabeça: ciliar (III), pterigopalatino e submandibular (VII), ótico (IX).','Bexiga: parassimpático contrai o detrusor; simpático relaxa.'],
+  clin:['Síndrome de Horner: ptose, miose e anidrose do mesmo lado.','Tumor de Pancoast compromete a cadeia simpática cervical.','Disreflexia autonômica em lesões acima de T6.']},
+ vias:{pts:['Dor e temperatura: gânglio → coluna posterior → cruza na comissura branca → espinotalâmico lateral → VPL → giro pós-central.','Tato epicrítico e propriocepção: gânglio → grácil/cuneiforme → núcleos no bulbo → cruza → lemnisco medial → VPL → córtex.','Face: núcleos do trigêmeo → lemnisco trigeminal → VPM.','Visão: retina → nervo → quiasma (cruzam fibras nasais) → trato → geniculado lateral → radiação → calcarino.','Audição: gânglio espiral → núcleos cocleares → colículo inferior → geniculado medial → giro temporal transverso. Via bilateral.','Propriocepção inconsciente vai ao cerebelo, não ao córtex.'],
+  clin:['Quiasma (tumor de hipófise): hemianopsia bitemporal.','Trato óptico: hemianopsia homônima contralateral.','Alça de Meyer (temporal): quadrantanopsia superior contralateral.']},
+ eferentes:{pts:['Corticospinal: giro pré-central → coroa radiada → perna posterior da cápsula → base do pedúnculo → base da ponte → pirâmide → decussação → funículo lateral → coluna anterior.','Corticonuclear: joelho da cápsula interna; a maioria dos núcleos motores recebe fibras bilaterais.','Vias do tronco: rubrospinal (distal), vestibulospinal e reticulospinal (postura), tetospinal.','Neurônio motor superior: espasticidade, hiper-reflexia, Babinski.','Neurônio motor inferior: flacidez, arreflexia, atrofia e fasciculações.'],
+  clin:['Choque medular: flacidez e arreflexia iniciais, depois espasticidade.','Descerebração (extensão) por lesão entre rubro e vestibular; decorticação (flexão de membros superiores) acima do rubro.','ELA: sinais de neurônio motor superior e inferior juntos.']},
+ limbico:{pts:['Componentes: hipocampo, giro para-hipocampal, giro do cíngulo, corpo amigdaloide, área septal, corpos mamilares, núcleo anterior do tálamo.','Circuito de Papez: hipocampo → fórnix → corpo mamilar → trato mamilotalâmico → núcleo anterior → cíngulo → para-hipocampal.','Hipocampo: memória declarativa. Amígdala: medo e emoções.','Hipotálamo é o principal efetor do sistema límbico.','Núcleo accumbens participa do circuito de recompensa.'],
+  clin:['Lesão hipocampal bilateral: amnésia anterógrada.','Wernicke-Korsakoff (tiamina): corpos mamilares e tálamo medial, confabulação.','Klüver-Bucy: lesão bilateral das amígdalas.']}
+};
+
 </script>
 
 <!-- Camada 2: armazenamento e aplicação (funciona sem Firebase) -->
@@ -775,7 +1091,9 @@ var LocalStore={
  init:function(){return Promise.resolve()},
  onUser:function(cb){this._cb=cb;var uid=lsGet('upmed2_session',null);var u=uid&&this._users()[uid];cb(u?this._pub(u):null)},
  _users:function(){return lsGet('upmed2_users',{})},
- _pub:function(u){return{uid:u.uid,name:u.name,email:u.email,turma:u.turma}},
+ _pub:function(u){return{uid:u.uid,name:u.name,email:u.email,turma:u.turma,fac:u.fac||'',av:u.av||''}},
+ updateProfile:function(uid,patch){var users=this._users();if(!users[uid])return Promise.reject({code:'local/nouser'});Object.assign(users[uid],patch);if(!lsSet('upmed2_users',users))return Promise.reject({code:'local/quota'});return Promise.resolve()},
+ race:null,
  signUp:function(name,email,pass,turma){
   var users=this._users();email=email.trim().toLowerCase();
   for(var k in users){if(users[k].email===email)return Promise.reject({code:'auth/email-already-in-use'})}
@@ -816,7 +1134,7 @@ var FirebaseStore={
  },
  onUser:function(cb){var self=this;this.auth.onAuthStateChanged(function(u){
    if(!u){cb(null);return}
-   self.db.ref('profiles/'+u.uid).once('value').then(function(s){var p=s.val()||{};var pd=self._pending||{};cb({uid:u.uid,email:u.email,name:p.name||pd.name||u.displayName||u.email.split('@')[0],turma:p.turma||pd.turma||''})}).catch(function(){cb({uid:u.uid,email:u.email,name:u.displayName||u.email.split('@')[0],turma:''})});
+   self.db.ref('profiles/'+u.uid).once('value').then(function(s){var p=s.val()||{};var pd=self._pending||{};cb({uid:u.uid,email:u.email,name:p.name||pd.name||u.displayName||u.email.split('@')[0],turma:p.turma||pd.turma||'',fac:p.fac||'',av:p.av||''})}).catch(function(){cb({uid:u.uid,email:u.email,name:u.displayName||u.email.split('@')[0],turma:''})});
  })},
  signUp:function(name,email,pass,turma){var self=this;self._pending={name:name,turma:turma};
   return this.auth.createUserWithEmailAndPassword(email.trim(),pass).then(function(cred){
@@ -831,12 +1149,21 @@ var FirebaseStore={
  listScores:function(){return this.db.ref('scores').once('value').then(function(s){return s.val()||{}})},
  listStations:function(){return this.db.ref('stations').once('value').then(function(s){return s.val()||{}})},
  saveStation:function(st){return this.db.ref('stations/'+st.id).set(JSON.parse(JSON.stringify(st)))},
- deleteStation:function(id){return this.db.ref('stations/'+id).remove()}
+ deleteStation:function(id){return this.db.ref('stations/'+id).remove()},
+ updateProfile:function(uid,patch){var self=this;var p=[this.db.ref('profiles/'+uid).update(patch)];if(patch.name&&this.auth.currentUser)p.push(this.auth.currentUser.updateProfile({displayName:patch.name}));return Promise.all(p)},
+ /* Corrida da turma: salas em races/{code} */
+ race:{
+  create:function(code,data){return FirebaseStore.db.ref('races/'+code).set(data)},
+  get:function(code){return FirebaseStore.db.ref('races/'+code).once('value').then(function(s){return s.val()})},
+  watch:function(code,cb){var r=FirebaseStore.db.ref('races/'+code);var h=r.on('value',function(s){cb(s.val())});return function(){r.off('value',h)}},
+  update:function(code,patch){return FirebaseStore.db.ref('races/'+code).update(patch)},
+  player:function(code,uid,data){return FirebaseStore.db.ref('races/'+code+'/players/'+uid).update(data)}
+ }
 };
 
-/* Camada 2 — aplicação. Não depende do Firebase para funcionar. */
 (function(){
 'use strict';
+/* Camada 2 — aplicação (núcleo). */
 var $=function(s,r){return(r||document).querySelector(s)};
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
@@ -853,8 +1180,9 @@ var XPD={1:10,2:15,3:20};
 
 /* ---------- estado ---------- */
 var Store=LocalStore;
+var VIEWS={};
 var S={user:null,admin:false,priv:null,view:'painel',sub:null,stations:{},scores:null,fbError:null};
-function blankPriv(){return{stats:{answered:0,correct:0,xp:0,mods:{},week:{id:weekId(),xp:0}},w:{},seen:{},errs:{},hist:[]}}
+function blankPriv(){return{stats:{answered:0,correct:0,xp:0,mods:{},week:{id:weekId(),xp:0}},w:{},seen:{},errs:{},hist:[],days:{},wks:{},srs:{},fav:{},badges:{},c:{},weekly:{}}}
 
 var saveT=null;
 function persist(){
@@ -863,7 +1191,7 @@ function persist(){
   var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
   Store.savePrivate(S.user.uid,p).catch(function(e){console.warn(e)});
   var mods={};Object.keys(st.mods).forEach(function(k){mods[k]={a:st.mods[k].a,c:st.mods[k].c,xp:st.mods[k].xp||0}});
-  Store.saveScore(S.user.uid,{name:S.user.name,turma:S.user.turma||'',xp:st.xp,answered:st.answered,correct:st.correct,week:st.week,mods:mods,at:Date.now()}).then(function(){S.scores=null}).catch(function(e){console.warn(e)});
+  Store.saveScore(S.user.uid,{name:S.user.name,turma:S.user.turma||'',fac:S.user.fac||'',av:S.user.av||'',wk2:p.weekly&&p.weekly.id===weekId()?{id:p.weekly.id,best:p.weekly.best||0}:null,xp:st.xp,answered:st.answered,correct:st.correct,week:st.week,mods:mods,at:Date.now()}).then(function(){S.scores=null}).catch(function(e){console.warn(e)});
  },1200);
 }
 function record(q,ok,partial){
@@ -874,11 +1202,12 @@ function record(q,ok,partial){
  var w=p.w[q.id]||1;p.w[q.id]=ok?Math.max(.35,+(w*.6).toFixed(2)):Math.min(6,w+1.5);
  p.seen[q.id]=(p.seen[q.id]||0)+1;
  if(ok){if(p.errs[q.id]){p.errs[q.id]--;if(p.errs[q.id]<=0)delete p.errs[q.id]}}else p.errs[q.id]=2;
+ if(window.__onRecord)__onRecord(q,ok);
  persist();return gain;
 }
 function addGameXp(game,pts){
  var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
- st.xp+=pts;st.week.xp+=pts;p.hist.unshift({t:Date.now(),k:'game',g:game,xp:pts});p.hist=p.hist.slice(0,60);persist();
+ st.xp+=pts;st.week.xp+=pts;p.hist.unshift({t:Date.now(),k:'game',g:game,xp:pts});p.hist=p.hist.slice(0,60);if(window.__onGame)__onGame(game,pts);persist();
 }
 function pickQuestions(pool,n){
  var w=S.priv.w,seen=S.priv.seen;var out=[],left=pool.slice();
@@ -896,9 +1225,13 @@ var IC={
  estudar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M9 8h6"/></svg>',
  games:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>',
  ranking:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21V11M16 21V7M12 21V3M4 21h16"/></svg>',
+ busca:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
+ caderno:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>',
+ conquistas:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="14" r="6"/><path d="M8 3h3l1 5M16 3h-3l-1 5"/></svg>',
  perfil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>'
 };
 var NAV=[['painel','Painel'],['estudar','Questões'],['games','Games'],['ranking','Ranking'],['perfil','Perfil']];
+var NAV2=[['busca','Buscar'],['caderno','Caderno'],['conquistas','Conquistas']];
 
 /* ---------- utilidades de UI ---------- */
 function toast(t){var el=document.createElement('div');el.className='toast';el.setAttribute('role','status');el.textContent=t;document.body.appendChild(el);setTimeout(function(){el.remove()},2600)}
@@ -958,15 +1291,17 @@ function renderAuthKeep(m,t){var e=$('#aEmail')&&$('#aEmail').value,n=$('#aName'
    SHELL
    ========================================================= */
 function shell(inner){
- var nav=function(cls){return NAV.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
- return '<div class="shell"><aside class="side"><div class="logo">Up-MED <span>study</span></div>'+nav()+
- '<div class="foot"><span>'+esc(S.user.name)+'</span><span class="muted" style="color:inherit;opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Modo local')+'</span></div></aside>'+
- '<main class="main" id="main"><div class="page">'+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav()+'</nav></div>';
+ var nav=function(list){return list.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
+ return '<div class="shell"><aside class="side"><div class="logo">'+LOGO+'<span>Up-MED <em>study</em></span></div>'+nav(NAV)+'<div class="side-sep"></div>'+nav(NAV2)+
+ '<div class="foot">'+avatar(S.user,32)+'<span><b>'+esc(S.user.name)+'</b><br><span style="opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</span></span></div></aside>'+
+ '<main class="main" id="main"><div class="page">'+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV)+'</nav></div>';
 }
+function avatar(u,size){size=size||36;var ini=String(u&&u.name||'?').trim().split(/\s+/).map(function(w){return w[0]}).slice(0,2).join('').toUpperCase();return u&&u.av?'<img class="av" src="'+esc(u.av)+'" alt="" width="'+size+'" height="'+size+'" style="width:'+size+'px;height:'+size+'px">':'<span class="av" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*.4)+'px">'+esc(ini)+'</span>'}
 function render(){
  if(!S.user){renderAuth();return}
  var v=S.view,html;
- if(v==='painel')html=vPainel();
+ if(VIEWS[v])html=VIEWS[v]();
+ else if(v==='painel')html=vPainel();
  else if(v==='estudar')html=vEstudar();
  else if(v==='quiz')html=vQuiz();
  else if(v==='games')html=vGames();
@@ -1022,8 +1357,9 @@ function vEstudar(){
  '<div class="card grid"><h3>Distribuição do banco</h3><div class="grid g2" style="gap:6px">'+MODULES.map(function(m){var n=QB.filter(function(q){return q.m===m.id}).length;return '<div class="small" style="display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:4px 0"><span>'+esc(m.n)+'</span><span class="num muted">'+n+'</span></div>'}).join('')+'</div></div>';
 }
 function filterPool(){var types=Object.keys(F.types).filter(function(k){return F.types[k]});return QB.filter(function(q){return(!F.mod||q.m===F.mod)&&(!types.length||types.indexOf(q.t)>=0)&&(!F.diff||q.d===F.diff)})}
-function startQuiz(list,title){
- S.quiz={title:title,list:list.map(prepQ),i:0,ok:0,xp:0,done:false,ans:null,results:[]};go('quiz');
+function startQuiz(list,title,opts){
+ opts=opts||{};if(!list.length){toast('Nenhuma questão disponível aqui.');return}
+ S.quiz={title:title,list:list.map(prepQ),i:0,ok:0,xp:0,done:false,ans:null,results:[],exam:!!opts.exam,kind:opts.kind||'',meta:opts.meta||null,deadline:opts.exam?Date.now()+Math.round(list.length*90)*1000:0};go('quiz');if(window.__quizStart)__quizStart(S.quiz);
 }
 function prepQ(q){
  var p={q:q};
@@ -1036,6 +1372,7 @@ function prepQ(q){
 }
 function vQuiz(){
  var Z=S.quiz;if(!Z)return vPainel();
+ if(Z.finished&&window.quizResult)return quizResult(Z);
  if(Z.finished){
   var miss=Z.results.filter(function(r){return!r.ok});
   return '<div class="qwrap"><div class="eyebrow">'+esc(Z.title)+' · resultado</div><div class="score">'+Z.ok+'<span class="muted" style="font-size:32px">/'+Z.list.length+'</span></div><p>Você ganhou <b>'+Z.xp+' pontos</b>.</p>'+
@@ -1043,31 +1380,35 @@ function vQuiz(){
   '<div class="actions"><button class="btn pri" data-act="again">Nova sessão igual</button><button class="btn ghost" data-nav="painel">Voltar ao painel</button></div></div>';
  }
  var P=Z.list[Z.i],q=P.q,done=Z.done;
- var h='<div class="qwrap"><div class="qhead"><span class="eyebrow">'+esc(Z.title)+'</span><span class="small muted num">'+(Z.i+1)+' de '+Z.list.length+' · '+Z.ok+' acertos</span></div><div class="bar"><i style="width:'+(100*(Z.i+(done?1:0))/Z.list.length)+'%"></i></div>'+
- '<div class="chips"><span class="tag">'+esc(MOD[q.m].n)+'</span><span class="tag amb">'+TYPE_LABEL[q.t]+'</span><span class="tag">'+['','Básica','Intermediária','Avançada'][q.d]+'</span></div>';
+ var h='<div class="qwrap"><div class="qhead"><span class="eyebrow">'+esc(Z.title)+'</span><span class="small muted num">'+(Z.exam?'<span class="timer" id="qTimer">'+fmtLeft(Z.deadline)+'</span> · ':'')+(Z.i+1)+' de '+Z.list.length+(Z.exam?'':' · '+Z.ok+' acertos')+'</span></div><div class="bar"><i style="width:'+(100*(Z.i+(done?1:0))/Z.list.length)+'%"></i></div>'+
+ '<div class="chips"><span class="tag">'+esc(MOD[q.m].n)+'</span><span class="tag amb">'+TYPE_LABEL[q.t]+'</span><span class="tag">'+['','Básica','Intermediária','Avançada'][q.d]+'</span><button class="favbtn" data-fav="'+q.id+'" aria-pressed="'+!!S.priv.fav[q.id]+'" aria-label="Favoritar questão" title="Favoritar">'+(S.priv.fav[q.id]?'★':'☆')+'</button></div>';
  var L='ABCDE';
  if(q.t==='mc'||q.t==='case'){
   h+='<p class="stem'+(q.t==='case'?' case':'')+'">'+esc(q.q)+'</p><div class="opts">'+P.order.map(function(oi,k){var c='';if(done){if(oi===0)c='right';else if(oi===P.pick)c='wrong'}return '<button class="opt '+c+'" data-pick="'+oi+'" '+(done?'disabled':'')+'><span class="k">'+L[k]+'</span><span>'+esc(q.o[oi])+'</span></button>'}).join('')+'</div>';
  } else if(q.t==='vf'){
   h+='<p class="stem">'+esc(q.q)+'</p><div class="opts">'+P.order.map(function(si){var s=q.s[si],v=P.v[si];var c=done?(v===s[1]?'right':'wrong'):'';return '<div class="vfrow '+c+'"><span>'+esc(s[0])+(done&&v!==s[1]?' <b class="small" style="color:var(--ok)">('+(s[1]?'Verdadeira':'Falsa')+')</b>':'')+'</span><div class="tog"><button data-vf="'+si+'" data-val="1" aria-pressed="'+(v===true)+'" '+(done?'disabled':'')+' aria-label="Verdadeira">V</button><button data-vf="'+si+'" data-val="0" aria-pressed="'+(v===false)+'" '+(done?'disabled':'')+' aria-label="Falsa">F</button></div></div>'}).join('')+'</div>'+
-  (done?'':'<div class="actions"><button class="btn pri" data-act="check" '+(Object.keys(P.v).length===q.s.length?'':'disabled')+'>Conferir</button></div>');
+  (done?'':'<div class="actions"><button class="btn pri" data-act="check" '+(Object.keys(P.v).length===q.s.length?'':'disabled')+'>'+(Z.exam?'Responder':'Conferir')+'</button></div>');
  } else if(q.t==='as'){
   h+='<p class="stem">'+esc(q.q)+'</p><div class="opts">'+P.left.map(function(li){var pr=q.p[li],v=P.v[li];var c=done?(v===pr[1]?'right':'wrong'):'';return '<div class="asrow '+c+'"><b>'+esc(pr[0])+'</b><select class="in" data-as="'+li+'" '+(done?'disabled':'')+' aria-label="Associação para '+esc(pr[0])+'"><option value="">Escolha…</option>'+P.rights.map(function(r){return '<option '+(v===r?'selected':'')+'>'+esc(r)+'</option>'}).join('')+'</select>'+(done&&v!==pr[1]?'<span class="fix">Correto: '+esc(pr[1])+'</span>':'')+'</div>'}).join('')+'</div>'+
-  (done?'':'<div class="actions"><button class="btn pri" data-act="check" '+(Object.keys(P.v).filter(function(k){return P.v[k]}).length===q.p.length?'':'disabled')+'>Conferir</button></div>');
+  (done?'':'<div class="actions"><button class="btn pri" data-act="check" '+(Object.keys(P.v).filter(function(k){return P.v[k]}).length===q.p.length?'':'disabled')+'>'+(Z.exam?'Responder':'Conferir')+'</button></div>');
  } else if(q.t==='ar'){
   h+='<div class="arbox"><div><b>Asserção</b>'+esc(q.a)+'</div><div><b>Razão</b>'+esc(q.r)+'</div></div><div class="opts">'+AR_OPTS.map(function(o,i){var c='';if(done){if(i===q.k)c='right';else if(i===P.pick)c='wrong'}return '<button class="opt '+c+'" data-pick="'+i+'" '+(done?'disabled':'')+'><span class="k">'+L[i]+'</span><span>'+esc(o)+'</span></button>'}).join('')+'</div>';
  } else if(q.t==='od'){
   h+='<p class="stem">'+esc(q.q)+'</p><p class="small muted">Toque nos itens na ordem certa. Toque em um item já colocado para devolvê-lo.</p><ol class="seq">'+P.seq.map(function(si,pos){var c=done?(si===pos?'right':'wrong'):'';return '<li class="'+c+'"><span>'+esc(q.s[si])+'</span>'+(done?'':'<button class="btn ghost sm" data-unod="'+pos+'" aria-label="Devolver">Devolver</button>')+'</li>'}).join('')+'</ol>'+
   (done?(P.seq.some(function(si,pos){return si!==pos})?'<div class="card small"><b>Ordem correta:</b><ol style="margin:6px 0 0;padding-left:20px">'+q.s.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></div>':''):
-  '<div class="opts">'+P.pool.filter(function(i){return P.seq.indexOf(i)<0}).map(function(i){return '<button class="opt" data-od="'+i+'" style="grid-template-columns:1fr"><span>'+esc(q.s[i])+'</span></button>'}).join('')+'</div><div class="actions"><button class="btn pri" data-act="check" '+(P.seq.length===q.s.length?'':'disabled')+'>Conferir</button></div>');
+  '<div class="opts">'+P.pool.filter(function(i){return P.seq.indexOf(i)<0}).map(function(i){return '<button class="opt" data-od="'+i+'" style="grid-template-columns:1fr"><span>'+esc(q.s[i])+'</span></button>'}).join('')+'</div><div class="actions"><button class="btn pri" data-act="check" '+(P.seq.length===q.s.length?'':'disabled')+'>'+(Z.exam?'Responder':'Conferir')+'</button></div>');
  } else if(q.t==='gp'){
-  h+='<p class="stem">'+esc(q.q).replace('____','<b>______</b>')+'</p><form id="gpForm" class="actions" style="align-items:stretch"><input class="in" id="gpIn" style="flex:1;min-width:180px" autocomplete="off" '+(done?'disabled value="'+esc(P.typed||'')+'"':'')+' aria-label="Sua resposta"><button class="btn pri" '+(done?'disabled':'')+'>Conferir</button></form>';
+  h+='<p class="stem">'+esc(q.q).replace('____','<b>______</b>')+'</p><form id="gpForm" class="actions" style="align-items:stretch"><input class="in" id="gpIn" style="flex:1;min-width:180px" autocomplete="off" '+(done?'disabled value="'+esc(P.typed||'')+'"':'')+' aria-label="Sua resposta"><button class="btn pri" '+(done?'disabled':'')+'>'+(Z.exam?'Responder':'Conferir')+'</button></form>';
  }
- if(done){var ok=P.ok;h+='<div class="fb '+(ok?'good':'bad')+'" role="status"><span class="verdict">'+(ok?'Correto · +'+P.gain+' pontos':(P.partial?'Parcial · '+Math.round(P.partial*100)+'% certo':'Incorreto'))+'</span>'+(q.t==='gp'&&!ok?'<p><b>Resposta:</b> '+esc(q.a[0])+'</p>':'')+'<p>'+esc(q.e)+'</p></div><div class="actions"><button class="btn dark" data-act="next">'+(Z.i+1>=Z.list.length?'Ver resultado':'Próxima')+'</button></div>';}
+ if(done){var ok=P.ok;h+='<div class="fb '+(ok?'good':'bad')+'" role="status"><span class="verdict">'+(ok?'Correto · +'+P.gain+' pontos':(P.partial?'Parcial · '+Math.round(P.partial*100)+'% certo':'Incorreto'))+'</span>'+(q.t==='gp'&&!ok?'<p><b>Resposta:</b> '+esc(q.a[0])+'</p>':'')+'<p>'+esc(q.e)+'</p><div class="actions"><button class="btn ghost sm" data-mod="'+q.m+'">Ver resumo do módulo</button></div></div><div class="actions"><button class="btn dark" data-act="next">'+(Z.i+1>=Z.list.length?'Ver resultado':'Próxima')+'</button></div>';}
  if(!done&&q.t==='gp')afterFns.push(function(){var i=$('#gpIn');i&&i.focus({preventScroll:true})});
  return h+'</div>';
 }
-function finishQ(ok,partial){var Z=S.quiz,P=Z.list[Z.i];P.ok=ok;P.partial=partial||0;Z.done=true;var g=record(P.q,ok,partial);P.gain=g;Z.xp+=g;if(ok)Z.ok++;Z.results.push({q:P.q,ok:ok});S.keepScroll=true;render()}
+function finishQ(ok,partial){var Z=S.quiz,P=Z.list[Z.i];P.ok=ok;P.partial=partial||0;Z.done=true;var g=record(P.q,ok,partial);P.gain=g;Z.xp+=g;if(ok)Z.ok++;Z.results.push({q:P.q,ok:ok,P:P});
+ if(Z.exam){if(Z.i+1>=Z.list.length){endQuiz(Z)}else{Z.i++;Z.done=false}render();window.scrollTo(0,0);return}
+ S.keepScroll=true;render();if(ok){sfx('ok');floatXp(g)}else sfx('bad')}
+function endQuiz(Z){Z.finished=true;stopTimers();S.priv.hist.unshift({t:Date.now(),k:'quiz',title:Z.title,ok:Z.ok,n:Z.list.length,xp:Z.xp});S.priv.hist=S.priv.hist.slice(0,60);if(window.__quizEnd)__quizEnd(Z);persist()}
+function fmtLeft(dl){var s=Math.max(0,Math.round((dl-Date.now())/1000));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
 
 /* =========================================================
    GAMES — menu
@@ -1125,20 +1466,20 @@ function vPratica(){
  return '<div class="qwrap" style="max-width:1080px">'+head+'<div class="stage">'+figure(st)+'<section class="grid" style="gap:12px;min-width:0">'+side+'</section></div></div>';
 }
 function figure(st){
- if(st.kind==='svg')return '<figure class="fig" id="fig">'+(st.fig==='corte'?svgCorte():svgVista())+'<figcaption class="credit">Esquema didático original.</figcaption></figure>';
- return '<figure class="fig"><div class="photo" id="photo"><img src="'+esc(st.src)+'" alt="'+esc(st.t)+'" draggable="false" id="phImg"></div><figcaption class="credit">'+esc(st.t)+(st.credit?' · <a href="'+esc(st.credit)+'" target="_blank" rel="noopener">fonte e licença</a>':'')+'</figcaption></figure>';
+ if(st.kind==='svg')return '<figure class="fig" id="fig"><div class="zoomwrap" id="zw"><div class="zoomer">'+SVGF[st.fig]()+'</div></div>'+'<figcaption class="credit">Esquema didático original.</figcaption></figure>';
+ return '<figure class="fig"><div class="photo zoomwrap" id="photo"><div class="zoomer"><img src="'+esc(st.src)+'" alt="'+esc(st.t)+'" draggable="false" id="phImg"></div></div><figcaption class="credit">'+esc(st.t)+(st.credit?' · <a href="'+esc(st.credit)+'" target="_blank" rel="noopener">fonte e licença</a>':'')+'</figcaption></figure>';
 }
 function paintStation(it){
  var st=it.st,pin=it.pin,done=it.done;
  if(st.kind==='svg'){
-  var svg=$('#fig svg');if(!svg)return;var p=SCHM[pin.sid];
+  var svg=$('#fig svg');if(!svg)return;var p=SCHM[pin.sid];if(!p)return;
   var mark=function(id,cls){svg.querySelectorAll('[data-id="'+id+'"]').forEach(function(e){e.classList.add(cls)})};
   if(PR.mode!=='tap'||done){mark(pin.sid,done?(it.ok?'ok':'hl'):'hl');
    if(PR.mode!=='tap'){var ns='http://www.w3.org/2000/svg';[['spin pulse',9],['spin',6]].forEach(function(a){var c=document.createElementNS(ns,'circle');c.setAttribute('class',a[0]);c.setAttribute('cx',p.a[0]);c.setAttribute('cy',p.a[1]);c.setAttribute('r',a[1]);svg.appendChild(c)})}}
   if(done&&it.tapSid&&!it.ok)mark(it.tapSid,'bad');
   if(done&&PR.mode==='tap'&&it.ok)mark(pin.sid,'ok');
  } else {
-  var box=$('#photo');if(!box)return;var img=$('#phImg');
+  var box=$('#photo .zoomer');if(!box)return;var img=$('#phImg');
   img.onerror=function(){box.innerHTML='<div class="imgfail">A imagem não carregou. Verifique a internet ou abra a fonte original.</div>'};
   var add=function(x,y,cls){var d=document.createElement('span');d.className='pin '+cls;d.style.left=(x*100)+'%';d.style.top=(y*100)+'%';box.appendChild(d)};
   if(PR.mode!=='tap'||done)add(pin.x,pin.y,(done?(it.ok?'ok':''):'pulse'));
@@ -1153,10 +1494,10 @@ function prStart(){
   var others=shuffle(x.st.pins.filter(function(p){return p.n!==x.pin.n}).map(function(p){return p.n}));
   if(others.length<3){var extra=shuffle(SCH.map(function(p){return p.n}).filter(function(n){return n!==x.pin.n&&others.indexOf(n)<0}));others=others.concat(extra)}
   return{st:x.st,pin:x.pin,opts:shuffle([x.pin.n].concat(others.slice(0,3))),done:false}});
- PR.items=items;PR.i=0;PR.ok=0;PR.pts=0;PR.phase='play';go('pratica');startPrTimer();
+ PR.items=items;PR.i=0;PR.ok=0;PR.pts=0;PR.phase='play';ZS={};go('pratica');startPrTimer();
 }
 function startPrTimer(){stopTimers();if(PR.mode!=='exam')return;PR.left=45;timerH=setInterval(function(){PR.left--;var t=$('#timer');if(t){t.textContent=PR.left+' s';t.classList.toggle('low',PR.left<=10)}if(PR.left<=0){stopTimers();var it=PR.items[PR.i];if(!it.done){var v=$('#exIn')&&$('#exIn').value;prAnswer(v?close(v,it.pin.n):false,{typed:v||'',timeout:!v})}}},1000)}
-function prAnswer(ok,extra){var it=PR.items[PR.i];if(it.done)return;stopTimers();Object.assign(it,extra||{});it.done=true;it.ok=ok;if(ok){PR.ok++;PR.pts+=PR.mode==='exam'?15:10}S.keepScroll=true;render()}
+function prAnswer(ok,extra){var it=PR.items[PR.i];if(it.done)return;stopTimers();Object.assign(it,extra||{});it.done=true;it.ok=ok;if(ok){PR.ok++;inc('prOk');PR.pts+=PR.mode==='exam'?15:10}S.keepScroll=true;render()}
 
 /* =========================================================
    MONTE A VIA
@@ -1203,7 +1544,7 @@ function vNervos(){
  '<div class="opts" id="nvOpts">'+q.opts.map(function(o,k){return '<button class="opt" data-nv="'+esc(o)+'"><span class="k">'+'ABCD'[k]+'</span><span>'+esc(o)+'</span></button>'}).join('')+'</div></div>';
 }
 function nvStart(){var best=NV&&NV.best||0;NV={phase:'play',left:60,pts:0,ok:0,n:0,streak:0,maxStreak:0,best:best,q:nvQ()};go('nervos');
- timerH=setInterval(function(){NV.left--;var t=$('#nvT');if(t){t.textContent=NV.left+' s';t.classList.toggle('low',NV.left<=10)}if(NV.left<=0){stopTimers();NV.phase='end';NV.best=Math.max(NV.best,NV.pts);if(NV.pts)addGameXp('nervos',Math.round(NV.pts/2));render()}},1000)}
+ timerH=setInterval(function(){NV.left--;var t=$('#nvT');if(t){t.textContent=NV.left+' s';t.classList.toggle('low',NV.left<=10)}if(NV.left<=0){stopTimers();NV.phase='end';NV.best=Math.max(NV.best,NV.pts);if(NV.pts>cnt('nvBest')){cnt('nvBest',NV.pts);checkBadges()}if(NV.pts)addGameXp('nervos',Math.round(NV.pts/2));render()}},1000)}
 
 /* =========================================================
    RANKING
@@ -1253,7 +1594,7 @@ function vEditor(){
  var st=ED.st,cur=ED.cur;
  var names=ED.list;
  return '<div class="top"><div><div class="eyebrow">Editor</div><h2>'+esc(st.t)+'</h2></div><div class="actions"><button class="btn ghost sm" data-act="edBack">Voltar</button>'+(S.stations[st.id]?'<button class="btn ghost sm" data-act="edDel">Excluir</button>':'')+'<button class="btn pri sm" data-act="edSave">Salvar e publicar</button></div></div>'+
- '<div class="stage"><figure class="fig"><div class="photo" id="photo" style="cursor:crosshair"><img src="'+esc(st.src)+'" alt="" id="phImg" draggable="false"></div><figcaption class="credit">'+(st.credit?'<a href="'+esc(st.credit)+'" target="_blank" rel="noopener">Fonte e licença</a>':'Foto própria')+(ED.key?' · <a href="'+esc(ED.key)+'" target="_blank" rel="noopener">Gabarito legendado</a>':'')+'</figcaption></figure>'+
+ '<div class="stage"><figure class="fig"><div class="photo zoomwrap" id="photo" style="cursor:crosshair"><div class="zoomer"><img src="'+esc(st.src)+'" alt="" id="phImg" draggable="false"></div></div><figcaption class="credit">'+(st.credit?'<a href="'+esc(st.credit)+'" target="_blank" rel="noopener">Fonte e licença</a>':'Foto própria')+(ED.key?' · <a href="'+esc(ED.key)+'" target="_blank" rel="noopener">Gabarito legendado</a>':'')+'</figcaption></figure>'+
  '<section class="grid" style="gap:10px;min-width:0"><p class="small">'+(cur!=null?'Agora toque na foto para marcar: <b>'+esc(names[cur])+'</b>':'Escolha uma estrutura na lista.')+'</p>'+
  '<div class="edlist">'+names.map(function(n,i){var pn=st.pins.find(function(p){return p.n===n});var sk=ED.skip[n];return '<button class="'+(i===cur?'cur':'')+'" data-edn="'+i+'"><span class="st '+(pn?'on':sk?'skip':'')+'"></span><span>'+esc(n)+'</span><span class="small muted">'+(pn?'marcada':sk?'não visível':'')+'</span></button>'}).join('')+'</div>'+
  '<div class="actions">'+(cur!=null?'<button class="btn ghost sm" data-act="edSkip">Não visível nesta foto</button>':'')+(cur!=null&&st.pins.find(function(p){return p.n===names[cur]})?'<button class="btn ghost sm" data-act="edUnpin">Apagar marcação</button>':'')+'</div>'+
@@ -1262,7 +1603,7 @@ function vEditor(){
 }
 function edOpen(st,list,key){ED={st:st,list:list.slice(),cur:0,skip:{},key:key||''};st.pins.forEach(function(p){if(ED.list.indexOf(p.n)<0)ED.list.push(p.n)});go('editor')}
 function edPaint(){
- var box=$('#photo');if(!box||!ED)return;var im=$('#phImg');if(im&&!im.dataset.h){im.dataset.h='1';im.onerror=function(){box.innerHTML='<div class="imgfail">A imagem não carregou. Verifique a internet ou o endereço da foto.</div>'}}
+ var box=$('#photo .zoomer');if(!box||!ED)return;var im=$('#phImg');if(im&&!im.dataset.h){im.dataset.h='1';im.onerror=function(){box.innerHTML='<div class="imgfail">A imagem não carregou. Verifique a internet ou o endereço da foto.</div>'}}
  box.querySelectorAll('.pin,.lbl').forEach(function(e){e.remove()});
  ED.st.pins.forEach(function(p){var d=document.createElement('span');var isCur=ED.list[ED.cur]===p.n;d.className='pin dot'+(isCur?' cur':'');d.style.left=(p.x*100)+'%';d.style.top=(p.y*100)+'%';box.appendChild(d);
   if(isCur){var l=document.createElement('span');l.className='lbl';l.textContent=p.n;l.style.left=(p.x*100)+'%';l.style.top=(p.y*100)+'%';box.appendChild(l)}});
@@ -1289,7 +1630,7 @@ document.addEventListener('click',function(e){
  if(!b)return;
  var d=b.dataset;
  if(d.nav){if(d.nav==='pratica'&&PR)PR.phase='menu';if(d.nav==='nervos'&&NV)NV.phase='intro';if(d.nav==='lesao'&&LE&&LE.i>=LE.items.length)LE=null;if(d.nav==='editor')ED=null;go(d.nav);if(d.nav==='games'||d.nav==='pratica'||d.nav==='editor')refreshStations();return}
- if(d.mod){startQuiz(pickQuestions(QB.filter(function(q){return q.m===d.mod}),10),MOD[d.mod].n);return}
+ if(d.mod){go('modulo',d.mod);return}
  if(d.act==='sim'){startQuiz(pickQuestions(QB,20),'Simulado misto');return}
  if(d.act==='errs'){var ids=Object.keys(S.priv.errs).filter(function(k){return QBY[k]});startQuiz(shuffle(ids.map(function(k){return QBY[k]})).slice(0,20),'Revisão de erros');return}
  /* filtros */
@@ -1308,7 +1649,7 @@ document.addEventListener('click',function(e){
   if(q.t==='as'){q.p.forEach(function(p,i){tot++;if(P.v[i]===p[1])okc++})}
   if(q.t==='od'){q.s.forEach(function(_,i){tot++;if(P.seq[i]===i)okc++})}
   finishQ(okc===tot,okc/tot);return}
- if(d.act==='next'&&Z){if(Z.i+1>=Z.list.length){Z.finished=true;S.priv.hist.unshift({t:Date.now(),k:'quiz',title:Z.title,ok:Z.ok,n:Z.list.length,xp:Z.xp});S.priv.hist=S.priv.hist.slice(0,60);persist()}else{Z.i++;Z.done=false}render();window.scrollTo(0,0);return}
+ if(d.act==='next'&&Z){if(Z.i+1>=Z.list.length){endQuiz(Z)}else{Z.i++;Z.done=false}render();window.scrollTo(0,0);return}
  if(d.act==='again'&&Z){var same=Z.list.map(function(p){return p.q});var m=same[0].m,all=same.every(function(q){return q.m===m});startQuiz(pickQuestions(all?QB.filter(function(q){return q.m===m}):QB,same.length),Z.title);return}
  /* prática */
  if(d.prm){PR.mode=d.prm;S.keepScroll=true;render();return}
@@ -1324,7 +1665,7 @@ document.addEventListener('click',function(e){
  if(d.lel&&LE&&!LE.done){LE.l=d.lel;S.keepScroll=true;render();return}
  if(d.les&&LE&&!LE.done){LE.s=d.les;S.keepScroll=true;render();return}
  if(d.act==='leCheck'){var c=LE.items[LE.i];LE.done=true;var g=(LE.l===c.l?10:0)+(LE.s===c.s?5:0);LE.pts+=g;if(LE.l===c.l&&LE.s===c.s)LE.ok++;S.keepScroll=true;render();return}
- if(d.act==='leNext'){LE.i++;LE.l=LE.s=null;LE.done=false;if(LE.i>=LE.items.length&&LE.pts)addGameXp('lesao',LE.pts);render();window.scrollTo(0,0);return}
+ if(d.act==='leNext'){LE.i++;LE.l=LE.s=null;LE.done=false;if(LE.i>=LE.items.length){if(LE.ok===LE.items.length)inc('lePerfect');if(LE.pts)addGameXp('lesao',LE.pts)}render();window.scrollTo(0,0);return}
  if(d.act==='leAgain'){LE=null;render();return}
  /* nervos */
  if(d.act==='nvStart'){nvStart();return}
@@ -1386,8 +1727,462 @@ function boot(){
   FirebaseStore.init(cfg).then(function(){Store=FirebaseStore;Store.onUser(onUser)}).catch(function(e){console.warn(e);S.fbError='Não foi possível conectar ao Firebase agora.';Store=LocalStore;Store.onUser(onUser)});
  } else {Store=LocalStore;Store.onUser(onUser)}
 }
+
+/* ===== v2.1 — núcleo das extensões: datas, revisão espaçada, conquistas, áreas, som ===== */
+function dayKey(d){d=d||new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function dayNum(d){d=d||new Date();return Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()))/864e5)}
+var SRS_INT=[0,1,3,7,16,35];
+
+window.__onRecord=function(q,ok){
+ var p=S.priv,k=dayKey(),w=weekId();
+ p.days[k]=(p.days[k]||0)+1;
+ var wk=p.wks[w]||(p.wks[w]={a:0,c:0});wk.a++;if(ok)wk.c++;
+ var s=p.srs[q.id],t=dayNum();
+ if(!s){s=p.srs[q.id]={b:ok?2:1,due:t+(ok?SRS_INT[2]:SRS_INT[1])}}
+ else if(ok){s.b=Math.min(5,s.b+1);s.due=t+SRS_INT[s.b]}
+ else{s.b=1;s.due=t+1}
+ checkBadges();
+};
+window.__onGame=function(g,pts){var p=S.priv;p.days[dayKey()]=(p.days[dayKey()]||0)+1;checkBadges()};
+function dueList(){var t=dayNum(),s=S.priv.srs;return Object.keys(s).filter(function(id){return QBY[id]&&s[id].due<=t}).map(function(id){return QBY[id]})}
+function streak(){var d=new Date(),n=0,days=S.priv.days;if(!days[dayKey(d)]){d.setDate(d.getDate()-1)}while(days[dayKey(d)]){n++;d.setDate(d.getDate()-1)}return n}
+function bestStreak(){var keys=Object.keys(S.priv.days).sort(),best=0,cur=0,prev=null;keys.forEach(function(k){var t=dayNum(new Date(k+'T12:00:00'));cur=(prev!=null&&t===prev+1)?cur+1:1;prev=t;best=Math.max(best,cur)});return best}
+function cnt(k,v){var c=S.priv.c;if(v===undefined)return c[k]||0;c[k]=v}
+function inc(k,n){S.priv.c[k]=(S.priv.c[k]||0)+(n||1);checkBadges()}
+
+/* ---- conquistas ---- */
+var BADGES=[
+ {id:'q10',n:'Primeiros passos',d:'Responda 10 questões.',f:function(){return S.priv.stats.answered>=10}},
+ {id:'q100',n:'Centena',d:'Responda 100 questões.',f:function(){return S.priv.stats.answered>=100}},
+ {id:'q500',n:'Maratonista',d:'Responda 500 questões.',f:function(){return S.priv.stats.answered>=500}},
+ {id:'s3',n:'Constância',d:'Estude 3 dias seguidos.',f:function(){return bestStreak()>=3}},
+ {id:'s7',n:'Semana completa',d:'Estude 7 dias seguidos.',f:function(){return bestStreak()>=7}},
+ {id:'s30',n:'Hábito formado',d:'Estude 30 dias seguidos.',f:function(){return bestStreak()>=30}},
+ {id:'pr10',n:'Olho clínico',d:'Acerte 10 estações de prova prática.',f:function(){return cnt('prOk')>=10}},
+ {id:'pr100',n:'Monitor de anatomia',d:'Acerte 100 estações de prova prática.',f:function(){return cnt('prOk')>=100}},
+ {id:'nv150',n:'Doze pares na ponta da língua',d:'Faça 150 pontos nos nervos cranianos.',f:function(){return cnt('nvBest')>=150}},
+ {id:'le8',n:'Topografista',d:'Acerte nível e lado em todos os casos de uma rodada.',f:function(){return cnt('lePerfect')>=1}},
+ {id:'ex',n:'Prova de fogo',d:'Termine um modo prova com 80% ou mais.',f:function(){return cnt('exam80')>=1}},
+ {id:'wk',n:'Desafiante',d:'Complete um desafio semanal.',f:function(){return cnt('weeklyDone')>=1}},
+ {id:'du',n:'Duelista',d:'Vença um duelo.',f:function(){return cnt('duelWins')>=1}},
+ {id:'rev',n:'Em dia',d:'Zere a revisão do dia.',f:function(){return cnt('revDone')>=1}}
+].concat(MODULES.map(function(m){return{id:'m_'+m.id,n:'Domínio: '+m.n,d:'Acerte 85% ou mais em pelo menos 15 respostas do módulo.',mod:m.id,f:function(){var s=S.priv.stats.mods[m.id];return s&&s.a>=15&&s.c/s.a>=.85}}}));
+function checkBadges(){if(!S.priv)return;var got=[];BADGES.forEach(function(b){if(!S.priv.badges[b.id]&&b.f()){S.priv.badges[b.id]=Date.now();got.push(b)}});got.forEach(function(b,i){setTimeout(function(){badgeToast(b)},400+i*1800)})}
+function badgeToast(b){var el=document.createElement('div');el.className='badge-toast';el.setAttribute('role','status');el.innerHTML=medalSvg(true,b.mod)+'<div><span class="eyebrow">Conquista</span><b>'+esc(b.n)+'</b></div>';document.body.appendChild(el);sfx('badge');setTimeout(function(){el.remove()},3200)}
+function medalSvg(on,mod){var c=mod?AREA_OF[mod].c:'var(--hi)';return '<svg class="medal'+(on?'':' off')+'" viewBox="0 0 40 40" aria-hidden="true"><path d="M13 2h6l-3 12zM21 2h6l-5 12z" fill="'+(on?'var(--accent)':'var(--line)')+'"/><circle cx="20" cy="25" r="12" fill="'+(on?c:'var(--surface2)')+'" stroke="'+(on?'rgba(0,0,0,.25)':'var(--line)')+'" stroke-width="2"/><path d="M20 18l2 4.4 4.8.5-3.6 3.2 1 4.7L20 28.4l-4.2 2.4 1-4.7-3.6-3.2 4.8-.5z" fill="'+(on?'#fff':'var(--line)')+'"/></svg>'}
+
+/* ---- áreas, cores e glifos ---- */
+var AREAS=[
+ {id:'fund',n:'Fundamentos',c:'#5B7FA3',mods:['intro','tecido','nervos'],g:'<circle cx="12" cy="12" r="3.2"/><path d="M12 8.8V3M12 15.2V21M8.9 10.8 4 8M15.1 13.2 20 16M8.9 13.2 4 16M15.1 10.8 20 8"/>'},
+ {id:'medula',n:'Medula',c:'#2A9D8F',mods:['medmacro','medest'],g:'<path d="M12 2v20"/><path d="M8 5c0 3 1.5 4 4 4s4-1 4-4M8 19c0-3 1.5-4 4-4s4 1 4 4"/><path d="M5 12h3M16 12h3"/>'},
+ {id:'tronco',n:'Tronco e cerebelo',c:'#D9644A',mods:['tronco','troncoest','cerebelo'],g:'<path d="M10 3h4v8l2 3v7h-8v-7l2-3z"/><path d="M16 14c3 0 5 1.5 5 4s-2 3-5 3M8 14c-3 0-5 1.5-5 4s2 3 5 3"/>'},
+ {id:'cerebro',n:'Cérebro',c:'#8566B8',mods:['diencefalo','telencefalo','telest','limbico'],g:'<path d="M12 4c-4-2-9 1-8 6-2 2-1 6 2 7 1 3 5 4 6 1 1 3 5 2 6-1 3-1 4-5 2-7 1-5-4-8-8-6z"/><path d="M12 4v14"/>'},
+ {id:'envolt',n:'Envoltórios e vasos',c:'#C9473F',mods:['meninges','vasc'],g:'<path d="M12 21c-5-3-8-7-8-11a8 8 0 0 1 16 0c0 4-3 8-8 11z"/><path d="M12 7v8M9 11h6"/>'},
+ {id:'nervos',n:'Nervos e SNA',c:'#D99A2B',mods:['nervesp','nervcran','sna'],g:'<path d="M3 12h6l2-6 2 12 2-6h6"/>'},
+ {id:'vias',n:'Grandes vias',c:'#3A7FC1',mods:['vias','eferentes'],g:'<path d="M6 3v6c0 3 12 3 12 6v6"/><path d="M18 3v6c0 3-12 3-12 6v6"/>'}
+];
+var AREA_OF={};AREAS.forEach(function(a){a.mods.forEach(function(m){AREA_OF[m]=a})});
+function glyph(mod,size){var a=AREA_OF[mod];return '<span class="glyph" style="--ac:'+a.c+';width:'+(size||44)+'px;height:'+(size||44)+'px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+a.g+'</svg></span>'}
+var LOGO='<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--hi)"/><path d="M20 8c-6-3-13 1-12 8-3 3-1 9 3 10 1 4 7 6 9 1 2 5 8 3 9-1 4-1 6-7 3-10 1-7-6-11-12-8z" fill="none" stroke="#1B3A4B" stroke-width="2.4" stroke-linejoin="round"/><path d="M20 8v19M20 27v6" stroke="#1B3A4B" stroke-width="2.4" stroke-linecap="round"/><path d="M14 16c2 1 4 1 6 0M20 20c2 1 4 1 6 0" stroke="#1B3A4B" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+
+/* ---- som (opcional) ---- */
+var AC=null;
+function sfx(kind){if(!lsGet('upmed2_sound',false))return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var notes={ok:[660,880],bad:[220,180],badge:[523,659,784,1047]}[kind]||[440];notes.forEach(function(f,i){var o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0.0001,AC.currentTime+i*0.09);g.gain.exponentialRampToValueAtTime(0.18,AC.currentTime+i*0.09+0.02);g.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+i*0.09+0.22);o.connect(g);g.connect(AC.destination);o.start(AC.currentTime+i*0.09);o.stop(AC.currentTime+i*0.09+0.25)})}catch(e){}}
+function floatXp(n){if(!n)return;var el=document.createElement('div');el.className='xpfloat';el.textContent='+'+n;document.body.appendChild(el);setTimeout(function(){el.remove()},1100)}
+
+/* ---- semente determinística (desafio semanal, duelo) ---- */
+function rng(seed){var s=seed>>>0;return function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function seededPick(arr,n,seed){var r=rng(seed),a=arr.slice().sort(function(x,y){return x.id<y.id?-1:1});for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a.slice(0,n)}
+function hashNum(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+
+/* ===== v2.1 — telas novas e substituídas ===== */
+
+/* ---------- gráficos ---------- */
+function heatmap(){
+ var days=S.priv.days,cols=18,cell=12,gap=3,today=new Date(),start=new Date(today);start.setDate(start.getDate()-(cols*7-1)-((today.getDay()+6)%7>=0?0:0));
+ // alinhar para começar numa segunda-feira
+ var end=new Date(today);var back=cols*7-1-(6-((today.getDay()+6)%7));start=new Date(today);start.setDate(today.getDate()-back);
+ var out='',max=1,k;for(k in days)max=Math.max(max,days[k]);
+ for(var c=0;c<cols;c++)for(var r=0;r<7;r++){var d=new Date(start);d.setDate(start.getDate()+c*7+r);if(d>end)continue;var v=days[dayKey(d)]||0;var lv=v?Math.min(4,1+Math.floor(3*v/max)):0;out+='<rect x="'+(c*(cell+gap))+'" y="'+(r*(cell+gap))+'" width="'+cell+'" height="'+cell+'" rx="3" class="hm l'+lv+'"><title>'+d.toLocaleDateString('pt-BR')+': '+v+' atividade'+(v===1?'':'s')+'</title></rect>'}
+ var W=cols*(cell+gap)-gap,H=7*(cell+gap)-gap;
+ return '<svg class="heat" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Dias de estudo nas últimas '+cols+' semanas">'+out+'</svg>';
+}
+function accChart(){
+ var pts=[],d=new Date();for(var i=7;i>=0;i--){var x=new Date(d);x.setDate(d.getDate()-i*7);var id=weekId(x),w=S.priv.wks[id];var mon=new Date(x);mon.setDate(x.getDate()-((x.getDay()+6)%7));pts.push({lab:('0'+mon.getDate()).slice(-2)+'/'+('0'+(mon.getMonth()+1)).slice(-2),v:w&&w.a?Math.round(100*w.c/w.a):null,n:w?w.a:0})}
+ var W=320,H=140,pl=28,pr=8,pt=10,pb=22,iw=W-pl-pr,ih=H-pt-pb;
+ var X=function(i){return pl+i*iw/7},Y=function(v){return pt+ih-(v/100)*ih};
+ var grid=[0,50,100].map(function(v){return '<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" class="cgrid"/><text x="'+(pl-6)+'" y="'+(Y(v)+3)+'" class="clab" text-anchor="end">'+v+'%</text>'}).join('');
+ var valid=pts.map(function(p,i){return p.v==null?null:[X(i),Y(p.v),p]}).filter(Boolean);
+ var line=valid.map(function(p,i){return(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ');
+ var area=valid.length>1?line+' L'+valid[valid.length-1][0].toFixed(1)+','+Y(0)+' L'+valid[0][0].toFixed(1)+','+Y(0)+' Z':'';
+ var labs=pts.map(function(p,i){return i%2===1||i===7?'<text x="'+X(i)+'" y="'+(H-6)+'" class="clab" text-anchor="middle">'+p.lab+'</text>':''}).join('');
+ var dots=valid.map(function(p,i){var last=i===valid.length-1;return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(last?4.5:3)+'" class="'+(last?'cdot last':'cdot')+'"><title>Semana de '+p[2].lab+': '+p[2].v+'% em '+p[2].n+' respostas</title></circle>'}).join('');
+ return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Acerto por semana">'+grid+(area?'<path d="'+area+'" class="carea"/>':'')+(line?'<path d="'+line+'" class="cline"/>':'')+dots+labs+(valid.length?'':'<text x="'+(W/2)+'" y="'+(H/2)+'" class="clab" text-anchor="middle">Responda questões para ver sua evolução</text>')+'</svg>';
+}
+function weakMods(){var arr=MODULES.map(function(m){var s=modStats(m.id);return{m:m,s:s}}).filter(function(x){return x.s.a>=5}).sort(function(a,b){return a.s.acc-b.s.acc});return arr.slice(0,3)}
+
+/* ---------- estação do dia ---------- */
+function stationOfDay(){var sts=allStations(),pool=[];sts.forEach(function(s){s.pins.forEach(function(p){pool.push({st:s,pin:p})})});var it=pool[hashNum('sd'+dayKey())%pool.length];var others=shuffleSeed(it.st.pins.filter(function(p){return p.n!==it.pin.n}).map(function(p){return p.n}),hashNum(dayKey()+'o')).slice(0,3);return{st:it.st,pin:it.pin,opts:shuffleSeed([it.pin.n].concat(others),hashNum(dayKey()+'p'))}}
+function shuffleSeed(a,seed){var r=rng(seed);a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+var SD=null;
+function paintSD(){if(!SD)return;var st=SD.st,pin=SD.pin,res=S.priv.c.sd&&S.priv.c.sd.day===dayKey()?S.priv.c.sd:null;
+ if(st.kind==='svg'){var svg=$('#sdfig svg');if(!svg)return;var p=SCHM[pin.sid];svg.querySelectorAll('[data-id="'+pin.sid+'"]').forEach(function(e){e.classList.add(res?(res.ok?'ok':'hl'):'hl')});var ns='http://www.w3.org/2000/svg';[['spin pulse',9],['spin',6]].forEach(function(a){var c=document.createElementNS(ns,'circle');c.setAttribute('class',a[0]);c.setAttribute('cx',p.a[0]);c.setAttribute('cy',p.a[1]);c.setAttribute('r',a[1]);svg.appendChild(c)})}
+ else{var box=$('#sdfig .zoomer');if(!box)return;var d=document.createElement('span');d.className='pin pulse';d.style.left=(pin.x*100)+'%';d.style.top=(pin.y*100)+'%';box.appendChild(d)}}
+
+/* ---------- PAINEL ---------- */
+VIEWS.painel=function(){
+ var st=S.priv.stats,first=S.user.name.split(' ')[0],due=dueList().length,stk=streak();
+ if(!S.scores)loadScores();var pos=myPos();
+ SD=stationOfDay();var res=S.priv.c.sd&&S.priv.c.sd.day===dayKey()?S.priv.c.sd:null;
+ afterFns.push(paintSD);
+ var weak=weakMods();
+ return (Store.mode==='local'?'<div class="banner">Versão de teste: progresso e ranking ficam salvos só neste aparelho e navegador.</div>':'')+
+ '<div class="top"><div class="hello">'+avatar(S.user,52)+'<div><div class="eyebrow">Neuroanatomia · '+QB.length+' questões · '+MODULES.length+' módulos</div><h1>Olá, '+esc(first)+'</h1></div></div>'+
+ '<div class="actions"><button class="btn ghost sm" data-nav="busca">'+IC.busca+'Buscar</button><button class="btn ghost sm" data-nav="caderno">'+IC.caderno+'Caderno</button></div></div>'+
+ '<div class="hero-grid">'+
+  '<section class="card sdcard"><div class="row-b"><span class="tag amb">Estação do dia</span><span class="small muted">'+esc(SD.st.t)+'</span></div>'+
+  '<div class="sd-body"><div id="sdfig" class="sdfig">'+figure(SD.st)+'</div><div class="grid" style="gap:8px;align-content:start"><h3>Qual é a estrutura marcada?</h3>'+
+  SD.opts.map(function(o,k){var c='';if(res){if(o===SD.pin.n)c='right';else if(o===res.pick)c='wrong'}return '<button class="opt '+c+'" data-x="sd" data-xv="'+esc(o)+'" '+(res?'disabled':'')+'><span class="k">'+'ABCD'[k]+'</span><span>'+esc(o)+'</span></button>'}).join('')+
+  (res?'<p class="small">'+(res.ok?'<b style="color:var(--ok)">Correto, +10 pontos.</b> ':'<b style="color:var(--bad)">Era '+esc(SD.pin.n)+'.</b> ')+esc(SD.pin.i||'')+' Volte amanhã para outra estação.</p>':'')+'</div></div></section>'+
+  '<section class="card rev"><span class="eyebrow">Revisão do dia</span><b class="big num">'+due+'</b><p class="small muted">'+(due?'questão'+(due===1?'':'s')+' para revisar hoje, no momento certo para fixar.':'Nada pendente. As questões voltam aqui conforme você responde.')+'</p><button class="btn pri" data-x="review" '+(due?'':'disabled')+'>Revisar agora</button>'+
+  '<div class="streak"><span class="eyebrow">Sequência</span><b class="num">'+stk+' dia'+(stk===1?'':'s')+'</b><span class="small muted">Recorde: '+bestStreak()+'</span></div>'+heatmap()+'</section>'+
+ '</div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Questões</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div><div class="stat"><span class="eyebrow">Posição</span><b>'+(pos?pos+'º':'–')+'</b></div></div>'+
+ '<div class="grid g2"><section class="card grid"><div class="row-b"><h3>Acerto por semana</h3><span class="small muted">últimas 8 semanas</span></div>'+accChart()+'</section>'+
+ '<section class="card grid"><h3>Seus pontos fracos</h3>'+(weak.length?weak.map(function(w){return '<div class="weak">'+glyph(w.m.id,36)+'<div style="min-width:0"><b class="small">'+esc(w.m.n)+'</b>'+meter(w.s.acc,w.s.a)+'<span class="small muted num">'+w.s.acc+'% em '+w.s.a+' respostas</span></div><button class="btn ghost sm" data-x="train" data-xv="'+w.m.id+'">Treinar</button></div>'}).join(''):'<p class="small muted">Responda pelo menos 5 questões de um módulo para ver onde precisa reforçar.</p>')+
+ '<div class="actions"><button class="btn dark sm" data-act="sim">Simulado misto</button><button class="btn ghost sm" data-x="weekly">Desafio da semana</button></div></section></div>'+
+ AREAS.map(function(a){return '<section class="area"><div class="area-h"><span class="dot" style="background:'+a.c+'"></span><h2>'+a.n+'</h2></div><div class="grid g3">'+a.mods.map(function(id){var m=MOD[id],s=modStats(id);return '<button class="mod" data-mod="'+id+'">'+glyph(id)+'<div class="mod-t"><h3>'+esc(m.n)+'</h3><p class="muted small">'+esc(m.s)+'</p></div>'+meter(s.acc,s.a)+'<div class="row small muted num"><span>'+s.seen+'/'+s.tot+' vistas</span><span>'+(s.a?s.acc+'% de acerto':'não iniciado')+'</span></div></button>'}).join('')+'</div></section>'}).join('');
+};
+
+/* ---------- MÓDULO (resumo + treino) ---------- */
+VIEWS.modulo=function(){
+ var id=S.sub,m=MOD[id];if(!m)return VIEWS.painel();var s=modStats(id),R=RESUMO[id]||{pts:[],clin:[]};
+ var favs=QB.filter(function(q){return q.m===id&&S.priv.fav[q.id]}).length;
+ var errs=QB.filter(function(q){return q.m===id&&S.priv.errs[q.id]}).length;
+ return '<div class="top"><div class="hello">'+glyph(id,56)+'<div><div class="eyebrow">'+esc(AREA_OF[id].n)+'</div><h1>'+esc(m.n)+'</h1></div></div><button class="btn ghost sm" data-nav="painel">Voltar</button></div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Questões</span><b>'+s.tot+'</b></div><div class="stat"><span class="eyebrow">Vistas</span><b>'+s.seen+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+(s.a?s.acc+'%':'–')+'</b></div><div class="stat"><span class="eyebrow">Domínio</span><b>'+(S.priv.badges['m_'+id]?'Sim':'–')+'</b></div></div>'+
+ '<div class="actions"><button class="btn pri" data-x="train" data-xv="'+id+'">Treinar 10 questões</button><button class="btn dark" data-x="exam" data-xv="'+id+'">Modo prova</button>'+(favs?'<button class="btn ghost" data-x="modfav" data-xv="'+id+'">Favoritas ('+favs+')</button>':'')+(errs?'<button class="btn ghost" data-x="moderr" data-xv="'+id+'">Erros ('+errs+')</button>':'')+'</div>'+
+ '<div class="grid g2"><section class="card grid resumo"><h2>Pontos-chave</h2><ul>'+R.pts.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></section>'+
+ '<section class="card grid resumo clin"><h2>Correlação clínica</h2><ul>'+R.clin.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></section></div>';
+};
+
+/* ---------- resultado do quiz ---------- */
+function answerText(q){
+ if(q.t==='mc'||q.t==='case')return esc(q.o[0]);
+ if(q.t==='ar')return esc(AR_OPTS[q.k]);
+ if(q.t==='gp')return esc(q.a[0]);
+ if(q.t==='vf')return q.s.map(function(s){return(s[1]?'V':'F')+' · '+esc(s[0])}).join('<br>');
+ if(q.t==='as')return q.p.map(function(p){return esc(p[0])+' → '+esc(p[1])}).join('<br>');
+ if(q.t==='od')return q.s.map(function(s,i){return(i+1)+'. '+esc(s)}).join('<br>');
+ return '';
+}
+window.quizResult=function(Z){
+ var n=Z.list.length,p=pct(Z.ok,n);
+ var list=Z.exam?Z.results:Z.results.filter(function(r){return!r.ok});
+ var extra='';
+ if(Z.kind==='duel')extra=duelPanel();
+ return '<div class="qwrap"><div class="eyebrow">'+esc(Z.title)+' · resultado</div><div class="result-hero"><div class="score">'+Z.ok+'<span class="muted" style="font-size:32px">/'+n+'</span></div><div><b class="big num">'+p+'%</b><p>Você ganhou <b>'+Z.xp+' pontos</b>.</p></div></div>'+extra+
+ '<div class="actions"><button class="btn pri" data-x="share">Compartilhar resultado</button>'+(Z.kind==='duel'||Z.kind==='weekly'?'':'<button class="btn ghost" data-act="again">Nova sessão igual</button>')+'<button class="btn ghost" data-nav="painel">Voltar ao painel</button></div>'+
+ (list.length?'<div class="card grid"><h3>'+(Z.exam?'Gabarito comentado':'Para revisar')+'</h3>'+list.map(function(r,i){var q=r.q;return '<div class="rev-item"><div class="row-b"><span class="chips"><span class="tag">'+esc(MOD[q.m].n)+'</span>'+(Z.exam?'<span class="tag" style="background:color-mix(in srgb,var('+(r.ok?'--ok':'--bad')+') 20%,transparent)">'+(r.skipped?'Sem resposta':r.ok?'Acertou':'Errou')+'</span>':'')+'</span><button class="favbtn" data-fav="'+q.id+'" aria-pressed="'+!!S.priv.fav[q.id]+'" aria-label="Favoritar">'+(S.priv.fav[q.id]?'★':'☆')+'</button></div><p>'+esc(q.q||q.a)+'</p>'+(q.t==='ar'?'<p class="small muted">Razão: '+esc(q.r)+'</p>':'')+'<p class="small"><b>Resposta:</b><br>'+answerText(q)+'</p><p class="small muted">'+esc(q.e)+'</p></div>'}).join('')+'</div>':'<p>Sessão sem erros.</p>')+'</div>';
+};
+window.__quizStart=function(Z){if(!Z.exam)return;timerH=setInterval(function(){var t=$('#qTimer');var left=Z.deadline-Date.now();if(t){t.textContent=fmtLeft(Z.deadline);t.classList.toggle('low',left<60000)}if(left<=0&&!Z.finished){for(var i=Z.i;i<Z.list.length;i++){Z.results.push({q:Z.list[i].q,ok:false,skipped:true})}endQuiz(Z);render();window.scrollTo(0,0)}},1000)};
+window.__quizEnd=function(Z){
+ if(Z.exam&&Z.ok/Z.list.length>=.8)inc('exam80');
+ if(Z.kind==='review'&&!dueList().length)inc('revDone');
+ if(Z.kind==='weekly'){var w=S.priv.weekly;if(!w||w.id!==weekId())w=S.priv.weekly={id:weekId(),best:0,tries:0};w.tries++;w.best=Math.max(w.best,Z.ok);inc('weeklyDone')}
+ if(Z.kind==='duel')duelEnd(Z);
+};
+
+/* ---------- BUSCA ---------- */
+var BQ='';
+VIEWS.busca=function(){
+ afterFns.push(function(){var i=$('#bIn');if(i){i.focus({preventScroll:true});i.setSelectionRange(i.value.length,i.value.length)}});
+ var t=norm(BQ),res='';
+ if(t.length>=3){
+  var words=t.split(' ');var hit=function(txt){var n=norm(txt);return words.every(function(w){return n.indexOf(w)>=0})};
+  var qs=QB.filter(function(q){return hit((q.q||'')+' '+(q.a||'')+' '+(q.r||'')+' '+(q.o||[]).join(' ')+' '+(q.s||[]).map(function(x){return Array.isArray(x)?x[0]:x}).join(' ')+' '+(q.p||[]).map(function(x){return x.join(' ')}).join(' ')+' '+q.e)}).slice(0,30);
+  var rs=[];MODULES.forEach(function(m){var R=RESUMO[m.id];R.pts.concat(R.clin).forEach(function(p){if(hit(p))rs.push({m:m,p:p})})});
+  var sts=SCH.filter(function(s){return hit(s.n+' '+s.i)});
+  var les=LESIONS.filter(function(l){return hit(l.q+' '+l.e)});
+  var nv=NERVES.filter(function(n){return hit(n.r+' '+n.n+' '+n.fo+' '+n.fn+' '+n.og)});
+  var tot=qs.length+rs.length+sts.length+les.length+nv.length;
+  res='<p class="small muted">'+tot+' resultado'+(tot===1?'':'s')+'</p>'+
+  (rs.length?'<section class="card grid"><h3>Nos resumos</h3>'+rs.slice(0,15).map(function(r){return '<button class="sres" data-mod="'+r.m.id+'"><span class="tag">'+esc(r.m.n)+'</span><span>'+esc(r.p)+'</span></button>'}).join('')+'</section>':'')+
+  (qs.length?'<section class="card grid"><div class="row-b"><h3>Questões</h3><button class="btn pri sm" data-x="searchQuiz">Responder todas ('+qs.length+')</button></div>'+qs.map(function(q){return '<button class="sres" data-x="oneq" data-xv="'+q.id+'"><span class="tag">'+esc(MOD[q.m].n)+' · '+TYPE_LABEL[q.t]+'</span><span>'+esc(q.q||q.a)+'</span></button>'}).join('')+'</section>':'')+
+  (sts.length?'<section class="card grid"><h3>Estruturas dos esquemas</h3>'+sts.map(function(s){return '<div class="sres"><b>'+esc(s.n)+'</b><span class="small muted">'+esc(s.i)+'</span></div>'}).join('')+'</section>':'')+
+  (nv.length?'<section class="card grid"><h3>Nervos cranianos</h3>'+nv.map(function(n){return '<div class="sres"><b>'+n.r+' · '+esc(n.n)+'</b><span class="small muted">'+esc(n.fn)+' · '+esc(n.fo)+' · '+esc(n.og)+'</span></div>'}).join('')+'</section>':'')+
+  (les.length?'<section class="card grid"><h3>Casos de topografia</h3>'+les.map(function(l){return '<div class="sres"><span>'+esc(l.q)+'</span><span class="small muted">'+esc(l.e)+'</span></div>'}).join('')+'</section>':'');
+  S._searchIds=qs.map(function(q){return q.id});
+ }
+ return '<div class="top"><div><div class="eyebrow">Questões, resumos, estruturas e casos</div><h1>Buscar</h1></div></div><form id="bForm" class="actions" role="search"><input class="in" id="bIn" type="search" placeholder="Ex.: Wallenberg, núcleo ambíguo, cápsula interna" value="'+esc(BQ)+'" style="flex:1;min-width:200px" aria-label="Termo de busca"><button class="btn pri">Buscar</button></form>'+(t.length&&t.length<3?'<p class="small muted">Digite pelo menos 3 letras.</p>':'')+res;
+};
+
+/* ---------- CADERNO ---------- */
+var CT='fav';
+VIEWS.caderno=function(){
+ var ids=CT==='fav'?Object.keys(S.priv.fav):CT==='err'?Object.keys(S.priv.errs):dueList().map(function(q){return q.id});
+ var qs=ids.map(function(k){return QBY[k]}).filter(Boolean);
+ return '<div class="top"><div><div class="eyebrow">Seu material de revisão</div><h1>Caderno</h1></div></div><div class="chips">'+[['fav','Favoritas',Object.keys(S.priv.fav).length],['err','Erros',Object.keys(S.priv.errs).filter(function(k){return QBY[k]}).length],['rev','Revisão de hoje',dueList().length]].map(function(t){return '<button class="chip" data-x="ctab" data-xv="'+t[0]+'" aria-pressed="'+(CT===t[0])+'">'+t[1]+' · '+t[2]+'</button>'}).join('')+'</div>'+
+ (qs.length?'<div class="actions"><button class="btn pri" data-x="cstart">Estudar estas '+qs.length+'</button><button class="btn ghost" data-x="cexam">Em modo prova</button></div><div class="grid">'+qs.map(function(q){return '<div class="card cq"><div class="row-b"><span class="chips"><span class="tag">'+esc(MOD[q.m].n)+'</span><span class="tag amb">'+TYPE_LABEL[q.t]+'</span></span><button class="favbtn" data-fav="'+q.id+'" aria-pressed="'+!!S.priv.fav[q.id]+'" aria-label="Favoritar">'+(S.priv.fav[q.id]?'★':'☆')+'</button></div><p>'+esc(q.q||q.a)+'</p><details><summary class="small">Ver resposta</summary><p class="small"><b>Resposta:</b><br>'+answerText(q)+'</p><p class="small muted">'+esc(q.e)+'</p></details></div>'}).join('')+'</div>':
+ '<div class="card"><p class="muted">'+(CT==='fav'?'Toque na estrela de uma questão para guardá-la aqui.':CT==='err'?'Nenhum erro pendente. As questões que você errar aparecem aqui até você acertá-las.':'Nada para revisar hoje.')+'</p></div>');
+};
+
+/* ---------- CONQUISTAS ---------- */
+VIEWS.conquistas=function(){
+ var got=BADGES.filter(function(b){return S.priv.badges[b.id]}).length;
+ return '<div class="top"><div><div class="eyebrow">'+got+' de '+BADGES.length+' desbloqueadas</div><h1>Conquistas</h1></div></div><div class="badges">'+BADGES.map(function(b){var on=S.priv.badges[b.id];return '<div class="badge'+(on?' on':'')+'">'+medalSvg(on,b.mod)+'<div><b>'+esc(b.n)+'</b><p class="small muted">'+esc(b.d)+'</p>'+(on?'<span class="small" style="color:var(--ok)">'+new Date(on).toLocaleDateString('pt-BR')+'</span>':'')+'</div></div>'}).join('')+'</div>';
+};
+
+/* ---------- PERFIL ---------- */
+VIEWS.perfil=function(){
+ var st=S.priv.stats,th=lsGet('upmed2_theme','system'),snd=lsGet('upmed2_sound',false),got=BADGES.filter(function(b){return S.priv.badges[b.id]});
+ return '<div class="top"><div class="hello">'+avatar(S.user,64)+'<div><div class="eyebrow">'+esc(S.user.email)+'</div><h1>'+esc(S.user.name)+'</h1><p class="muted">'+[S.user.turma,S.user.fac].filter(Boolean).map(esc).join(' · ')+'</p></div></div><button class="btn ghost" data-act="logout">Sair</button></div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Esta semana</span><b>'+(st.week.id===weekId()?st.week.xp:0)+'</b></div><div class="stat"><span class="eyebrow">Sequência</span><b>'+streak()+'</b></div><div class="stat"><span class="eyebrow">Conquistas</span><b>'+got.length+'</b></div></div>'+
+ '<form id="profForm" class="card grid"><h3>Seu perfil</h3><div class="hello">'+avatar(S.user,56)+'<label class="f" style="flex:1">Foto<input class="in" type="file" id="pfAv" accept="image/*"></label></div>'+
+ '<div class="grid g2"><label class="f">Nome no ranking<input class="in" id="pfName" maxlength="40" value="'+esc(S.user.name)+'"></label><label class="f">Turma<input class="in" id="pfTurma" maxlength="20" value="'+esc(S.user.turma||'')+'" placeholder="Ex.: MED 52"></label></div>'+
+ '<label class="f">Faculdade<input class="in" id="pfFac" maxlength="40" value="'+esc(S.user.fac||'')+'" placeholder="Ex.: UNCISAL"></label><div class="actions"><button class="btn pri">Salvar perfil</button></div></form>'+
+ '<div class="card grid"><div class="row-b"><h3>Conquistas recentes</h3><button class="btn ghost sm" data-nav="conquistas">Ver todas</button></div><div class="medals">'+(got.length?got.slice(-6).map(function(b){return '<span title="'+esc(b.n)+'">'+medalSvg(true,b.mod)+'</span>'}).join(''):'<p class="small muted">Nenhuma ainda. Responda 10 questões para a primeira.</p>')+'</div></div>'+
+ '<div class="card grid"><h3>Desempenho por módulo</h3>'+MODULES.map(function(m){var s=modStats(m.id);return '<div style="display:grid;gap:4px"><div style="display:flex;justify-content:space-between;gap:8px" class="small"><span>'+esc(m.n)+'</span><span class="num muted">'+(s.a?s.acc+'% · '+s.a+' resp.':'–')+'</span></div>'+meter(s.acc,s.a)+'</div>'}).join('')+'</div>'+
+ '<div class="card grid"><h3>Preferências</h3><span class="small" style="font-weight:700">Aparência</span><div class="chips">'+[['system','Automático'],['light','Claro'],['dark','Escuro']].map(function(t){return '<button class="chip" data-theme-set="'+t[0]+'" aria-pressed="'+(th===t[0])+'">'+t[1]+'</button>'}).join('')+'</div><span class="small" style="font-weight:700">Sons de acerto e erro</span><div class="chips"><button class="chip" data-x="sound" data-xv="1" aria-pressed="'+!!snd+'">Ligados</button><button class="chip" data-x="sound" data-xv="0" aria-pressed="'+!snd+'">Desligados</button></div></div>'+
+ (S.admin?'<div class="card grid"><h3>Administração</h3><p class="small muted">Você pode criar estações de prova prática com fotos.</p><div class="actions"><button class="btn dark" data-nav="editor">Editor de estações</button></div></div>':'')+
+ '<div class="card grid"><h3>Sobre</h3><p class="small muted">Up-MED study · versão '+APP_VERSION+' · '+(Store.mode==='firebase'?'online':'versão de teste, dados neste aparelho')+'</p><div class="actions"><button class="btn ghost sm" data-act="versions">Histórico de versões</button></div></div>';
+};
+
+/* ---------- RANKING ---------- */
+var RK2={tab:'geral',mod:MODULES[0].id,turma:false,fac:false};
+VIEWS.ranking=function(){
+ if(!S.scores){loadScores();return '<div class="top"><h1>Ranking</h1></div><p class="muted">Carregando o ranking…</p>'}
+ var wid=weekId();
+ var arr=Object.keys(S.scores).map(function(k){var s=S.scores[k]||{};var v,a;
+  if(RK2.tab==='geral'){v=s.xp||0;a=pct(s.correct||0,s.answered||0)}
+  else if(RK2.tab==='semana'){v=(s.week&&s.week.id===wid)?s.week.xp:0;a=pct(s.correct||0,s.answered||0)}
+  else if(RK2.tab==='desafio'){v=(s.wk2&&s.wk2.id===wid)?s.wk2.best:0;a=null}
+  else{var m=(s.mods&&s.mods[RK2.mod])||{a:0,c:0,xp:0};v=m.xp||0;a=pct(m.c,m.a)}
+  return{uid:k,name:s.name||'Estudante',turma:s.turma||'',fac:s.fac||'',av:s.av||'',v:v,acc:a}});
+ if(RK2.turma&&S.user.turma)arr=arr.filter(function(r){return r.turma===S.user.turma});
+ if(RK2.fac&&S.user.fac)arr=arr.filter(function(r){return norm(r.fac)===norm(S.user.fac)});
+ arr=arr.filter(function(r){return r.v>0||r.uid===S.user.uid}).sort(function(a,b){return b.v-a.v});
+ var unit=RK2.tab==='desafio'?'/10':' pts',top=arr.slice(0,3);
+ var pod=top.length>=3?'<div class="podium">'+[1,0,2].map(function(i){var r=top[i];return '<div class="pod p'+(i+1)+'">'+avatar(r,i===0?56:44)+'<b>'+(i+1)+'º</b><span class="nm">'+esc(r.name)+'</span><span class="num small muted">'+r.v+unit+'</span></div>'}).join('')+'</div>':'';
+ return '<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Versão de teste · só este aparelho')+'</div><h1>Ranking</h1></div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
+ '<div class="chips">'+[['geral','Geral'],['semana','Esta semana'],['desafio','Desafio da semana'],['modulo','Por módulo']].map(function(t){return '<button class="chip" data-x="rk" data-xv="'+t[0]+'" aria-pressed="'+(RK2.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>'+
+ '<div class="chips">'+(S.user.turma?'<button class="chip" data-x="rkf" data-xv="turma" aria-pressed="'+RK2.turma+'">Só '+esc(S.user.turma)+'</button>':'')+(S.user.fac?'<button class="chip" data-x="rkf" data-xv="fac" aria-pressed="'+RK2.fac+'">Só '+esc(S.user.fac)+'</button>':'<button class="chip" data-nav="perfil">Informe sua faculdade no perfil</button>')+'</div>'+
+ (RK2.tab==='modulo'?'<select class="in" id="rk2Mod" aria-label="Módulo">'+MODULES.map(function(m){return '<option value="'+m.id+'" '+(RK2.mod===m.id?'selected':'')+'>'+esc(m.n)+'</option>'}).join('')+'</select>':'')+
+ (RK2.tab==='desafio'?'<div class="actions"><button class="btn pri sm" data-x="weekly">Jogar o desafio desta semana</button></div>':'')+
+ pod+'<div class="rank">'+(arr.length?arr.map(function(r,i){return '<div class="rrow'+(r.uid===S.user.uid?' me':'')+'"><span class="pos">'+(i+1)+'</span><span class="nm">'+avatar(r,30)+'<span style="min-width:0;overflow:hidden;text-overflow:ellipsis">'+esc(r.name)+(r.turma||r.fac?' <span class="small muted" style="font-weight:400">· '+esc([r.turma,r.fac].filter(Boolean).join(' · '))+'</span>':'')+'</span></span><span class="xp">'+r.v+'</span><span class="acc">'+(r.acc==null?'':r.acc+'%')+'</span></div>'}).join(''):'<p class="muted">Ninguém pontuou ainda neste recorte.</p>')+'</div>'+
+ '<p class="small muted">Pontos: 10, 15 ou 20 por acerto conforme a dificuldade, mais pontos dos games. O desafio da semana conta acertos em 10 questões iguais para todos.</p>';
+};
+
+/* ---------- GAMES ---------- */
+VIEWS.games=function(){
+ var pub=Object.keys(S.stations).length,on=Store.mode==='firebase',wk=S.priv.weekly&&S.priv.weekly.id===weekId()?S.priv.weekly:null;
+ var card=function(nav,tag,t,d,meta,x){return '<button class="game" '+(x?'data-x="'+x+'"':'data-nav="'+nav+'"')+'><span class="tag'+(tag[1]?' amb':'')+'">'+tag[0]+'</span><h2>'+t+'</h2><p class="muted">'+d+'</p><span class="small muted">'+meta+'</span></button>'};
+ return '<div class="top"><div><div class="eyebrow">Prova prática, raciocínio e turma</div><h1>Games</h1></div></div>'+
+ '<div class="game feature"><span class="tag amb">Desafio da semana</span><h2>10 questões iguais para todos</h2><p>Renova toda segunda-feira e tem ranking próprio.'+(wk?' Seu melhor: <b>'+wk.best+'/10</b>.':'')+'</p><div class="actions"><button class="btn pri" data-x="weekly">'+(wk?'Jogar de novo':'Jogar agora')+'</button></div></div>'+
+ '<h2 class="sect">Prova prática</h2><div class="grid g2">'+
+ card('pratica',['Estações',1],'Identifique, localize ou faça o simulado','Peças reais e esquemas, com cronômetro e resposta escrita no simulado.',(pub+SCH_STATIONS.length)+' estações')+
+ card('rotulos',['Rótulos'],'Rotule a peça','Associe os nomes aos números marcados na peça ou no esquema.','6 estruturas por rodada')+
+ '</div><h2 class="sect">Raciocínio</h2><div class="grid g2">'+
+ card('via',['Vias e camadas'],'Monte a sequência','Vias, camadas e circuitos em ordem, passo a passo.',QB.filter(function(q){return q.t==='od'}).length+' sequências')+
+ card('lesao',['Topografia'],'Onde está a lesão?','Leia o quadro, aponte o nível e o lado.',LESIONS.length+' casos')+
+ card('nervos',['60 segundos'],'Nervos cranianos contra o relógio','Forames, funções e origens. Acertos seguidos valem bônus.','12 pares')+
+ card('memoria',['Memória'],'Jogo da memória','Encontre os pares estrutura e função no menor número de jogadas.','6 pares por rodada')+
+ '</div><h2 class="sect">Com a turma</h2><div class="grid g2">'+
+ card('duelo',['Duelo'],'Desafie um colega','5 questões iguais para os dois. Envie o código e compare o placar.','Funciona por código')+
+ card('corrida',[on?'Ao vivo':'Requer modo online',!on],'Corrida da turma','Todos respondem a mesma questão ao mesmo tempo, com ranking ao vivo. Ideal para monitoria.',on?'Crie uma sala e passe o código':'Disponível quando o ranking online for ativado')+
+ '</div>';
+};
+
+/* ===== v2.1 — games novos, zoom, compartilhamento e eventos ===== */
+
+/* ---------- RÓTULOS ---------- */
+var RT=null;
+function rtNew(){ZS={};var sts=allStations().filter(function(s){return s.pins.length>=4});var st=sts[Math.floor(Math.random()*sts.length)];var pins=shuffle(st.pins).slice(0,Math.min(6,st.pins.length));RT={st:st,pins:pins,names:shuffle(pins.map(function(p){return p.n})),as:{},sel:null,done:false}}
+VIEWS.rotulos=function(){
+ if(!RT)rtNew();var done=RT.done,ok=0;
+ if(done)RT.pins.forEach(function(p,i){if(RT.as[i]===p.n)ok++});
+ afterFns.push(paintRT);
+ var used=Object.keys(RT.as).map(function(k){return RT.as[k]});
+ return '<div class="qwrap" style="max-width:1080px"><div class="qhead"><span class="eyebrow">Games · Rótulos</span><span class="small muted">'+esc(RT.st.t)+'</span></div>'+
+ '<div class="stage">'+figure(RT.st)+'<section class="grid" style="gap:10px;min-width:0"><h2>'+(done?ok+' de '+RT.pins.length+' certos':'Toque num nome e depois no número')+'</h2>'+
+ (done?'':'<div class="chips">'+RT.names.map(function(n){var u=used.indexOf(n)>=0;return '<button class="chip" data-x="rtName" data-xv="'+esc(n)+'" aria-pressed="'+(RT.sel===n)+'" '+(u?'style="opacity:.45"':'')+'>'+esc(n)+'</button>'}).join('')+'</div>')+
+ '<ol class="seq">'+RT.pins.map(function(p,i){var v=RT.as[i],c=done?(v===p.n?'right':'wrong'):'';return '<li class="'+c+'"><span>'+(v?esc(v):'<span class="muted">—</span>')+(done&&v!==p.n?'<br><b class="small" style="color:var(--ok)">'+esc(p.n)+'</b>':'')+'</span>'+(done||!v?'':'<button class="btn ghost sm" data-x="rtClear" data-xv="'+i+'">Limpar</button>')+'</li>'}).join('')+'</ol>'+
+ (done?'<div class="actions"><button class="btn pri" data-x="rtAgain">Outra peça</button><button class="btn ghost" data-nav="games">Sair</button></div>':'<div class="actions"><button class="btn pri" data-x="rtCheck" '+(Object.keys(RT.as).length===RT.pins.length?'':'disabled')+'>Conferir</button></div>')+
+ '</section></div></div>';
+};
+function paintRT(){if(!RT)return;var st=RT.st;
+ if(st.kind==='svg'){var svg=$('#fig svg');if(!svg)return;var ns='http://www.w3.org/2000/svg';RT.pins.forEach(function(p,i){var a=SCHM[p.sid].a;var g=document.createElementNS(ns,'g');g.setAttribute('class','numpin'+(RT.done?(RT.as[i]===p.n?' ok':' bad'):'')+(RT.as[i]?' set':''));g.setAttribute('data-lbl',i);g.innerHTML='<circle cx="'+a[0]+'" cy="'+a[1]+'" r="10"/><text x="'+a[0]+'" y="'+(a[1]+4)+'" text-anchor="middle">'+(i+1)+'</text>';svg.appendChild(g)})}
+ else{var box=$('#photo .zoomer');if(!box)return;RT.pins.forEach(function(p,i){var b=document.createElement('button');b.className='numpin-h'+(RT.done?(RT.as[i]===p.n?' ok':' bad'):'')+(RT.as[i]?' set':'');b.setAttribute('data-lbl',i);b.setAttribute('aria-label','Estrutura '+(i+1));b.textContent=i+1;b.style.left=(p.x*100)+'%';b.style.top=(p.y*100)+'%';box.appendChild(b)})}
+}
+
+/* ---------- MEMÓRIA ---------- */
+var MM=null;
+function mmNew(){
+ var pairs;
+ var asq=QB.filter(function(q){if(q.t!=='as')return false;var r={};q.p.forEach(function(p){r[p[1]]=(r[p[1]]||0)+1});return q.p.length>=5&&Object.keys(r).length===q.p.length});
+ if(Math.random()<.4||!asq.length){pairs=shuffle(NERVES).slice(0,6).map(function(n){return[n.r+' · '+n.n,n.fn]});MM={theme:'Nervos cranianos e funções'}}
+ else{var q=asq[Math.floor(Math.random()*asq.length)];pairs=shuffle(q.p).slice(0,6);MM={theme:q.q}}
+ var cards=[];pairs.forEach(function(p,i){cards.push({pid:i,t:p[0],s:0});cards.push({pid:i,t:p[1],s:1})});
+ MM.cards=shuffle(cards);MM.open=[];MM.got={};MM.moves=0;MM.lock=false;MM.n=pairs.length;MM.done=false;
+}
+VIEWS.memoria=function(){
+ if(!MM)mmNew();
+ return '<div class="qwrap" style="max-width:860px"><div class="qhead"><span class="eyebrow">Games · Memória</span><span class="small muted num">'+MM.moves+' jogadas · '+Object.keys(MM.got).length+'/'+MM.n+' pares</span></div><p class="small muted">'+esc(MM.theme)+'</p>'+
+ '<div class="mem">'+MM.cards.map(function(c,i){var up=MM.got[c.pid]||MM.open.indexOf(i)>=0;return '<button class="memc'+(up?' up':'')+(MM.got[c.pid]?' got':'')+(c.s?' s1':'')+'" data-x="mm" data-xv="'+i+'" '+(MM.got[c.pid]?'disabled':'')+' aria-label="'+(up?esc(c.t):'Carta virada')+'"><span>'+(up?esc(c.t):'')+'</span></button>'}).join('')+'</div>'+
+ (MM.done?'<div class="fb good"><span class="verdict">Completo em '+MM.moves+' jogadas · +'+MM.pts+' pontos</span></div><div class="actions"><button class="btn pri" data-x="mmAgain">Nova rodada</button><button class="btn ghost" data-nav="games">Sair</button></div>':'')+'</div>';
+};
+
+/* ---------- DESAFIO SEMANAL, REVISÃO ---------- */
+function startWeekly(){var list=seededPick(QB,10,hashNum('wk'+weekId()));startQuiz(list,'Desafio da semana',{kind:'weekly'})}
+
+/* ---------- DUELO ---------- */
+var DU={phase:'menu'};
+function b64e(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function b64d(s){s=s.trim().replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return JSON.parse(decodeURIComponent(escape(atob(s))))}
+function duelQs(seed){return seededPick(QB.filter(function(q){return q.t==='mc'||q.t==='case'}),5,seed)}
+VIEWS.duelo=function(){
+ var h='<div class="qwrap"><div class="eyebrow">Games · Duelo</div><h1>Desafie um colega</h1><p class="muted">Vocês respondem as mesmas 5 questões. Quem acertar mais vence.</p>';
+ if(DU.phase==='code'){h+='<div class="card grid"><h3>Envie este código para o colega</h3><p class="small muted">Você fez '+DU.me+'/5. Quando ele jogar, vai receber um código de resposta para te mandar de volta.</p><textarea class="in code" id="duCode" readonly rows="3">'+esc(DU.code)+'</textarea><div class="actions"><button class="btn pri" data-x="copy" data-xv="duCode">Copiar código</button><button class="btn ghost" data-x="shareText" data-xv="duCode">Enviar</button></div></div>'}
+ if(DU.phase==='final'){var w=DU.a.p>DU.b.p?DU.a.n:DU.b.p>DU.a.p?DU.b.n:null;h+='<div class="card duel-res"><div><b>'+esc(DU.a.n)+'</b><span class="score">'+DU.a.p+'</span></div><span class="muted">×</span><div><b>'+esc(DU.b.n)+'</b><span class="score">'+DU.b.p+'</span></div></div><p style="text-align:center"><b>'+(w?esc(w)+' venceu':'Empate')+'</b></p>'+(DU.reply?'<div class="card grid"><h3>Devolva este código para '+esc(DU.a.n)+'</h3><textarea class="in code" id="duCode" readonly rows="3">'+esc(DU.reply)+'</textarea><div class="actions"><button class="btn pri" data-x="copy" data-xv="duCode">Copiar código</button><button class="btn ghost" data-x="shareText" data-xv="duCode">Enviar</button></div></div>':'')}
+ h+='<div class="grid g2"><div class="card grid"><h3>Criar duelo</h3><p class="small muted">Você responde primeiro e recebe um código para enviar.</p><button class="btn pri" data-x="duNew">Começar</button></div>'+
+ '<form id="duForm" class="card grid"><h3>Recebi um código</h3><textarea class="in code" id="duIn" rows="3" placeholder="Cole aqui o código do duelo ou da resposta"></textarea><button class="btn dark">Abrir código</button></form></div></div>';
+ return h;
+};
+function duelPanel(){return ''}
+function duelEnd(Z){var m=Z.meta||{},me=Z.ok;
+ if(m.role==='host'){DU={phase:'code',me:me,code:b64e({v:1,s:m.seed,n:S.user.name,p:me})}}
+ else{var opp=m.opp;DU={phase:'final',a:{n:opp.n,p:opp.p},b:{n:S.user.name,p:me},reply:b64e({v:1,s:m.seed,n:opp.n,p:opp.p,r:{n:S.user.name,p:me}})};if(me>opp.p&&!S.priv.c['duel_'+m.seed]){S.priv.c['duel_'+m.seed]=1;inc('duelWins')}}
+ setTimeout(function(){go('duelo')},0);
+}
+
+/* ---------- CORRIDA DA TURMA (Firebase) ---------- */
+var RC=null;
+function raceQs(seed){return seededPick(QB.filter(function(q){return q.t==='mc'||q.t==='case'}),8,seed)}
+function raceWatch(code){if(RC&&RC.unsub)RC.unsub();RC={code:code,data:null,ans:{}};RC.unsub=Store.race.watch(code,function(d){RC.data=d;if(S.view==='corrida'){S.keepScroll=true;render()}})}
+VIEWS.corrida=function(){
+ if(Store.mode!=='firebase'||!Store.race)return '<div class="qwrap"><div class="eyebrow">Games · Corrida da turma</div><h1>Disponível no modo online</h1><p class="muted">A corrida precisa de conexão entre os aparelhos. Ela será liberada quando o login e o ranking online forem ativados.</p><div class="actions"><button class="btn ghost" data-nav="games">Voltar</button></div></div>';
+ if(!RC||!RC.data){return '<div class="qwrap"><div class="eyebrow">Games · Corrida da turma</div><h1>Corrida da turma</h1><p class="muted">Todos respondem a mesma questão ao mesmo tempo. Acertar rápido vale mais.</p><div class="grid g2"><div class="card grid"><h3>Criar sala</h3><p class="small muted">Você controla quando cada questão começa.</p><button class="btn pri" data-x="rcNew">Criar sala</button></div><form id="rcForm" class="card grid"><h3>Entrar numa sala</h3><input class="in" id="rcIn" maxlength="4" placeholder="Código de 4 letras" style="text-transform:uppercase"><button class="btn dark">Entrar</button></form></div></div>'}
+ var d=RC.data,host=d.host===S.user.uid,players=Object.keys(d.players||{}).map(function(k){var p=d.players[k];return{uid:k,name:p.name,sc:p.sc||0}}).sort(function(a,b){return b.sc-a.sc});
+ var board='<div class="rank">'+players.map(function(p,i){return '<div class="rrow'+(p.uid===S.user.uid?' me':'')+'"><span class="pos">'+(i+1)+'</span><span class="nm">'+esc(p.name)+'</span><span class="xp">'+p.sc+'</span><span></span></div>'}).join('')+'</div>';
+ if(d.state==='lobby')return '<div class="qwrap"><div class="eyebrow">Sala</div><div class="roomcode">'+esc(RC.code)+'</div><p class="muted">'+players.length+' participante'+(players.length===1?'':'s')+'. '+(host?'Quando todos entrarem, comece.':'Aguardando quem criou a sala começar.')+'</p>'+board+(host?'<div class="actions"><button class="btn pri" data-x="rcStart">Começar corrida</button></div>':'')+'</div>';
+ var qs=raceQs(d.seed);
+ if(d.state==='end')return '<div class="qwrap"><div class="eyebrow">Corrida encerrada</div><h1>Resultado</h1>'+board+'<div class="actions"><button class="btn ghost" data-x="rcLeave">Sair da sala</button></div></div>';
+ var i=d.q,q=qs[i],me=(d.players||{})[S.user.uid]||{},mine=me['a'+i];if(!RC.order||RC.order.i!==i)RC.order={i:i,o:shuffle(q.o.map(function(_,k){return k}))};
+ var left=Math.max(0,20-Math.floor((Date.now()-d.qAt)/1000));
+ if(!RC.tick){RC.tick=setInterval(function(){var t=$('#rcT');if(!t||!RC||!RC.data){clearInterval(RC&&RC.tick);if(RC)RC.tick=null;return}t.textContent=Math.max(0,20-Math.floor((Date.now()-RC.data.qAt)/1000))+' s'},500)}
+ return '<div class="qwrap"><div class="qhead"><span class="eyebrow">Questão '+(i+1)+' de '+qs.length+' · sala '+esc(RC.code)+'</span><span class="timer num" id="rcT">'+left+' s</span></div><p class="stem'+(q.t==='case'?' case':'')+'">'+esc(q.q)+'</p><div class="opts">'+RC.order.o.map(function(oi,k){var c='';if(mine!=null){if(oi===0)c='right';else if(oi===RC.ans[i])c='wrong'}return '<button class="opt '+c+'" data-x="rcAns" data-xv="'+oi+'" '+(mine!=null?'disabled':'')+'><span class="k">'+'ABCD'[k]+'</span><span>'+esc(q.o[oi])+'</span></button>'}).join('')+'</div>'+
+ (mine!=null?'<p class="small muted">'+(mine?'Acertou!':'Errou.')+' '+esc(q.e)+'</p>':'')+board+(host?'<div class="actions"><button class="btn dark" data-x="rcNext">'+(i+1>=qs.length?'Encerrar corrida':'Próxima questão')+'</button></div>':'')+'</div>';
+};
+
+/* ---------- CARTÃO PARA COMPARTILHAR ---------- */
+function shareCard(title,ok,n,xp){
+ var c=document.createElement('canvas');c.width=1080;c.height=1920;var g=c.getContext('2d');
+ var grd=g.createLinearGradient(0,0,0,1920);grd.addColorStop(0,'#1B3A4B');grd.addColorStop(1,'#0f2531');g.fillStyle=grd;g.fillRect(0,0,1080,1920);
+ g.strokeStyle='rgba(233,196,106,.18)';g.lineWidth=3;for(var i=0;i<9;i++){g.beginPath();g.arc(900,380,120+i*70,0,Math.PI*2);g.stroke()}
+ var F='"Bricolage Grotesque","Segoe UI",system-ui,sans-serif',B='"Atkinson Hyperlegible",system-ui,sans-serif';
+ g.fillStyle='#E9C46A';g.font='800 64px '+F;g.fillText('Up-MED',90,200);var lw=g.measureText('Up-MED ').width;g.fillStyle='#ffffff';g.font='600 64px '+F;g.fillText('study',90+lw,200);
+ g.fillStyle='rgba(255,255,255,.7)';g.font='700 40px '+B;g.fillText('NEUROANATOMIA',90,300);
+ g.fillStyle='#ffffff';g.font='800 72px '+F;wrapText(g,title,90,560,900,84);
+ g.fillStyle='#E9C46A';g.font='800 360px '+F;g.fillText(String(ok),90,1080);var w=g.measureText(String(ok)).width;g.fillStyle='rgba(255,255,255,.55)';g.font='700 140px '+F;g.fillText('/'+n,100+w,1080);
+ g.fillStyle='#2A9D8F';rr(g,90,1170,900,12,6);g.fill();g.fillStyle='#E9C46A';rr(g,90,1170,Math.max(12,900*ok/n),12,6);g.fill();
+ g.fillStyle='#ffffff';g.font='700 56px '+B;g.fillText(Math.round(100*ok/n)+'% de acerto · +'+xp+' pontos',90,1290);
+ g.fillStyle='rgba(255,255,255,.85)';g.font='700 48px '+B;g.fillText(S.user.name,90,1640);g.fillStyle='rgba(255,255,255,.6)';g.font='400 40px '+B;g.fillText([S.user.turma,S.user.fac].filter(Boolean).join(' · ')||new Date().toLocaleDateString('pt-BR'),90,1700);
+ g.fillStyle='rgba(255,255,255,.6)';g.font='400 34px '+B;g.fillText('Estude também:',90,1790);g.fillText('luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro',90,1840);
+ return new Promise(function(res){c.toBlob(res,'image/png')});
+}
+function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
+function wrapText(g,t,x,y,max,lh){var words=String(t).split(' '),line='';words.forEach(function(w){var test=line?line+' '+w:w;if(g.measureText(test).width>max&&line){g.fillText(line,x,y);line=w;y+=lh}else line=test});g.fillText(line,x,y)}
+function shareResult(){var Z=S.quiz;shareCard(Z.title,Z.ok,Z.list.length,Z.xp).then(function(blob){
+ var file=new File([blob],'upmed-resultado.png',{type:'image/png'});
+ if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Up-MED study',text:'Meu resultado no Up-MED study'}).catch(function(){})}
+ else{var url=URL.createObjectURL(blob);var m=modal('<h2>Seu cartão</h2><img src="'+url+'" alt="Cartão do resultado" style="width:100%;max-width:300px;border-radius:12px;justify-self:center"><p class="small muted">Toque e segure na imagem para salvar, ou use o botão.</p><div class="actions"><a class="btn pri" href="'+url+'" download="upmed-resultado.png">Baixar imagem</a><button class="btn ghost" data-close>Fechar</button></div>')}
+})}
+
+/* ---------- ZOOM E ARRASTAR ---------- */
+var ZS={};var dragT=0;
+function initZoom(){document.querySelectorAll('.zoomwrap').forEach(function(w){
+ if(w.dataset.z)return;w.dataset.z='1';var z=w.querySelector('.zoomer');if(!z)return;
+ var key=S.view+'|'+(w.id||'')+'|'+(w.closest('#sdfig')?'sd':'')+'|'+(S.view==='pratica'&&PR&&PR.items?PR.i+':'+(PR.items[PR.i]||{st:{}}).st.id:'')+'|'+(S.view==='rotulos'&&RT?RT.st.id:'');var st=ZS[key]||(ZS[key]={s:1,x:0,y:0});
+ var ctr=document.createElement('div');ctr.className='zctl';ctr.innerHTML='<button type="button" data-z="in" aria-label="Aproximar">+</button><button type="button" data-z="out" aria-label="Afastar">−</button><button type="button" data-z="reset" aria-label="Tamanho original">1:1</button>';w.appendChild(ctr);
+ function clamp(){var W=w.clientWidth,H=w.clientHeight;st.x=Math.min(0,Math.max(W-W*st.s,st.x));st.y=Math.min(0,Math.max(H-H*st.s,st.y))}
+ function apply(){if(st.s<=1){st.s=1;st.x=0;st.y=0}clamp();z.style.transform='translate('+st.x+'px,'+st.y+'px) scale('+st.s+')';w.classList.toggle('zoomed',st.s>1)}
+ function zoomAt(f,cx,cy){var ns=Math.min(5,Math.max(1,st.s*f));var r=w.getBoundingClientRect();var px=cx-r.left,py=cy-r.top;st.x=px-(px-st.x)*ns/st.s;st.y=py-(py-st.y)*ns/st.s;st.s=ns;apply()}
+ apply();
+ ctr.addEventListener('click',function(e){var b=e.target.closest('[data-z]');if(!b)return;e.stopPropagation();var r=w.getBoundingClientRect();if(b.dataset.z==='in')zoomAt(1.5,r.left+r.width/2,r.top+r.height/2);else if(b.dataset.z==='out')zoomAt(1/1.5,r.left+r.width/2,r.top+r.height/2);else{st.s=1;apply()}});
+ w.addEventListener('wheel',function(e){if(!e.ctrlKey&&st.s===1&&!e.altKey&&Math.abs(e.deltaY)<40)return;e.preventDefault();zoomAt(e.deltaY<0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
+ var pts={},start=null,pinch=null,moved=false;
+ w.addEventListener('pointerdown',function(e){if(e.target.closest('.zctl'))return;pts[e.pointerId]={x:e.clientX,y:e.clientY};moved=false;var ids=Object.keys(pts);if(ids.length===1)start={x:e.clientX,y:e.clientY,sx:st.x,sy:st.y};else if(ids.length===2){var a=pts[ids[0]],b=pts[ids[1]];pinch={d:Math.hypot(a.x-b.x,a.y-b.y),s:st.s}}});
+ w.addEventListener('pointermove',function(e){if(!pts[e.pointerId])return;pts[e.pointerId]={x:e.clientX,y:e.clientY};var ids=Object.keys(pts);
+  if(ids.length===2&&pinch){var a=pts[ids[0]],b=pts[ids[1]];var d=Math.hypot(a.x-b.x,a.y-b.y);var f=(pinch.s*d/pinch.d)/st.s;zoomAt(f,(a.x+b.x)/2,(a.y+b.y)/2);moved=true;e.preventDefault()}
+  else if(ids.length===1&&start&&st.s>1){var dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.abs(dx)+Math.abs(dy)>6)moved=true;if(moved){st.x=start.sx+dx;st.y=start.sy+dy;apply();e.preventDefault()}}});
+ var up=function(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;if(!Object.keys(pts).length){if(moved)dragT=Date.now();start=null}};
+ w.addEventListener('pointerup',up);w.addEventListener('pointercancel',up);
+})}
+document.addEventListener('click',function(e){if(Date.now()-dragT<250&&e.target.closest('.zoomwrap')&&!e.target.closest('.zctl')){e.stopPropagation();e.preventDefault()}},true);
+
+/* ---------- hook após render ---------- */
+var _after2=after;after=function(){_after2();initZoom()};
+
+/* ---------- EVENTOS ---------- */
+function startModule(id,n){startQuiz(pickQuestions(QB.filter(function(q){return q.m===id}),n||10),MOD[id].n)}
+function startExam(pool,title){startQuiz(pickQuestions(pool,Math.min(15,pool.length)),title,{exam:true})}
+document.addEventListener('click',function(e){
+ var lbl=e.target.closest('[data-lbl]');
+ if(lbl&&S.view==='rotulos'&&RT&&!RT.done){var i=+lbl.getAttribute('data-lbl');if(RT.sel){Object.keys(RT.as).forEach(function(k){if(RT.as[k]===RT.sel)delete RT.as[k]});RT.as[i]=RT.sel;RT.sel=null;S.keepScroll=true;render()}else toast('Escolha primeiro um nome na lista.');return}
+ var b=e.target.closest('[data-x],[data-fav]');if(!b)return;
+ if(b.dataset.fav){var id=b.dataset.fav;if(S.priv.fav[id])delete S.priv.fav[id];else S.priv.fav[id]=1;persist();var on=!!S.priv.fav[id];document.querySelectorAll('[data-fav="'+id+'"]').forEach(function(x){x.setAttribute('aria-pressed',on);x.textContent=on?'★':'☆'});toast(on?'Questão salva no caderno.':'Questão removida das favoritas.');return}
+ var x=b.dataset.x,v=b.dataset.xv;
+ if(x==='sd'){var res=S.priv.c.sd;if(res&&res.day===dayKey())return;var ok=v===SD.pin.n;S.priv.c.sd={day:dayKey(),ok:ok,pick:v};if(ok){inc('prOk');addGameXp('estacao',10);sfx('ok');floatXp(10)}else{sfx('bad');persist()}S.keepScroll=true;render();return}
+ if(x==='review'){startQuiz(shuffle(dueList()).slice(0,30),'Revisão do dia',{kind:'review'});return}
+ if(x==='train'){startModule(v);return}
+ if(x==='exam'){startExam(QB.filter(function(q){return q.m===v}),'Modo prova · '+MOD[v].n);return}
+ if(x==='modfav'){startQuiz(shuffle(QB.filter(function(q){return q.m===v&&S.priv.fav[q.id]})),'Favoritas · '+MOD[v].n);return}
+ if(x==='moderr'){startQuiz(shuffle(QB.filter(function(q){return q.m===v&&S.priv.errs[q.id]})),'Erros · '+MOD[v].n);return}
+ if(x==='weekly'){startWeekly();return}
+ if(x==='share'){shareResult();return}
+ if(x==='oneq'){startQuiz([QBY[v]],'Busca');return}
+ if(x==='searchQuiz'){startQuiz((S._searchIds||[]).map(function(k){return QBY[k]}),'Busca: '+BQ);return}
+ if(x==='ctab'){CT=v;S.keepScroll=true;render();return}
+ if(x==='cstart'||x==='cexam'){var ids=CT==='fav'?Object.keys(S.priv.fav):CT==='err'?Object.keys(S.priv.errs):dueList().map(function(q){return q.id});var qs=shuffle(ids.map(function(k){return QBY[k]}).filter(Boolean));var title=CT==='fav'?'Favoritas':CT==='err'?'Caderno de erros':'Revisão do dia';if(x==='cexam')startQuiz(qs.slice(0,30),'Modo prova · '+title,{exam:true});else startQuiz(qs.slice(0,30),title,{kind:CT==='rev'?'review':''});return}
+ if(x==='sound'){lsSet('upmed2_sound',v==='1');if(v==='1')sfx('ok');S.keepScroll=true;render();return}
+ if(x==='rk'){RK2.tab=v;S.keepScroll=true;render();return}
+ if(x==='rkf'){RK2[v]=!RK2[v];S.keepScroll=true;render();return}
+ /* rótulos */
+ if(x==='rtName'){RT.sel=RT.sel===v?null:v;S.keepScroll=true;render();return}
+ if(x==='rtClear'){delete RT.as[v];S.keepScroll=true;render();return}
+ if(x==='rtCheck'){RT.done=true;var okc=0;RT.pins.forEach(function(p,i){if(RT.as[i]===p.n)okc++});inc('prOk',okc);if(okc)addGameXp('rotulos',okc*5);sfx(okc===RT.pins.length?'ok':'bad');S.keepScroll=true;render();return}
+ if(x==='rtAgain'){rtNew();render();return}
+ /* memória */
+ if(x==='mm'){if(MM.lock||MM.done)return;var i=+v;if(MM.open.indexOf(i)>=0)return;MM.open.push(i);if(MM.open.length===2){MM.moves++;var a=MM.cards[MM.open[0]],c=MM.cards[MM.open[1]];if(a.pid===c.pid&&a.s!==c.s){MM.got[a.pid]=1;MM.open=[];sfx('ok');if(Object.keys(MM.got).length===MM.n){MM.done=true;MM.pts=Math.max(10,60-(MM.moves-MM.n)*4);addGameXp('memoria',MM.pts)}}else{MM.lock=true;setTimeout(function(){MM.open=[];MM.lock=false;if(S.view==='memoria'){S.keepScroll=true;render()}},950)}}S.keepScroll=true;render();return}
+ if(x==='mmAgain'){mmNew();render();return}
+ /* duelo */
+ if(x==='duNew'){var seed=Math.floor(Math.random()*4294967295);startQuiz(duelQs(seed),'Duelo',{kind:'duel',meta:{seed:seed,role:'host'}});return}
+ if(x==='copy'){var el=document.getElementById(v);if(!el)return;var txt=el.value;if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(function(){toast('Código copiado.')}).catch(function(){el.select();toast('Selecione e copie o código.')});else{el.select();toast('Selecione e copie o código.')}return}
+ if(x==='shareText'){var el2=document.getElementById(v);var t='Duelo no Up-MED study! Abra luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro , vá em Games > Duelo e cole o código:\n\n'+el2.value;if(navigator.share)navigator.share({text:t}).catch(function(){});else{el2.select();toast('Copie o código e envie pelo seu aplicativo de mensagens.')}return}
+ /* corrida */
+ if(x==='rcNew'){var code='';for(var k=0;k<4;k++)code+='ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(Math.random()*24)];var data={host:S.user.uid,seed:Math.floor(Math.random()*4294967295),state:'lobby',q:-1,at:Date.now(),players:{}};data.players[S.user.uid]={name:S.user.name,sc:0};Store.race.create(code,data).then(function(){raceWatch(code)}).catch(function(err){toast(errMsg(err))});return}
+ if(x==='rcStart'){Store.race.update(RC.code,{state:'play',q:0,qAt:Date.now()});return}
+ if(x==='rcNext'){var d=RC.data,n=raceQs(d.seed).length;if(d.q+1>=n)Store.race.update(RC.code,{state:'end'});else Store.race.update(RC.code,{q:d.q+1,qAt:Date.now()});return}
+ if(x==='rcAns'){var dd=RC.data,qi=dd.q,me=(dd.players||{})[S.user.uid]||{};if(me['a'+qi]!=null)return;var okr=+v===0;RC.ans[qi]=+v;var el3=(Date.now()-dd.qAt)/1000;var pts=okr?10+Math.max(0,10-Math.floor(el3/2)):0;var patch={sc:(me.sc||0)+pts};patch['a'+qi]=okr?1:0;Store.race.player(RC.code,S.user.uid,patch);sfx(okr?'ok':'bad');return}
+ if(x==='rcLeave'){if(RC&&RC.unsub)RC.unsub();RC=null;go('games');return}
+});
+document.addEventListener('submit',function(e){
+ var id=e.target.id;
+ if(id==='bForm'){e.preventDefault();BQ=$('#bIn').value;render();return}
+ if(id==='duForm'){e.preventDefault();var o;try{o=b64d($('#duIn').value)}catch(err){toast('Código inválido. Confira se copiou o código inteiro.');return}
+  if(o.r){DU={phase:'final',a:{n:o.n,p:o.p},b:{n:o.r.n,p:o.r.p}};if(o.n===S.user.name&&o.p>o.r.p&&!S.priv.c['duel_'+o.s]){S.priv.c['duel_'+o.s]=1;inc('duelWins');persist()}render();return}
+  startQuiz(duelQs(o.s),'Duelo contra '+o.n,{kind:'duel',meta:{seed:o.s,role:'guest',opp:{n:o.n,p:o.p}}});return}
+ if(id==='rcForm'){e.preventDefault();var code=$('#rcIn').value.trim().toUpperCase();if(code.length!==4){toast('O código tem 4 letras.');return}Store.race.get(code).then(function(d){if(!d){toast('Sala não encontrada.');return}if(d.state!=='lobby'){toast('Essa corrida já começou.');return}return Store.race.player(code,S.user.uid,{name:S.user.name,sc:0}).then(function(){raceWatch(code)})}).catch(function(err){toast(errMsg(err))});return}
+ if(id==='profForm'){e.preventDefault();var name=$('#pfName').value.trim(),turma=$('#pfTurma').value.trim(),fac=$('#pfFac').value.trim(),f=$('#pfAv').files[0];if(!name){toast('Digite seu nome.');return}
+  var go2=function(av){var patch={name:name,turma:turma,fac:fac};if(av)patch.av=av;Store.updateProfile(S.user.uid,patch).then(function(){Object.assign(S.user,patch);persist();toast('Perfil salvo.');render()}).catch(function(err){toast(errMsg(err))})};
+  if(f)avatarImage(f).then(go2).catch(function(){toast('Não foi possível ler essa imagem.')});else go2(null);return}
+});
+document.addEventListener('change',function(e){if(e.target.id==='rk2Mod'){RK2.mod=e.target.value;S.keepScroll=true;render()}});
+function avatarImage(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){var img=new Image();img.onload=function(){var s=96,c=document.createElement('canvas');c.width=s;c.height=s;var g=c.getContext('2d');var m=Math.min(img.width,img.height);g.drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);res(c.toDataURL('image/jpeg',0.8))};img.onerror=rej;img.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
+
 window.UPMED={boot:boot};
 boot();
+
 })();
 
 </script>
