@@ -1773,13 +1773,13 @@ function medalSvg(on,mod){var c=mod?AREA_OF[mod].c:'var(--hi)';return '<svg clas
 
 /* ---- áreas, cores e glifos ---- */
 var AREAS=[
- {id:'fund',n:'Fundamentos',c:'#5B7FA3',mods:['intro','tecido','nervos'],g:'<circle cx="12" cy="12" r="3.2"/><path d="M12 8.8V3M12 15.2V21M8.9 10.8 4 8M15.1 13.2 20 16M8.9 13.2 4 16M15.1 10.8 20 8"/>'},
- {id:'medula',n:'Medula',c:'#2A9D8F',mods:['medmacro','medest'],g:'<path d="M12 2v20"/><path d="M8 5c0 3 1.5 4 4 4s4-1 4-4M8 19c0-3 1.5-4 4-4s4 1 4 4"/><path d="M5 12h3M16 12h3"/>'},
- {id:'tronco',n:'Tronco e cerebelo',c:'#D9644A',mods:['tronco','troncoest','cerebelo'],g:'<path d="M10 3h4v8l2 3v7h-8v-7l2-3z"/><path d="M16 14c3 0 5 1.5 5 4s-2 3-5 3M8 14c-3 0-5 1.5-5 4s2 3 5 3"/>'},
- {id:'cerebro',n:'Cérebro',c:'#8566B8',mods:['diencefalo','telencefalo','telest','limbico'],g:'<path d="M12 4c-4-2-9 1-8 6-2 2-1 6 2 7 1 3 5 4 6 1 1 3 5 2 6-1 3-1 4-5 2-7 1-5-4-8-8-6z"/><path d="M12 4v14"/>'},
- {id:'envolt',n:'Envoltórios e vasos',c:'#C9473F',mods:['meninges','vasc'],g:'<path d="M12 21c-5-3-8-7-8-11a8 8 0 0 1 16 0c0 4-3 8-8 11z"/><path d="M12 7v8M9 11h6"/>'},
- {id:'nervos',n:'Nervos e SNA',c:'#D99A2B',mods:['nervesp','nervcran','sna'],g:'<path d="M3 12h6l2-6 2 12 2-6h6"/>'},
- {id:'vias',n:'Grandes vias',c:'#3A7FC1',mods:['vias','eferentes'],g:'<path d="M6 3v6c0 3 12 3 12 6v6"/><path d="M18 3v6c0 3-12 3-12 6v6"/>'}
+ {id:'fund',n:'Fundamentos',c:'var(--accent)',mods:['intro','tecido','nervos'],g:'<circle cx="12" cy="12" r="3.2"/><path d="M12 8.8V3M12 15.2V21M8.9 10.8 4 8M15.1 13.2 20 16M8.9 13.2 4 16M15.1 10.8 20 8"/>'},
+ {id:'medula',n:'Medula',c:'var(--accent)',mods:['medmacro','medest'],g:'<path d="M12 2v20"/><path d="M8 5c0 3 1.5 4 4 4s4-1 4-4M8 19c0-3 1.5-4 4-4s4 1 4 4"/><path d="M5 12h3M16 12h3"/>'},
+ {id:'tronco',n:'Tronco e cerebelo',c:'var(--accent)',mods:['tronco','troncoest','cerebelo'],g:'<path d="M10 3h4v8l2 3v7h-8v-7l2-3z"/><path d="M16 14c3 0 5 1.5 5 4s-2 3-5 3M8 14c-3 0-5 1.5-5 4s2 3 5 3"/>'},
+ {id:'cerebro',n:'Cérebro',c:'var(--accent)',mods:['diencefalo','telencefalo','telest','limbico'],g:'<path d="M12 4c-4-2-9 1-8 6-2 2-1 6 2 7 1 3 5 4 6 1 1 3 5 2 6-1 3-1 4-5 2-7 1-5-4-8-8-6z"/><path d="M12 4v14"/>'},
+ {id:'envolt',n:'Envoltórios e vasos',c:'var(--accent)',mods:['meninges','vasc'],g:'<path d="M12 21c-5-3-8-7-8-11a8 8 0 0 1 16 0c0 4-3 8-8 11z"/><path d="M12 7v8M9 11h6"/>'},
+ {id:'nervos',n:'Nervos e SNA',c:'var(--accent)',mods:['nervesp','nervcran','sna'],g:'<path d="M3 12h6l2-6 2 12 2-6h6"/>'},
+ {id:'vias',n:'Grandes vias',c:'var(--accent)',mods:['vias','eferentes'],g:'<path d="M6 3v6c0 3 12 3 12 6v6"/><path d="M18 3v6c0 3-12 3-12 6v6"/>'}
 ];
 var AREA_OF={};AREAS.forEach(function(a){a.mods.forEach(function(m){AREA_OF[m]=a})});
 function glyph(mod,size){var a=AREA_OF[mod];return '<span class="glyph" style="--ac:'+a.c+';width:'+(size||44)+'px;height:'+(size||44)+'px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+a.g+'</svg></span>'}
