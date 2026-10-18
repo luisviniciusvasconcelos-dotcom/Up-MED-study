@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Up-MED study</title>
 <meta name="description" content="Neuroanatomia em questões, prova prática e ranking da turma.">
-<meta name="theme-color" content="#e3f4ea">
+<meta name="theme-color" content="#F5F7F4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2711%27 fill=%27%231E6B4E%27/%3E%3Cellipse cx=%2720%27 cy=%2720.5%27 rx=%2713.5%27 ry=%2710.5%27 fill=%27%23F2F7F4%27/%3E%3C/svg%3E">
 <meta http-equiv="Cache-Control" content="no-cache">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
 /* Layout: app clínico — barra lateral no computador, navegação inferior no celular; conteúdo em coluna de leitura */
 :root{
@@ -399,6 +400,126 @@ details summary{cursor:pointer;color:var(--accent);font-weight:700}
 :root[data-theme="dark"] .fig,.fig{box-shadow:none}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .photo img{filter:brightness(.95)}}
 
+/* ===== v2.2 — identidade refinada: verde-floresta, branco e um toque de dourado =====
+   Layout: barra lateral branca com filete; conteúdo em fundo off-white levemente esverdeado; cartões brancos com sombra mínima */
+:root{
+  --bg:#F5F7F4; --surface:#FFFFFF; --surface2:#F0F4F1; --ink:#17251F; --muted:#5E6E66; --line:#E1E8E3;
+  --brand:#FFFFFF; --brandInk:#17251F; --accent:#1E6B4E; --accentInk:#FFFFFF; --hi:#D4AF4F; --hiInk:#5C4709;
+  --ok:#1F8159; --bad:#B9473A; --warn:#A87A12;
+  --navHover:#F2F6F3; --navActive:#E6F0EA; --logoEm:#4E8A6E; --sideLine:#E1E8E3;
+  --feature:#164A37; --featureInk:#F2F7F4; --featureMuted:#B9D7C7;
+  --logoBg:#1E6B4E; --logoFg:#F2F7F4;
+  --shadow:0 1px 2px rgba(16,40,30,.05),0 2px 8px rgba(16,40,30,.04);
+  --f-display:Sora,"Segoe UI",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1512; --surface:#151F1B; --surface2:#1B2823; --ink:#E6EEE9; --muted:#97A8A0; --line:#26362F;
+  --brand:#121B17; --brandInk:#E6EEE9; --accent:#4FB58A; --accentInk:#06180F; --hi:#E2C46A; --hiInk:#2B2000;
+  --ok:#4FB58A; --bad:#F07A6A; --warn:#E3B341;
+  --navHover:rgba(255,255,255,.04); --navActive:rgba(79,181,138,.14); --logoEm:#7FC4A4; --sideLine:#26362F;
+  --feature:#183A2D; --featureInk:#E6EEE9; --featureMuted:#9BCDB3; --logoBg:#4FB58A; --logoFg:#0E1512;
+  --shadow:none; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1512; --surface:#151F1B; --surface2:#1B2823; --ink:#E6EEE9; --muted:#97A8A0; --line:#26362F;
+  --brand:#121B17; --brandInk:#E6EEE9; --accent:#4FB58A; --accentInk:#06180F; --hi:#E2C46A; --hiInk:#2B2000;
+  --ok:#4FB58A; --bad:#F07A6A; --warn:#E3B341;
+  --navHover:rgba(255,255,255,.04); --navActive:rgba(79,181,138,.14); --logoEm:#7FC4A4; --sideLine:#26362F;
+  --feature:#183A2D; --featureInk:#E6EEE9; --featureMuted:#9BCDB3; --logoBg:#4FB58A; --logoFg:#0E1512;
+  --shadow:none; color-scheme:dark}
+
+body{font-size:16.5px;-webkit-font-smoothing:antialiased}
+h1{font-weight:700;letter-spacing:-.025em}
+h2{font-weight:600;letter-spacing:-.02em}
+h3{font-weight:600;letter-spacing:-.01em}
+.eyebrow{font-family:var(--f-body);font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.tag{font-family:var(--f-body);font-size:12.5px;font-weight:600;letter-spacing:0;text-transform:none;border-radius:6px;padding:3px 9px;background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
+.tag.amb{background:color-mix(in srgb,var(--hi) 16%,var(--surface));border-color:color-mix(in srgb,var(--hi) 40%,var(--line));color:var(--ink)}
+
+/* barra lateral e navegação */
+.side{background:var(--brand)!important;color:var(--brandInk);border-right:1px solid var(--line);padding:24px 14px}
+.side .logo{padding:2px 8px 22px}
+.logo-mark{width:38px;height:38px}
+.wmark{display:grid;line-height:1.05}
+.wmark b{font-family:var(--f-display);font-weight:700;font-size:19px;letter-spacing:-.02em;color:var(--ink)}
+.wmark small{font-size:10.5px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--logoEm);margin-top:3px}
+.navb{opacity:1;color:var(--muted);font-weight:600;padding:10px 12px;border-radius:10px}
+.navb:hover{background:var(--navHover);color:var(--ink)}
+.navb[aria-current="page"]{background:var(--navActive);color:var(--accent);box-shadow:none;font-weight:700}
+.side .foot{border-top:1px solid var(--line);padding-top:14px;opacity:1;color:var(--ink)}
+.side .foot span span{color:var(--muted)}
+.bottom{background:var(--surface);color:var(--muted);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(16,40,30,.05)}
+.bottom .navb{color:var(--muted);font-weight:600}
+.bottom .navb[aria-current="page"]{background:transparent;box-shadow:none;color:var(--accent)}
+.bottom .navb[aria-current="page"] svg{background:var(--navActive);border-radius:999px;padding:3px 14px;box-sizing:content-box}
+
+/* superfícies */
+.main{padding-block:32px 104px}
+@media (min-width:900px){.main{padding-block:36px 56px;padding-left:44px;padding-right:44px}}
+.page{gap:24px}
+.card,.stat,.mod,.game,.fig,.badge,.sres{border-color:var(--line);box-shadow:var(--shadow)}
+.card{padding:20px}
+.stat{padding:14px 16px;gap:4px}
+.stat b{font-size:26px;font-weight:700;letter-spacing:-.02em}
+.banner{background:var(--surface2);border:1px solid var(--line);color:var(--muted);font-size:13.5px;padding:8px 14px;border-radius:999px;justify-self:start}
+.mod{padding:16px;border-radius:var(--r);transition:border-color .15s,transform .15s,box-shadow .15s}
+.mod:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));transform:translateY(-1px);box-shadow:0 6px 18px rgba(16,40,30,.08)}
+.mod h3{font-size:16.5px}
+.glyph{border-radius:12px;background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 18%,var(--line))}
+.area-h h2{font-size:19px}
+.area-h .dot{background:var(--accent)!important;width:4px;height:18px;border-radius:2px}
+.meter{height:5px;border:0;background:var(--surface2)}
+.game{padding:20px;border-radius:var(--r)}
+.game:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.game.feature,.memc:not(.up){background:var(--feature);color:var(--featureInk);border-color:var(--feature)}
+.game.feature p{color:var(--featureMuted)}
+.game.feature .tag.amb{background:color-mix(in srgb,var(--hi) 28%,transparent);border-color:transparent;color:var(--featureInk)}
+.game.feature .btn.pri{background:var(--featureInk);color:var(--feature)}
+
+/* botões e controles */
+.btn{border-radius:10px;font-weight:700;letter-spacing:.005em}
+.btn.pri{background:var(--accent);color:var(--accentInk)}
+.btn.pri:hover:not(:disabled){filter:brightness(1.07)}
+.btn.dark{background:var(--ink);color:var(--surface)}
+.btn.ghost{background:var(--surface);border-color:var(--line)}
+.btn.ghost:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.chip{background:var(--surface);border-color:var(--line);font-weight:600}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accentInk)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accentInk)}
+.opt{border-color:var(--line);border-radius:12px}
+.opt .k{font-family:var(--f-body);font-weight:700;border-color:var(--line);color:var(--muted)}
+input.in,select.in,textarea.in{border-color:var(--line);border-radius:10px}
+.bar{height:4px;background:var(--surface2)}
+.rrow{border-color:var(--line);box-shadow:var(--shadow)}
+.rrow.me{box-shadow:inset 3px 0 0 var(--accent),var(--shadow)}
+.pod.p1{border-top-color:var(--hi)}
+
+/* login */
+.auth{background:var(--feature);color:var(--featureInk)}
+.auth-hero .mark{font-weight:700;letter-spacing:-.035em}
+.auth-hero .mark span{color:var(--featureMuted)}
+.auth-hero p{color:var(--featureMuted);opacity:1}
+.auth-hero svg:not(.logo-mark){opacity:.08}
+.auth-logo .logo-mark{width:56px;height:56px;--logoBg:#F2F7F4;--logoFg:#164A37}
+.auth-card{background:var(--surface)}
+
+/* gráficos e marcadores */
+.hm.l1{fill:color-mix(in srgb,var(--accent) 22%,var(--surface2))}
+.hm.l2{fill:color-mix(in srgb,var(--accent) 45%,var(--surface2))}
+.hm.l3{fill:color-mix(in srgb,var(--accent) 72%,var(--surface2))}
+.hm{stroke:none}
+.resumo.clin{background:color-mix(in srgb,var(--hi) 7%,var(--surface))}
+.stem.case{border-left-color:var(--accent);background:var(--surface2)}
+.auth-hero > svg:not(.logo-mark){display:none}
+.auth-hero .auth-logo{line-height:0}
+.auth-hero .auth-logo svg{position:static;width:56px;height:56px;opacity:1}
+.auth-hero{gap:20px}
+/* esquemas em tons da identidade (coloração de mielina em verde profundo) */
+:root{--sv-my:#24493E;--sv-my2:#3C6E5E;--sv-edge:#8DB5A4;--sv-gray:#ECE5DD;--sv-grayEdge:#C3B4A8;--sv-gel:#F6F1EB;--sv-deep:#B29684;--sv-pia:#7A5446;--sv-nerve:#CBBFA8;--sv-gang:#AE9F84;--sv-csf:#DDEBE5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sv-my:#2C5A4C;--sv-my2:#477F6D;--sv-edge:#8DB5A4;--sv-gray:#D6CDC4;--sv-grayEdge:#A8998D;--sv-gel:#E6DED5;--sv-deep:#A0846F;--sv-pia:#C08A78;--sv-nerve:#A99F8D;--sv-gang:#8F856F;--sv-csf:#1C3530}}
+:root[data-theme="dark"]{--sv-my:#2C5A4C;--sv-my2:#477F6D;--sv-edge:#8DB5A4;--sv-gray:#D6CDC4;--sv-grayEdge:#A8998D;--sv-gel:#E6DED5;--sv-deep:#A0846F;--sv-pia:#C08A78;--sv-nerve:#A99F8D;--sv-gang:#8F856F;--sv-csf:#1C3530}
+
 </style>
 </head>
 <body>
@@ -434,8 +555,11 @@ function ar(m,d,a,r,k,e){return{m:m,d:d,t:'ar',a:a,r:r,k:k,e:e}}
 function od(m,d,q,s,e){return{m:m,d:d,t:'od',q:q,s:s,e:e}}
 function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 
-var APP_VERSION='2.1.0';
+var APP_VERSION='2.2.0';
 var VERSIONS=[
+ {v:'2.2.0',date:'18/10/2026',changes:['Nova logo: corte transversal da medula espinal estilizado, com marca nominal Up-MED study.','Paleta refinada: verde-floresta, branco e dourado discreto; tema claro por padrão.','Barra lateral e barra inferior brancas, com item ativo destacado em verde.','Tipografia nova (Sora nos títulos, Source Sans 3 no texto), etiquetas mais limpas e sombras suaves nos cartões.','Esquemas recoloridos em tons harmônicos com a identidade.','Tela de login e cartão de compartilhamento com a nova identidade.'],
+  tests:['Abrir no celular e no computador e conferir a nova identidade no tema claro.','Trocar para o tema escuro em Perfil e conferir contraste.'],
+  analysis:'O visual ficou mais sóbrio e coeso. O tema escuro foi ajustado junto, mas o claro é o principal.'},
  {v:'2.1.0',date:'18/10/2026',changes:['Novo visual: logotipo, cores e ícones por área, painel com estação do dia, sequência de estudo, calendário, gráfico de acerto e pontos fracos.','Revisão do dia com repetição espaçada.','Página de cada módulo com pontos-chave e correlação clínica.','Busca em questões, resumos, estruturas e casos.','Caderno com favoritas, erros e revisão.','Modo prova com cronômetro e gabarito comentado no final.','Animação e som opcional ao responder; cartão de resultado para compartilhar.','Zoom e arrastar nas imagens.','Dois novos esquemas: tronco encefálico em vista anterior e encéfalo em corte sagital mediano.','Novos games: rótulos, memória, desafio da semana, duelo por código e corrida da turma (esta só no modo online).','Conquistas, foto de perfil, faculdade e filtros no ranking.'],
   tests:['Responder a estação do dia e conferir se ela some até o dia seguinte.','Errar uma questão e conferir se ela volta na revisão do dia seguinte.','Fazer um modo prova até o fim e ler o gabarito.','Gerar o cartão de resultado no celular e compartilhar.','Criar um duelo, abrir o código em outro aparelho e devolver a resposta.','Dar zoom com dois dedos numa foto do editor e marcar uma estrutura.'],
   analysis:'O painel ficou mais rico, mas também mais longo no celular; vale observar se a turma rola até os módulos. A corrida da turma não pôde ser testada sem o Firebase. Os resumos são enxutos e servem de revisão rápida, não substituem o livro. A explicação em três níveis por questão ainda depende de ampliar o conteúdo.'},
@@ -1263,7 +1387,7 @@ applyTheme(lsGet('upmed2_theme','light'));
 var authMode='in';
 function renderAuth(msg,msgType){
  var app=$('#app');
- app.innerHTML='<div class="auth"><section class="auth-hero"><div class="eyebrow" style="color:inherit;opacity:.7">UNCISAL · Medicina</div><div class="mark">Up-MED<br><span>study</span></div><p>Neuroanatomia em questões, prova prática com peças reais e ranking da turma.</p>'+
+ app.innerHTML='<div class="auth"><section class="auth-hero"><div class="auth-logo">'+LOGO+'</div><div class="eyebrow" style="color:inherit;opacity:.7">UNCISAL · Medicina</div><div class="mark">Up-MED<br><span>study</span></div><p>Neuroanatomia em questões, prova prática com peças reais e ranking da turma.</p>'+
  '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3"><path d="M100 20c-40 0-70 30-70 70 0 25 12 40 25 50l5 40h80l5-40c13-10 25-25 25-50 0-40-30-70-70-70z"/><path d="M100 20v160M60 60c15 10 25 10 40 0M100 60c15 10 25 10 40 0M55 105c20 8 30 8 45 0M100 105c15 8 25 8 45 0"/></svg></section>'+
  '<section class="auth-card"><form id="authForm" novalidate>'+
  '<div class="seg" role="group" aria-label="Entrar ou criar conta"><button type="button" data-am="in" aria-pressed="'+(authMode==='in')+'">Entrar</button><button type="button" data-am="up" aria-pressed="'+(authMode==='up')+'">Criar conta</button></div>'+
@@ -1294,7 +1418,7 @@ function renderAuthKeep(m,t){var e=$('#aEmail')&&$('#aEmail').value,n=$('#aName'
    ========================================================= */
 function shell(inner){
  var nav=function(list){return list.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
- return '<div class="shell"><aside class="side"><div class="logo">'+LOGO+'<span>Up-MED <em>study</em></span></div>'+nav(NAV)+'<div class="side-sep"></div>'+nav(NAV2)+
+ return '<div class="shell"><aside class="side"><div class="logo">'+LOGO+'<span class="wmark"><b>Up-MED</b><small>study</small></span></div>'+nav(NAV)+'<div class="side-sep"></div>'+nav(NAV2)+
  '<div class="foot">'+avatar(S.user,32)+'<span><b>'+esc(S.user.name)+'</b><br><span style="opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</span></span></div></aside>'+
  '<main class="main" id="main"><div class="page">'+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV)+'</nav></div>';
 }
@@ -1785,7 +1909,7 @@ var AREAS=[
 ];
 var AREA_OF={};AREAS.forEach(function(a){a.mods.forEach(function(m){AREA_OF[m]=a})});
 function glyph(mod,size){var a=AREA_OF[mod];return '<span class="glyph" style="--ac:'+a.c+';width:'+(size||44)+'px;height:'+(size||44)+'px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+a.g+'</svg></span>'}
-var LOGO='<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--hi)"/><path d="M20 8c-6-3-13 1-12 8-3 3-1 9 3 10 1 4 7 6 9 1 2 5 8 3 9-1 4-1 6-7 3-10 1-7-6-11-12-8z" fill="none" stroke="#1B3A4B" stroke-width="2.4" stroke-linejoin="round"/><path d="M20 8v19M20 27v6" stroke="#1B3A4B" stroke-width="2.4" stroke-linecap="round"/><path d="M14 16c2 1 4 1 6 0M20 20c2 1 4 1 6 0" stroke="#1B3A4B" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+var LOGO='<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="var(--logoBg)"/><ellipse cx="20" cy="20.5" rx="13.5" ry="10.5" fill="var(--logoFg)"/><path fill="var(--logoBg)" d="M20 19.3C19 19.3 18.2 18.4 17.4 16.6L15.2 11.6C14.9 11 14.1 11.2 14.3 11.9L15.9 17.6C16.1 18.4 15.9 19 15.2 19.5C13.6 20.5 12.8 21.9 13 23.6C13.2 25.4 14.6 26.5 16.2 26C17.6 25.6 18.4 24.2 19 23.2C19.4 22.6 19.7 22.4 20 22.4C20.3 22.4 20.6 22.6 21 23.2C21.6 24.2 22.4 25.6 23.8 26C25.4 26.5 26.8 25.4 27 23.6C27.2 21.9 26.4 20.5 24.8 19.5C24.1 19 23.9 18.4 24.1 17.6L25.7 11.9C25.9 11.2 25.1 11 24.8 11.6L22.6 16.6C21.8 18.4 21 19.3 20 19.3Z"/><circle cx="20" cy="20.8" r=".9" fill="var(--logoFg)"/><path d="M20 31V28.6" stroke="var(--logoBg)" stroke-width="1.2" stroke-linecap="round"/></svg>';
 
 /* ---- som (opcional) ---- */
 var AC=null;
@@ -2079,14 +2203,14 @@ VIEWS.corrida=function(){
 /* ---------- CARTÃO PARA COMPARTILHAR ---------- */
 function shareCard(title,ok,n,xp){
  var c=document.createElement('canvas');c.width=1080;c.height=1920;var g=c.getContext('2d');
- var grd=g.createLinearGradient(0,0,0,1920);grd.addColorStop(0,'#1B3A4B');grd.addColorStop(1,'#0f2531');g.fillStyle=grd;g.fillRect(0,0,1080,1920);
- g.strokeStyle='rgba(233,196,106,.18)';g.lineWidth=3;for(var i=0;i<9;i++){g.beginPath();g.arc(900,380,120+i*70,0,Math.PI*2);g.stroke()}
- var F='"Bricolage Grotesque","Segoe UI",system-ui,sans-serif',B='"Atkinson Hyperlegible",system-ui,sans-serif';
- g.fillStyle='#E9C46A';g.font='800 64px '+F;g.fillText('Up-MED',90,200);var lw=g.measureText('Up-MED ').width;g.fillStyle='#ffffff';g.font='600 64px '+F;g.fillText('study',90+lw,200);
+ var grd=g.createLinearGradient(0,0,0,1920);grd.addColorStop(0,'#164A37');grd.addColorStop(1,'#0B271D');g.fillStyle=grd;g.fillRect(0,0,1080,1920);
+ g.strokeStyle='rgba(155,205,179,.16)';g.lineWidth=3;for(var i=0;i<9;i++){g.beginPath();g.arc(900,380,120+i*70,0,Math.PI*2);g.stroke()}
+ var F='Sora,"Segoe UI",system-ui,sans-serif',B='"Source Sans 3",system-ui,sans-serif';
+ g.fillStyle='#F2F7F4';g.font='700 64px '+F;g.fillText('Up-MED',90,200);var lw=g.measureText('Up-MED ').width;g.fillStyle='#9BCDB3';g.font='600 64px '+F;g.fillText('study',90+lw,200);
  g.fillStyle='rgba(255,255,255,.7)';g.font='700 40px '+B;g.fillText('NEUROANATOMIA',90,300);
  g.fillStyle='#ffffff';g.font='800 72px '+F;wrapText(g,title,90,560,900,84);
- g.fillStyle='#E9C46A';g.font='800 360px '+F;g.fillText(String(ok),90,1080);var w=g.measureText(String(ok)).width;g.fillStyle='rgba(255,255,255,.55)';g.font='700 140px '+F;g.fillText('/'+n,100+w,1080);
- g.fillStyle='#2A9D8F';rr(g,90,1170,900,12,6);g.fill();g.fillStyle='#E9C46A';rr(g,90,1170,Math.max(12,900*ok/n),12,6);g.fill();
+ g.fillStyle='#D9B95C';g.font='700 360px '+F;g.fillText(String(ok),90,1080);var w=g.measureText(String(ok)).width;g.fillStyle='rgba(255,255,255,.55)';g.font='700 140px '+F;g.fillText('/'+n,100+w,1080);
+ g.fillStyle='rgba(255,255,255,.15)';rr(g,90,1170,900,12,6);g.fill();g.fillStyle='#9BCDB3';rr(g,90,1170,Math.max(12,900*ok/n),12,6);g.fill();
  g.fillStyle='#ffffff';g.font='700 56px '+B;g.fillText(Math.round(100*ok/n)+'% de acerto · +'+xp+' pontos',90,1290);
  g.fillStyle='rgba(255,255,255,.85)';g.font='700 48px '+B;g.fillText(S.user.name,90,1640);g.fillStyle='rgba(255,255,255,.6)';g.font='400 40px '+B;g.fillText([S.user.turma,S.user.fac].filter(Boolean).join(' · ')||new Date().toLocaleDateString('pt-BR'),90,1700);
  g.fillStyle='rgba(255,255,255,.6)';g.font='400 34px '+B;g.fillText('Estude também:',90,1790);g.fillText('luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro',90,1840);
