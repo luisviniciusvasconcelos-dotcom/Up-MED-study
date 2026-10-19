@@ -1409,6 +1409,7 @@ function errMsg(e){var c=(e&&e.code)||'';return({
 
 /* ---------- tema ---------- */
 function applyTheme(t){if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);else document.documentElement.removeAttribute('data-theme')}
+if(!lsGet('upmed2_theme_reset23',false)){lsSet('upmed2_theme','light');lsSet('upmed2_theme_reset23',true)}
 applyTheme(lsGet('upmed2_theme','light'));
 
 /* =========================================================
