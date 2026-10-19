@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Up-MED study</title>
 <meta name="description" content="Neuroanatomia em questões, prova prática e ranking da turma.">
-<meta name="theme-color" content="#D3E8DA">
+<meta name="theme-color" content="#164A37">
 <meta name="color-scheme" content="only light">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -552,6 +552,84 @@ input.in,select.in,textarea.in{border-color:var(--line);border-radius:10px}
 :root:not([data-theme="dark"]){color-scheme:only light}
 html,body{background:var(--bg)}
 
+/* ===== v2.4 — verde profundo, aulas, explicações e flashcards ===== */
+:root{
+  --brand:#164A37; --brandInk:#FFFFFF; --accent:#165C42; --accentInk:#FFFFFF;
+  --navHover:rgba(255,255,255,.08); --navActive:#FFFFFF; --sideLine:rgba(255,255,255,.14); --logoEm:#9BCDB3;
+}
+.side .logo-mark,.auth-logo .logo-mark{--logoBg:#FFFFFF;--logoFg:#164A37}
+.navb{color:rgba(255,255,255,.78)}
+.navb:hover{color:#fff}
+.navb[aria-current="page"]{color:var(--brand);box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.side .foot,.side .foot b{color:#fff}
+.side .foot span span{color:rgba(255,255,255,.7)}
+.bottom .navb{color:rgba(255,255,255,.78)}
+.bottom .navb[aria-current="page"]{color:#fff}
+.bottom .navb[aria-current="page"] svg{background:rgba(255,255,255,.18)}
+.auth-hero .mark span{color:#9BCDB3}
+.auth-hero p{color:rgba(255,255,255,.82)}
+.auth-hero .eyebrow{color:rgba(255,255,255,.75)}
+:root[data-theme="dark"]{--brand:#121B17;--accent:#4FB58A}
+/* explicação em 3 níveis */
+.lv3{display:grid;gap:8px}
+.lv3-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.lv3-tabs button{font:inherit;font-size:13.5px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.lv3-tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accentInk)}
+.lv3-p{display:grid;gap:6px}
+/* aula */
+.tabs2{margin-top:-4px}
+.lesson-wrap{display:grid;gap:20px;align-items:start}
+@media (min-width:1100px){.lesson-wrap{grid-template-columns:230px minmax(0,1fr)}.toc{position:sticky;top:20px}}
+.toc{display:grid;gap:8px;padding:16px}
+.toc ol{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.toc a{color:var(--ink);text-decoration:none}
+.toc a:hover{color:var(--accent);text-decoration:underline}
+.cl-t{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lesson{display:grid;gap:28px;max-width:780px;min-width:0}
+.lsec{display:grid;grid-template-columns:36px minmax(0,1fr);gap:14px;scroll-margin-top:20px}
+.lsec-n{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accentInk);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:15px}
+.lsec-b{display:grid;gap:12px;min-width:0}
+.lsec-b h2{font-size:22px;margin-top:2px}
+.lsec-b h3{font-size:17px;margin-top:4px}
+.lsec-b p,.lsec-b li{font-size:17px;line-height:1.65}
+.lsec-b ul,.lsec-b ol{margin:0;padding-left:22px;display:grid;gap:6px}
+.callout{border-radius:12px;padding:12px 16px;display:grid;gap:4px;border:1px solid var(--line)}
+.callout p{margin:0}
+.callout.key{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+.callout.key .cl-t{color:var(--accent)}
+.callout.clin{background:color-mix(in srgb,var(--hi) 10%,var(--surface));border-color:color-mix(in srgb,var(--hi) 40%,var(--line))}
+.callout.clin .cl-t{color:var(--hiInk)}
+.callout.mn{background:var(--surface2)}
+.tblw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.tblw table{border-collapse:collapse;width:100%;font-size:15px;min-width:420px}
+.tblw th{background:var(--surface2);text-align:left;font-weight:700;padding:9px 12px;border-bottom:1px solid var(--line)}
+.tblw td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tblw tr:last-child td{border-bottom:0}
+.lfig{margin:0;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--surface);display:grid;gap:8px}
+.lfig svg{width:100%;height:auto;max-height:440px}
+.lfig figcaption{font-size:14px;color:var(--muted)}
+.lchk{border:1.5px dashed color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:12px;padding:14px;display:grid;gap:8px}
+.lend{display:grid;gap:8px}
+.modnav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+/* figuras das aulas */
+.fg-t{font-family:var(--f-body);font-size:12px;fill:var(--ink)}
+.fg-s{font-family:var(--f-body);font-size:10.5px;fill:var(--muted)}
+.fg-b{font-family:var(--f-display);font-size:13px;font-weight:700;fill:var(--ink)}
+.fg-line{stroke:var(--muted);stroke-width:1;fill:none}
+.fg-arrow{stroke:var(--accent);stroke-width:2;fill:none;marker-end:url(#arw)}
+.fg-box{fill:var(--surface2);stroke:var(--line)}
+.fg-acc{fill:color-mix(in srgb,var(--accent) 14%,var(--surface));stroke:var(--accent)}
+.fg-hi{fill:color-mix(in srgb,var(--hi) 22%,var(--surface));stroke:var(--hi)}
+/* flashcards */
+.fcard{display:grid;gap:14px;align-content:center;justify-items:center;text-align:center;min-height:300px;padding:28px 22px;border-radius:18px;border:1px solid var(--line);background:var(--surface);box-shadow:0 2px 6px rgba(16,40,30,.06),0 10px 30px rgba(16,40,30,.06);font:inherit;color:var(--ink);cursor:pointer}
+.fcard.flip{background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+.fc-f{font-size:20px;line-height:1.45;font-family:var(--f-display);font-weight:600}
+.fc-b{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:14px;width:100%;font-size:18px}
+.fc-act{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.fc-act .btn{flex-direction:column;gap:2px}
+.fc-act small{font-weight:400;font-size:12px;opacity:.8}
+[hidden]{display:none!important}
+
 </style>
 </head>
 <body>
@@ -586,9 +664,15 @@ function as(m,d,q,p,e){return{m:m,d:d,t:'as',q:q,p:p,e:e}}
 function ar(m,d,a,r,k,e){return{m:m,d:d,t:'ar',a:a,r:r,k:k,e:e}}
 function od(m,d,q,s,e){return{m:m,d:d,t:'od',q:q,s:s,e:e}}
 function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
+/* explicação em 3 níveis: e = curta, e2 = completa, c = correlação clínica */
+function L(q,e2,c){q.e2=e2;q.c=c;return q}
+var LESSON={};
 
-var APP_VERSION='2.3.0';
+var APP_VERSION='2.4.0';
 var VERSIONS=[
+ {v:'2.4.0',date:'18/10/2026',changes:['Barra lateral e barra inferior em verde profundo; botões e destaques em verde mais escuro.','Aulas completas, progressivas e com figuras próprias nos três primeiros módulos: Organização e desenvolvimento, Tecido nervoso, Nervos e terminações.','Cada aula tem índice, pontos-chave, quadros "Na clínica" e "Para memorizar", tabelas e perguntas de conferência no meio do texto.','Banco ampliado de 190 para 265 questões; os três primeiros módulos passaram a ter de 33 a 38 questões cada.','Explicação em três níveis (curta, completa e correlação clínica) em todas as questões dos três primeiros módulos.','Flashcards com revisão espaçada (Errei, Difícil, Fácil) e exportação de baralhos para o Anki.'],
+  tests:['Ler uma aula inteira no tablet e responder as perguntas de conferência.','Abrir as abas Curta, Completa e Correlação clínica depois de responder.','Exportar um baralho e importar no Anki do celular.'],
+  analysis:'O conteúdo novo segue a ordem do livro; os próximos lotes completam os demais módulos. O escurecimento forçado pelo navegador do aplicativo não tem como ser bloqueado pelo site no Samsung Internet.'},
  {v:'2.3.0',date:'18/10/2026',changes:['Novo ícone: letra M com seta ascendente, em todo o site e no ícone do app.','Barra lateral (e barra inferior no celular) em verde-sálvia; demais telas com fundo branco.','Instalável no celular como aplicativo, com ícone próprio e funcionamento sem internet.','Atualização automática: a plataforma sempre busca a versão mais nova quando há conexão.','Atalhos de teclado no computador: A–E ou 1–5 escolhem a alternativa, Enter avança.'],
   tests:['Instalar na tela inicial do tablet e abrir sem internet.','Conferir se a próxima atualização aparece sem limpar o cache.'],
   analysis:'O cache do navegador vinha atrasando as atualizações; o novo service worker busca sempre a versão da rede primeiro e só usa a cópia salva sem conexão.'},
@@ -1236,6 +1320,363 @@ var RESUMO={
   clin:['Lesão hipocampal bilateral: amnésia anterógrada.','Wernicke-Korsakoff (tiamina): corpos mamilares e tálamo medial, confabulação.','Klüver-Bucy: lesão bilateral das amígdalas.']}
 };
 
+/* Camada 1 — figuras das aulas (desenho próprio, cores pelos tokens do tema) */
+var FIG={};
+var ARW='<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>';
+function fbox(x,y,w,h,t,cls,sub){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="8" class="'+(cls||'fg-box')+'"/><text x="'+(x+w/2)+'" y="'+(y+(sub?h/2-2:h/2+4))+'" text-anchor="middle" class="fg-b">'+t+'</text>'+(sub?'<text x="'+(x+w/2)+'" y="'+(y+h/2+12)+'" text-anchor="middle" class="fg-s">'+sub+'</text>':'')}
+function fl(x1,y1,x2,y2){return '<path class="fg-line" d="M'+x1+' '+y1+' V'+((y1+y2)/2)+' H'+x2+' V'+y2+'"/>'}
+
+/* Divisões anatômicas do sistema nervoso */
+FIG.divisoes=function(){
+ return '<svg viewBox="0 0 720 330" role="img" aria-label="Divisões anatômicas do sistema nervoso">'+
+ fbox(285,10,150,40,'Sistema nervoso','fg-acc')+
+ fl(360,50,190,80)+fl(360,50,560,80)+
+ fbox(100,80,180,44,'SNC','fg-acc','central')+fbox(470,80,180,44,'SNP','fg-acc','periférico')+
+ fl(190,124,110,160)+fl(190,124,290,160)+
+ fbox(40,160,140,36,'Encéfalo')+fbox(220,160,140,36,'Medula espinal')+
+ fl(110,196,40,232)+fl(110,196,128,232)+fl(110,196,216,232)+
+ fbox(0,232,80,34,'Cérebro')+fbox(88,232,80,34,'Cerebelo')+fbox(176,232,80,34,'Tronco')+
+ fl(40,266,40,290)+fl(216,266,216,290)+
+ '<text x="40" y="306" text-anchor="middle" class="fg-s">telencéfalo</text><text x="40" y="320" text-anchor="middle" class="fg-s">+ diencéfalo</text>'+
+ '<text x="216" y="306" text-anchor="middle" class="fg-s">mesencéfalo, ponte</text><text x="216" y="320" text-anchor="middle" class="fg-s">e bulbo</text>'+
+ fl(560,124,450,160)+fl(560,124,560,160)+fl(560,124,670,160)+
+ fbox(400,160,100,36,'Nervos')+fbox(510,160,100,36,'Gânglios')+fbox(620,160,100,36,'Terminações')+
+ '<text x="450" y="216" text-anchor="middle" class="fg-s">12 pares cranianos</text><text x="450" y="230" text-anchor="middle" class="fg-s">31 pares espinais</text>'+
+ '<text x="560" y="216" text-anchor="middle" class="fg-s">sensitivos</text><text x="560" y="230" text-anchor="middle" class="fg-s">e autônomos</text>'+
+ '<text x="670" y="216" text-anchor="middle" class="fg-s">receptores e</text><text x="670" y="230" text-anchor="middle" class="fg-s">placas motoras</text>'+
+ '</svg>';
+};
+
+/* Vesículas encefálicas */
+FIG.vesiculas=function(){
+ var col=['Vesículas primárias','Vesículas secundárias','Derivados no adulto','Cavidade'];
+ var rows=[['Telencéfalo','Hemisférios cerebrais','Ventrículos laterais'],['Diencéfalo','Tálamo, hipotálamo, epitálamo','III ventrículo'],['Mesencéfalo','Mesencéfalo','Aqueduto cerebral'],['Metencéfalo','Ponte e cerebelo','IV ventrículo'],['Mielencéfalo','Bulbo','IV ventrículo e canal central']];
+ var y0=56,h=46,g=8,out='';
+ col.forEach(function(c,i){out+='<text x="'+[70,250,452,640][i]+'" y="30" text-anchor="middle" class="fg-s" style="font-weight:700;text-transform:uppercase;letter-spacing:.06em">'+c+'</text>'});
+ out+=fbox(10,y0,120,h*2+g,'Prosencéfalo','fg-acc')+fbox(10,y0+2*(h+g),120,h,'Mesencéfalo','fg-acc')+fbox(10,y0+3*(h+g),120,h*2+g,'Rombencéfalo','fg-acc');
+ rows.forEach(function(r,i){var y=y0+i*(h+g);out+='<path class="fg-arrow" d="M132 '+(y+h/2)+' H182"/>'+fbox(186,y,128,h,r[0])+'<path class="fg-arrow" d="M316 '+(y+h/2)+' H350"/>'+'<rect x="354" y="'+y+'" width="196" height="'+h+'" rx="8" class="fg-hi"/><text x="452" y="'+(y+h/2+4)+'" text-anchor="middle" class="fg-t">'+r[1]+'</text>'+'<text x="640" y="'+(y+h/2+4)+'" text-anchor="middle" class="fg-t">'+r[2]+'</text>'});
+ return '<svg viewBox="0 0 720 330" role="img" aria-label="Vesículas encefálicas e seus derivados">'+ARW+out+'</svg>';
+};
+
+/* Neurulação em quatro tempos */
+FIG.neurulacao=function(){
+ var st=function(x,t,body){return '<g transform="translate('+x+',0)">'+body+'<text x="80" y="200" text-anchor="middle" class="fg-b">'+t+'</text></g>'};
+ var ecto='fill:color-mix(in srgb,var(--muted) 18%,var(--surface));stroke:var(--muted)';
+ var neural='fill:color-mix(in srgb,var(--accent) 30%,var(--surface));stroke:var(--accent)';
+ var crista='fill:var(--hi);stroke:var(--hiInk)';
+ return '<svg viewBox="0 0 720 220" role="img" aria-label="Etapas da neurulação">'+
+ st(0,'1. Placa neural','<rect x="10" y="90" width="140" height="16" style="'+ecto+'"/><rect x="45" y="84" width="70" height="22" rx="4" style="'+neural+'"/>')+
+ st(180,'2. Goteira neural','<path d="M10 92 H40 C50 92 52 130 80 130 C108 130 110 92 120 92 H150 V108 H120 C112 108 110 146 80 146 C50 146 48 108 40 108 H10 Z" style="'+ecto+'"/><path d="M42 90 C54 92 56 128 80 128 C104 128 106 92 118 90 L118 100 C108 104 106 140 80 140 C54 140 52 104 42 100 Z" style="'+neural+'"/>')+
+ st(360,'3. Pregas se aproximam','<path d="M10 70 H50 C56 70 60 60 60 50 L70 50 C70 70 66 82 54 86 H10 Z" style="'+ecto+'"/><path d="M150 70 H110 C104 70 100 60 100 50 L90 50 C90 70 94 82 106 86 H150 Z" style="'+ecto+'"/><path d="M60 52 C56 80 58 128 80 136 C102 128 104 80 100 52 L92 52 C94 80 92 120 80 124 C68 120 66 80 68 52 Z" style="'+neural+'"/><circle cx="64" cy="48" r="6" style="'+crista+'"/><circle cx="96" cy="48" r="6" style="'+crista+'"/>')+
+ st(540,'4. Tubo neural','<rect x="10" y="40" width="140" height="14" style="'+ecto+'"/><ellipse cx="80" cy="110" rx="30" ry="38" style="'+neural+'"/><ellipse cx="80" cy="110" rx="8" ry="16" style="fill:var(--surface);stroke:var(--accent)"/><circle cx="44" cy="70" r="7" style="'+crista+'"/><circle cx="116" cy="70" r="7" style="'+crista+'"/>')+
+ '<g transform="translate(560,160)"><circle cx="6" cy="0" r="6" style="'+crista+'"/><text x="18" y="4" class="fg-s">crista neural</text></g>'+
+ '<g transform="translate(20,160)"><rect x="0" y="-6" width="14" height="12" style="'+neural+'"/><text x="20" y="4" class="fg-s">neuroectoderma</text><rect x="110" y="-6" width="14" height="12" style="'+ecto+'"/><text x="130" y="4" class="fg-s">ectoderma superficial</text></g>'+
+ '</svg>';
+};
+
+/* Neurônio multipolar */
+FIG.neuronio=function(){
+ var lab=function(x,y,tx,ty,t){return '<path class="fg-line" d="M'+x+' '+y+' L'+tx+' '+ty+'"/><text x="'+(tx+(tx>x?4:-4))+'" y="'+(ty+4)+'" text-anchor="'+(tx>x?'start':'end')+'" class="fg-t">'+t+'</text>'};
+ var my='fill:color-mix(in srgb,var(--accent) 22%,var(--surface));stroke:var(--accent)';
+ var segs='';for(var i=0;i<5;i++)segs+='<rect x="'+(250+i*62)+'" y="104" width="52" height="22" rx="10" style="'+my+'"/>';
+ return '<svg viewBox="0 0 720 240" role="img" aria-label="Partes do neurônio">'+
+ '<g stroke="var(--sv-deep)" stroke-width="5" stroke-linecap="round" fill="none"><path d="M120 100 L70 50 L40 40 M70 50 L60 20"/><path d="M110 125 L50 140 L20 125 M50 140 L30 170"/><path d="M135 140 L110 200 L80 215 M110 200 L120 230"/><path d="M140 88 L130 30 L150 8"/></g>'+
+ '<circle cx="150" cy="115" r="42" fill="var(--sv-gray)" stroke="var(--sv-deep)" stroke-width="2"/><circle cx="148" cy="112" r="15" fill="var(--sv-deep)" opacity=".75"/><circle cx="152" cy="108" r="4" fill="var(--surface)"/>'+
+ '<path d="M190 106 L232 112 V118 L190 124 Z" fill="var(--sv-gray)" stroke="var(--sv-deep)"/>'+
+ '<line x1="232" y1="115" x2="580" y2="115" stroke="var(--sv-deep)" stroke-width="4"/>'+segs+
+ '<g stroke="var(--sv-deep)" stroke-width="3" fill="none"><path d="M580 115 L620 80 M580 115 L630 115 M580 115 L620 150"/></g><g fill="var(--hi)" stroke="var(--hiInk)"><circle cx="624" cy="77" r="7"/><circle cx="636" cy="115" r="7"/><circle cx="624" cy="153" r="7"/></g>'+
+ lab(150,90,190,30,'Corpo celular (pericário)')+lab(146,116,176,196,'Núcleo e nucléolo')+
+ '<text x="8" y="232" class="fg-t">Dendritos: recebem sinais</text>'+
+ lab(214,110,236,58,'Cone de implantação')+lab(300,104,372,62,'Bainha de mielina')+
+ lab(306,118,320,222,'Nódulo de Ranvier')+lab(470,116,486,176,'Axônio: conduz o impulso')+lab(636,108,660,60,'Terminais')+
+ '</svg>';
+};
+
+/* Células da glia */
+FIG.glia=function(){
+ var cell=function(x,t,s,body){return '<g transform="translate('+x+',0)">'+body+'<text x="85" y="190" text-anchor="middle" class="fg-b">'+t+'</text><text x="85" y="208" text-anchor="middle" class="fg-s">'+s+'</text></g>'};
+ var c='fill:color-mix(in srgb,var(--accent) 22%,var(--surface));stroke:var(--accent);stroke-width:1.5';
+ return '<svg viewBox="0 0 720 220" role="img" aria-label="Tipos de células da glia">'+
+ cell(0,'Astrócito','sustentação e barreira','<rect x="110" y="20" width="22" height="140" rx="11" fill="color-mix(in srgb,var(--bad) 20%,var(--surface))" stroke="var(--bad)"/><g stroke="var(--accent)" stroke-width="3" fill="none"><path d="M70 90 L112 50 M70 90 L112 120 M70 90 L30 40 M70 90 L25 100 M70 90 L50 150"/></g><circle cx="70" cy="90" r="16" style="'+c+'"/><g fill="var(--accent)"><circle cx="112" cy="50" r="4"/><circle cx="112" cy="120" r="4"/></g>')+
+ cell(180,'Oligodendrócito','mielina no SNC','<g stroke="var(--sv-deep)" stroke-width="3"><line x1="10" y1="40" x2="160" y2="40"/><line x1="10" y1="140" x2="160" y2="140"/><line x1="10" y1="90" x2="40" y2="90"/></g><g style="'+c+'"><rect x="100" y="31" width="44" height="18" rx="9"/><rect x="100" y="131" width="44" height="18" rx="9"/></g><path d="M60 90 L110 45 M60 90 L110 135" stroke="var(--accent)" stroke-width="3"/><circle cx="60" cy="90" r="16" style="'+c+'"/>')+
+ cell(360,'Micróglia','defesa e fagocitose','<path d="M40 90 C50 70 80 76 85 90 C90 104 120 100 130 88" stroke="var(--accent)" stroke-width="3" fill="none"/><path d="M85 90 L70 50 M85 90 L100 130 M60 80 L45 60" stroke="var(--accent)" stroke-width="2" fill="none"/><ellipse cx="85" cy="90" rx="14" ry="9" style="'+c+'"/>')+
+ cell(540,'Ependimárias','revestem os ventrículos','<rect x="10" y="110" width="150" height="40" fill="var(--sv-gray)" stroke="var(--line)"/><g style="'+c+'"><rect x="14" y="76" width="34" height="34"/><rect x="50" y="76" width="34" height="34"/><rect x="86" y="76" width="34" height="34"/><rect x="122" y="76" width="34" height="34"/></g><g stroke="var(--accent)" stroke-width="1.5">'+[20,30,40,56,66,76,92,102,112,128,138,148].map(function(x){return '<line x1="'+x+'" y1="76" x2="'+x+'" y2="62"/>'}).join('')+'</g><text x="85" y="50" text-anchor="middle" class="fg-s">luz do ventrículo (líquor)</text>')+
+ '</svg>';
+};
+
+/* Sinapse química */
+FIG.sinapse=function(){
+ var ves='';[[150,70],[180,60],[205,82],[165,98],[195,110],[225,62],[140,120]].forEach(function(p){ves+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="color-mix(in srgb,var(--hi) 40%,var(--surface))" stroke="var(--hiInk)"/>'});
+ var rec='';for(var i=0;i<6;i++)rec+='<rect x="'+(128+i*24)+'" y="186" width="10" height="16" rx="3" fill="var(--accent)"/>';
+ return '<svg viewBox="0 0 520 280" role="img" aria-label="Sinapse química">'+ARW+
+ '<path d="M110 10 H250 V140 C250 165 220 172 180 172 C140 172 110 165 110 140 Z" fill="var(--sv-gray)" stroke="var(--sv-deep)" stroke-width="2"/>'+ves+
+ '<circle cx="176" cy="160" r="5" fill="var(--hi)"/><circle cx="196" cy="164" r="4" fill="var(--hi)"/><circle cx="160" cy="168" r="4" fill="var(--hi)"/>'+
+ '<path d="M90 200 H270 V270 H90 Z" fill="color-mix(in srgb,var(--accent) 12%,var(--surface))" stroke="var(--accent)" stroke-width="2"/>'+rec+
+ '<path class="fg-arrow" d="M300 40 C270 40 262 80 250 92"/><text x="306" y="44" class="fg-t">Ca²⁺ entra pelo terminal</text>'+
+ '<path class="fg-line" d="M225 62 L300 92"/><text x="306" y="96" class="fg-t">Vesículas com neurotransmissor</text>'+
+ '<path class="fg-line" d="M200 180 L300 150"/><text x="306" y="154" class="fg-t">Fenda sináptica</text>'+
+ '<path class="fg-line" d="M260 194 L300 206"/><text x="306" y="210" class="fg-t">Receptores pós-sinápticos</text>'+
+ '<text x="180" y="30" text-anchor="middle" class="fg-b">Elemento pré-sináptico</text><text x="180" y="244" text-anchor="middle" class="fg-b">Elemento pós-sináptico</text>'+
+ '</svg>';
+};
+
+/* Nervo em corte transversal */
+FIG.nervo=function(){
+ var fasc=[[150,120,46],[250,105,40],[205,190,44],[300,185,34],[110,205,30]],out='';
+ fasc.forEach(function(f){out+='<circle cx="'+f[0]+'" cy="'+f[1]+'" r="'+f[2]+'" fill="color-mix(in srgb,var(--accent) 10%,var(--surface))" stroke="var(--accent)" stroke-width="3"/>';var n=Math.round(f[2]/5);for(var i=0;i<n*2;i++){var a=i*2.39996,r=Math.sqrt(i/(n*2))*(f[2]-8);out+='<circle cx="'+(f[0]+Math.cos(a)*r).toFixed(1)+'" cy="'+(f[1]+Math.sin(a)*r).toFixed(1)+'" r="3.4" fill="var(--sv-gray)" stroke="var(--sv-deep)" stroke-width="1"/>'}});
+ return '<svg viewBox="0 0 640 300" role="img" aria-label="Nervo em corte transversal">'+
+ '<ellipse cx="205" cy="152" rx="170" ry="128" fill="color-mix(in srgb,var(--hi) 12%,var(--surface))" stroke="var(--hiInk)" stroke-width="2"/>'+out+
+ '<path class="fg-line" d="M372 140 L420 70"/><text x="424" y="72" class="fg-t"><tspan class="fg-b">Epineuro</tspan> envolve o nervo inteiro</text>'+
+ '<path class="fg-line" d="M290 105 L420 140"/><text x="424" y="144" class="fg-t"><tspan class="fg-b">Perineuro</tspan> envolve cada fascículo</text>'+
+ '<path class="fg-line" d="M305 190 L420 210"/><text x="424" y="214" class="fg-t"><tspan class="fg-b">Endoneuro</tspan> envolve cada fibra</text>'+
+ '</svg>';
+};
+
+/* Unidade motora */
+FIG.unidade=function(){
+ var fibers='';for(var i=0;i<9;i++)fibers+='<rect x="430" y="'+(30+i*24)+'" width="240" height="16" rx="8" fill="'+(i%3===0?'color-mix(in srgb,var(--accent) 45%,var(--surface))':'var(--surface2)')+'" stroke="'+(i%3===0?'var(--accent)':'var(--line)')+'"/>';
+ return '<svg viewBox="0 0 700 260" role="img" aria-label="Unidade motora">'+
+ '<ellipse cx="110" cy="130" rx="90" ry="70" fill="var(--sv-gray)" stroke="var(--sv-pia)" stroke-width="2"/><text x="110" y="216" text-anchor="middle" class="fg-s">coluna anterior da medula</text>'+
+ '<circle cx="120" cy="130" r="16" fill="var(--accent)"/><text x="110" y="100" text-anchor="middle" class="fg-t">motoneurônio α</text>'+
+ '<path d="M136 130 C260 130 300 130 380 130" stroke="var(--accent)" stroke-width="3" fill="none"/>'+
+ '<g stroke="var(--accent)" stroke-width="2" fill="none"><path d="M380 130 C400 110 410 46 430 38"/><path d="M380 130 C400 120 410 110 430 110"/><path d="M380 130 C400 150 410 182 430 182"/></g>'+fibers+
+ '<g fill="var(--hi)" stroke="var(--hiInk)"><circle cx="432" cy="38" r="5"/><circle cx="432" cy="110" r="5"/><circle cx="432" cy="182" r="5"/></g>'+
+ '<text x="550" y="252" text-anchor="middle" class="fg-s">fibras em verde: inervadas por este motoneurônio</text>'+
+ '</svg>';
+};
+
+/* Lote 1 — Fundamentos: aulas completas (organização e desenvolvimento, tecido nervoso, nervos e terminações) */
+
+LESSON.intro=[
+ {t:'Para que serve o sistema nervoso',b:[
+  ['p','O sistema nervoso recebe informações do meio externo e do próprio corpo, integra essas informações e produz respostas: movimento, secreção de glândulas, ajuste de vísceras, memória e comportamento. Tudo o que você estudar em neuroanatomia é uma variação dessa sequência: **receber → integrar → responder**.'],
+  ['p','Por isso as estruturas sempre aparecem em pares funcionais: uma via que **chega** (aferente, sensitiva) e uma via que **sai** (eferente, motora). Guardar essa lógica facilita muito o estudo das vias, que vem mais adiante.'],
+  ['key','Aferente = chega ao sistema nervoso central (sensitivo). Eferente = sai do sistema nervoso central (motor ou secretor).']]},
+ {t:'Divisão anatômica',b:[
+  ['p','A divisão mais usada separa o **sistema nervoso central (SNC)**, protegido pelo crânio e pela coluna vertebral, do **sistema nervoso periférico (SNP)**, que liga o SNC ao resto do corpo.'],
+  ['fig','divisoes','Divisão anatômica do sistema nervoso.'],
+  ['ul',['**Encéfalo:** cérebro (telencéfalo + diencéfalo), cerebelo e tronco encefálico.','**Tronco encefálico:** mesencéfalo, ponte e bulbo, de cima para baixo.','**SNP:** nervos (12 pares cranianos e 31 pares espinais), gânglios e terminações nervosas.']],
+  ['mn','O diencéfalo faz parte do **cérebro**, não do tronco. O cerebelo fica atrás do tronco, mas também não faz parte dele.'],
+  ['chk','O tronco encefálico é formado por:',['Mesencéfalo, ponte e bulbo','Diencéfalo, ponte e bulbo','Cerebelo, ponte e bulbo'],0,'O tronco tem três partes: mesencéfalo, ponte e bulbo.']]},
+ {t:'Divisão funcional: segmentar e suprassegmentar',b:[
+  ['p','Uma segunda forma de dividir olha para a função. O **sistema nervoso segmentar** é a parte que se relaciona diretamente com os nervos: a medula espinal, o tronco encefálico e os próprios nervos. Ele é "segmentar" porque mantém a organização em segmentos do embrião.'],
+  ['p','O **sistema nervoso suprassegmentar** fica acima: o cérebro e o cerebelo. Eles não emitem nervos diretamente e têm uma característica em comum, o **córtex**, uma camada de substância cinzenta na superfície.'],
+  ['tbl',[['','Segmentar','Suprassegmentar'],['Componentes','Medula, tronco encefálico e nervos','Cérebro e cerebelo'],['Substância cinzenta','Central, cercada pela branca','Em córtex, na superfície'],['Relação com nervos','Direta','Indireta, por meio do segmentar']]],
+  ['key','Os arcos reflexos simples se fecham no sistema segmentar; o suprassegmentar modula e comanda esses arcos.']]},
+ {t:'Substância cinzenta e substância branca',b:[
+  ['p','A **substância cinzenta** concentra corpos de neurônios. A **substância branca** concentra fibras (axônios), muitas delas com mielina, que dá a cor esbranquiçada.'],
+  ['p','Na medula e no tronco, a substância cinzenta fica no centro. No cérebro e no cerebelo ela forma o córtex na superfície e também núcleos isolados na profundidade, como os núcleos da base.'],
+  ['ul',['Agrupamento de corpos de neurônios **no SNC** = núcleo.','Agrupamento de corpos de neurônios **no SNP** = gânglio.','Feixe de fibras **no SNC** = trato, fascículo ou lemnisco.','Feixe de fibras **no SNP** = nervo.']],
+  ['chk','Um conjunto de corpos de neurônios fora do SNC é chamado de:',['Núcleo','Gânglio','Trato'],1,'Fora do SNC, agrupamentos de corpos neuronais formam gânglios.']]},
+ {t:'Neurulação: o início de tudo',b:[
+  ['p','Na terceira semana do desenvolvimento, a notocorda induz o ectoderma acima dela a se espessar e formar a **placa neural**. As bordas da placa se elevam como pregas e o centro afunda, formando a **goteira neural**.'],
+  ['p','As pregas se encontram na linha média e se fundem, fechando o **tubo neural**. Células das bordas das pregas se destacam e formam a **crista neural**, que vai originar boa parte do SNP.'],
+  ['fig','neurulacao','Etapas da neurulação, em cortes transversais.'],
+  ['p','O tubo fecha primeiro no meio e depois em direção às pontas. As aberturas que restam são os **neuróporos**: o rostral fecha por volta do 25º dia e o caudal por volta do 27º.'],
+  ['clin','Falha no fechamento do neuróporo caudal causa **espinha bífida**, inclusive a mielomeningocele. Falha do rostral causa **anencefalia**. O ácido fólico antes e no início da gestação reduz bastante esse risco, e o SUS fornece a suplementação no pré-natal.'],
+  ['ol',['Placa neural','Goteira neural','Tubo neural','Fechamento dos neuróporos']]]},
+ {t:'Derivados do tubo neural e da crista neural',b:[
+  ['p','O **tubo neural** origina todo o SNC: neurônios, a maior parte da glia central e o epitélio que reveste os ventrículos. A luz do tubo persiste como o **sistema ventricular** e o canal central da medula.'],
+  ['p','A **crista neural** é o grande "doador" do SNP. Dela vêm:'],
+  ['ul',['Neurônios dos **gânglios sensitivos** (espinais e de nervos cranianos).','Neurônios dos **gânglios autônomos**.','**Células de Schwann** e células satélites.','**Medula da glândula adrenal**.','Melanócitos e parte do esqueleto da face.']],
+  ['key','Se é gânglio sensitivo, gânglio autônomo ou célula de Schwann, veio da crista neural.']]},
+ {t:'Vesículas encefálicas',b:[
+  ['p','A parte cranial do tubo neural cresce mais e forma três dilatações, as **vesículas primárias**: prosencéfalo, mesencéfalo e rombencéfalo. Depois, o prosencéfalo e o rombencéfalo se dividem, formando cinco **vesículas secundárias**. O mesencéfalo é o único que não se divide.'],
+  ['fig','vesiculas','Vesículas primárias, secundárias, derivados e cavidades.'],
+  ['mn','"**T**odo **D**ia **M**edito **M**uito **M**al": Telencéfalo, Diencéfalo, Mesencéfalo, Metencéfalo, Mielencéfalo, na ordem de cima para baixo.'],
+  ['p','O tubo também se dobra: a **flexura cefálica** fica no mesencéfalo, a **cervical** na junção com a medula e a **pontina** no rombencéfalo. A pontina é a que "abre" o teto do rombencéfalo e forma o IV ventrículo.'],
+  ['chk','Qual vesícula origina a ponte e o cerebelo?',['Mielencéfalo','Metencéfalo','Mesencéfalo'],1,'Metencéfalo: ponte e cerebelo. Mielencéfalo: bulbo.']]},
+ {t:'Lâmina alar, lâmina basal e a lógica sensitivo-motora',b:[
+  ['p','Na parede do tubo neural, o **sulco limitante** separa duas regiões. Atrás dele fica a **lâmina alar**, que forma neurônios sensitivos. À frente fica a **lâmina basal**, que forma neurônios motores.'],
+  ['p','Na medula adulta isso explica por que a **coluna posterior** é sensitiva e a **coluna anterior** é motora. No tronco encefálico, o tubo se abre e as lâminas ficam lado a lado: núcleos motores mais mediais, sensitivos mais laterais no assoalho do IV ventrículo.'],
+  ['key','Posterior/lateral = sensitivo (lâmina alar). Anterior/medial = motor (lâmina basal).'],
+  ['chk','No assoalho do IV ventrículo, os núcleos motores tendem a ficar:',['Lateralmente','Medialmente','No teto do ventrículo'],1,'A lâmina basal, motora, fica medial ao sulco limitante no tronco aberto.']]}
+];
+
+LESSON.tecido=[
+ {t:'Os dois tipos de célula',b:[
+  ['p','O tecido nervoso tem **neurônios**, que geram e conduzem impulsos, e **células da glia**, que sustentam, isolam, nutrem e defendem. Há muito mais glia do que neurônios.'],
+  ['key','Neurônio conduz o impulso. Glia cuida do ambiente em que o neurônio trabalha.']]},
+ {t:'Anatomia do neurônio',b:[
+  ['fig','neuronio','Neurônio multipolar e suas partes.'],
+  ['ul',['**Corpo celular (pericário):** núcleo grande, nucléolo evidente e muitos corpúsculos de Nissl (retículo endoplasmático rugoso), que mostram intensa síntese de proteínas.','**Dendritos:** ramificados, recebem a maior parte das sinapses.','**Axônio:** prolongamento único que conduz o impulso para longe do corpo. Começa no **cone de implantação**, onde não há corpúsculos de Nissl.','**Terminais axônicos:** liberam neurotransmissores na sinapse.']],
+  ['p','O potencial de ação nasce no **segmento inicial do axônio**, logo após o cone de implantação, porque ali há grande concentração de canais de sódio dependentes de voltagem.'],
+  ['chk','Onde normalmente se inicia o potencial de ação?',['No dendrito','No segmento inicial do axônio','No núcleo'],1,'O segmento inicial tem a maior densidade de canais de sódio.']]},
+ {t:'Classificação dos neurônios',b:[
+  ['tbl',[['Tipo','Forma','Onde encontrar'],['Multipolar','Vários dendritos e um axônio','Maioria: neurônios motores, interneurônios, córtex'],['Bipolar','Um dendrito e um axônio','Retina, mucosa olfatória, gânglios do VIII par'],['Pseudounipolar','Um prolongamento que se divide em T','Gânglios sensitivos dos nervos espinais e cranianos']]],
+  ['p','O **neurônio pseudounipolar** merece atenção: o ramo periférico leva o impulso do receptor até o gânglio e o ramo central leva do gânglio até a medula ou o tronco, sem passar pelo corpo celular. Ele é o **neurônio I** de quase todas as vias sensitivas.'],
+  ['key','Gânglio sensitivo = neurônio pseudounipolar = neurônio I das vias aferentes.']]},
+ {t:'Células da glia',b:[
+  ['fig','glia','Principais células da glia do sistema nervoso central.'],
+  ['tbl',[['Célula','Local','Função principal'],['Astrócito','SNC','Sustentação, controle do meio extracelular, participa da barreira hematoencefálica, forma cicatriz'],['Oligodendrócito','SNC','Forma mielina; um oligodendrócito mieliniza vários axônios'],['Micróglia','SNC','Defesa e fagocitose; origem mesodérmica (monocítica)'],['Ependimária','SNC','Reveste ventrículos e canal central; forma o epitélio dos plexos corioides'],['Célula de Schwann','SNP','Forma mielina; cada célula mieliniza um único segmento de um axônio'],['Célula satélite','SNP','Envolve os corpos neuronais nos gânglios']]],
+  ['mn','Micróglia é a "exceção": é a única glia que não vem do ectoderma, e sim de células de defesa (linhagem monocítica).']]},
+ {t:'Mielina e condução do impulso',b:[
+  ['p','A mielina é formada por voltas da membrana de uma célula glial ao redor do axônio. Entre dois segmentos de mielina fica o **nódulo de Ranvier**, onde a membrana do axônio fica exposta.'],
+  ['p','Como a despolarização só acontece nos nódulos, o impulso "salta" de nódulo em nódulo: é a **condução saltatória**, muito mais rápida e econômica. Quanto mais grossa a fibra e mais espessa a mielina, mais rápida a condução.'],
+  ['tbl',[['Fibra','Mielina','Velocidade','Exemplo de função'],['Aα (Ia)','Espessa','Muito alta','Fuso neuromuscular, motoneurônio alfa'],['Aβ','Espessa','Alta','Tato fino'],['Aδ','Fina','Média','Dor rápida, temperatura'],['C','Ausente','Baixa','Dor lenta, autonômicas pós-ganglionares']]],
+  ['clin','Na **esclerose múltipla**, a destruição da mielina central (oligodendrócitos) torna a condução lenta ou bloqueada, causando surtos de neurite óptica, fraqueza e alterações sensitivas. Na **síndrome de Guillain-Barré**, quem é atacada é a mielina periférica (Schwann).']]},
+ {t:'Sinapse',b:[
+  ['fig','sinapse','Sinapse química: do terminal pré-sináptico ao receptor.'],
+  ['ol',['O potencial de ação chega ao terminal.','Canais de cálcio se abrem e o Ca²⁺ entra.','Vesículas se fundem à membrana e liberam o neurotransmissor (exocitose).','O neurotransmissor atravessa a fenda e se liga aos receptores pós-sinápticos.','O receptor abre ou fecha canais: excitação ou inibição.','O neurotransmissor é removido por recaptação ou degradação.']],
+  ['p','Nas **sinapses elétricas** não há neurotransmissor: os neurônios se ligam por junções comunicantes, e a passagem é quase instantânea. Na química o sentido é único, do pré para o pós.'],
+  ['key','O mesmo neurotransmissor pode excitar ou inibir: quem decide é o receptor.']]},
+ {t:'Lesão e regeneração',b:[
+  ['p','Quando um axônio é cortado, o segmento distal, separado do corpo celular, degenera: é a **degeneração walleriana**. No corpo celular aparece a **cromatólise**: o corpo incha, o núcleo vai para a periferia e os corpúsculos de Nissl se desfazem, sinal de que a célula tenta se recuperar.'],
+  ['p','No **SNP**, as células de Schwann formam tubos (faixas de Büngner) que guiam o broto do axônio, que cresce cerca de 1 a 3 mm por dia. No **SNC**, a regeneração é muito limitada: proteínas da mielina central inibem o crescimento e a cicatriz astrocitária forma uma barreira.'],
+  ['clin','Por isso uma lesão de nervo periférico pode recuperar a função em meses, enquanto uma lesão medular completa costuma deixar sequelas permanentes.'],
+  ['chk','Por que a regeneração é melhor no SNP?',['Porque não há degeneração walleriana','Porque as células de Schwann guiam o crescimento do axônio','Porque os neurônios periféricos não têm corpo celular'],1,'As células de Schwann formam tubos que orientam o broto axonal.']]}
+];
+
+LESSON.nervos=[
+ {t:'O que é um nervo',b:[
+  ['p','Nervo é um feixe de fibras nervosas fora do SNC, envolvido por tecido conjuntivo. A maioria dos nervos é **mista**: leva fibras sensitivas e motoras juntas.'],
+  ['fig','nervo','Nervo periférico em corte transversal, com seus envoltórios.'],
+  ['ol',['**Endoneuro:** envolve cada fibra.','**Perineuro:** envolve cada fascículo e forma a barreira hematoneural.','**Epineuro:** envolve o nervo inteiro e une os fascículos.']],
+  ['key','De dentro para fora: endo, peri, epi.']]},
+ {t:'Terminações nervosas',b:[
+  ['p','As fibras terminam de dois modos. As **terminações sensitivas** são receptores, que transformam um estímulo em impulso. As **terminações motoras** ligam o nervo a um músculo ou a uma glândula.'],
+  ['p','Pela localização do estímulo, Sherrington classificou os receptores em **exteroceptores** (superfície do corpo), **proprioceptores** (músculos, tendões, articulações e labirinto) e **interoceptores** (vísceras e vasos).']]},
+ {t:'Principais receptores',b:[
+  ['tbl',[['Receptor','Tipo','O que detecta'],['Terminações livres','Sem cápsula','Dor e temperatura'],['Corpúsculo de Meissner','Encapsulado','Tato fino em pele sem pelos'],['Corpúsculo de Pacini','Encapsulado, em lamelas','Vibração e pressão'],['Corpúsculo de Ruffini','Encapsulado','Estiramento da pele'],['Discos de Merkel','Sem cápsula','Tato e pressão contínuos'],['Fuso neuromuscular','Proprioceptor','Estiramento do músculo'],['Órgão tendinoso de Golgi','Proprioceptor','Tensão no tendão']]],
+  ['p','O **fuso neuromuscular** tem fibras musculares próprias, as fibras intrafusais, inervadas pelos **motoneurônios gama**. Eles ajustam a sensibilidade do fuso. As fibras comuns do músculo, extrafusais, são inervadas pelos **motoneurônios alfa**.'],
+  ['chk','O estiramento do músculo é detectado principalmente pelo:',['Órgão tendinoso de Golgi','Fuso neuromuscular','Corpúsculo de Pacini'],1,'O fuso detecta estiramento; o órgão de Golgi detecta tensão.']]},
+ {t:'Placa motora e unidade motora',b:[
+  ['p','A **placa motora** é a sinapse entre o axônio do motoneurônio e a fibra muscular esquelética. O neurotransmissor é a **acetilcolina**, que age sobre receptores nicotínicos. Em geral cada fibra muscular tem uma única placa.'],
+  ['fig','unidade','Unidade motora: um motoneurônio e todas as fibras que ele inerva.'],
+  ['p','A **unidade motora** é o motoneurônio e todas as fibras que ele inerva. Músculos de movimentos finos, como os do olho, têm unidades pequenas (poucas fibras por neurônio). Músculos de força, como o glúteo máximo, têm unidades grandes.'],
+  ['clin','Na **miastenia grave**, anticorpos atacam os receptores de acetilcolina da placa motora. O paciente tem fraqueza que piora com o esforço, muitas vezes começando com ptose e visão dupla.']]},
+ {t:'Do receptor ao reflexo',b:[
+  ['p','O caminho mais curto entre receber e responder é o **reflexo miotático**: o estiramento ativa o fuso, a fibra Ia leva o impulso à medula e faz sinapse **direta** com o motoneurônio alfa, que contrai o mesmo músculo. É um reflexo monossináptico.'],
+  ['ol',['Martelo estira o tendão e o músculo.','Fuso neuromuscular ativado.','Fibra aferente Ia (corpo no gânglio sensitivo).','Sinapse com o motoneurônio alfa na coluna anterior.','Contração do músculo estirado.']],
+  ['key','Hiporreflexia aponta para lesão no arco (nervo, raiz, motoneurônio). Hiper-reflexia aponta para lesão acima, nas vias que controlam o arco.']]}
+];
+
+/* ---------- questões novas e explicações em 3 níveis ---------- */
+var ENRICH={
+ 'Quais estruturas compõem o encéfalo?':['O SNC divide-se em encéfalo, dentro do crânio, e medula espinal, dentro do canal vertebral. O encéfalo reúne o cérebro (telencéfalo e diencéfalo), o cerebelo e o tronco encefálico. A medula não faz parte do encéfalo, e os nervos cranianos pertencem ao SNP.','Em exames de imagem, "lesão encefálica" e "lesão medular" têm quadros e prognósticos bem diferentes; saber os limites anatômicos orienta a leitura do laudo.'],
+ 'O tronco encefálico é formado por:':['O tronco encefálico liga o cérebro à medula e é formado, de cima para baixo, por mesencéfalo, ponte e bulbo. O diencéfalo, embora fique logo acima do mesencéfalo, pertence ao cérebro. O cerebelo fica dorsal ao tronco e se liga a ele pelos pedúnculos cerebelares, mas não o integra.','O tronco abriga núcleos de dez pares cranianos e os centros respiratório e cardiovascular. Por isso lesões pequenas ali podem ser fatais ou causar síndromes cruzadas (nervo craniano de um lado, hemiplegia do outro).'],
+ 'Na medula embrionária, o sulco limitante separa:':['O sulco limitante corre na parede lateral do tubo neural. Atrás dele, a lâmina alar origina neurônios sensitivos, que formam a coluna posterior da medula. À frente, a lâmina basal origina neurônios motores, que formam a coluna anterior e a lateral. Placas do teto e do assoalho são regiões finas na linha média, sem neurônios relevantes.','Essa organização se mantém no tronco encefálico: núcleos motores mediais, sensitivos laterais. Ela ajuda a prever quais núcleos uma lesão vascular medial ou lateral vai atingir.'],
+ 'Qual estrutura deriva da crista neural?':['A crista neural forma-se das bordas das pregas neurais e migra pelo embrião. Origina gânglios sensitivos e autônomos, células de Schwann, células satélites, medula da adrenal, melanócitos e parte do esqueleto da face. Neurônios motores, oligodendrócitos e células de Purkinje vêm do próprio tubo neural.','Tumores de derivados da crista neural, como o neuroblastoma na infância e o feocromocitoma (medula da adrenal), lembram essa origem comum.'],
+ 'O cerebelo e o cérebro pertencem ao sistema nervoso suprassegmentar.':['Segmentar é o que se relaciona diretamente com os nervos e mantém a organização em segmentos: medula, tronco e nervos. Cérebro e cerebelo ficam acima, comandam e modulam o segmentar, e compartilham a presença de córtex. A razão explica bem a asserção.','Um reflexo segmentar, como o patelar, continua existindo após lesões suprassegmentares, mas fica alterado (hiper-reflexia), o que ajuda a localizar a lesão no exame neurológico.'],
+ 'Recém-nascido com falha de fechamento do neuróporo caudal apresenta tecido nervoso exposto na região lombar. O diagnóstico é:':['O neuróporo caudal fecha por volta do 27º dia. Quando falha, o arco vertebral não se forma sobre a medula: na mielomeningocele, meninges e tecido nervoso fazem saliência pela pele. Anencefalia é falha do neuróporo rostral; espinha bífida oculta é só defeito ósseo, sem exposição; hidrocefalia é acúmulo de líquor, frequentemente associada à mielomeningocele.','A mielomeningocele costuma causar paraplegia, bexiga neurogênica e hidrocefalia (malformação de Chiari II). A correção é cirúrgica precoce, e a prevenção passa pelo ácido fólico, disponível no pré-natal do SUS.'],
+ 'A flexura cefálica do embrião ocorre na região do:':['O tubo neural se dobra em três pontos. A flexura cefálica, ventral, fica no mesencéfalo. A cervical, também ventral, fica na transição entre rombencéfalo e medula. A pontina, dorsal, fica no rombencéfalo e abre o teto do IV ventrículo.','Essas curvaturas explicam por que, no adulto, o eixo do encéfalo forma um ângulo com o eixo da medula, o que importa na descrição de cortes em neuroimagem.'],
+ 'O oligodendrócito':null
+};
+var ENRICH2={
+ 'Qual célula forma a bainha de mielina no sistema nervoso central?':['No SNC a mielina vem do oligodendrócito, que estende vários prolongamentos e mieliniza segmentos de diversos axônios ao mesmo tempo. No SNP quem faz isso é a célula de Schwann, cada uma responsável por um único internodo de um único axônio. Astrócitos e micróglia não formam mielina.','Doenças desmielinizantes centrais (esclerose múltipla) poupam os nervos periféricos, e as periféricas (Guillain-Barré) poupam o SNC. A distinção orienta exames: ressonância de crânio e medula na primeira, eletroneuromiografia e líquor na segunda.'],
+ 'Os neurônios dos gânglios sensitivos dos nervos espinais são classificados como:':['O neurônio pseudounipolar tem um único prolongamento que sai do corpo e se divide em T. O ramo periférico vai ao receptor e o central entra na medula pela raiz dorsal. Assim o impulso pode passar direto, sem atravessar o corpo celular.','Na neuropatia diabética e no herpes-zóster, o comprometimento desses neurônios ganglionares explica a dor e a perda sensitiva no território de um dermátomo.'],
+ 'Após secção de um nervo periférico, a degeneração do coto distal é chamada de:':['Separado do corpo celular, o coto distal perde o suprimento de proteínas e degenera: axônio e mielina se fragmentam e são removidos por macrófagos (degeneração walleriana). No corpo celular ocorre cromatólise. Degeneração transneuronal atinge neurônios que perderam suas conexões; desmielinização segmentar poupa o axônio.','Após trauma de nervo, a eletroneuromiografia só mostra sinais de desnervação depois de cerca de 2 a 3 semanas, tempo da degeneração walleriana; exames feitos antes podem subestimar a lesão.'],
+ 'Por que a regeneração axonal é muito limitada no SNC?':['No SNC, proteínas inibitórias da mielina central (como a Nogo) e a cicatriz glial formada por astrócitos bloqueiam o crescimento. Faltam também as faixas de células de Schwann que guiam o broto no SNP. Os neurônios centrais têm corpo celular e sofrem degeneração walleriana normalmente.','É a base da baixa recuperação após trauma raquimedular e AVC, e o alvo de pesquisas com fatores de crescimento e células-tronco.']
+};
+QB.forEach(function(q){var k=q.q||q.a,v=ENRICH[k]||ENRICH2[k];if(v){q.e2=v[0];q.c=v[1]}});
+
+QB.push(
+/* ===== Organização e desenvolvimento (novas) ===== */
+L(mc('intro',1,'Uma via aferente é aquela que:',['Leva informação da periferia para o SNC','Leva comandos do SNC para os músculos','Liga os dois hemisférios cerebrais','Liga o cerebelo ao tronco encefálico'],'Aferente chega ao SNC; eferente sai dele.'),'Aferente e eferente são termos relativos ao SNC. Vias aferentes trazem informação de receptores (pele, músculos, vísceras) e são sensitivas. Vias eferentes levam comandos a músculos e glândulas. Fibras que ligam hemisférios são comissurais.','No exame neurológico, separar o déficit em sensitivo (aferente) e motor (eferente) é o primeiro passo para localizar a lesão.'),
+L(mc('intro',1,'O sistema nervoso periférico é formado por:',['Nervos, gânglios e terminações nervosas','Medula espinal, nervos e gânglios','Tronco encefálico e nervos cranianos','Cerebelo, nervos e terminações'],'Tudo o que está fora do crânio e do canal vertebral, exceto a medula.'),'O SNP liga o SNC ao corpo: nervos cranianos e espinais, gânglios (sensitivos e autônomos) e terminações (receptores e placas motoras). Medula, tronco e cerebelo são SNC.','Neuropatias periféricas (diabetes, hanseníase, deficiência de B12) começam geralmente nas extremidades dos nervos mais longos, nos pés.'),
+L(gp('intro',1,'Agrupamento de corpos de neurônios dentro do SNC chama-se ____.',['nucleo','núcleo','núcleos'],'Fora do SNC, o agrupamento chama-se gânglio.'),'Núcleo (no SNC) e gânglio (no SNP) são o mesmo conceito em lugares diferentes. Uma exceção de nome é "núcleos da base", que alguns livros antigos chamavam de gânglios da base.','Núcleos dos nervos cranianos, no tronco, são alvos de síndromes vasculares; gânglios, como o trigeminal, são alvos do herpes-zóster.'),
+L(as('intro',2,'Associe o feixe de fibras ao local.',[['Trato','Feixe no SNC'],['Nervo','Feixe no SNP'],['Gânglio','Corpos neuronais no SNP'],['Núcleo','Corpos neuronais no SNC']],'Trato e núcleo ficam no SNC; nervo e gânglio no SNP.'),'No SNC, feixes recebem nomes como trato, fascículo, lemnisco ou pedúnculo; no SNP, o feixe é o nervo. Para corpos neuronais, núcleo (central) e gânglio (periférico).','Saber se a lesão está num trato (SNC) ou num nervo (SNP) define o tipo de déficit: central com espasticidade, ou periférico com flacidez e atrofia.'),
+L(vf('intro',1,'Julgue sobre a substância cinzenta e a branca.',[['A substância branca é rica em fibras mielínicas.',true],['Na medula, a substância cinzenta fica na periferia.',false],['O córtex cerebral é formado por substância cinzenta.',true],['Os núcleos da base são substância cinzenta dentro do cérebro.',true]],'Na medula, a cinzenta é central; no cérebro, forma o córtex e núcleos profundos.'),'A cor branca vem da mielina. No segmentar (medula e tronco) a cinzenta é central; no suprassegmentar ela forma o córtex na superfície, além de núcleos isolados na profundidade.','Em ressonância, doenças da substância branca (como esclerose múltipla) e da cinzenta (como alguns quadros de demência) têm padrões de imagem distintos.'),
+L(cs('intro',2,'Gestante de 30 anos pergunta, na primeira consulta do pré-natal, o que pode fazer para reduzir o risco de defeitos no "fechamento da coluna" do bebê. A medida com melhor evidência é:',['Usar ácido fólico, idealmente antes de engravidar','Evitar exercício físico nas primeiras semanas','Aumentar a ingestão de proteína animal','Fazer ultrassonografia a cada duas semanas'],'O ácido fólico reduz os defeitos de fechamento do tubo neural.'),'O tubo neural fecha até cerca do 28º dia, muitas vezes antes de a mulher saber que está grávida. Por isso a recomendação é começar o ácido fólico antes da concepção e manter no primeiro trimestre. Ultrassom detecta o defeito, mas não o previne.','A suplementação está na rotina do pré-natal da Atenção Básica do SUS e a farinha de trigo e milho é fortificada com ácido fólico no Brasil.'),
+L(mc('intro',2,'O neuróporo rostral fecha, aproximadamente, no:',['25º dia','10º dia','40º dia','60º dia'],'O rostral fecha por volta do 25º dia e o caudal por volta do 27º.'),'O fechamento do tubo começa no meio (região cervical) e segue para as pontas. Os neuróporos são as últimas aberturas: rostral (cranial) por volta do 25º dia e caudal por volta do 27º.','Falha do rostral causa anencefalia, incompatível com a vida; falha do caudal causa espinha bífida aberta.'),
+L(ar('intro',2,'A lâmina basal do tubo neural origina neurônios motores.','Ela fica ventral ao sulco limitante.',1,'As duas são verdadeiras, mas a posição não explica a função.'),'A lâmina basal fica ventral (anterior) ao sulco limitante e origina neurônios motores. Mas a função motora não decorre da posição em si; decorre do programa de diferenciação induzido pela notocorda e pela placa do assoalho. Por isso a razão é verdadeira, mas não justifica.','Na medula adulta, a coluna anterior (lâmina basal) é atingida na poliomielite e na ELA, gerando déficits puramente motores.'),
+L(as('intro',2,'Associe a flexura ao local.',[['Flexura cefálica','Mesencéfalo'],['Flexura cervical','Entre rombencéfalo e medula'],['Flexura pontina','Rombencéfalo']],'A pontina é dorsal; as outras duas, ventrais.'),'As flexuras surgem porque o encéfalo cresce mais rápido que o espaço disponível. A cefálica e a cervical dobram o tubo para frente; a pontina, para trás, afastando as paredes do rombencéfalo e formando o IV ventrículo.','A disposição em ângulo do tronco em relação ao cérebro explica as orientações de cortes em ressonância (eixo do tronco versus eixo do cérebro).'),
+L(od('intro',2,'Ordene as vesículas secundárias de cranial para caudal.',['Telencéfalo','Diencéfalo','Mesencéfalo','Metencéfalo','Mielencéfalo'],'Telencéfalo → diencéfalo → mesencéfalo → metencéfalo → mielencéfalo.'),'Do prosencéfalo saem telencéfalo e diencéfalo; o mesencéfalo não se divide; do rombencéfalo saem metencéfalo e mielencéfalo. Essa ordem se mantém no adulto: hemisférios, diencéfalo, mesencéfalo, ponte com cerebelo, bulbo.','Malformações como a holoprosencefalia resultam de falha na divisão do prosencéfalo em dois hemisférios.'),
+L(mc('intro',2,'O mesencéfalo do adulto tem como cavidade o:',['Aqueduto cerebral','III ventrículo','IV ventrículo','Canal central'],'A luz do mesencéfalo fica estreita e forma o aqueduto.'),'Cada vesícula mantém uma cavidade: ventrículos laterais (telencéfalo), III ventrículo (diencéfalo), aqueduto (mesencéfalo), IV ventrículo (metencéfalo e mielencéfalo) e canal central (medula).','O aqueduto é o ponto mais estreito do sistema ventricular; sua estenose causa hidrocefalia dos ventrículos laterais e do III.'),
+L(vf('intro',2,'Julgue sobre a crista neural.',[['Origina os neurônios dos gânglios autônomos.',true],['Origina os oligodendrócitos.',false],['Origina a medula da adrenal.',true],['Origina as células de Schwann.',true]],'Oligodendrócitos vêm do tubo neural.'),'A crista neural forma praticamente todos os componentes celulares do SNP e alguns de outros sistemas. A glia central (astrócitos, oligodendrócitos, ependimárias) vem do tubo neural; a micróglia vem da linhagem monocítica.','Na doença de Hirschsprung, células da crista neural não chegam a parte do intestino, que fica sem gânglios entéricos e sem peristalse.'),
+L(cs('intro',3,'Lactente com sinais de doença de Hirschsprung (constipação grave, distensão abdominal, ausência de eliminação de mecônio). A falha embrionária envolve a migração de células da:',['Crista neural','Lâmina basal','Placa do assoalho','Camada do manto'],'Os gânglios entéricos derivam da crista neural.'),'Os neurônios dos plexos mioentérico e submucoso vêm da crista neural, que migra em direção craniocaudal pelo intestino. Se a migração para antes de chegar ao reto e ao cólon distal, esse segmento fica aganglionar e contraído, sem peristalse.','O diagnóstico é feito por biópsia retal mostrando ausência de células ganglionares; o tratamento é cirúrgico, com retirada do segmento aganglionar.'),
+L(gp('intro',2,'A cavidade do diencéfalo é o ____ ventrículo.',['iii','terceiro','3','3º'],'O III ventrículo fica entre os dois tálamos.'),'O III ventrículo é uma fenda mediana entre as duas metades do diencéfalo, comunica-se com os laterais pelos forames interventriculares e com o IV pelo aqueduto.','Tumores da região (craniofaringioma, cisto coloide) podem obstruir o III ventrículo e causar hidrocefalia aguda.'),
+L(ar('intro',3,'A medula espinal é parte do sistema nervoso suprassegmentar.','Ela se relaciona diretamente com os nervos espinais.',3,'A asserção é falsa: a medula é segmentar. A razão é verdadeira.'),'A medula pertence ao segmentar justamente porque se relaciona diretamente com os nervos. O suprassegmentar (cérebro e cerebelo) não emite nervos e tem córtex.','Lesões segmentares produzem déficit no nível do segmento (por exemplo, perda de reflexo), enquanto lesões suprassegmentares alteram o comando sobre os segmentos.'),
+L(mc('intro',2,'A notocorda é importante para o sistema nervoso porque:',['Induz o ectoderma a formar a placa neural','Origina diretamente a medula espinal','Forma as meninges da medula','Dá origem à crista neural'],'A notocorda induz a neurulação.'),'A notocorda, estrutura mesodérmica, libera sinais (como o Sonic hedgehog) que induzem o ectoderma acima dela a se tornar neuroectoderma e organizam a placa do assoalho. No adulto, restos da notocorda permanecem no núcleo pulposo dos discos intervertebrais.','O cordoma é um tumor raro derivado de restos da notocorda, mais comum na base do crânio e no sacro.'),
+L(as('intro',3,'Associe o defeito ao mecanismo.',[['Anencefalia','Falha do neuróporo rostral'],['Mielomeningocele','Falha do neuróporo caudal'],['Espinha bífida oculta','Falha só do arco vertebral'],['Hidrocefalia congênita','Obstrução da circulação do líquor']],'Defeitos de fechamento e de circulação de líquor.'),'Os defeitos do tubo neural vão de leves (espinha bífida oculta, só óssea, muitas vezes com tufo de pelos na pele) a graves (mielomeningocele, anencefalia). A hidrocefalia é um problema de líquor, frequentemente associado à mielomeningocele.','Alfafetoproteína elevada no soro materno e ultrassom morfológico ajudam a detectar defeitos abertos no pré-natal.'),
+L(mc('intro',3,'No tronco encefálico adulto, os núcleos sensitivos ficam laterais aos motores porque:',['A abertura do IV ventrículo afasta as lâminas para os lados','A crista neural migra para a região medial','A lâmina basal desaparece no tronco','Os núcleos sensitivos vêm da notocorda'],'O tubo se abre e as lâminas ficam lado a lado.'),'Com a flexura pontina, as paredes do rombencéfalo se afastam como um livro aberto. O que era dorsal (lâmina alar) passa a ser lateral, e o que era ventral (lâmina basal) passa a ser medial, separados pelo sulco limitante no assoalho do IV ventrículo.','Por isso síndromes bulbares mediais atingem núcleos motores (como o XII) e laterais atingem sensitivos (como o trigêmeo espinal).'),
+L(vf('intro',2,'Julgue sobre a divisão funcional do sistema nervoso.',[['O sistema nervoso visceral é também chamado de autônomo na parte eferente.',true],['O sistema nervoso somático relaciona o organismo com o meio externo.',true],['O sistema nervoso visceral não tem componente aferente.',false],['Simpático e parassimpático são divisões do componente eferente visceral.',true]],'O visceral também tem fibras aferentes.'),'Somático: relação com o meio externo (pele, músculos esqueléticos). Visceral: relação com vísceras e vasos. Ambos têm parte aferente e eferente; a eferente visceral é o sistema nervoso autônomo, com simpático e parassimpático.','A dor referida (como a dor do infarto no braço esquerdo) surge porque aferências viscerais e somáticas convergem nos mesmos neurônios da medula.'),
+L(mc('intro',1,'Os nervos cranianos fazem parte do:',['Sistema nervoso periférico','Sistema nervoso central','Sistema suprassegmentar','Tronco encefálico'],'Nervos são sempre SNP, mesmo os cranianos.'),'Os nervos cranianos saem do encéfalo, mas, como todos os nervos, pertencem ao SNP. Apenas seus núcleos de origem ou terminação ficam no SNC. Uma exceção conceitual é o nervo óptico, que embriologicamente é um prolongamento do diencéfalo e é mielinizado por oligodendrócitos.','Por ser um "trato do SNC", o nervo óptico é afetado pela esclerose múltipla (neurite óptica), o que não ocorre com os outros nervos cranianos.'),
+L(cs('intro',2,'Recém-nascido com polidrâmnio na gestação e ausência da calota craniana, com tecido encefálico exposto. O defeito ocorreu por volta do:',['25º dia, no neuróporo rostral','27º dia, no neuróporo caudal','10º dia, na formação da notocorda','8ª semana, na formação das meninges'],'Anencefalia: falha do neuróporo rostral.'),'O neuróporo rostral fecha por volta do 25º dia. Sem o fechamento, o prosencéfalo fica exposto ao líquido amniótico e degenera, e a calota não se forma. O polidrâmnio ocorre porque o feto não deglute adequadamente o líquido.','É incompatível com a vida prolongada. No Brasil, o STF reconheceu em 2012 a possibilidade de interrupção da gestação de feto anencéfalo.'),
+L(od('intro',1,'Ordene as partes do encéfalo de cima para baixo, no eixo principal.',['Telencéfalo','Diencéfalo','Mesencéfalo','Ponte','Bulbo'],'O cerebelo fica atrás da ponte e do bulbo.'),'Essa ordem segue as vesículas: telencéfalo e diencéfalo (prosencéfalo), mesencéfalo, ponte (metencéfalo) e bulbo (mielencéfalo). O bulbo continua-se com a medula no forame magno.','Lesões que comprimem o tronco de cima para baixo, como na herniação transtentorial, produzem sinais em sequência: pupila, padrão respiratório e postura.'),
+L(mc('intro',2,'A camada do manto do tubo neural origina, na medula adulta:',['A substância cinzenta','A substância branca','O canal central','As meninges'],'A camada marginal forma a substância branca.'),'O tubo neural tem três camadas: ventricular (epitélio próximo à luz, que origina células), do manto (corpos de neurônios, que forma a substância cinzenta) e marginal (fibras, que forma a substância branca).','A disposição explica por que, na medula, a substância cinzenta é central e a branca é periférica.'),
+L(gp('intro',2,'Pares de nervos cranianos: ____.',['12','doze'],'São 12 pares de nervos cranianos e 31 de espinais.'),'Os 12 pares cranianos emergem do encéfalo (I e II do prosencéfalo; III a XII do tronco). Os 31 pares espinais emergem da medula.','O exame dos 12 pares é parte obrigatória do exame neurológico e ajuda a localizar lesões no tronco.'),
+L(mc('intro',2,'O sistema ventricular adulto deriva:',['Da luz do tubo neural','Da crista neural','Do mesoderma que envolve o tubo','Da notocorda'],'A luz do tubo persiste como ventrículos e canal central.'),'A cavidade do tubo neural não desaparece: dilata-se nas vesículas e forma os ventrículos, e na medula fica reduzida ao canal central. Os plexos corioides, que produzem o líquor, formam-se nas paredes finas desses ventrículos.','Ventrículos aumentados em exame de imagem sugerem hidrocefalia ou atrofia cerebral; o contexto clínico ajuda a diferenciar.'),
+/* ===== Tecido nervoso (novas) ===== */
+L(mc('tecido',1,'Os corpúsculos de Nissl correspondem a:',['Retículo endoplasmático rugoso','Mitocôndrias agrupadas','Neurofilamentos','Vesículas sinápticas'],'Nissl = RER, sinal de grande síntese de proteínas.'),'Os corpúsculos de Nissl são acúmulos de retículo endoplasmático rugoso e ribossomos, abundantes no corpo e nos dendritos proximais. Faltam no cone de implantação e no axônio.','Na cromatólise, após lesão do axônio, os corpúsculos de Nissl se dispersam: é um sinal histológico de sofrimento e tentativa de regeneração.'),
+L(as('tecido',2,'Associe o tipo de neurônio ao local típico.',[['Pseudounipolar','Gânglio sensitivo espinal'],['Bipolar','Retina'],['Multipolar','Coluna anterior da medula']],'A maioria dos neurônios é multipolar.'),'Multipolares predominam (motores, interneurônios, piramidais do córtex). Bipolares aparecem em órgãos dos sentidos especiais. Pseudounipolares formam os gânglios sensitivos.','Doenças como a ELA atingem multipolares motores; neuropatias sensitivas atingem pseudounipolares dos gânglios.'),
+L(mc('tecido',2,'A barreira hematoencefálica depende principalmente de:',['Junções oclusivas entre células endoteliais','Células de Schwann ao redor dos vasos','Micróglia dentro dos capilares','Fibras colágenas espessas na parede vascular'],'As junções oclusivas do endotélio são o principal componente.'),'O endotélio dos capilares cerebrais tem junções oclusivas contínuas e pouca transcitose. Os pés dos astrócitos e os pericitos induzem e mantêm essas características.','A barreira dificulta a chegada de muitos antibióticos e quimioterápicos ao encéfalo; na meningite, a inflamação aumenta sua permeabilidade.'),
+L(vf('tecido',2,'Julgue sobre os astrócitos.',[['Formam cicatriz após lesão do SNC.',true],['Captam excesso de potássio e de glutamato.',true],['Formam mielina no SNP.',false],['São as células mais numerosas da glia central.',true]],'Mielina no SNP é das células de Schwann.'),'Os astrócitos regulam o meio extracelular (potássio, glutamato), sustentam neurônios, participam da barreira hematoencefálica e formam a cicatriz glial. Existem os protoplasmáticos (substância cinzenta) e os fibrosos (substância branca).','Os astrocitomas são os tumores primários mais comuns do encéfalo; o glioblastoma é sua forma mais agressiva.'),
+L(mc('tecido',2,'Qual célula reveste os ventrículos e o canal central?',['Ependimária','Astrócito fibroso','Micróglia','Célula satélite'],'O epêndima reveste as cavidades do SNC.'),'As células ependimárias formam um epitélio cúbico ou colunar, muitas vezes com cílios, que reveste ventrículos e canal central. Nos plexos corioides, células ependimárias modificadas produzem o líquor.','O ependimoma é um tumor dessas células; em crianças é comum no IV ventrículo e pode causar hidrocefalia.'),
+L(ar('tecido',2,'A micróglia é a célula de defesa do SNC.','Ela tem origem na linhagem monocítica, como os macrófagos.',0,'As duas são verdadeiras e a origem explica a função.'),'A micróglia deriva de precursores mieloides que colonizam o SNC no desenvolvimento. Como os macrófagos, ela fagocita restos celulares e apresenta antígenos.','No HIV, a micróglia é infectada e participa da demência associada ao vírus.'),
+L(mc('tecido',2,'Uma célula de Schwann mieliniza:',['Um segmento de um único axônio','Segmentos de dezenas de axônios','Todo o comprimento de um axônio','Apenas axônios do SNC'],'Uma Schwann = um internodo.'),'Cada célula de Schwann envolve um único segmento (internodo) de um axônio. Em fibras amielínicas, uma Schwann pode abrigar vários axônios em reentrâncias, sem enrolar mielina.','Na hanseníase, o bacilo infecta células de Schwann, o que explica o comprometimento precoce dos nervos periféricos.'),
+L(od('tecido',2,'Ordene os eventos da sinapse química.',['Potencial de ação chega ao terminal','Entrada de cálcio','Exocitose das vesículas','Ligação ao receptor pós-sináptico','Remoção do neurotransmissor'],'Cálcio é o gatilho da liberação.'),'O potencial de ação abre canais de cálcio dependentes de voltagem no terminal; o cálcio promove a fusão das vesículas (proteínas SNARE); o neurotransmissor age nos receptores e depois é recaptado ou degradado.','A toxina botulínica impede a exocitose de acetilcolina, causando paralisia flácida; em doses mínimas é usada em distonias e espasticidade.'),
+L(mc('tecido',2,'Na sinapse elétrica, a comunicação entre os neurônios ocorre por:',['Junções comunicantes','Vesículas de neurotransmissor','Receptores metabotrópicos','Fenda sináptica larga'],'Junções comunicantes permitem passagem direta de íons.'),'Junções comunicantes (gap junctions), formadas por conexinas, ligam o citoplasma das duas células. A transmissão é muito rápida e pode ser bidirecional, útil para sincronizar grupos de neurônios.','Alguns núcleos do tronco usam sinapses elétricas para gerar ritmos sincronizados, como na oliva inferior.'),
+L(cs('tecido',3,'Homem de 45 anos com fraqueza que começa nos pés e sobe em dias, após diarreia, com arreflexia e líquor com proteína alta e células normais. A célula-alvo do processo é a:',['Célula de Schwann','Oligodendrócito','Astrócito','Micróglia'],'Guillain-Barré: desmielinização periférica.'),'A síndrome de Guillain-Barré é uma polirradiculoneuropatia autoimune, muitas vezes após infecção (Campylobacter jejuni). Anticorpos atacam a mielina periférica, produzida pelas células de Schwann, causando fraqueza ascendente e arreflexia. A dissociação proteíno-citológica no líquor é típica.','É uma emergência pelo risco de insuficiência respiratória; trata-se com imunoglobulina ou plasmaférese, disponíveis no SUS.'),
+L(gp('tecido',2,'A regeneração de um axônio periférico ocorre em média a ____ mm por dia.',['1','1 a 3','1-3','2','3','1 a 2'],'Cerca de 1 a 3 mm por dia.'),'O broto axonal cresce cerca de 1 a 3 mm/dia guiado pelas faixas de células de Schwann. Isso permite estimar o tempo de recuperação a partir da distância entre a lesão e o músculo.','Uma lesão do nervo radial no braço, a 20 cm dos extensores do punho, pode levar meses para recuperar a função; o sinal de Tinel avançando indica regeneração.'),
+L(vf('tecido',2,'Julgue sobre o axônio.',[['Cada neurônio tem, em geral, um único axônio.',true],['O axônio contém muitos corpúsculos de Nissl.',false],['O transporte axonal leva proteínas do corpo ao terminal.',true],['Os axônios podem ter ramos colaterais.',true]],'O axônio não tem Nissl.'),'O axônio não sintetiza proteínas em quantidade; depende do transporte axonal anterógrado (do corpo para o terminal) e retrógrado (do terminal para o corpo), por microtúbulos.','O vírus da raiva e a toxina tetânica chegam ao SNC por transporte axonal retrógrado, a partir da mordida ou do ferimento.'),
+L(mc('tecido',3,'Fibras do tipo C:',['São amielínicas e conduzem lentamente','Têm mielina espessa e conduzem rápido','Inervam as fibras intrafusais','Levam o tato fino da pele glabra'],'Fibras C: finas, sem mielina, lentas.'),'Fibras C têm pequeno diâmetro e não têm mielina, conduzindo a menos de 2 m/s. Carregam dor lenta (em queimação), temperatura e fibras autonômicas pós-ganglionares.','Anestésicos locais bloqueiam primeiro as fibras finas, por isso a dor some antes do tato e da força.'),
+L(as('tecido',2,'Associe a célula glial ao sistema.',[['Oligodendrócito','SNC'],['Célula de Schwann','SNP'],['Célula satélite','SNP'],['Astrócito','SNC']],'Schwann e satélite são periféricas.'),'No SNC: astrócitos, oligodendrócitos, micróglia e ependimárias. No SNP: células de Schwann (nervos) e satélites (gânglios), ambas derivadas da crista neural.','Neurofibromas e schwannomas (como o do nervo vestibular) derivam de células de Schwann.'),
+L(ar('tecido',3,'A condução saltatória aumenta a velocidade do impulso.','Nela, a despolarização ocorre ao longo de toda a membrana do axônio.',2,'A asserção é verdadeira; a razão é falsa.'),'Na condução saltatória a despolarização acontece só nos nódulos de Ranvier, onde se concentram canais de sódio. A mielina isola os internodos, e o impulso "salta". Isso aumenta a velocidade e economiza energia.','Na esclerose múltipla, a perda de mielina expõe trechos sem canais suficientes, e a condução fica lenta ou bloqueada.'),
+L(mc('tecido',2,'O segmento do neurônio que normalmente recebe a maior parte das sinapses é:',['O dendrito','O cone de implantação','O terminal axônico','O nódulo de Ranvier'],'Dendritos são receptores de sinapses.'),'Dendritos, com suas espinhas, recebem a maior parte das sinapses excitatórias. O corpo celular também recebe sinapses, muitas inibitórias. O potencial resultante se soma até o segmento inicial do axônio.','Alterações em espinhas dendríticas aparecem em deficiência intelectual (como na síndrome do X frágil).'),
+L(cs('tecido',2,'Paciente com fraqueza flutuante que piora no fim do dia, ptose e visão dupla, melhorando com repouso. O defeito está:',['Nos receptores de acetilcolina da placa motora','Na mielina dos nervos periféricos','Nos motoneurônios da coluna anterior','Nos fusos neuromusculares'],'Miastenia grave.'),'Na miastenia grave, anticorpos bloqueiam e destroem receptores nicotínicos de acetilcolina da placa motora. Com o uso repetido, a liberação de acetilcolina cai e a fraqueza piora (fatigabilidade). Músculos oculares são os primeiros afetados.','O tratamento inclui anticolinesterásicos (piridostigmina), imunossupressores e timectomia em casos selecionados, pela associação com timoma.'),
+L(gp('tecido',1,'A célula glial que forma mielina no SNP é a célula de ____.',['schwann'],'No SNC é o oligodendrócito.'),'A célula de Schwann deriva da crista neural; além de formar mielina, guia a regeneração axonal.','A boa regeneração periférica, em comparação à central, depende das células de Schwann.'),
+L(mc('tecido',2,'Neurotransmissor da placa motora esquelética:',['Acetilcolina','Noradrenalina','Dopamina','Glutamato'],'Placa motora = acetilcolina, receptor nicotínico.'),'Todos os motoneurônios alfa e gama liberam acetilcolina na placa motora, agindo em receptores nicotínicos que abrem canais de sódio na fibra muscular.','Bloqueadores neuromusculares usados em anestesia (como o rocurônio) competem com a acetilcolina nesse receptor.'),
+L(vf('tecido',3,'Julgue sobre a lesão axonal.',[['A cromatólise ocorre no corpo celular.',true],['A degeneração walleriana ocorre no coto proximal.',false],['Células de Schwann formam faixas de Büngner no coto distal.',true],['No SNC a cicatriz astrocitária dificulta a regeneração.',true]],'A walleriana é no coto distal.'),'Após a secção, o coto distal degenera (walleriana), o corpo celular faz cromatólise e, no SNP, as células de Schwann proliferam e formam faixas que orientam o broto. No SNC, inibidores da mielina e a cicatriz glial impedem esse crescimento.','A sutura microcirúrgica precoce de nervos seccionados melhora o alinhamento dos fascículos e o resultado funcional.'),
+L(od('tecido',3,'Ordene a velocidade de condução, da mais rápida para a mais lenta.',['Aα','Aβ','Aδ','C'],'Quanto mais grossa e mielinizada, mais rápida.'),'Aα (Ia, motores alfa) são as maiores e mais rápidas; Aβ (tato); Aδ (dor rápida, temperatura), finas e com pouca mielina; C, sem mielina, as mais lentas.','A dor dupla de uma topada (pontada imediata e depois queimação) reflete a chegada das fibras Aδ e depois das C.'),
+L(mc('tecido',2,'Pericitos e pés de astrócitos ao redor dos capilares cerebrais:',['Induzem e mantêm a barreira hematoencefálica','Produzem o líquor','Formam mielina ao redor dos vasos','Geram o potencial de ação'],'Ajudam a manter as propriedades do endotélio.'),'A barreira é endotelial, mas depende de sinais de astrócitos e pericitos para manter as junções oclusivas e os transportadores específicos.','Em tumores cerebrais, a barreira se rompe e o contraste da tomografia ou ressonância extravasa, realçando a lesão.'),
+L(as('tecido',3,'Associe a doença à estrutura principal.',[['Esclerose múltipla','Mielina central'],['Guillain-Barré','Mielina periférica'],['Miastenia grave','Placa motora'],['Esclerose lateral amiotrófica','Neurônios motores']],'Cada doença tem um alvo.'),'Desmielinizantes (central ou periférica), juncionais (placa motora) e neuronais (corpo do neurônio motor) têm quadros diferentes: a ELA, por exemplo, mistura sinais de neurônio motor superior e inferior sem alterar a sensibilidade.','Pensar no alvo celular orienta o exame complementar: ressonância, eletroneuromiografia, anticorpos ou líquor.'),
+L(mc('tecido',3,'O transporte axonal retrógrado é a via pela qual chega ao SNC a:',['Toxina tetânica','Toxina botulínica','Acetilcolina da placa motora','Mielina produzida pela Schwann'],'Tétano: toxina sobe pelo axônio motor.'),'A toxina tetânica entra no terminal do motoneurônio e sobe por transporte retrógrado até a medula, onde bloqueia a liberação de neurotransmissores inibitórios (glicina e GABA), causando espasmos. A botulínica age só no terminal periférico.','A vacinação (antitetânica, no calendário do SUS) previne a doença; ferimentos contaminados exigem avaliação da situação vacinal.'),
+L(gp('tecido',2,'O espaço entre dois neurônios numa sinapse química chama-se fenda ____.',['sinaptica','sináptica'],'Mede cerca de 20 a 30 nm.'),'A fenda sináptica separa as membranas pré e pós-sinápticas e é atravessada pelo neurotransmissor por difusão.','A enzima acetilcolinesterase, presente na fenda da placa motora, é o alvo de inseticidas organofosforados, cuja intoxicação causa crise colinérgica.'),
+L(mc('tecido',1,'O pericário é o:',['Corpo celular do neurônio','Envoltório do fascículo nervoso','Prolongamento que recebe sinapses','Espaço entre dois internodos'],'Pericário = corpo celular.'),'O pericário contém o núcleo e a maquinaria de síntese (Nissl, Golgi). É o centro metabólico do neurônio.','Lesões que destroem o corpo celular (como na poliomielite) causam perda definitiva daquele neurônio.'),
+/* ===== Nervos e terminações (novas) ===== */
+L(mc('nervos',1,'A barreira hematoneural é formada principalmente pelo:',['Perineuro','Epineuro','Endoneuro','Neurilema'],'O perineuro tem células unidas por junções oclusivas.'),'O perineuro tem camadas de células achatadas unidas por junções oclusivas, que controlam o que entra no ambiente das fibras, de forma parecida com a barreira hematoencefálica.','Na reconstrução cirúrgica de nervos, o cirurgião alinha os fascículos pelo perineuro (sutura perineural).'),
+L(vf('nervos',1,'Julgue sobre os nervos.',[['A maioria dos nervos espinais é mista.',true],['O epineuro envolve cada fibra isoladamente.',false],['Os nervos fazem parte do SNP.',true],['Um nervo pode conter fibras somáticas e viscerais.',true]],'Endoneuro envolve cada fibra.'),'Os nervos espinais são mistos desde a união das raízes. Um mesmo nervo pode levar fibras motoras somáticas, sensitivas somáticas e viscerais (por exemplo, simpáticas para vasos e glândulas sudoríparas).','Por isso uma lesão de nervo periférico pode causar, além de fraqueza e anestesia, pele seca e alteração da cor no território afetado.'),
+L(as('nervos',2,'Associe o receptor ao estímulo.',[['Corpúsculo de Ruffini','Estiramento da pele'],['Discos de Merkel','Pressão contínua'],['Corpúsculo de Pacini','Vibração'],['Terminação livre','Dor']],'Cada receptor tem estímulo preferencial.'),'Os mecanorreceptores diferem em adaptação: Pacini e Meissner adaptam rápido (vibração e toque que muda); Merkel e Ruffini adaptam devagar (pressão e estiramento mantidos). Terminações livres respondem a estímulos lesivos e térmicos.','O teste de vibração com diapasão (Pacini) é sensível para detectar neuropatia diabética inicial nos pés.'),
+L(mc('nervos',2,'Proprioceptores informam principalmente sobre:',['Posição e movimento do corpo','Temperatura da pele','Dor visceral','Pressão arterial'],'Proprioceptores: músculos, tendões, articulações e labirinto.'),'Fusos neuromusculares, órgãos tendinosos de Golgi, receptores articulares e o labirinto informam posição e movimento. Parte vai ao cerebelo (inconsciente) e parte ao córtex (consciente).','A perda da propriocepção consciente causa ataxia sensitiva e Romberg positivo, como na tabes dorsalis e na deficiência de B12.'),
+L(mc('nervos',2,'Os motoneurônios gama inervam:',['As fibras intrafusais do fuso','As fibras extrafusais do músculo','Os órgãos tendinosos de Golgi','As glândulas sudoríparas'],'Gama ajusta a sensibilidade do fuso.'),'Ao contrair as extremidades das fibras intrafusais, os motoneurônios gama esticam a região central do fuso e mantêm sua sensibilidade mesmo quando o músculo se encurta.','Hiperatividade gama, por perda do controle descendente, contribui para a espasticidade após AVC e lesão medular.'),
+L(ar('nervos',2,'O órgão tendinoso de Golgi detecta a tensão do músculo.','Ele fica entre as fibras musculares e o tendão, em série com elas.',0,'As duas são verdadeiras e a localização explica a função.'),'Por estar em série, o órgão de Golgi é deformado quando o músculo puxa o tendão, sinalizando tensão. O fuso, em paralelo às fibras, sinaliza comprimento e estiramento.','O reflexo miotático inverso, mediado pelo órgão de Golgi, ajuda a proteger o tendão de tensões excessivas.'),
+L(od('nervos',2,'Ordene o reflexo miotático.',['Estiramento do músculo','Ativação do fuso neuromuscular','Fibra aferente Ia','Sinapse com motoneurônio alfa','Contração do músculo'],'Reflexo monossináptico.'),'O arco tem um receptor (fuso), uma via aferente (fibra Ia, corpo no gânglio sensitivo), um centro (sinapse direta na coluna anterior), uma via eferente (motoneurônio alfa) e um efetor (o mesmo músculo).','Testar reflexos profundos em vários níveis (bicipital, tricipital, patelar, aquileu) permite localizar raízes e segmentos lesados.'),
+L(mc('nervos',2,'Na unidade motora de músculos responsáveis por movimentos finos, cada motoneurônio inerva:',['Poucas fibras musculares','Milhares de fibras musculares','Fibras de vários músculos diferentes','Apenas fibras intrafusais'],'Unidades pequenas = controle fino.'),'Músculos extrínsecos do olho e intrínsecos da mão têm unidades motoras pequenas, com poucas fibras por neurônio, o que permite ajustes finos de força. Músculos posturais têm unidades grandes.','Na eletroneuromiografia, potenciais de unidade motora aumentados indicam reinervação após perda de neurônios, como na ELA.'),
+L(cs('nervos',2,'Diabético de longa data perde a sensibilidade vibratória e ao monofilamento nos pés, com feridas que não doem. A conduta preventiva mais importante é:',['Exame e cuidado diário dos pés','Repouso absoluto dos membros inferiores','Uso de calçados apertados para proteção','Aplicar calor local para melhorar a circulação'],'O pé insensível precisa de inspeção diária.'),'A neuropatia diabética afeta primeiro as fibras mais longas, nos pés. Sem dor, pequenas lesões passam despercebidas e evoluem para úlceras e amputação. Inspeção diária, calçados adequados e acompanhamento previnem complicações; calor local pode queimar a pele insensível.','O teste com monofilamento de 10 g é feito na Atenção Básica do SUS no rastreio do pé diabético.'),
+L(gp('nervos',1,'A sinapse entre o nervo e a fibra muscular esquelética chama-se placa ____.',['motora'],'Neurotransmissor: acetilcolina.'),'A placa motora (junção neuromuscular) tem dobras pós-juncionais ricas em receptores nicotínicos.','Doenças da placa (miastenia, botulismo, síndrome de Lambert-Eaton) causam fraqueza sem alteração sensitiva.'),
+L(mc('nervos',3,'Receptores viscerais (interoceptores) mais frequentemente levam ao SNC informação sobre:',['Distensão, química e dor das vísceras','Posição das articulações dos membros','Vibração da pele','Luz e som'],'Interoceptores: vísceras e vasos.'),'Interoceptores incluem mecanorreceptores de distensão (estômago, bexiga), quimiorreceptores (corpos carotídeos) e barorreceptores (seio carotídeo). Grande parte dessas informações não chega à consciência.','A dor visceral é mal localizada e frequentemente referida a áreas da pele, como a dor da apendicite que começa no umbigo.'),
+L(vf('nervos',2,'Julgue sobre os receptores.',[['Exteroceptores captam estímulos da superfície do corpo.',true],['O labirinto contém proprioceptores.',true],['Terminações nervosas livres são encapsuladas.',false],['Barorreceptores são interoceptores.',true]],'Terminações livres não têm cápsula.'),'A classificação de Sherrington separa receptores pela origem do estímulo: superfície, aparelho locomotor e labirinto, ou vísceras e vasos.','O exame da sensibilidade testa exteroceptores (tato, dor, temperatura) e proprioceptores (posição, vibração) separadamente, porque usam vias diferentes.'),
+L(cs('nervos',3,'Após picada de inseto no braço, paciente sente dor imediata em pontada e, segundos depois, queimação difusa. A segunda sensação é conduzida por fibras:',['C, amielínicas','Aα, mielínicas grossas','Aβ, mielínicas','Ia, dos fusos'],'Dor lenta: fibras C.'),'A dor rápida e bem localizada viaja por fibras Aδ; a dor lenta, em queimação e difusa, por fibras C, sem mielina. A diferença de velocidade explica as duas ondas de dor.','Medicamentos como os opioides atuam mais sobre a dor lenta (fibras C) do que sobre a rápida.'),
+L(as('nervos',2,'Associe a estrutura à camada.',[['Cada fibra nervosa','Endoneuro'],['Cada fascículo','Perineuro'],['Nervo inteiro','Epineuro']],'Endo → peri → epi.'),'O epineuro, mais externo, tem tecido conjuntivo frouxo e vasos; o perineuro forma a barreira; o endoneuro é delicado, entre as fibras.','O epineuro espesso protege o nervo contra compressão; nervos superficiais com pouco epineuro (como o ulnar no cotovelo) são mais vulneráveis.'),
+L(mc('nervos',2,'O reflexo patelar diminuído sugere lesão:',['No arco reflexo (nervo, raiz ou motoneurônio)','No córtex motor','Na cápsula interna','No cerebelo'],'Hiporreflexia: lesão no próprio arco.'),'Lesões do neurônio motor inferior, da raiz ou do nervo interrompem o arco e reduzem o reflexo. Lesões do neurônio motor superior (córtex, cápsula, trato corticospinal) aumentam os reflexos após a fase aguda.','Um reflexo patelar abolido com dor na face anterior da coxa sugere radiculopatia L3–L4.'),
+L(ar('nervos',3,'A dor visceral costuma ser bem localizada.','Os interoceptores são numerosos e têm campos receptivos pequenos.',4,'As duas são falsas.'),'A dor visceral é difusa e mal localizada: os receptores são escassos, os campos receptivos amplos e as fibras convergem com aferências somáticas na medula, gerando dor referida.','A dor do infarto no braço esquerdo e na mandíbula e a dor da colecistite no ombro direito são exemplos de dor referida.'),
+L(mc('nervos',2,'Corpúsculos de Meissner são mais abundantes:',['Nas pontas dos dedos e nos lábios','Na pele das costas','No interior dos músculos','Nas cápsulas articulares'],'Tato fino em pele glabra.'),'Os corpúsculos de Meissner ficam nas papilas dérmicas de pele sem pelos e são muito densos nas pontas dos dedos, lábios e língua, o que explica a alta discriminação tátil nessas regiões.','O teste de discriminação de dois pontos nas polpas digitais avalia a função de nervos como o mediano após lesão.'),
+L(od('nervos',2,'Ordene os envoltórios de dentro para fora.',['Endoneuro','Perineuro','Epineuro'],'Endo, peri, epi.'),'A sequência corresponde a fibra, fascículo e nervo.','Na compressão crônica (como no túnel do carpo), o edema e a fibrose do epineuro e do perineuro contribuem para a lesão.'),
+L(cs('nervos',2,'Criança com toxina botulínica ingerida em conserva caseira apresenta paralisia descendente simétrica, visão turva e boca seca. A toxina atua:',['Impedindo a liberação de acetilcolina no terminal','Destruindo os receptores de acetilcolina','Desmielinizando nervos periféricos','Bloqueando canais de sódio do axônio'],'Botulismo: bloqueio da exocitose de acetilcolina.'),'A toxina botulínica cliva proteínas SNARE no terminal colinérgico e impede a exocitose. Afeta placa motora e sinapses autonômicas colinérgicas, daí a boca seca e a midríase.','É doença de notificação compulsória no Brasil; o tratamento inclui suporte ventilatório e antitoxina fornecida pelo Ministério da Saúde.'),
+L(mc('nervos',1,'Um nervo que leva fibras sensitivas e motoras é chamado de:',['Misto','Aferente','Eferente','Autônomo'],'Misto = sensitivo + motor.'),'Os nervos espinais são mistos a partir da união das raízes dorsal e ventral. Alguns nervos cranianos são só sensitivos (I, II, VIII) ou só motores (III, IV, VI, XI, XII).','Lesão de um nervo misto produz déficit motor e sensitivo no mesmo território, o que ajuda a diferenciá-la de lesões de raiz.'),
+L(vf('nervos',3,'Julgue sobre o fuso neuromuscular.',[['Fica em paralelo às fibras extrafusais.',true],['Detecta mudanças no comprimento do músculo.',true],['É inervado por fibras Ia aferentes.',true],['Sua ativação inibe diretamente o próprio músculo.',false]],'O fuso excita o próprio músculo.'),'A ativação do fuso gera o reflexo miotático, que contrai o músculo estirado e inibe o antagonista (inibição recíproca, por interneurônio).','A espasticidade dependente de velocidade (sinal do canivete) reflete reflexos miotáticos exagerados após lesão do neurônio motor superior.'),
+L(mc('nervos',2,'Barorreceptores do seio carotídeo informam:',['Variações da pressão arterial','Concentração de oxigênio','Temperatura do sangue','Posição da cabeça'],'Barorreceptores: estiramento da parede arterial.'),'Os barorreceptores do seio carotídeo e do arco aórtico detectam o estiramento da parede vascular e informam o tronco encefálico (via nervos glossofaríngeo e vago), que ajusta frequência cardíaca e tônus vascular.','A massagem do seio carotídeo pode reverter algumas taquicardias, mas causa bradicardia intensa em pessoas com hipersensibilidade do seio carotídeo.'),
+L(gp('nervos',2,'O receptor encapsulado em lamelas, sensível à vibração, é o corpúsculo de ____.',['pacini','vater-pacini','vater pacini'],'Corpúsculo de Pacini.'),'O corpúsculo de Pacini tem lamelas concêntricas como uma cebola e adapta muito rápido, respondendo a vibração e pressão que mudam.','A perda da sensibilidade vibratória é um dos primeiros sinais de neuropatia periférica e de lesão dos funículos posteriores.'),
+L(mc('nervos',3,'Paciente com secção completa do nervo mediano no punho terá, no território do nervo:',['Perda de sensibilidade e fraqueza dos músculos inervados','Apenas perda de sensibilidade, com força normal','Apenas fraqueza, com sensibilidade normal','Hiper-reflexia e espasticidade'],'Nervo misto: déficit sensitivo e motor.'),'O mediano no punho leva fibras sensitivas para a face palmar dos três primeiros dedos e metade do quarto, e motoras para os músculos tenares. A lesão causa anestesia e perda da oposição do polegar. Espasticidade é sinal de lesão central.','O teste de oposição do polegar e da sensibilidade da polpa do indicador avalia rapidamente o mediano no pronto-socorro.')
+);
+
+/* explicações completas e clínicas para as questões antigas destes módulos (busca pelo início do enunciado) */
+var ENRICH3=[
+ ['Associe cada vesícula encefálica secundária','As cinco vesículas secundárias dão os grandes segmentos do encéfalo adulto. O mesencéfalo é o único que conserva o mesmo nome do embrião ao adulto, e o metencéfalo origina duas estruturas: ponte e cerebelo.','Malformações de Chiari e Dandy-Walker envolvem derivados do rombencéfalo (cerebelo e IV ventrículo) e costumam vir com hidrocefalia.'],
+ ['Associe a cavidade do tubo neural','A luz do tubo neural se transforma no sistema ventricular: ventrículos laterais no telencéfalo, III ventrículo no diencéfalo, aqueduto no mesencéfalo, IV ventrículo no rombencéfalo e canal central na medula.','Saber em qual cavidade o líquor fica represado indica o local da obstrução na hidrocefalia: aqueduto estreito dilata laterais e III, mas não o IV.'],
+ ['Julgue as afirmativas sobre a divisão do sistema nervoso.','O SNP inclui nervos, gânglios e terminações. O SNA tem componente aferente visceral, além do eferente. Na divisão funcional, cerebelo e cérebro são suprassegmentares; medula, tronco e nervos são segmentares.','Disautonomias (como na neuropatia diabética) envolvem tanto aferências quanto eferências viscerais, causando hipotensão postural e alterações digestivas.'],
+ ['A vesícula primitiva que não se subdivide','Das três vesículas primárias, o prosencéfalo se divide em telencéfalo e diencéfalo e o rombencéfalo em metencéfalo e mielencéfalo. O mesencéfalo continua único, o que explica ele ter o mesmo nome no embrião e no adulto.','O mesencéfalo abriga o aqueduto e os núcleos do III e IV pares; tumores da pineal, logo acima, comprimem seu teto (síndrome de Parinaud).'],
+ ['Ordene as etapas da neurulação.','A notocorda induz o ectoderma a se espessar em placa neural; as bordas se elevam e o centro afunda (goteira); as pregas se fundem formando o tubo, a partir da região cervical; por fim fecham os neuróporos rostral (cerca de 25 dias) e caudal (cerca de 27 dias).','Todo o processo termina antes de muitas mulheres saberem que estão grávidas, por isso o ácido fólico deve começar antes da concepção.'],
+ ['A substância cinzenta do cerebelo e do cérebro forma um córtex. Na med','No segmentar (medula e tronco), a substância cinzenta fica no centro, cercada pela branca. No suprassegmentar ela se espalha na superfície como córtex. Na medula a cinzenta tem forma de H ou borboleta.','Na ressonância de medula, lesões centrais (como a siringomielia) atingem primeiro a substância cinzenta e as fibras que cruzam no centro.'],
+ ['Associe a célula glial à sua função principal.','Astrócitos sustentam, regulam o meio e participam da barreira; oligodendrócitos e células de Schwann produzem mielina no SNC e no SNP; micróglia defende; ependimárias revestem cavidades e formam o epitélio dos plexos corioides.','A origem de muitos tumores do SNC está na glia: astrocitomas, oligodendrogliomas, ependimomas e schwannomas.'],
+ ['Julgue sobre a sinapse química.','Na sinapse química, o sentido é único: do pré para o pós-sináptico. O cálcio que entra no terminal dispara a exocitose. Sinapses elétricas não usam vesículas, e sim junções comunicantes. Se a sinapse excita ou inibe depende do neurotransmissor e do receptor.','Muitos fármacos agem na sinapse: antidepressivos inibem recaptação, benzodiazepínicos potencializam receptores GABA-A, antipsicóticos bloqueiam receptores de dopamina.'],
+ ['A condução do impulso é mais rápida em fibras mielínicas.','A mielina isola o axônio entre os nódulos, e a despolarização só ocorre nos nódulos de Ranvier, ricos em canais de sódio. O impulso salta de nódulo em nódulo, ganhando velocidade com menos gasto de energia. A razão explica a asserção.','Doenças desmielinizantes reduzem a velocidade de condução, o que aparece nos exames de potencial evocado e na eletroneuromiografia.'],
+ ['O espaço entre dois segmentos de mielina','O nódulo de Ranvier é o trecho de axônio sem mielina entre dois internodos, com alta densidade de canais de sódio. É onde o potencial de ação é regenerado na condução saltatória.','Anticorpos contra proteínas nodais aparecem em algumas variantes de Guillain-Barré, com bloqueio de condução.'],
+ ['Mulher de 28 anos com neurite óptica','Neurite óptica, déficits em surtos e placas periventriculares na ressonância apontam para esclerose múltipla, doença autoimune que destrói a mielina central e os oligodendrócitos. O nervo óptico, mielinizado por oligodendrócitos, é alvo frequente. As células de Schwann não participam.','O diagnóstico usa ressonância e líquor (bandas oligoclonais). O SUS oferece medicamentos modificadores da doença por protocolo clínico específico.'],
+ ['O cone de implantação do axônio é importante','O cone de implantação e o segmento inicial do axônio concentram canais de sódio dependentes de voltagem e têm o menor limiar de disparo. Ali os potenciais somados dos dendritos e do corpo decidem se haverá potencial de ação. Não há corpúsculos de Nissl nessa região.','Alguns anticonvulsivantes (como a carbamazepina e a fenitoína) bloqueiam canais de sódio e reduzem disparos repetitivos.'],
+ ['Ordene os envoltórios conjuntivos do nervo','Endoneuro envolve cada fibra; perineuro reúne fibras em fascículos e forma a barreira hematoneural; epineuro envolve o nervo inteiro e contém vasos.','Na cirurgia de reparo, a sutura pode ser epineural (mais simples) ou perineural (alinha os fascículos com mais precisão).'],
+ ['Associe o receptor à sensibilidade que detecta.','Meissner (tato fino, pele glabra), Pacini (vibração e pressão), terminações livres (dor e temperatura) são exteroceptores; fuso (estiramento) e órgão de Golgi (tensão) são proprioceptores.','Cada modalidade é testada de um jeito no exame: algodão (tato), diapasão (vibração), alfinete (dor), tubos quente e frio (temperatura).'],
+ ['Quanto à classificação de Sherrington','Exteroceptores captam estímulos da superfície (pele), proprioceptores do aparelho locomotor e do labirinto, interoceptores das vísceras e vasos. Telerreceptores são exteroceptores de estímulos a distância (visão, audição).','A dor visceral, mediada por interoceptores, é mal localizada e frequentemente referida a áreas da pele.'],
+ ['Julgue sobre a placa motora.','A placa motora liga o motoneurônio à fibra esquelética usando acetilcolina sobre receptores nicotínicos. Em regra, cada fibra muscular tem uma única placa. A miastenia grave destrói os receptores pós-sinápticos.','O teste do gelo (melhora da ptose após gelo nas pálpebras) é um recurso simples à beira do leito para suspeitar de miastenia.'],
+ ['Unidade motora é o conjunto formado por:','A unidade motora é a menor unidade funcional do controle motor: um motoneurônio alfa e todas as fibras musculares que ele inerva. Quando o neurônio dispara, todas essas fibras contraem juntas.','Na eletroneuromiografia, a análise das unidades motoras diferencia doença do nervo (neuropática) de doença do músculo (miopática).'],
+ ['As fibras do tipo C conduzem a dor lenta','Fibras C são finas e sem mielina, conduzem a menos de 2 m/s e carregam a dor lenta, difusa e em queimação. Fibras Aδ, finas e com pouca mielina, carregam a dor rápida e localizada. A razão explica a lentidão.','Neuropatias de fibras finas (como no diabetes inicial) causam dor em queimação nos pés com força e reflexos ainda normais.'],
+ ['A fibra intrafusal do fuso neuromuscular','Motoneurônios gama inervam as fibras intrafusais e regulam a sensibilidade do fuso; motoneurônios alfa inervam as fibras extrafusais, que geram a força do músculo.','O desequilíbrio do sistema gama, sem o controle descendente, contribui para a espasticidade.'],
+ ['Paciente com hanseníase perde a sensibilidade','O Mycobacterium leprae tem tropismo pelas células de Schwann e pelos nervos periféricos. As fibras finas, que levam dor e temperatura, são atingidas cedo, por isso o paciente se queima sem perceber. Motricidade e propriocepção podem ser poupadas no início.','O Brasil tem uma das maiores cargas de hanseníase do mundo. O teste de sensibilidade térmica e dolorosa nas manchas faz parte do exame na Atenção Básica, e o tratamento (poliquimioterapia) é gratuito no SUS.'],
+ ['O reflexo miotático é desencadeado','O estiramento do músculo ativa o fuso; fibras Ia levam o impulso à medula e fazem sinapse direta com o motoneurônio alfa do mesmo músculo, que contrai. O órgão de Golgi participa do reflexo miotático inverso, não do direto.','A pesquisa dos reflexos profundos é parte básica do exame e ajuda a separar lesão de neurônio motor inferior (reflexos diminuídos) de superior (aumentados).']
+];
+QB.forEach(function(q){if(q.e2)return;var k=q.q||q.a;ENRICH3.forEach(function(r){if(k.indexOf(r[0])===0){q.e2=r[1];q.c=r[2]}})});
+
 </script>
 
 <!-- Camada 2: armazenamento e aplicação (funciona sem Firebase) -->
@@ -1388,11 +1829,12 @@ var IC={
  ranking:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21V11M16 21V7M12 21V3M4 21h16"/></svg>',
  busca:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
  caderno:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>',
+ flash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 6V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg>',
  conquistas:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="14" r="6"/><path d="M8 3h3l1 5M16 3h-3l-1 5"/></svg>',
  perfil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>'
 };
 var NAV=[['painel','Painel'],['estudar','Questões'],['games','Games'],['ranking','Ranking'],['perfil','Perfil']];
-var NAV2=[['busca','Buscar'],['caderno','Caderno'],['conquistas','Conquistas']];
+var NAV2=[['busca','Buscar'],['caderno','Caderno'],['flash','Flashcards'],['conquistas','Conquistas']];
 
 /* ---------- utilidades de UI ---------- */
 function toast(t){var el=document.createElement('div');el.className='toast';el.setAttribute('role','status');el.textContent=t;document.body.appendChild(el);setTimeout(function(){el.remove()},2600)}
@@ -1562,7 +2004,7 @@ function vQuiz(){
  } else if(q.t==='gp'){
   h+='<p class="stem">'+esc(q.q).replace('____','<b>______</b>')+'</p><form id="gpForm" class="actions" style="align-items:stretch"><input class="in" id="gpIn" style="flex:1;min-width:180px" autocomplete="off" '+(done?'disabled value="'+esc(P.typed||'')+'"':'')+' aria-label="Sua resposta"><button class="btn pri" '+(done?'disabled':'')+'>'+(Z.exam?'Responder':'Conferir')+'</button></form>';
  }
- if(done){var ok=P.ok;h+='<div class="fb '+(ok?'good':'bad')+'" role="status"><span class="verdict">'+(ok?'Correto · +'+P.gain+' pontos':(P.partial?'Parcial · '+Math.round(P.partial*100)+'% certo':'Incorreto'))+'</span>'+(q.t==='gp'&&!ok?'<p><b>Resposta:</b> '+esc(q.a[0])+'</p>':'')+'<p>'+esc(q.e)+'</p><div class="actions"><button class="btn ghost sm" data-mod="'+q.m+'">Ver resumo do módulo</button></div></div><div class="actions"><button class="btn dark" data-act="next">'+(Z.i+1>=Z.list.length?'Ver resultado':'Próxima')+'</button></div>';}
+ if(done){var ok=P.ok;h+='<div class="fb '+(ok?'good':'bad')+'" role="status"><span class="verdict">'+(ok?'Correto · +'+P.gain+' pontos':(P.partial?'Parcial · '+Math.round(P.partial*100)+'% certo':'Incorreto'))+'</span>'+(q.t==='gp'&&!ok?'<p><b>Resposta:</b> '+esc(q.a[0])+'</p>':'')+explHTML(q)+'<div class="actions"><button class="btn ghost sm" data-mod="'+q.m+'">Abrir a aula do módulo</button></div></div><div class="actions"><button class="btn dark" data-act="next">'+(Z.i+1>=Z.list.length?'Ver resultado':'Próxima')+'</button></div>';}
  if(!done&&q.t==='gp')afterFns.push(function(){var i=$('#gpIn');i&&i.focus({preventScroll:true})});
  return h+'</div>';
 }
@@ -1791,7 +2233,7 @@ document.addEventListener('click',function(e){
  if(sv&&S.view==='pratica'&&PR&&PR.phase==='play'&&PR.mode==='tap'){var it2=PR.items[PR.i];if(!it2.done){var sid=sv.dataset.id;prAnswer(sid===it2.pin.sid,{tapSid:sid,tapName:(SCHM[sid]||{}).n||''})}return}
  if(!b)return;
  var d=b.dataset;
- if(d.nav){if(d.nav==='pratica'&&PR)PR.phase='menu';if(d.nav==='nervos'&&NV)NV.phase='intro';if(d.nav==='lesao'&&LE&&LE.i>=LE.items.length)LE=null;if(d.nav==='editor')ED=null;go(d.nav);if(d.nav==='games'||d.nav==='pratica'||d.nav==='editor')refreshStations();return}
+ if(d.nav){if(d.nav==='flash')FC=null;if(d.nav==='pratica'&&PR)PR.phase='menu';if(d.nav==='nervos'&&NV)NV.phase='intro';if(d.nav==='lesao'&&LE&&LE.i>=LE.items.length)LE=null;if(d.nav==='editor')ED=null;go(d.nav);if(d.nav==='games'||d.nav==='pratica'||d.nav==='editor')refreshStations();return}
  if(d.mod){go('modulo',d.mod);return}
  if(d.act==='sim'){startQuiz(pickQuestions(QB,20),'Simulado misto');return}
  if(d.act==='errs'){var ids=Object.keys(S.priv.errs).filter(function(k){return QBY[k]});startQuiz(shuffle(ids.map(function(k){return QBY[k]})).slice(0,20),'Revisão de erros');return}
@@ -2353,6 +2795,108 @@ document.addEventListener('keydown',function(e){
 
 /* ---------- aplicativo instalável e atualização automática ---------- */
 if('serviceWorker' in navigator&&location.protocol==='https:'){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+
+/* ===== v2.4 — aulas, explicação em 3 níveis, flashcards e exportação para o Anki ===== */
+
+/* ---------- explicação em níveis ---------- */
+function explHTML(q){
+ if(!q.e2&&!q.c)return '<p>'+esc(q.e)+'</p>';
+ var id='ex'+q.id;
+ return '<div class="lv3" id="'+id+'"><div class="lv3-tabs" role="tablist"><button type="button" role="tab" data-x="lv3" data-xv="'+id+'|0" aria-selected="true">Curta</button>'+(q.e2?'<button type="button" role="tab" data-x="lv3" data-xv="'+id+'|1" aria-selected="false">Completa</button>':'')+(q.c?'<button type="button" role="tab" data-x="lv3" data-xv="'+id+'|2" aria-selected="false">Correlação clínica</button>':'')+'</div>'+
+ '<div class="lv3-p" data-p="0"><p>'+esc(q.e)+'</p></div>'+(q.e2?'<div class="lv3-p" data-p="1" hidden>'+q.e2.split('\n').map(function(t){return '<p>'+esc(t)+'</p>'}).join('')+'</div>':'')+(q.c?'<div class="lv3-p" data-p="2" hidden><p>'+esc(q.c)+'</p></div>':'')+'</div>';
+}
+
+/* ---------- AULA ---------- */
+function inl(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/_(.+?)_/g,'<em>$1</em>')}
+function block(b,mod,si,bi){
+ var t=b[0],v=b[1];
+ if(t==='p')return '<p>'+inl(v)+'</p>';
+ if(t==='h')return '<h3>'+inl(v)+'</h3>';
+ if(t==='ul')return '<ul>'+v.map(function(x){return '<li>'+inl(x)+'</li>'}).join('')+'</ul>';
+ if(t==='ol')return '<ol>'+v.map(function(x){return '<li>'+inl(x)+'</li>'}).join('')+'</ol>';
+ if(t==='key')return '<aside class="callout key"><span class="cl-t">Ponto-chave</span><p>'+inl(v)+'</p></aside>';
+ if(t==='clin')return '<aside class="callout clin"><span class="cl-t">Na clínica</span><p>'+inl(v)+'</p></aside>';
+ if(t==='mn')return '<aside class="callout mn"><span class="cl-t">Para memorizar</span><p>'+inl(v)+'</p></aside>';
+ if(t==='tbl')return '<div class="tblw"><table><thead><tr>'+v[0].map(function(h){return '<th>'+inl(h)+'</th>'}).join('')+'</tr></thead><tbody>'+v.slice(1).map(function(r){return '<tr>'+r.map(function(c){return '<td>'+inl(c)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>';
+ if(t==='fig')return '<figure class="lfig">'+FIG[v]()+'<figcaption>'+inl(b[2]||'')+'</figcaption></figure>';
+ if(t==='chk'){var key=mod+'_'+si+'_'+bi,st=(S.lchk||(S.lchk={}))[key];
+  return '<div class="lchk"><span class="cl-t">Confira</span><p><b>'+inl(v)+'</b></p><div class="opts">'+b[2].map(function(o,i){var c='';if(st!=null){if(i===b[3])c='right';else if(i===st)c='wrong'}return '<button class="opt '+c+'" data-x="lchk" data-xv="'+key+'|'+i+'|'+b[3]+'" '+(st!=null?'disabled':'')+'><span class="k">'+'ABCD'[i]+'</span><span>'+inl(o)+'</span></button>'}).join('')+'</div>'+(st!=null?'<p class="small">'+(st===b[3]?'<b style="color:var(--ok)">Isso.</b> ':'<b style="color:var(--bad)">Ainda não.</b> ')+inl(b[4])+'</p>':'')+'</div>'}
+ return '';
+}
+VIEWS.modulo=function(){
+ var id=S.sub,m=MOD[id];if(!m)return VIEWS.painel();var s=modStats(id),R=RESUMO[id]||{pts:[],clin:[]},Ls=LESSON[id];
+ var tab=S.modTab&&S.modTab.id===id?S.modTab.t:(Ls?'aula':'resumo');
+ var favs=QB.filter(function(q){return q.m===id&&S.priv.fav[q.id]}).length,errs=QB.filter(function(q){return q.m===id&&S.priv.errs[q.id]}).length;
+ var idx=MODULES.findIndex(function(x){return x.id===id}),prev=MODULES[idx-1],next=MODULES[idx+1];
+ var read=S.priv.c['read_'+id];
+ var head='<div class="top"><div class="hello">'+glyph(id,56)+'<div><div class="eyebrow">Módulo '+(idx+1)+' de '+MODULES.length+' · '+esc(AREA_OF[id].n)+'</div><h1>'+esc(m.n)+'</h1></div></div><button class="btn ghost sm" data-nav="painel">Voltar</button></div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Questões</span><b>'+s.tot+'</b></div><div class="stat"><span class="eyebrow">Vistas</span><b>'+s.seen+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+(s.a?s.acc+'%':'–')+'</b></div><div class="stat"><span class="eyebrow">Aula</span><b>'+(Ls?(read?'Lida':'Nova'):'Em breve')+'</b></div></div>'+
+ '<div class="chips tabs2">'+[['aula','Aula'],['resumo','Resumo'],['treino','Treinar']].map(function(t){return '<button class="chip" data-x="mtab" data-xv="'+t[0]+'" aria-pressed="'+(tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>';
+ var body='';
+ if(tab==='aula'){
+  if(!Ls)body='<div class="card"><p class="muted">A aula completa deste módulo chega num próximo lote. Por enquanto, use o resumo e as questões.</p></div>';
+  else{
+   body='<div class="lesson-wrap"><nav class="toc card" aria-label="Seções da aula"><span class="cl-t">Nesta aula</span><ol>'+Ls.map(function(sec,i){return '<li><a href="#s'+i+'" data-x="toc" data-xv="s'+i+'">'+inl(sec.t)+'</a></li>'}).join('')+'</ol></nav><article class="lesson">'+
+   Ls.map(function(sec,si){return '<section id="s'+si+'" class="lsec"><div class="lsec-n">'+(si+1)+'</div><div class="lsec-b"><h2>'+inl(sec.t)+'</h2>'+sec.b.map(function(b,bi){return block(b,id,si,bi)}).join('')+'</div></section>'}).join('')+
+   '<div class="card lend"><h3>Fim da aula</h3><p class="muted">Fixe o conteúdo agora com as questões do módulo.</p><div class="actions"><button class="btn pri" data-x="readTrain" data-xv="'+id+'">Marcar como lida e treinar</button><button class="btn ghost" data-x="flashMod" data-xv="'+id+'">Flashcards do módulo</button></div></div></article></div>';
+  }
+ } else if(tab==='resumo'){
+  body='<div class="grid g2"><section class="card grid resumo"><h2>Pontos-chave</h2><ul>'+R.pts.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></section><section class="card grid resumo clin"><h2>Correlação clínica</h2><ul>'+R.clin.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></section></div>';
+ } else {
+  body='<div class="grid g2"><div class="card grid"><h3>Treino</h3><p class="small muted">10 questões, priorizando as que você ainda não viu e as que errou.</p><button class="btn pri" data-x="train" data-xv="'+id+'">Treinar 10 questões</button></div><div class="card grid"><h3>Modo prova</h3><p class="small muted">Até 15 questões com cronômetro e gabarito comentado no final.</p><button class="btn dark" data-x="exam" data-xv="'+id+'">Começar prova</button></div><div class="card grid"><h3>Flashcards</h3><p class="small muted">Revisão rápida de frente e verso.</p><button class="btn ghost" data-x="flashMod" data-xv="'+id+'">Abrir flashcards</button></div><div class="card grid"><h3>Seu caderno</h3><p class="small muted">'+favs+' favoritas · '+errs+' erros pendentes</p><div class="actions">'+(favs?'<button class="btn ghost sm" data-x="modfav" data-xv="'+id+'">Favoritas</button>':'')+(errs?'<button class="btn ghost sm" data-x="moderr" data-xv="'+id+'">Erros</button>':'')+'</div></div></div>';
+ }
+ var nav='<div class="modnav">'+(prev?'<button class="btn ghost" data-mod="'+prev.id+'">← '+esc(prev.n)+'</button>':'<span></span>')+(next?'<button class="btn ghost" data-mod="'+next.id+'">'+esc(next.n)+' →</button>':'')+'</div>';
+ return head+body+nav;
+};
+
+/* ---------- FLASHCARDS ---------- */
+function fcDeck(mod){
+ var cards=[];
+ QB.forEach(function(q){if(mod&&q.m!==mod)return;if(q.t==='as'||q.t==='od'||q.t==='vf')return;
+  var front=q.t==='ar'?'Asserção: '+q.a+'\nRazão: '+q.r:q.q;var back=answerTextPlain(q);
+  cards.push({id:'q_'+q.id,m:q.m,f:front,b:back,e:q.e})});
+ QB.forEach(function(q){if(mod&&q.m!==mod)return;if(q.t==='as')q.p.forEach(function(p,i){cards.push({id:'a_'+q.id+'_'+i,m:q.m,f:p[0]+' → ?',b:p[1],e:q.q})});if(q.t==='od')cards.push({id:'o_'+q.id,m:q.m,f:q.q,b:q.s.map(function(x,i){return(i+1)+'. '+x}).join('\n'),e:q.e});if(q.t==='vf')q.s.forEach(function(s,i){cards.push({id:'v_'+q.id+'_'+i,m:q.m,f:'Verdadeiro ou falso: '+s[0],b:s[1]?'Verdadeiro':'Falso',e:q.e})})});
+ if(!mod||mod==='nervcran')NERVES.forEach(function(n){cards.push({id:'n_'+n.r,m:'nervcran',f:'Nervo '+n.r+' ('+n.n+'): função, forame e origem aparente?',b:n.fn+'\nForame: '+n.fo+'\nOrigem: '+n.og,e:''})});
+ return cards;
+}
+function answerTextPlain(q){if(q.t==='mc'||q.t==='case')return q.o[0];if(q.t==='ar')return AR_OPTS[q.k];if(q.t==='gp')return q.a[0];return ''}
+var FC=null;
+function fcStart(mod){var all=fcDeck(mod),t=dayNum(),st=S.priv.fcs||(S.priv.fcs={});var due=all.filter(function(c){return st[c.id]&&st[c.id].due<=t}),fresh=all.filter(function(c){return!st[c.id]});FC={mod:mod||'',queue:shuffle(due).concat(shuffle(fresh)).slice(0,25),i:0,flip:false,done:0,total:all.length,dueN:due.length,newN:fresh.length};go('flash')}
+VIEWS.flash=function(){
+ if(!FC){return '<div class="top"><div><div class="eyebrow">Revisão rápida</div><h1>Flashcards</h1></div></div><div class="card grid"><label class="f">Baralho<select class="in" id="fcMod"><option value="">Todos os módulos</option>'+MODULES.map(function(m){return '<option value="'+m.id+'">'+esc(m.n)+'</option>'}).join('')+'</select></label><div class="actions"><button class="btn pri" data-x="fcGo">Estudar</button></div></div>'+ankiCard()}
+ var c=FC.queue[FC.i];
+ if(!c)return '<div class="qwrap"><div class="eyebrow">Flashcards</div><h1>Sessão concluída</h1><p>'+FC.done+' cartões revisados. Os que você marcou como difíceis voltam antes.</p><div class="actions"><button class="btn pri" data-x="fcAgain">Outra sessão</button><button class="btn ghost" data-x="fcMenu">Trocar baralho</button></div>'+ankiCard()+'</div>';
+ return '<div class="qwrap"><div class="qhead"><span class="eyebrow">Flashcards · '+(FC.mod?esc(MOD[FC.mod].n):'Todos os módulos')+'</span><span class="small muted num">'+(FC.i+1)+' de '+FC.queue.length+'</span></div><div class="bar"><i style="width:'+(100*FC.i/FC.queue.length)+'%"></i></div>'+
+ '<button class="fcard'+(FC.flip?' flip':'')+'" data-x="fcFlip" aria-label="Virar cartão"><span class="tag">'+esc(MOD[c.m].n)+'</span><div class="fc-f">'+esc(c.f).replace(/\n/g,'<br>')+'</div>'+(FC.flip?'<div class="fc-b"><b>'+esc(c.b).replace(/\n/g,'<br>')+'</b>'+(c.e?'<p class="small muted">'+esc(c.e)+'</p>':'')+'</div>':'<span class="small muted">Toque para ver a resposta</span>')+'</button>'+
+ (FC.flip?'<div class="fc-act"><button class="btn ghost" data-x="fcRate" data-xv="0">Errei<small>amanhã</small></button><button class="btn ghost" data-x="fcRate" data-xv="1">Difícil<small>em 2 dias</small></button><button class="btn pri" data-x="fcRate" data-xv="2">Fácil<small>mais tarde</small></button></div>':'')+'</div>';
+};
+function fcRate(r){var c=FC.queue[FC.i],st=S.priv.fcs,t=dayNum(),s=st[c.id]||{b:0};if(r===0){s.b=0;s.due=t+1}else if(r===1){s.b=Math.max(1,s.b);s.due=t+2}else{s.b=Math.min(5,s.b+1);s.due=t+SRS_INT[Math.max(2,s.b)]}st[c.id]=s;FC.done++;FC.i++;FC.flip=false;if(r>0)S.priv.days[dayKey()]=(S.priv.days[dayKey()]||0)+1;persist();render()}
+
+/* ---------- ANKI ---------- */
+function ankiCard(){return '<div class="card grid"><h3>Levar para o Anki</h3><p class="small muted">Gera um arquivo de texto com frente e verso de todos os cartões, que o Anki importa direto. No Anki: Arquivo > Importar, escolha o arquivo, separador "Tabulação" e marque "Permitir HTML".</p><div class="actions"><select class="in" id="ankiMod" style="flex:1;min-width:180px" aria-label="Módulo para exportar"><option value="">Todos os módulos</option>'+MODULES.map(function(m){return '<option value="'+m.id+'">'+esc(m.n)+'</option>'}).join('')+'</select><button class="btn dark" data-x="anki">Baixar para o Anki</button></div></div>'}
+function ankiExport(mod){
+ var cl=function(t){return String(t||'').replace(/\t/g,' ').replace(/\r?\n/g,'<br>')};
+ var rows=fcDeck(mod).map(function(c){return cl(c.f)+'\t'+cl('<b>'+c.b+'</b>'+(c.e?'<br><br><small>'+c.e+'</small>':''))+'\tUpMED::Neuro::'+norm(MOD[c.m].n).replace(/ /g,'_')});
+ var txt='#separator:tab\n#html:true\n#tags column:3\n'+rows.join('\n');
+ var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='upmed_neuro_'+(mod||'todos')+'_anki.txt';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);toast(rows.length+' cartões exportados.');
+}
+
+/* ---------- eventos ---------- */
+document.addEventListener('click',function(e){
+ var b=e.target.closest('[data-x]');if(!b)return;var x=b.dataset.x,v=b.dataset.xv;
+ if(x==='lv3'){var p=v.split('|'),box=document.getElementById(p[0]);if(!box)return;box.querySelectorAll('[role=tab]').forEach(function(t){t.setAttribute('aria-selected',t===b)});box.querySelectorAll('.lv3-p').forEach(function(d){d.hidden=d.dataset.p!==p[1]});return}
+ if(x==='mtab'){S.modTab={id:S.sub,t:v};S.keepScroll=true;render();return}
+ if(x==='toc'){e.preventDefault();var el=document.getElementById(v);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
+ if(x==='lchk'){var q=v.split('|');S.lchk[q[0]]=+q[1];if(+q[1]===+q[2])sfx('ok');else sfx('bad');S.keepScroll=true;render();return}
+ if(x==='readTrain'){S.priv.c['read_'+v]=Date.now();persist();startModule(v);return}
+ if(x==='flashMod'){fcStart(v);return}
+ if(x==='fcGo'){fcStart($('#fcMod').value);return}
+ if(x==='fcFlip'){if(!FC.flip){FC.flip=true;S.keepScroll=true;render()}return}
+ if(x==='fcRate'){fcRate(+v);return}
+ if(x==='fcAgain'){fcStart(FC.mod);return}
+ if(x==='fcMenu'){FC=null;render();return}
+ if(x==='anki'){ankiExport($('#ankiMod').value);return}
+});
 
 window.UPMED={boot:boot};
 boot();
