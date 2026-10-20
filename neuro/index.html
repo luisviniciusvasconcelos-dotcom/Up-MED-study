@@ -671,6 +671,66 @@ svg.eng{width:100%;height:auto}
 .backbar{display:flex;margin-bottom:-8px}
 .backb{display:inline-flex;align-items:center;gap:6px}
 
+/* v3.2 menu Mais (celular) */
+.msheet{position:fixed;inset:0;z-index:19}
+.msheet[hidden]{display:none}
+@media (min-width:900px){.msheet{display:none!important}}
+.msheet-bg{position:absolute;inset:0;background:rgba(10,24,18,.38);border:0;padding:0;width:100%;cursor:default}
+.msheet-p{position:absolute;left:0;right:0;bottom:0;background:var(--surface);color:var(--ink);border-radius:18px 18px 0 0;padding:14px 12px calc(76px + env(safe-area-inset-bottom,0px));display:grid;gap:2px;box-shadow:0 -8px 30px rgba(0,0,0,.18);animation:msUp .18s ease-out}
+@keyframes msUp{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.msheet-h{display:flex;align-items:center;gap:12px;padding:6px 8px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.msheet-i{display:flex;align-items:center;gap:14px;width:100%;border:0;background:transparent;color:var(--ink);padding:13px 10px;border-radius:12px;font-size:16px;font-weight:600;text-align:left}
+.msheet-i svg{width:22px;height:22px;color:var(--accent)}
+.msheet-i:hover,.msheet-i[aria-current="page"]{background:var(--navActive)}
+
+
+/* v3.2 painel compacto */
+.sec-h{font-size:19px;margin:6px 0 -6px}
+.cont{display:grid;gap:14px;border-left:4px solid var(--accent)}
+.cont-g{display:flex;gap:14px;align-items:flex-start}
+.cont-t{display:grid;gap:6px;min-width:0;flex:1}
+.cont-t h2{font-size:21px;margin:0}
+.cont-t p{margin:0}
+.areas{display:grid;gap:10px}
+.area2{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.area2 summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;cursor:pointer;min-height:56px}
+.area2 summary::-webkit-details-marker{display:none}
+.area2 summary:hover{background:var(--navHover)}
+.a2-t{display:grid;gap:2px;min-width:0}
+.a2-t b{font-size:16px}
+.area2 .chev{flex:0 0 auto;transition:transform .15s;color:var(--muted)}
+.area2[open] .chev{transform:rotate(180deg)}
+.mlist{display:grid;border-top:1px solid var(--line)}
+@media (min-width:900px){.mlist{grid-template-columns:1fr 1fr}.mrow:nth-child(odd){border-right:1px solid var(--line)}}
+.mrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"g t tag" "g m m";column-gap:12px;row-gap:6px;align-items:center;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:inherit;padding:12px 16px;width:100%}
+.mrow:hover{background:var(--navHover)}
+.mrow>.glyph{grid-area:g}
+.mrow-t{grid-area:t;display:grid;gap:2px;min-width:0}
+.mrow-t b{font-size:15px;line-height:1.25}
+.mrow .mtag{grid-area:tag}
+.mrow-m{grid-area:m}
+.mrow-m .meter{margin:0}
+.mtag{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--navActive);color:var(--accent);white-space:nowrap}
+.mtag.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.mtag.soon{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:600}
+
+/* v3.2 barra da aula */
+.lbar{position:sticky;top:0;z-index:15;background:var(--bg,var(--surface));margin:0 -4px;padding:8px 4px 0;display:grid;gap:8px}
+.lbar-r{display:flex;align-items:center;gap:8px;min-width:0}
+.lbar-t{flex:1;min-width:0;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbar-nav{display:flex;gap:6px}
+.lbar-nav .btn{min-width:40px;font-size:18px;line-height:1;padding-inline:10px}
+.lbar-p{height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.lbar-p i{display:block;height:100%;width:0;background:var(--accent);transition:width .1s linear}
+.lbar-list{position:absolute;top:100%;left:4px;right:4px;margin:6px 0 0;padding:14px 14px 14px 34px;display:grid;gap:8px;max-height:60vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.14);font-size:15px}
+.lbar-list[hidden]{display:none}
+.lbar-list a{color:var(--ink);text-decoration:none}
+@media (min-width:1100px){.lbar-toc{display:none}}
+.lsec,.lend{scroll-margin-top:84px}
+.resume{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px}
+@media (min-width:1100px){.toc{top:84px}}
+.toc li.cur a,.lbar-list li.cur a{color:var(--accent);font-weight:700}
+
 </style>
 </head>
 <body>
@@ -710,8 +770,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.1.4';
+var APP_VERSION='3.2.0';
 var VERSIONS=[
+ {v:'3.2.0',date:'20/10/2026',changes:['Painel mais curto: os 32 módulos viraram uma lista compacta agrupada por área, que abre e fecha (a área em que você está estudando já vem aberta e o painel lembra o que você deixou aberto). No celular o painel ficou com menos da metade da altura.','Cartão Continuar de onde parou no topo do painel: leva direto à seção da aula em que você parou e sugere o próximo passo (terminar a aula, treinar o módulo ou seguir para o próximo).','Cada módulo mostra se tem aula, se a aula já foi lida ou se a aula ainda vem num próximo lote.','Menu do celular com o botão Mais: Perfil, Buscar, Caderno, Flashcards e Conquistas a um toque de qualquer tela.','Aula com barra fixa no topo: seção atual, barra de progresso da leitura, botões de seção anterior e próxima e índice que abre por cima do texto. A seção atual fica destacada no índice.','A plataforma guarda a seção em que você parou e oferece Continuar dali ao reabrir a aula.'],tests:['Painel no celular e no computador: abrir e fechar áreas, recarregar e conferir que o estado ficou.','Continuar a aula pelo cartão do painel e conferir que abre na seção certa.','Barra da aula: rolar e conferir a seção e o progresso; usar anterior, próxima e o índice.','Menu Mais: abrir, navegar, fechar tocando fora.','Regressões de questões, estações, revisão e navegação.'],analysis:'O painel tinha cerca de 7 telas de altura no celular, com os módulos no fim; agora a navegação principal fica no topo e o restante (estação, revisão e desempenho) vem depois. Próximo passo sugerido: busca acessível dentro das aulas e confirmação ao sair de uma prova pela metade.'},
  {v:'3.1.4',date:'20/10/2026',changes:['Abertura mais segura: se o servidor demorar ou der erro ao carregar o progresso, a plataforma mostra uma mensagem com o motivo e um botão Tentar de novo, em vez de ficar carregando para sempre.','Proteção do progresso: se a leitura falhar, nada é gravado por cima do seu progresso salvo.'],tests:['Abrir com o servidor lento e conferir a mensagem após alguns segundos.','Abrir normalmente e conferir o painel.'],analysis:'Relato de tela presa em carregamento. Qualquer erro durante a abertura deixava a tela parada sem explicação; agora o erro aparece na tela e pode ser enviado em print.'},
  {v:'3.1.3',date:'20/10/2026',changes:['Revisão do dia: questões erradas entram na revisão na hora, em vez de só no dia seguinte (inclusive as que você errou antes desta versão). Acertos continuam voltando em 3, 7, 16 e 35 dias.','O cartão da revisão mostra quantas questões voltam amanhã e explica como a fila funciona.'],tests:['Errar uma questão e conferir que o número da revisão sobe na hora.','Acertar a questão na revisão e conferir que ela sai da fila.','Acertar uma questão nova e conferir que ela não entra hoje.'],analysis:'A revisão funcionava, mas só liberava questões no dia seguinte; no primeiro dia de uso o cartão ficava sempre zerado e parecia quebrado.'},
  {v:'3.1.2',date:'20/10/2026',changes:['Estação do dia fixa: a estação sorteada fica gravada no seu progresso e só muda à meia-noite. Antes, ela podia trocar de imagem e estrutura ao longo do dia quando as estações com foto terminavam de carregar ou quando o conjunto de estações mudava, e continuava aparecendo como respondida.'],tests:['Responder a estação, recarregar a página e conferir que a mesma estação continua, já respondida.','Adicionar estações novas no mesmo dia e conferir que a estação do dia não muda.','Simular a virada do dia e conferir que uma nova estação aparece liberada.'],analysis:'O sorteio dependia do tamanho da lista de estações, que muda quando as fotos do Firebase chegam depois da primeira tela. Gravar a escolha do dia resolve e ainda sincroniza entre aparelhos.'},
@@ -3881,6 +3942,7 @@ var IC={
  caderno:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>',
  flash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 6V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg>',
  conquistas:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="14" r="6"/><path d="M8 3h3l1 5M16 3h-3l-1 5"/></svg>',
+ mais:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>',
  perfil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>'
 };
 var NAV=[['painel','Painel'],['estudar','Questões'],['games','Games'],['ranking','Ranking'],['perfil','Perfil']];
@@ -3948,8 +4010,13 @@ function shell(inner){
  var nav=function(list){return list.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
  return '<div class="shell"><aside class="side"><div class="logo">'+LOGO+'<span class="wmark"><b>Up-MED</b><small>study</small></span></div>'+nav(NAV)+'<div class="side-sep"></div>'+nav(NAV2)+
  '<div class="foot">'+avatar(S.user,32)+'<span><b>'+esc(S.user.name)+'</b><br><span style="opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</span></span></div></aside>'+
- '<main class="main" id="main"><div class="page">'+backBar()+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV)+'</nav></div>';
+ '<main class="main" id="main"><div class="page">'+backBar()+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV.slice(0,4))+moreBtn()+'</nav>'+moreSheet()+'</div>';
 }
+var MORE=[['perfil','Perfil']].concat(NAV2);
+function moreBtn(){var on=MORE.some(function(n){return n[0]===S.view});return '<button class="navb" data-more="1" aria-haspopup="true" aria-expanded="false" '+(on?'aria-current="page"':'')+'>'+IC.mais+'<span>Mais</span></button>'}
+function moreSheet(){return '<div class="msheet" id="msheet" hidden><button class="msheet-bg" data-more="0" aria-label="Fechar menu" tabindex="-1"></button><div class="msheet-p" role="menu" aria-label="Mais opções"><div class="msheet-h">'+avatar(S.user,36)+'<div><b>'+esc(S.user.name)+'</b><div class="small muted">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</div></div></div>'+MORE.map(function(n){return '<button class="msheet-i" role="menuitem" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')+'</div></div>'}
+function toggleMore(open){var m=$('#msheet');if(!m)return;if(open==null)open=m.hidden;m.hidden=!open;var b=document.querySelector('.bottom [data-more]');if(b)b.setAttribute('aria-expanded',String(open))}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')toggleMore(false)});
 function avatar(u,size){size=size||36;var ini=String(u&&u.name||'?').trim().split(/\s+/).map(function(w){return w[0]}).slice(0,2).join('').toUpperCase();return u&&u.av?'<img class="av" src="'+esc(u.av)+'" alt="" width="'+size+'" height="'+size+'" style="width:'+size+'px;height:'+size+'px">':'<span class="av" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*.4)+'px">'+esc(ini)+'</span>'}
 function render(){
  if(!S.user){renderAuth();return}
@@ -4289,6 +4356,7 @@ document.addEventListener('click',function(e){
  if(sv&&S.view==='pratica'&&PR&&PR.phase==='play'&&PR.mode==='tap'){var it2=PR.items[PR.i];if(!it2.done){var sid=sv.dataset.id;prAnswer(sid===it2.pin.sid,{tapSid:sid,tapName:(SCHM[sid]||{}).n||''})}return}
  if(!b)return;
  var d=b.dataset;
+ if(d.more!=null){toggleMore(d.more==='1'?null:false);return}
  if(d.back){backClick();return}
  if(d.nav){resetFor(d.nav);go(d.nav);if(d.nav==='games'||d.nav==='pratica'||d.nav==='editor')refreshStations();return}
  if(d.mod){go('modulo',d.mod);return}
@@ -4505,6 +4573,39 @@ function paintSD(){if(!SD)return;var st=SD.st,pin=SD.pin,res=S.priv.c.sd&&S.priv
  else{var box=$('#sdfig .zoomer');if(!box)return;var d=document.createElement('span');d.className='pin pulse';d.style.left=(pin.x*100)+'%';d.style.top=(pin.y*100)+'%';box.appendChild(d)}}
 
 /* ---------- PAINEL ---------- */
+function plain(t){return String(t||'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/_(.+?)_/g,'$1')}
+function lsGetSafe(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function lsSetSafe(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function contCard(){
+ var L=S.priv.c.last;if(L&&!MOD[L.m])L=null;
+ var id,kicker,title,sub,btns;
+ if(!L){id=MODULES[0].id;var L0=LESSON[id];kicker='Comece por aqui';title=MOD[id].n;sub=L0?'Aula com '+L0.length+' seções, figuras e questões de fixação.':MOD[id].s;
+  btns=(L0?'<button class="btn pri" data-x="cont" data-xv="'+id+'|0">Abrir a aula</button>':'')+'<button class="btn ghost" data-x="train" data-xv="'+id+'">Treinar 10 questões</button>'}
+ else{id=L.m;var Ls=LESSON[id],s=modStats(id),read=S.priv.c['read_'+id],idx=MODULES.findIndex(function(x){return x.id===id}),nx=MODULES.slice(idx+1).find(function(x){return LESSON[x.id]})||MODULES[idx+1];
+  kicker='Continuar de onde parou';title=MOD[id].n;
+  if(Ls&&!read){var sec=Math.max(0,Math.min(L.s||0,Ls.length-1));sub='Aula · seção '+(sec+1)+' de '+Ls.length+': '+plain(Ls[sec].t);
+   btns='<button class="btn pri" data-x="cont" data-xv="'+id+'|'+sec+'">Continuar a aula</button><button class="btn ghost" data-x="train" data-xv="'+id+'">Treinar este módulo</button>'}
+  else if(s.a>=10&&s.acc>=70&&nx){sub='Você acertou '+s.acc+'% neste módulo. Próximo passo: '+nx.n+'.';
+   btns='<button class="btn pri" data-mod="'+nx.id+'">Ir para o próximo módulo</button><button class="btn ghost" data-x="train" data-xv="'+id+'">Treinar mais este</button>'}
+  else{sub=(Ls?'Aula lida. ':'')+(s.a?s.acc+'% de acerto em '+s.a+' respostas. ':'')+'Próximo passo: fixar com questões.';
+   btns='<button class="btn pri" data-x="train" data-xv="'+id+'">Treinar 10 questões</button><button class="btn ghost" data-mod="'+id+'">Abrir o módulo</button>'}}
+ var pr=modStats(id);
+ return '<section class="card cont"><div class="cont-g">'+glyph(id,48)+'<div class="cont-t"><span class="eyebrow">'+kicker+'</span><h2>'+esc(title)+'</h2><p class="small muted">'+esc(sub)+'</p>'+meter(pr.acc,pr.a)+'</div></div><div class="actions">'+btns+'</div></section>';
+}
+function modList(){
+ var L=S.priv.c.last,curArea=L&&AREA_OF[L.m]?AREA_OF[L.m].id:AREAS[0].id;
+ var open=lsGetSafe('upmed_areas',null);
+ return '<h2 class="sec-h">Módulos</h2><div class="areas">'+AREAS.map(function(a){
+  var isOpen=open?!!open[a.id]:a.id===curArea;
+  var tot=0,seen=0,les=0;a.mods.forEach(function(id){var s=modStats(id);tot+=s.tot;seen+=s.seen;if(LESSON[id])les++});
+  return '<details class="area2" data-area="'+a.id+'" '+(isOpen?'open':'')+'><summary><span class="a2-t"><b>'+esc(a.n)+'</b><span class="small muted num">'+a.mods.length+' módulos · '+(les?les+' com aula · ':'')+seen+'/'+tot+' questões vistas</span></span><svg class="chev" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="mlist">'+
+  a.mods.map(function(id){var m=MOD[id],s=modStats(id),Ls=LESSON[id],read=S.priv.c['read_'+id];
+   var tag=Ls?(read?'<span class="mtag ok">Aula lida</span>':'<span class="mtag">Aula</span>'):'<span class="mtag soon">Aula em breve</span>';
+   return '<button class="mrow" data-mod="'+id+'">'+glyph(id,34)+'<span class="mrow-t"><b>'+esc(m.n)+'</b><span class="small muted num">'+s.seen+'/'+s.tot+' vistas'+(s.a?' · '+s.acc+'% de acerto':'')+'</span></span>'+tag+'<span class="mrow-m">'+meter(s.acc,s.a)+'</span></button>'}).join('')+
+  '</div></details>'}).join('')+'</div>';
+}
+document.addEventListener('toggle',function(e){var d=e.target;if(!d||!d.dataset||!d.dataset.area)return;var o=lsGetSafe('upmed_areas',null);if(!o){o={};document.querySelectorAll('details[data-area]').forEach(function(x){o[x.dataset.area]=x.open})}o[d.dataset.area]=d.open;lsSetSafe('upmed_areas',o)},true);
+
 VIEWS.painel=function(){
  var st=S.priv.stats,first=S.user.name.split(' ')[0],due=dueList().length,stk=streak();
  if(!S.scores)loadScores();var pos=myPos();
@@ -4514,7 +4615,8 @@ VIEWS.painel=function(){
  return (Store.mode==='local'?'<div class="banner">Versão de teste: progresso e ranking ficam salvos só neste aparelho e navegador.</div>':'')+
  '<div class="top"><div class="hello">'+avatar(S.user,52)+'<div><div class="eyebrow">Neuroanatomia · '+QB.length+' questões · '+MODULES.length+' módulos</div><h1>Olá, '+esc(first)+'</h1></div></div>'+
  '<div class="actions"><button class="btn ghost sm" data-nav="busca">'+IC.busca+'Buscar</button><button class="btn ghost sm" data-nav="caderno">'+IC.caderno+'Caderno</button></div></div>'+
- '<div class="hero-grid">'+
+ contCard()+modList()+
+ '<h2 class="sec-h">Hoje</h2><div class="hero-grid">'+
   '<section class="card sdcard"><div class="row-b"><span class="tag amb">Estação do dia</span><span class="small muted">'+esc(SD.st.t)+'</span></div>'+
   '<div class="sd-body"><div id="sdfig" class="sdfig">'+figure(SD.st)+'</div><div class="grid" style="gap:8px;align-content:start"><h3>Qual é a estrutura marcada?</h3>'+
   SD.opts.map(function(o,k){var c='';if(res){if(o===SD.pin.n)c='right';else if(o===res.pick)c='wrong'}return '<button class="opt '+c+'" data-x="sd" data-xv="'+esc(o)+'" '+(res?'disabled':'')+'><span class="k">'+'ABCD'[k]+'</span><span>'+esc(o)+'</span></button>'}).join('')+
@@ -4522,11 +4624,11 @@ VIEWS.painel=function(){
   '<section class="card rev"><span class="eyebrow">Revisão do dia</span><b class="big num">'+due+'</b><p class="small muted">'+(due?(due===1?'questão':'questões')+' para revisar agora. Os erros entram aqui na hora; os acertos voltam em alguns dias, no momento certo para fixar.':'Nada pendente agora. Questões que você errar aparecem aqui na hora; as que acertar voltam em alguns dias.')+(dueSoon(1)?' Amanhã: '+dueSoon(1)+'.':'')+'</p><button class="btn pri" data-x="review" '+(due?'':'disabled')+'>Revisar agora</button>'+
   '<div class="streak"><span class="eyebrow">Sequência</span><b class="num">'+stk+' dia'+(stk===1?'':'s')+'</b><span class="small muted">Recorde: '+bestStreak()+'</span></div>'+heatmap()+'</section>'+
  '</div>'+
- '<div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Questões</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div><div class="stat"><span class="eyebrow">Posição</span><b>'+(pos?pos+'º':'–')+'</b></div></div>'+
+ '<h2 class="sec-h">Seu desempenho</h2><div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Questões</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div><div class="stat"><span class="eyebrow">Posição</span><b>'+(pos?pos+'º':'–')+'</b></div></div>'+
  '<div class="grid g2"><section class="card grid"><div class="row-b"><h3>Acerto por semana</h3><span class="small muted">últimas 8 semanas</span></div>'+accChart()+'</section>'+
  '<section class="card grid"><h3>Seus pontos fracos</h3>'+(weak.length?weak.map(function(w){return '<div class="weak">'+glyph(w.m.id,36)+'<div style="min-width:0"><b class="small">'+esc(w.m.n)+'</b>'+meter(w.s.acc,w.s.a)+'<span class="small muted num">'+w.s.acc+'% em '+w.s.a+' respostas</span></div><button class="btn ghost sm" data-x="train" data-xv="'+w.m.id+'">Treinar</button></div>'}).join(''):'<p class="small muted">Responda pelo menos 5 questões de um módulo para ver onde precisa reforçar.</p>')+
  '<div class="actions"><button class="btn dark sm" data-act="sim">Simulado misto</button><button class="btn ghost sm" data-x="weekly">Desafio da semana</button></div></section></div>'+
- AREAS.map(function(a){return '<section class="area"><div class="area-h"><span class="dot" style="background:'+a.c+'"></span><h2>'+a.n+'</h2></div><div class="grid g3">'+a.mods.map(function(id){var m=MOD[id],s=modStats(id);return '<button class="mod" data-mod="'+id+'">'+glyph(id)+'<div class="mod-t"><h3>'+esc(m.n)+'</h3><p class="muted small">'+esc(m.s)+'</p></div>'+meter(s.acc,s.a)+'<div class="row small muted num"><span>'+s.seen+'/'+s.tot+' vistas</span><span>'+(s.a?s.acc+'% de acerto':'não iniciado')+'</span></div></button>'}).join('')+'</div></section>'}).join('');
+ '';
 };
 
 /* ---------- MÓDULO (resumo + treino) ---------- */
@@ -4900,6 +5002,7 @@ VIEWS.modulo=function(){
  var favs=QB.filter(function(q){return q.m===id&&S.priv.fav[q.id]}).length,errs=QB.filter(function(q){return q.m===id&&S.priv.errs[q.id]}).length;
  var idx=MODULES.findIndex(function(x){return x.id===id}),prev=MODULES[idx-1],next=MODULES[idx+1];
  var read=S.priv.c['read_'+id];
+ var LL=S.priv.c.last;if(!LL||LL.m!==id){S.priv.c.last={m:id,s:0,t:Date.now()};afterFns.push(function(){persist()})}else LL.t=Date.now();
  var head='<div class="top"><div class="hello">'+glyph(id,56)+'<div><div class="eyebrow">Módulo '+(idx+1)+' de '+MODULES.length+' · '+esc(AREA_OF[id].n)+'</div><h1>'+esc(m.n)+'</h1></div></div><button class="btn ghost sm" data-back="1">Voltar</button></div>'+
  '<div class="stats"><div class="stat"><span class="eyebrow">Questões</span><b>'+s.tot+'</b></div><div class="stat"><span class="eyebrow">Vistas</span><b>'+s.seen+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+(s.a?s.acc+'%':'–')+'</b></div><div class="stat"><span class="eyebrow">Aula</span><b>'+(Ls?(read?'Lida':'Nova'):'Em breve')+'</b></div></div>'+
  '<div class="chips tabs2">'+[['aula','Aula'],['resumo','Resumo'],['treino','Treinar']].map(function(t){return '<button class="chip" data-x="mtab" data-xv="'+t[0]+'" aria-pressed="'+(tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>';
@@ -4907,9 +5010,16 @@ VIEWS.modulo=function(){
  if(tab==='aula'){
   if(!Ls)body='<div class="card"><p class="muted">A aula completa deste módulo chega num próximo lote. Por enquanto, use o resumo e as questões.</p></div>';
   else{
-   body='<div class="lesson-wrap"><nav class="toc card" aria-label="Seções da aula"><span class="cl-t">Nesta aula</span><ol>'+Ls.map(function(sec,i){return '<li><a href="#s'+i+'" data-x="toc" data-xv="s'+i+'">'+inl(sec.t)+'</a></li>'}).join('')+'</ol></nav><article class="lesson">'+
+   var LS=S.priv.c.last,resume=(S.lessonGoto==null&&LS&&LS.m===id&&LS.s>0&&!read)?LS.s:-1;
+   var goto=S.lessonGoto;S.lessonGoto=null;
+   if(goto!=null)afterFns.push(function(){setTimeout(function(){var el=document.getElementById('s'+goto);if(el)el.scrollIntoView({block:'start'});lbarUpdate()},30)});
+   afterFns.push(function(){setTimeout(lbarUpdate,40)});
+   body='<div class="lbar" id="lbar" data-n="'+Ls.length+'"><div class="lbar-r"><button class="btn ghost sm lbar-toc" data-x="ltoc" aria-expanded="false">Índice</button><span class="lbar-t" id="lbarT">Seção 1 de '+Ls.length+'</span><span class="lbar-nav"><button class="btn ghost sm" data-x="lsec" data-xv="-1" aria-label="Seção anterior">‹</button><button class="btn ghost sm" data-x="lsec" data-xv="1" aria-label="Próxima seção">›</button></span></div><div class="lbar-p"><i id="lbarP"></i></div>'+
+   '<ol class="lbar-list card" id="lbarList" hidden>'+Ls.map(function(sec,i){return '<li><a href="#s'+i+'" data-x="toc" data-xv="s'+i+'">'+inl(sec.t)+'</a></li>'}).join('')+'</ol></div>'+
+   (resume>0?'<div class="card resume"><span>Você parou na seção '+(resume+1)+': <b>'+inl(Ls[resume].t)+'</b></span><button class="btn pri sm" data-x="toc" data-xv="s'+resume+'">Continuar dali</button></div>':'')+
+   '<div class="lesson-wrap"><nav class="toc card" aria-label="Seções da aula"><span class="cl-t">Nesta aula</span><ol>'+Ls.map(function(sec,i){return '<li><a href="#s'+i+'" data-x="toc" data-xv="s'+i+'">'+inl(sec.t)+'</a></li>'}).join('')+'</ol></nav><article class="lesson">'+
    Ls.map(function(sec,si){return '<section id="s'+si+'" class="lsec"><div class="lsec-n">'+(si+1)+'</div><div class="lsec-b"><h2>'+inl(sec.t)+'</h2>'+sec.b.map(function(b,bi){return block(b,id,si,bi)}).join('')+'</div></section>'}).join('')+
-   '<div class="card lend"><h3>Fim da aula</h3><p class="muted">Fixe o conteúdo agora com as questões do módulo.</p><div class="actions"><button class="btn pri" data-x="readTrain" data-xv="'+id+'">Marcar como lida e treinar</button><button class="btn ghost" data-x="flashMod" data-xv="'+id+'">Flashcards do módulo</button></div></div></article></div>';
+   '<div class="card lend" id="lend"><h3>Fim da aula</h3><p class="muted">Fixe o conteúdo agora com as questões do módulo.</p><div class="actions"><button class="btn pri" data-x="readTrain" data-xv="'+id+'">Marcar como lida e treinar</button><button class="btn ghost" data-x="flashMod" data-xv="'+id+'">Flashcards do módulo</button></div></div></article></div>';
   }
  } else if(tab==='resumo'){
   body='<div class="grid g2"><section class="card grid resumo"><h2>Pontos-chave</h2><ul>'+R.pts.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></section><section class="card grid resumo clin"><h2>Correlação clínica</h2><ul>'+R.clin.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></section></div>';
@@ -4952,12 +5062,23 @@ function ankiExport(mod){
  var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='upmed_neuro_'+(mod||'todos')+'_anki.txt';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);toast(rows.length+' cartões exportados.');
 }
 
+/* ---------- barra da aula ---------- */
+function lbarCur(){var secs=document.querySelectorAll('.lesson .lsec'),cur=0;for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<Math.max(140,window.innerHeight*0.4))cur=i}return cur}
+function lbarUpdate(){var bar=$('#lbar');if(!bar||S.view!=='modulo')return;var n=+bar.dataset.n,cur=lbarCur();
+ var art=document.querySelector('.lesson');if(art){var r=art.getBoundingClientRect(),h=Math.max(1,r.height-window.innerHeight*0.6),p=Math.min(1,Math.max(0,-r.top/h));$('#lbarP').style.width=(p*100).toFixed(1)+'%'}
+ var secEl=document.querySelectorAll('.lesson .lsec')[cur],t=secEl?secEl.querySelector('h2').textContent:'';$('#lbarT').textContent='Seção '+(cur+1)+' de '+n+(t?' · '+t:'');document.querySelectorAll('.toc li,.lbar-list li').forEach(function(li){var a=li.querySelector('a');li.classList.toggle('cur',!!a&&a.dataset.xv==='s'+cur)});
+ var L=S.priv.c.last;if(L&&L.m===S.sub&&L.s!==cur){L.s=cur;L.t=Date.now();persist()}}
+var _lbRaf=0;window.addEventListener('scroll',function(){if(_lbRaf)return;_lbRaf=requestAnimationFrame(function(){_lbRaf=0;lbarUpdate()})},{passive:true});
+
 /* ---------- eventos ---------- */
 document.addEventListener('click',function(e){
  var b=e.target.closest('[data-x]');if(!b)return;var x=b.dataset.x,v=b.dataset.xv;
  if(x==='lv3'){var p=v.split('|'),box=document.getElementById(p[0]);if(!box)return;box.querySelectorAll('[role=tab]').forEach(function(t){t.setAttribute('aria-selected',t===b)});box.querySelectorAll('.lv3-p').forEach(function(d){d.hidden=d.dataset.p!==p[1]});return}
  if(x==='mtab'){S.modTab={id:S.sub,t:v};S.keepScroll=true;render();return}
- if(x==='toc'){e.preventDefault();var el=document.getElementById(v);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
+ if(x==='toc'){e.preventDefault();var el=document.getElementById(v);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});var ll=$('#lbarList');if(ll){ll.hidden=true;var tb=document.querySelector('.lbar-toc');if(tb)tb.setAttribute('aria-expanded','false')}return}
+ if(x==='ltoc'){var l2=$('#lbarList');if(l2){l2.hidden=!l2.hidden;b.setAttribute('aria-expanded',String(!l2.hidden))}return}
+ if(x==='lsec'){var cur=lbarCur(),n=+($('#lbar')||{dataset:{n:0}}).dataset.n,t=cur+(+v);var tg=t>=n?document.getElementById('lend'):document.getElementById('s'+Math.max(0,t));if(tg)tg.scrollIntoView({behavior:'smooth',block:'start'});return}
+ if(x==='cont'){var cp=v.split('|');S.modTab={id:cp[0],t:'aula'};S.lessonGoto=+cp[1]||0;go('modulo',cp[0]);return}
  if(x==='lchk'){var q=v.split('|');S.lchk[q[0]]=+q[1];if(+q[1]===+q[2])sfx('ok');else sfx('bad');S.keepScroll=true;render();return}
  if(x==='readTrain'){S.priv.c['read_'+v]=Date.now();persist();startModule(v);return}
  if(x==='flashMod'){fcStart(v);return}
