@@ -660,6 +660,12 @@ html,body{background:var(--bg)}
 .s-vein{fill:none;stroke:#3d5d9b;stroke-width:4;stroke-linecap:round}
 .s-zone{fill:color-mix(in srgb,var(--accent) 12%,transparent);stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
 .s-txt{font-family:var(--f-mono);font-size:8px;fill:var(--muted);letter-spacing:.06em}
+/* ===== v3.1: ilustrações em relevo ===== */
+svg.eng{width:100%;height:auto}
+.eg.hl .tb,.eg.hl .tb0{stroke:var(--hi)!important}.eg.ok .tb{stroke:var(--ok)!important}.eg.bad .tb{stroke:var(--bad)!important}
+.eg.hl .ef,.ef.hl{fill:var(--hi)!important}.eg.ok .ef,.ef.ok{fill:var(--ok)!important}.eg.bad .ef,.ef.bad{fill:var(--bad)!important}
+.ez{fill:transparent;stroke:none}.ez.hl{fill:var(--hi)!important;fill-opacity:.45!important}.ez.ok{fill:var(--ok)!important;fill-opacity:.4!important}.ez.bad{fill:var(--bad)!important;fill-opacity:.4!important}
+.lfig svg.eng{max-height:none}
 
 </style>
 </head>
@@ -700,8 +706,11 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.0.0';
+var APP_VERSION='3.1.0';
 var VERSIONS=[
+ {v:'3.1.0',date:'20/10/2026',changes:['Novo padrão de ilustração anatômica, desenhado do zero: tons de cinza, relevo, giros e folhas com volume, e nomes escritos dos dois lados com linhas tracejadas.','Redesenhados: hemisfério cerebral em vista lateral (giros e sulcos), face medial em corte sagital, base do encéfalo, tronco encefálico em vista anterior e dorsal (IV ventrículo), cerebelo em vista superior (novo), em corte sagital e em vista inferior, e medula em corte transversal (estrutura e tratos).','Dura-máter e seios, liquor e cisternas, ventrículos e medula em vista posterior passaram para o mesmo padrão de cores.','Nas aulas as figuras vêm com os nomes escritos. Na prova prática a mesma figura aparece sem nomes, para você identificar.','Nova estação: cerebelo em vista superior.'],
+  tests:['Abrir as aulas dos módulos 4, 5, 6 e 7 e conferir as figuras com nomes.','Jogar a prova prática nos modos Identifique e Localize com as estações novas.','Conferir as figuras no celular, com zoom.'],
+  analysis:'Os esquemas funcionais (fluxos, etapas e gráficos) continuam coloridos, porque as cores separam aferente e eferente e as fases de cada processo. A dura-máter, o liquor e os ventrículos seguem esquemáticos por natureza, só com o novo padrão de cores. As figuras dos próximos módulos já serão feitas neste padrão.'},
  {v:'3.0.0',date:'20/10/2026',changes:['Plataforma reorganizada em 32 módulos que seguem a ordem dos capítulos da neuroanatomia funcional, agrupados em sete áreas. O progresso das questões já respondidas foi mantido.','Parte 1 completa (módulos 1 a 8): evolução do sistema nervoso, desenvolvimento e organização geral, tecido nervoso, medula, tronco encefálico e cerebelo, diencéfalo, telencéfalo, meninges e liquor. Todos têm aula nova ou ampliada, resumo e questões em três níveis.','Banco ampliado de 265 para 421 questões.','Novos esquemas detalhados, também como estações da prova prática: assoalho do IV ventrículo, cerebelo em corte sagital e em vista inferior, face lateral e base do cérebro, face medial redesenhada, ventrículos, seios da dura-máter e cisternas do liquor.','Figuras novas nas aulas: evolução e arcos reflexos, migração neuronal, potencial de ação, corte da medula, punção lombar, crescimento da coluna, espaços meníngeos, hérnias e hematomas.','Terminologia padronizada (fórnice, liquor, unco).','Duelo direto entre colegas pela plataforma, sem código: desafie, responda e veja o placar dos dois.'],
   tests:['Abrir um módulo da Parte 1, ler a aula e conferir as figuras numeradas.','Jogar as novas estações esquemáticas em Prova prática.','Desafiar um colega no Duelo e responder o desafio na outra conta.','Conferir se o histórico de questões respondidas continua aparecendo no Caderno.'],
   analysis:'Os módulos 9 a 32 já aparecem na nova ordem, mas suas aulas completas e o reforço de questões chegam nas próximas partes. Até lá alguns têm poucas questões, e quatro (SNA: anatomia, Ponte, Neuroimagem e Atlas) ainda não têm nenhuma. As estatísticas por módulo dos módulos que foram divididos recomeçam do zero. O total de acertos e o histórico de cada questão continuam valendo.'},
@@ -2503,6 +2512,628 @@ FIG.hematomas=function(){
  '</svg>';
 };
 
+/* v3.1 — padrão de ilustração anatômica: desenho em tons de cinza com volume, relevo e nomes com linhas tracejadas.
+   Cada figura é desenhada do zero (sem cópia de ilustrações de livros). */
+var EG={n:0};
+function eDefs(p){
+ return '<defs>'+
+ '<radialGradient id="'+p+'sf" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#f6f3ee"/><stop offset=".55" stop-color="#d8d1c6"/><stop offset="1" stop-color="#8f877b"/></radialGradient>'+
+ '<radialGradient id="'+p+'sf2" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#ece7df"/><stop offset=".7" stop-color="#c3bbaf"/><stop offset="1" stop-color="#7c7468"/></radialGradient>'+
+ '<linearGradient id="'+p+'lh" x1="0" x2="1"><stop offset="0" stop-color="#6f675c"/><stop offset=".22" stop-color="#d9d2c7"/><stop offset=".5" stop-color="#f1ede7"/><stop offset=".78" stop-color="#d9d2c7"/><stop offset="1" stop-color="#6f675c"/></linearGradient>'+
+ '<linearGradient id="'+p+'lv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f1ede7"/><stop offset=".6" stop-color="#cfc8bc"/><stop offset="1" stop-color="#7c7468"/></linearGradient>'+
+ '<radialGradient id="'+p+'vig" cx="50%" cy="42%" r="60%"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>'+
+ '<radialGradient id="'+p+'nuc" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#8d857a"/><stop offset="1" stop-color="#4a443c"/></radialGradient>'+
+ '<radialGradient id="'+p+'wm" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#fbfaf7"/><stop offset="1" stop-color="#ddd8cf"/></radialGradient>'+
+ '<linearGradient id="'+p+'nv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f4efe4"/><stop offset=".5" stop-color="#d9cfbd"/><stop offset="1" stop-color="#9c907c"/></linearGradient>'+
+ '<filter id="'+p+'sh" x="-10%" y="-10%" width="120%" height="125%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="4"/><feComponentTransfer><feFuncA type="linear" slope=".35"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'+
+ '<filter id="'+p+'soft"><feGaussianBlur stdDeviation="1.2"/></filter><filter id="'+p+'blur" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="3"/></filter>'+
+ '<filter id="'+p+'grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .10 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>'+
+ '</defs>';
+}
+/* gerador pseudoaleatório determinístico */
+function eRng(seed){var s=seed||1;return function(){s=(s*16807)%2147483647;return s/2147483647}}
+/* linha suave por pontos (Catmull-Rom → Bézier) */
+function eSmooth(pts,closed){
+ if(pts.length<2)return '';var P=pts.slice();if(closed){P=[pts[pts.length-1]].concat(pts,[pts[0],pts[1]])}else{P=[pts[0]].concat(pts,[pts[pts.length-1]])}
+ var d='M'+P[1][0].toFixed(1)+' '+P[1][1].toFixed(1);
+ for(var i=1;i<P.length-2;i++){var p0=P[i-1],p1=P[i],p2=P[i+1],p3=P[i+2];
+  d+=' C'+(p1[0]+(p2[0]-p0[0])/6).toFixed(1)+' '+(p1[1]+(p2[1]-p0[1])/6).toFixed(1)+' '+(p2[0]-(p3[0]-p1[0])/6).toFixed(1)+' '+(p2[1]-(p3[1]-p1[1])/6).toFixed(1)+' '+p2[0].toFixed(1)+' '+p2[1].toFixed(1)}
+ return d+(closed?' Z':'');
+}
+/* ondula uma polilinha (giros) */
+function eWig(pts,amp,freq,seed){
+ var r=eRng(seed||5),out=[];
+ for(var i=0;i<pts.length-1;i++){var a=pts[i],b=pts[i+1],n=Math.max(2,Math.round(Math.hypot(b[0]-a[0],b[1]-a[1])/(freq||14)));
+  var nx=-(b[1]-a[1]),ny=b[0]-a[0],L=Math.hypot(nx,ny)||1;nx/=L;ny/=L;
+  for(var k=0;k<n;k++){var t=k/n,j=(r()-.5)*2*amp;out.push([a[0]+(b[0]-a[0])*t+nx*j,a[1]+(b[1]-a[1])*t+ny*j])}}
+ out.push(pts[pts.length-1]);return out;
+}
+/* giro em relevo: tubo com sombra, corpo e brilho */
+function eTube(d,w,id,cls){
+ return '<g'+(id?' data-id="'+id+'" class="ln eg '+(cls||'')+'"':' class="eg"')+'>'+
+ '<path class="tb tb0" d="'+d+'" stroke="#3d372f" stroke-width="'+(w+3)+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path class="tb tb1" d="'+d+'" stroke="#a79f93" stroke-width="'+w+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path class="tb tb2" d="'+d+'" stroke="#cdc6bb" stroke-width="'+(w*0.62).toFixed(1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path class="tb tb3" d="'+d+'" stroke="#ece8e1" stroke-width="'+(w*0.26).toFixed(1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-1,-1.2)"/>'+
+ '</g>'+(id?'<path class="hit" data-id="'+id+'" d="'+d+'" style="stroke-width:'+(w+6)+'"/>':'');
+}
+/* sulco desenhado (linha escura com borda clara) */
+function eSulc(d,id,w){
+ w=w||2.4;
+ return '<g'+(id?' data-id="'+id+'" class="ln eg"':' class="eg"')+'><path class="tb" d="'+d+'" stroke="#1f1b17" stroke-width="'+w+'" fill="none" stroke-linecap="round"/><path class="tb" d="'+d+'" stroke="#fff" stroke-opacity=".55" stroke-width="1" fill="none" stroke-linecap="round" transform="translate(1.2,1.4)"/></g>'+(id?'<path class="hit" data-id="'+id+'" d="'+d+'"/>':'');
+}
+/* giro realista: brilho difuso no centro; faixa transparente que acende quando a estrutura é marcada */
+function eGyr(d,w,id,p){
+ return '<path d="'+d+'" stroke="#fff" stroke-opacity=".6" stroke-width="'+(w*.55).toFixed(1)+'" fill="none" stroke-linecap="round" filter="url(#'+p+'blur)" style="pointer-events:none"/>'+
+ (id?'<g data-id="'+id+'" class="ln eg"><path class="tb" d="'+d+'" stroke="transparent" stroke-opacity=".55" stroke-width="'+w+'" fill="none" stroke-linecap="round"/></g><path class="hit" data-id="'+id+'" d="'+d+'" style="stroke-width:'+w+'"/>':'');
+}
+/* sulco realista: sombra difusa, fenda escura e borda iluminada */
+function eSul(d,id,w,p){
+ w=w||2;
+ return '<path d="'+d+'" stroke="#2b2620" stroke-opacity=".5" stroke-width="'+(w*5.5).toFixed(1)+'" fill="none" stroke-linecap="round" filter="url(#'+p+'blur)" style="pointer-events:none"/>'+
+ '<path d="'+d+'" stroke="#fff" stroke-opacity=".5" stroke-width="'+(w*2.2).toFixed(1)+'" fill="none" stroke-linecap="round" filter="url(#'+p+'blur)" transform="translate(-'+(w*1.8).toFixed(1)+',-'+(w*1.8).toFixed(1)+')" style="pointer-events:none"/>'+
+ '<g'+(id?' data-id="'+id+'" class="ln eg"':'')+'><path class="tb" d="'+d+'" stroke="#221e19" stroke-width="'+w+'" fill="none" stroke-linecap="round"/></g>'+
+ '<path d="'+d+'" stroke="#fff" stroke-opacity=".5" stroke-width=".9" fill="none" stroke-linecap="round" transform="translate(1.3,1.5)" style="pointer-events:none"/>'+
+ (id?'<path class="hit" data-id="'+id+'" d="'+d+'"/>':'');
+}
+/* ramos curtos de sulcos (aspecto de cérebro real) */
+function eBranch(pts,seed,every,len,p,clipFn){
+ var r=eRng(seed),out='',acc=0;
+ for(var i=1;i<pts.length;i++){var a=pts[i-1],b=pts[i],d=Math.hypot(b[0]-a[0],b[1]-a[1]);acc+=d;
+  if(acc>every*(0.7+r()*0.6)){acc=0;var nx=-(b[1]-a[1])/d,ny=(b[0]-a[0])/d,sg=r()<.5?-1:1,ang=(r()-.5)*1.1;
+   var c=Math.cos(ang),sn=Math.sin(ang),dx=(nx*c-ny*sn)*sg,dy=(nx*sn+ny*c)*sg,L=len*(0.5+r()*0.8);
+   var q=[[b[0],b[1]],[b[0]+dx*L*.5+(r()-.5)*4,b[1]+dy*L*.5+(r()-.5)*4],[b[0]+dx*L,b[1]+dy*L]];
+   if(r()<.45){var bx=q[2][0],by=q[2][1],a2=ang+(r()<.5?.9:-.9);q.push([bx+(nx*Math.cos(a2)-ny*Math.sin(a2))*sg*L*.45,by+(nx*Math.sin(a2)+ny*Math.cos(a2))*sg*L*.45])}
+   out+=eSul(eSmooth(q),'',1.3,p)}}
+ return out;
+}
+/* sulcos sinuosos gerados dentro de uma região (preenche o córtex com aspecto natural) */
+function eInPoly(x,y,P){var c=false;for(var i=0,j=P.length-1;i<P.length;j=i++){if(((P[i][1]>y)!==(P[j][1]>y))&&(x<(P[j][0]-P[i][0])*(y-P[i][1])/(P[j][1]-P[i][1])+P[i][0]))c=!c}return c}
+function eMeander(P,ang,n,len,seed,p,w,avoid,occ){
+ var r=eRng(seed),out='',xs=P.map(function(q){return q[0]}),ys=P.map(function(q){return q[1]});occ=occ||[];
+ var x0=Math.min.apply(0,xs),x1=Math.max.apply(0,xs),y0=Math.min.apply(0,ys),y1=Math.max.apply(0,ys),made=0,tries=0;
+ function near(x,y,d){for(var i=0;i<occ.length;i++){var o=occ[i];if(Math.abs(o[0]-x)<d&&Math.abs(o[1]-y)<d&&Math.hypot(o[0]-x,o[1]-y)<d)return true}return false}
+ while(made<n&&tries<n*60){tries++;var x=x0+r()*(x1-x0),y=y0+r()*(y1-y0);if(!eInPoly(x,y,P)||near(x,y,11))continue;
+  var a=ang+(r()-.5)*.7,pts=[[x,y]],L=len*(.6+r()*.8),st=6;
+  for(var k=0;k<L/st;k++){a+=(r()-.5)*.38;var nx=x+Math.cos(a)*st,ny=y+Math.sin(a)*st;if(!eInPoly(nx,ny,P)||near(nx,ny,8))break;x=nx;y=ny;pts.push([x,y])}
+  if(pts.length<4)continue;made++;pts.forEach(function(q){occ.push(q)});
+  out+=eSul(eSmooth(pts),'',w||1.6,p);
+ }
+ return out;
+}
+/* giro em relevo (versão densa): várias camadas do escuro ao claro */
+function eGy2(d,w,id){
+ return '<g'+(id?' data-id="'+id+'" class="ln eg"':'')+' style="'+(id?'':'pointer-events:none')+'">'+
+ '<path class="tb" d="'+d+'" stroke="#4d463c" stroke-width="'+(w+1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path class="tb" d="'+d+'" stroke="#988f82" stroke-width="'+(w*.86).toFixed(1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path class="tb" d="'+d+'" stroke="#bdb5a9" stroke-width="'+(w*.64).toFixed(1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.6,-.8)"/>'+
+ '<path class="tb" d="'+d+'" stroke="#dbd5cc" stroke-width="'+(w*.4).toFixed(1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-1.2,-1.6)"/>'+
+ '<path class="tb" d="'+d+'" stroke="#f3f0eb" stroke-width="'+(w*.14).toFixed(1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-1.8,-2.4)"/>'+
+ '</g>'+(id?'<path class="hit" data-id="'+id+'" d="'+d+'" style="stroke-width:'+w+'"/>':'');
+}
+/* preenche uma região com giros sinuosos que não se cruzam */
+function eGyrFill(P,ang,n,len,seed,w,occ,dmin){
+ var r=eRng(seed),out='',xs=P.map(function(q){return q[0]}),ys=P.map(function(q){return q[1]}),D=dmin||w*.85;
+ var x0=Math.min.apply(0,xs),x1=Math.max.apply(0,xs),y0=Math.min.apply(0,ys),y1=Math.max.apply(0,ys),made=0,tries=0;
+ function near(x,y,d){for(var i=0;i<occ.length;i++){var o=occ[i];if(Math.abs(o[0]-x)<d&&Math.abs(o[1]-y)<d&&Math.hypot(o[0]-x,o[1]-y)<d)return true}return false}
+ while(made<n&&tries<n*80){tries++;var x=x0+r()*(x1-x0),y=y0+r()*(y1-y0);if(!eInPoly(x,y,P)||near(x,y,D))continue;
+  var a=ang+(r()-.5)*1.2,pts=[[x,y]],L=len*(.5+r()*.9),st=5,cur=(r()-.5)*.12;
+  for(var k=0;k<L/st;k++){cur+=(r()-.5)*.08;cur=Math.max(-.16,Math.min(.16,cur));a+=cur+(r()-.5)*.15;var nx=x+Math.cos(a)*st,ny=y+Math.sin(a)*st;if(!eInPoly(nx,ny,P)||near(nx,ny,D*.92))break;x=nx;y=ny;pts.push([x,y])}
+  if(pts.length<3)continue;made++;pts.forEach(function(q){occ.push(q)});out+=eGy2(eSmooth(pts),w);
+ }
+ return out;
+}
+/* motor de rótulos: nomes dos dois lados com linhas tracejadas */
+function eLabels(vb,pins,o){
+ o=o||{};var fs=o.fs||Math.max(11,Math.max(vb[2],vb[3])/36),gap=fs*1.5,cx=o.cx!=null?o.cx:vb[0]+vb[2]/2;
+ var L=[],R=[];pins.forEach(function(p){(p.side?(p.side==='L'?L:R):(p.a[0]<cx?L:R)).push(p)});
+ function lay(arr){arr.sort(function(a,b){return a.a[1]-b.a[1]});var ys=arr.map(function(p){return p.a[1]});
+  var n=ys.length;if(!n)return ys;var H=Math.max(vb[3]*.96,(n-1)*gap),top=vb[1]+vb[3]/2-H/2;
+  if(o.even!==false&&n>1){var even=ys.map(function(y,i){return top+i*H/(n-1)});ys=ys.map(function(y,i){return y*.35+even[i]*.65})}
+  for(var it=0;it<80;it++){for(var i=1;i<ys.length;i++)if(ys[i]-ys[i-1]<gap){var m=(gap-(ys[i]-ys[i-1]))/2;ys[i]+=m;ys[i-1]-=m}}
+  return ys}
+ var yL=lay(L),yR=lay(R);
+ var wL=Math.max.apply(0,[0].concat(L.map(function(p){return p.n.length*fs*.52}))),wR=Math.max.apply(0,[0].concat(R.map(function(p){return p.n.length*fs*.52})));
+ var pad=o.pad!=null?o.pad:fs*3,colL=vb[0]-pad,colR=vb[0]+vb[2]+pad;
+ var allY=yL.concat(yR),minY=Math.min.apply(0,[vb[1]].concat(allY.map(function(y){return y-fs}))),maxY=Math.max.apply(0,[vb[1]+vb[3]].concat(allY.map(function(y){return y+fs*.6})));
+ var g='<g class="elbl" font-family="Source Sans 3,Arial,sans-serif" font-size="'+fs.toFixed(1)+'" font-weight="600" fill="#1f1b17">';
+ function draw(arr,ys,side){arr.forEach(function(p,i){var tx=side==='L'?colL:colR,y=ys[i];
+  g+='<path d="M'+p.a[0]+' '+p.a[1]+' L'+(side==='L'?tx+fs*.4:tx-fs*.4).toFixed(1)+' '+y.toFixed(1)+'" stroke="#2a251f" stroke-width="'+(fs/13).toFixed(2)+'" stroke-dasharray="'+(fs*.45).toFixed(1)+' '+(fs*.3).toFixed(1)+'" fill="none"/>'+
+  '<circle cx="'+p.a[0]+'" cy="'+p.a[1]+'" r="'+(fs/7).toFixed(1)+'" fill="#2a251f"/>'+
+  '<text x="'+(side==='L'?tx:tx).toFixed(1)+'" y="'+(y+fs*.35).toFixed(1)+'" text-anchor="'+(side==='L'?'end':'start')+'">'+p.n+'</text>'})}
+ draw(L,yL,'L');draw(R,yR,'R');g+='</g>';
+ var nvb=[colL-wL-fs*.4,minY-fs*.4,(colR+wR+fs*.4)-(colL-wL-fs*.4),maxY-minY+fs*.8];
+ if(!L.length){nvb[0]=vb[0]-fs;nvb[2]=(colR+wR+fs*.4)-nvb[0]}
+ if(!R.length){nvb[2]=(colL-wL-fs*.4)>0?vb[0]+vb[2]+fs-nvb[0]:vb[0]+vb[2]+fs-nvb[0]}
+ return {g:g,vb:nvb};
+}
+/* monta a figura: com nomes (aulas) ou sem nomes (prova prática) */
+function eFig(name,labeled,ids){
+ var F=EFIG[name](),p=F.p,vb=F.vb,lab='';
+ if(labeled){var pins=SCH.filter(function(s){return s.fig===name&&(!ids||ids.indexOf(s.id)>=0)});var seen={};pins=pins.filter(function(s){if(seen[s.id])return false;seen[s.id]=1;return true}).map(function(s){return{id:s.id,a:s.a,n:s.ln||s.n,side:s.side}});
+  if(F.pair){var mx=F.mirrorX,k=0;pins.sort(function(a,b){return a.a[1]-b.a[1]}).forEach(function(q){if(F.pair.indexOf(q.id)>=0){if(k%2===0)q.a=[mx-q.a[0],q.a[1]];q.side=q.a[0]<mx/2?'L':'R';k++}})}
+  var R=eLabels(vb,pins,F.lo);lab=R.g;vb=R.vb}
+ return '<svg class="eng '+(F.cls||'')+'" viewBox="'+vb.map(function(v){return v.toFixed(1)}).join(' ')+'" role="img" aria-label="'+F.t+'">'+eDefs(p)+F.body+lab+'</svg>';
+}
+var EFIG={};
+function eP(){EG.n++;return 'e'+EG.n+'_'}
+
+/* ================= CEREBELO: vista superior ================= */
+EFIG.cerebdors=function(){
+ var p=eP(),out='M450 128 C500 100 565 92 615 118 C700 150 742 228 738 292 C734 362 684 424 604 442 C544 456 494 444 468 412 L450 392 L432 412 C406 444 356 456 296 442 C216 424 166 362 162 292 C158 228 200 150 285 118 C335 92 400 100 450 128 Z';
+ var rnd=eRng(11);
+ function arc(r,col,w,op,dx,dy){var q='',ph=rnd()*6,ph2=rnd()*6;for(var t=-1.0;t<=1.0001;t+=0.02){var a=Math.PI/2+t*1.45;var j=Math.sin(t*9+ph)*1.1+Math.sin(t*23+ph2)*0.5;var x=450+Math.cos(a)*(r*1.32+j)+(dx||0),y=30+Math.sin(a)*(r+j)+(dy||0);q+=(q?' L':'M')+x.toFixed(1)+' '+y.toFixed(1)}return '<path d="'+q+'" fill="none" stroke="'+col+'" stroke-width="'+w+'"'+(op?' stroke-opacity="'+op+'"':'')+' stroke-linecap="round"/>'}
+ var f='';
+ for(var r=70;r<440;r+=5.6+rnd()*2.2){var w=(0.6+(r/440)*1.3).toFixed(2);f+=arc(r,'#35302b',w)+arc(r+2.2,'#fff',1.1,.62)}
+ f+=arc(150,'#141210',3.4)+arc(210,'#141210',2)+arc(300,'#141210',3.2);
+ var v='';for(var k=0;k<46;k++){var y=120+k*6.2;v+='<path d="M424 '+(y+5)+' Q450 '+(y-4)+' 476 '+(y+5)+'" fill="none" stroke="#3b3631" stroke-width="1.1"/><path d="M424 '+(y+7.2)+' Q450 '+(y-1.8)+' 476 '+(y+7.2)+'" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1"/>'}
+ var HB='<g clip-path="url(#'+p+'c)">';
+ function band(id,r0,r1){var q='',rm=(r0+r1)/2;for(var t=-1.0;t<=1.0001;t+=0.04){var a=Math.PI/2+t*1.45;q+=(q?' L':'M')+(450+Math.cos(a)*rm*1.32).toFixed(1)+' '+(30+Math.sin(a)*rm).toFixed(1)}
+  return '<g data-id="'+id+'" class="ln eg"><path class="tb" d="'+q+'" stroke="transparent" stroke-opacity=".5" stroke-width="'+(r1-r0)+'" fill="none"/></g><path class="hit" data-id="'+id+'" d="'+q+'" style="stroke-width:'+(r1-r0)+'"/>'}
+ HB+=band('cd_asa',80,118)+band('cd_qant',120,148)+band('cd_qpost',152,208)+band('cd_postcl',206,214)+band('cd_semsup',214,296)+band('cd_seminf',304,430);
+ [['cd_central',100,140],['cd_culmen',140,182],['cd_declive',182,238],['cd_folium',238,262],['cd_tuber',262,340]].forEach(function(v){HB+='<rect class="ez" data-id="'+v[0]+'" x="430" y="'+v[1]+'" width="40" height="'+(v[2]-v[1])+'"/>'});
+ HB+='</g>';
+ var body='<g filter="url(#'+p+'sh)"><path d="'+out+'" fill="url(#'+p+'sf)"/></g>'+
+ '<clipPath id="'+p+'c"><path d="'+out+'"/></clipPath><clipPath id="'+p+'cv"><rect x="428" y="96" width="44" height="370"/></clipPath>'+
+ '<g clip-path="url(#'+p+'c)"><ellipse cx="330" cy="230" rx="140" ry="95" fill="#fff" opacity=".2"/><ellipse cx="570" cy="230" rx="140" ry="95" fill="#fff" opacity=".2"/>'+
+ '<g data-id="cd_hemd" class="eg"><path d="'+out+'" fill="transparent"/></g>'+f+
+ '<rect x="428" y="96" width="44" height="370" fill="url(#'+p+'lh)"/><g clip-path="url(#'+p+'cv)">'+v+'</g>'+
+ '<path d="M425 96 L425 466 M475 96 L475 466" stroke="#000" stroke-opacity=".28" stroke-width="7"/><path d="M428 96 L428 466 M472 96 L472 466" stroke="#2a2622" stroke-width="2"/>'+
+ '<path d="'+out+'" fill="url(#'+p+'vig)"/></g>'+
+ '<path d="'+out+'" fill="none" stroke="#2a2622" stroke-width="1.8"/>'+
+ HB+'<path class="hit" data-id="cd_prima" d="M262 196 C330 214 400 226 428 226 M472 226 C500 226 570 214 638 196" style="stroke-width:12"/>'+
+ '<path class="hit" data-id="cd_horiz" d="M190 330 C280 360 380 372 428 372" style="stroke-width:12"/>'+
+ '<rect class="hit" data-id="cd_verme" x="430" y="100" width="40" height="300" style="stroke-width:8"/>';
+ return {p:p,vb:[150,80,600,390],t:'Cerebelo em vista superior',body:body};
+};
+function ePt(r,t){var an=Math.PI/2+t*1.45;return[Math.round(450+Math.cos(an)*r*1.32),Math.round(30+Math.sin(an)*r)]}
+SCH.push(
+ {id:'cd_verme',fig:'cerebdors',n:'Verme',a:[450,130],side:'R',i:'Parte mediana, pouco separada dos hemisférios na face superior.'},
+ {id:'cd_central',fig:'cerebdors',n:'Lóbulo central',a:[456,125],side:'R',i:'Lobo anterior do verme; a asa fica no hemisfério.'},
+ {id:'cd_culmen',fig:'cerebdors',n:'Cúlmen',a:[462,158],side:'R',i:'Maior lóbulo do verme anterior, logo antes da fissura prima.'},
+ {id:'cd_declive',fig:'cerebdors',n:'Declive',a:[462,212],side:'R',i:'Primeiro lóbulo do verme posterior.'},
+ {id:'cd_folium',fig:'cerebdors',n:'Fólio',a:[462,286],side:'R',i:'Lóbulo estreito do verme posterior.'},
+ {id:'cd_tuber',fig:'cerebdors',n:'Túber',a:[462,360],side:'R',i:'Lóbulo do verme posterior, abaixo da fissura horizontal.'},
+ {id:'cd_asa',fig:'cerebdors',n:'Asa do lóbulo central',a:ePt(100,0.22),side:'L',i:'Parte do lóbulo central no hemisfério.'},
+ {id:'cd_qant',fig:'cerebdors',n:'Lóbulo quadrangular (parte anterior)',a:ePt(128,0.3),side:'L',i:'Hemisfério, lobo anterior.'},
+ {id:'cd_prima',fig:'cerebdors',n:'Fissura prima',a:ePt(150,0.34),side:'L',i:'Separa o lobo anterior do posterior.'},
+ {id:'cd_qpost',fig:'cerebdors',n:'Lóbulo quadrangular (parte posterior)',a:ePt(180,0.32),side:'L',i:'Hemisfério, início do lobo posterior.'},
+ {id:'cd_postcl',fig:'cerebdors',n:'Fissura pós-clival',a:ePt(210,0.3),side:'L',i:'Entre o lóbulo quadrangular posterior e o semilunar superior.'},
+ {id:'cd_semsup',fig:'cerebdors',n:'Lóbulo semilunar superior',a:ePt(255,0.27),side:'L',i:'Acima da fissura horizontal.'},
+ {id:'cd_horiz',fig:'cerebdors',n:'Fissura horizontal',a:ePt(300,0.25),side:'L',i:'Fissura profunda que contorna a margem lateral e posterior.'},
+ {id:'cd_seminf',fig:'cerebdors',n:'Lóbulo semilunar inferior',a:ePt(345,-0.22),side:'R',i:'Abaixo da fissura horizontal.'},
+ {id:'cd_hemd',fig:'cerebdors',n:'Hemisfério cerebelar',a:[640,330],side:'R',i:'Massa lateral do cerebelo.'}
+);
+SCH_STATIONS.push({id:'sch-cerebdors',kind:'svg',fig:'cerebdors',t:'Cerebelo: vista superior',note:'Anterior em cima.'});
+SVGF.cerebdors=function(lab){return eFig('cerebdors',lab)};
+FIG.cerebeloDorsal=function(){return eFig('cerebdors',true)};
+
+/* ================= HEMISFÉRIO: face superolateral ================= */
+EFIG.lateral=function(variant){
+ var p=eP(),O='M40 190 C26 132 58 62 136 36 C210 12 310 12 388 38 C454 60 498 104 506 160 C512 200 500 232 470 246 C430 262 340 272 262 268 C210 266 166 262 140 254 C116 246 102 230 110 216 C96 214 72 214 52 206 C44 202 41 196 40 190 Z';
+ var seed=21,OCC=[],W0=22;
+ function W(pts,a){seed+=7;var w=eWig(pts,a==null?2:a,9,seed);w.forEach(function(q){OCC.push(q)});return eSmooth(w)}
+ function G(id,pts,w){return eGy2(W(pts,1.6),w||W0,id)}
+ function S(id,d,w){return eSul(d,id,w,p)}
+ var named=
+  G('la_gprec',[[266,22],[260,56],[248,94],[234,128],[222,160],[212,192]])+
+  G('la_gposc',[[306,26],[300,62],[286,102],[274,134],[262,164],[254,186]])+
+  G('la_gfs',[[244,30],[206,32],[170,38],[136,48],[106,64],[82,86]])+
+  G('la_gfm',[[226,72],[192,76],[156,84],[122,98],[90,116],[66,138],[54,164]])+
+  G('',[[206,112],[176,118],[140,128],[108,144],[80,164]],16)+
+  G('la_triang',[[174,166],[160,152],[146,160],[150,182]],13)+
+  G('la_oper',[[200,148],[194,166],[194,188]],13)+
+  G('la_orbit',[[130,198],[104,196],[76,190],[56,182]],13)+
+  G('la_lps',[[332,40],[366,48],[400,62],[424,84]])+
+  G('la_supram',[[322,180],[316,154],[332,136],[356,136],[370,156],[374,178]],16)+
+  G('la_angular',[[364,202],[362,170],[384,152],[408,158],[416,188]],16)+
+  G('la_gts',[[128,226],[176,220],[230,212],[284,202],[326,190],[348,172]],18)+
+  G('la_gtm',[[140,246],[190,244],[244,240],[300,232],[352,220],[396,204],[420,184]],18)+
+  G('la_gti',[[170,262],[230,264],[290,262],[350,256],[410,248],[452,240]],15);
+ var fill=
+  eGyrFill([[300,40],[388,38],[440,64],[440,170],[384,196],[356,194],[330,184],[316,150],[300,110]],0.25,60,90,301,20,OCC,15)+
+  eGyrFill([[436,56],[486,96],[506,150],[500,214],[472,242],[436,250]],1.25,50,70,302,19,OCC,14)+
+  eGyrFill([[48,190],[42,130],[76,70],[136,40],[240,24],[250,40],[220,130],[206,192],[150,206],[110,210]],Math.PI,70,90,303,20,OCC,15)+
+  eGyrFill([[130,232],[220,220],[300,206],[350,192],[440,176],[456,246],[330,268],[230,268],[150,258]],-0.06,50,90,304,18,OCC,13);
+ var sul=
+  S('la_slat','M112 214 C170 207 250 198 300 188 C324 182 338 172 346 152',3.6)+
+  S('la_rant','M150 206 C138 202 126 198 118 194',2.2)+S('la_rasc','M166 204 C167 192 168 182 170 170',2.2)+
+  S('la_scentral','M286 20 C280 52 270 84 260 112 C250 138 242 160 232 192',2.6)+
+  S('la_sprec','M246 22 C240 52 228 90 216 124 C206 152 198 176 190 198',1.8)+
+  S('la_sposc','M326 28 C320 62 306 98 294 134 C286 158 280 172 276 186',1.8)+
+  S('la_sip','M300 112 C330 116 366 118 400 122 C420 124 432 128 440 130',1.8)+
+  S('la_sfs','M232 52 C200 54 160 60 126 70 C108 76 98 80 94 84',1.6)+S('la_sfi','M216 96 C186 100 150 106 118 116 C100 122 88 128 82 132',1.6)+
+  S('la_sts','M132 236 C180 232 240 226 300 214 C336 206 362 194 380 162',1.8)+S('la_sti','M152 256 C200 256 260 254 320 248 C350 244 370 240 384 238',1.6);
+ var cer='';for(var k=0;k<22;k++){var y=258+k*4;cer+='<path d="M'+(360+k*0.8)+' '+y+' C410 '+(y-6)+' 460 '+(y-4)+' '+(494-k*.9)+' '+(y+8)+'" fill="none" stroke="#3b3631" stroke-width="1"/><path d="M'+(360+k*0.8)+' '+(y+1.8)+' C410 '+(y-4.2)+' 460 '+(y-2.2)+' '+(494-k*.9)+' '+(y+9.8)+'" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width=".9"/>'}
+ var CB='M360 262 C390 248 474 252 490 288 C502 322 452 346 400 338 C368 332 348 306 360 262 Z';
+ var body=
+  '<g filter="url(#'+p+'sh)"><path d="'+CB+'" fill="url(#'+p+'sf2)"/></g>'+
+  '<clipPath id="'+p+'cc"><path d="'+CB+'"/></clipPath><g clip-path="url(#'+p+'cc)">'+cer+'<path d="'+CB+'" fill="url(#'+p+'vig)"/></g>'+
+  '<g data-id="la_cereb" class="eg"><path class="tb ef" d="'+CB+'" fill="transparent" fill-opacity=".45" stroke="#2a2622" stroke-width="1.4"/></g>'+
+  '<g data-id="la_tronco" class="eg"><path class="ef" d="M300 258 C306 290 312 320 314 362 L340 362 C340 320 342 290 346 258 Z" fill="url(#'+p+'lh)" stroke="#2a2622" stroke-width="1.2"/></g>'+
+  '<g filter="url(#'+p+'sh)"><path d="'+O+'" fill="#8c8478"/></g>'+
+  '<clipPath id="'+p+'c"><path d="'+O+'"/></clipPath><g clip-path="url(#'+p+'c)">'+fill+named+sul+'<path d="'+O+'" fill="url(#'+p+'vig)" style="pointer-events:none"/></g>'+
+  '<path d="'+O+'" fill="none" stroke="#2a2622" stroke-width="1.8"/>'+
+  '<polygon class="ez" data-id="la_lfrontal" points="46,192 40,140 70,80 132,40 210,18 270,18 254,80 230,140 214,196 150,207 112,212"/>'+
+  '<polygon class="ez" data-id="la_lparietal" points="270,18 330,22 384,38 430,52 432,170 380,190 340,190 300,186 230,196 254,80"/>'+
+  '<polygon class="ez" data-id="la_loccipital" points="432,52 470,80 500,128 504,168 492,232 432,256 432,170"/>'+
+  '<polygon class="ez" data-id="la_ltemporal" points="112,212 150,207 214,198 300,188 340,190 380,190 432,170 432,256 330,270 250,266 160,258 120,246"/>'+
+  '<path d="M426 248 L432 258 L438 248" fill="none" stroke="#1f1b17" stroke-width="2"/><circle class="hit" data-id="la_incisura" cx="432" cy="254" r="6" style="stroke-width:12"/>';
+ if(variant==='lobos')body+='<g style="pointer-events:none" opacity=".3"><polygon points="46,192 40,140 70,80 132,40 210,18 270,18 254,80 230,140 214,196 150,207 112,212" fill="#4e79a7"/><polygon points="270,18 330,22 384,38 430,52 432,170 380,190 340,190 300,186 230,196 254,80" fill="#f28e2b"/><polygon points="432,52 470,80 500,128 504,168 492,232 432,256 432,170" fill="#59a14f"/><polygon points="112,212 150,207 214,198 300,188 340,190 380,190 432,170 432,256 330,270 250,266 160,258 120,246" fill="#e15759"/></g><path d="M432 52 L432 254" stroke="#1f1b17" stroke-dasharray="5 4" stroke-width="1.4"/>';
+ return {p:p,vb:[20,10,500,360],t:'Face superolateral do hemisfério cerebral esquerdo',body:body};
+};
+SVGF.lateral=function(lab){return eFig('lateral',lab)};
+FIG.telLateral=function(){return eFig('lateral',true,['la_gprec','la_gposc','la_gfs','la_gfm','la_oper','la_triang','la_orbit','la_gts','la_gtm','la_gti','la_lps','la_supram','la_angular','la_cereb'])};
+FIG.telLatSulcos=function(){return eFig('lateral',true,['la_scentral','la_slat','la_rant','la_rasc','la_sprec','la_sposc','la_sfs','la_sfi','la_sts','la_sti','la_sip','la_incisura'])};
+FIG.telLobos=function(){var s=EFIG.lateral;EFIG.lateral=function(){return s('lobos')};var r=eFig('lateral',true,['la_lfrontal','la_lparietal','la_loccipital','la_ltemporal','la_scentral','la_slat','la_incisura']);EFIG.lateral=s;return r};
+
+/* substância branca cortada (corpo caloso, fórnice): faixa clara com bordas sombreadas */
+function eWM(d,w,id,extra){
+ return '<g'+(id?' data-id="'+id+'" class="ln eg"':'')+'>'+
+ '<path class="tb" d="'+d+'" stroke="#6d665b" stroke-width="'+(w+1.6)+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path class="tb" d="'+d+'" stroke="#d9d3c8" stroke-width="'+w+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path class="tb" d="'+d+'" stroke="#f7f4ef" stroke-width="'+(w*.55).toFixed(1)+'" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.6,-.9)"/>'+
+ '</g>'+(id?'<path class="hit" data-id="'+id+'" d="'+d+'" style="stroke-width:'+(w+4)+'"/>':'');
+}
+/* árvore da vida do cerebelo em corte sagital */
+function eArbor(cx,cy,R,seed,p){
+ var r=eRng(seed),s='';
+ var br=[[-150,.9],[-120,1],[-90,1],[-60,1],[-30,.95],[0,.9],[30,.85],[60,.8],[90,.7]];
+ br.forEach(function(b){var a=b[0]*Math.PI/180,L=R*b[1];var x1=cx+Math.cos(a)*L*.55,y1=cy+Math.sin(a)*L*.55,x2=cx+Math.cos(a)*L*.92,y2=cy+Math.sin(a)*L*.92;
+  s+='<path d="M'+cx+' '+cy+' Q'+((cx+x1)/2+(r()-.5)*6).toFixed(1)+' '+((cy+y1)/2+(r()-.5)*6).toFixed(1)+' '+x1.toFixed(1)+' '+y1.toFixed(1)+'" stroke="#f3efe8" stroke-width="'+(5+r()*2).toFixed(1)+'" fill="none" stroke-linecap="round"/>';
+  for(var k=-1;k<=1;k++){var a2=a+k*.32,xx=x1+Math.cos(a2)*L*.38,yy=y1+Math.sin(a2)*L*.38;s+='<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' L'+xx.toFixed(1)+' '+yy.toFixed(1)+'" stroke="#f3efe8" stroke-width="2.2" fill="none" stroke-linecap="round"/>'}});
+ return s;
+}
+EFIG.medial=function(){
+ var p=eP(),O='M44 208 C20 150 42 66 132 34 C212 8 322 10 392 42 C454 70 494 118 498 172 C500 212 484 236 456 246 C430 254 400 252 380 250 C350 252 320 256 296 254 L286 236 L230 238 C200 236 170 228 150 214 C120 214 70 222 44 208 Z';
+ var OCC=[],seed=40;
+ function W(pts,a){seed+=7;var w=eWig(pts,a==null?1.6:a,9,seed);w.forEach(function(q){OCC.push(q)});return eSmooth(w)}
+ function G(id,pts,w){return eGy2(W(pts),w||20,id)}
+ /* áreas internas ocupadas: não recebem giros */
+ [[230,130,95],[320,250,60],[200,200,50]].forEach(function(c){for(var a=0;a<6.3;a+=.2)for(var rr=0;rr<c[2];rr+=10)OCC.push([c[0]+Math.cos(a)*rr*1.5,c[1]+Math.sin(a)*rr*.75])});
+ var cing=G('cingulo',[[130,170],[118,140],[134,108],[170,88],[230,78],[290,78],[342,92],[372,122],[380,156],[376,184]],20);
+ var named=cing+G('m_parahip',[[292,244],[330,238],[360,226],[384,204]],17)+
+  G('m_gfs',[[96,186],[80,150],[84,110],[110,74],[150,52],[200,38],[250,32]],20)+
+  G('',[[60,190],[50,150],[60,104],[92,64],[140,40]],18)+
+  '<g data-id="paracentral" class="eg">'+eGy2(W([[296,30],[316,36],[340,34],[356,40]]),18)+'</g>'+
+  G('m_precuneo',[[374,60],[386,84],[392,108],[382,128]],18)+
+  G('cuneo',[[430,64],[452,92],[470,124],[484,158]],18)+G('',[[414,100],[434,132],[448,160]],16)+
+  G('lingual',[[398,196],[430,200],[462,198],[486,192]],16)+G('',[[402,216],[440,222],[476,214]],14);
+ var fill=eGyrFill([[52,196],[44,130],[80,70],[140,40],[210,22],[288,18],[284,46],[200,50],[140,68],[112,102],[104,150],[116,192]],-0.9,40,70,401,18,OCC,14)+
+  eGyrFill([[288,18],[366,20],[420,40],[400,104],[380,126],[352,100],[290,60]],0.5,30,60,402,17,OCC,13)+
+  eGyrFill([[426,40],[470,70],[494,124],[496,176],[404,166]],1.1,30,60,403,16,OCC,13)+
+  eGyrFill([[382,180],[496,182],[484,226],[404,230]],0.05,20,60,404,15,OCC,12);
+ var sul=eSul('M112 190 C88 120 140 52 230 46 C290 44 330 48 350 56 L370 22','scingulo',2.2,p)+eSul('M350 56 C366 62 380 70 392 80','m_subpar',1.6,p)+eSul('M288 48 L292 18','m_sparac',1.6,p)+eSul('M328 14 L334 36','scentral',2,p)+
+  eSul('M146 104 C210 80 300 80 352 102 C378 118 380 152 364 170','m_scaloso',1.8,p)+eSul('M426 40 L398 164','sparieto',2.6,p)+eSul('M374 178 C400 164 450 170 494 178','scalc',2.6,p);
+ var cerP='M330 248 C372 230 442 240 448 284 C452 322 402 338 352 324 C326 316 316 302 324 286 Z',cf='';
+ for(var k=0;k<34;k++){var a=-2.6+k*0.13;cf+='<path d="M'+(372+Math.cos(a)*30).toFixed(1)+' '+(286+Math.sin(a)*22).toFixed(1)+' L'+(372+Math.cos(a)*90).toFixed(1)+' '+(286+Math.sin(a)*64).toFixed(1)+'" stroke="#4a443c" stroke-width="1" />'}
+ var body=
+  '<g filter="url(#'+p+'sh)"><path d="'+O+'" fill="#8c8478"/></g>'+
+  '<clipPath id="'+p+'c"><path d="'+O+'"/></clipPath><g clip-path="url(#'+p+'c)">'+fill+named+sul+'<path d="'+O+'" fill="url(#'+p+'vig)" style="pointer-events:none"/></g>'+
+  '<path d="'+O+'" fill="none" stroke="#2a2622" stroke-width="1.8"/>'+
+  /* corte: estruturas internas */
+  '<path d="M150 214 C130 178 130 120 180 100 C240 82 320 86 356 112 C380 132 380 168 360 184 L330 200 L300 210 L262 214 L230 238 C200 236 170 228 150 214 Z" fill="#cfc8bc"/>'+
+  '<polygon class="ef" data-id="septo" points="160,152 214,116 300,112 300,128 238,138 196,168" fill="#e4dfd6" stroke="#8a8276" stroke-width=".8"/>'+
+  eWM('M160 186 C126 176 116 134 146 116',15,'joelho')+eWM('M146 116 C210 92 290 92 336 112',14,'tronco_cc')+eWM('M336 112 C364 124 364 154 338 162',17,'esplenio')+eWM('M160 186 C170 192 176 198 180 206',8,'m_rostro')+
+  eWM('M320 130 C274 132 226 146 204 172 C200 186 206 210 238 226',7,'fornix')+
+  '<ellipse class="ef" data-id="talamo" cx="262" cy="166" rx="42" ry="22" fill="url(#'+p+'sf2)" stroke="#6d665b"/>'+
+  '<circle class="ef" data-id="m_adhint" cx="270" cy="168" r="7" fill="#a69e91" stroke="#6d665b"/>'+
+  '<ellipse class="ef" data-id="m_forame" cx="214" cy="160" rx="6" ry="5" fill="#3a342d"/>'+
+  '<polygon class="ef" data-id="hipotalamo" points="208,192 268,198 262,224 226,234 204,216" fill="#bdb5a8" stroke="#6d665b" stroke-width=".8"/>'+
+  eSul('M218 164 C240 190 276 196 304 198','m_shipot',1.4,p)+
+  '<circle class="ef" data-id="comissura" cx="186" cy="190" r="6" fill="#f3efe8" stroke="#6d665b"/>'+
+  '<path class="ef" data-id="m_lamterm" d="M186 196 L190 196 L196 228 L192 228 Z" fill="#9b9387"/><path class="hit" data-id="m_lamterm" d="M188 198 L194 228"/>'+
+  '<ellipse class="ef" data-id="quiasmaM" cx="200" cy="234" rx="12" ry="6" fill="url(#'+p+'nv)" stroke="#6d665b"/>'+
+  '<path class="ef" data-id="hipofise" d="M222 236 L222 252 C236 252 242 262 236 272 C226 280 208 276 208 266 C208 258 214 254 222 252 Z" fill="url(#'+p+'sf2)" stroke="#6d665b"/>'+
+  '<circle class="ef" data-id="mamilarM" cx="252" cy="232" r="7" fill="url(#'+p+'sf2)" stroke="#6d665b"/>'+
+  '<path class="ef" data-id="mesencefalo" d="M262 214 L310 196 L334 224 L292 258 L262 240 Z" fill="url(#'+p+'lv)" stroke="#6d665b"/>'+
+  '<circle class="ef" data-id="m_compost" cx="308" cy="192" r="4" fill="#f3efe8" stroke="#6d665b"/>'+
+  '<ellipse class="ef" data-id="pineal" cx="326" cy="178" rx="11" ry="6" fill="url(#'+p+'sf2)" stroke="#6d665b"/>'+
+  '<circle class="ef" data-id="coliculos" cx="330" cy="198" r="7" fill="url(#'+p+'sf2)" stroke="#6d665b"/><circle class="ef" data-id="coliculos" cx="336" cy="214" r="7" fill="url(#'+p+'sf2)" stroke="#6d665b"/>'+
+  '<path class="ln eg" data-id="aqueduto" d="M304 202 L318 240" stroke="#3a342d" stroke-width="4" fill="none"/><path class="hit" data-id="aqueduto" d="M304 202 L318 240"/>'+
+  '<path class="ef" data-id="ponteM" d="M262 244 C238 252 234 298 260 308 L302 304 L306 256 Z" fill="url(#'+p+'lv)" stroke="#6d665b"/>'+
+  '<g style="pointer-events:none" stroke="#9b9387" stroke-width=".8">'+[262,270,278,286,294].map(function(y){return '<path d="M'+(244+Math.abs(y-276)*.4)+' '+y+' L300 '+(y-2)+'"/>'}).join('')+'</g>'+
+  '<polygon class="ef" data-id="v4" points="308,252 338,280 306,302" fill="#3f3931"/>'+
+  '<path class="ef" data-id="bulboM" d="M260 310 L302 306 L298 356 L272 356 Z" fill="url(#'+p+'lv)" stroke="#6d665b"/>'+
+  '<g data-id="cerebeloM" class="eg"><path class="ef" d="'+cerP+'" fill="#8f877b" stroke="#2a2622" stroke-width="1.4"/></g>'+
+  '<clipPath id="'+p+'cb"><path d="'+cerP+'"/></clipPath><g clip-path="url(#'+p+'cb)" style="pointer-events:none">'+cf+eArbor(368,288,70,9,p)+'<path d="'+cerP+'" fill="url(#'+p+'vig)"/></g>'+
+  '<polygon class="ez" data-id="m_septal" points="160,198 186,198 184,214 158,210"/>'+
+  '<ellipse class="ez" data-id="m_unco" cx="282" cy="244" rx="12" ry="9"/><ellipse class="ez" data-id="m_istmo" cx="384" cy="196" rx="12" ry="10"/>';
+ return {p:p,vb:[20,4,500,362],t:'Encéfalo em corte sagital mediano',body:body};
+};
+SVGF.medial=function(lab){return eFig('medial',lab)};
+FIG.telMedial=function(){return eFig('medial',true,['tronco_cc','joelho','m_rostro','esplenio','fornix','septo','cingulo','scingulo','m_scaloso','paracentral','m_precuneo','sparieto','scalc','cuneo','lingual','m_istmo','m_parahip','m_unco','m_septal'])};
+FIG.medialDien=function(){return eFig('medial',true,['talamo','hipotalamo','comissura','quiasmaM','hipofise','mamilarM','pineal','aqueduto','fornix','septo','m_forame','m_adhint','m_shipot','m_compost','m_lamterm','mesencefalo','ponteM','v4','bulboM','cerebeloM'])};
+
+/* nervo em cordão */
+function eNerve(d,w,id){
+ return '<g'+(id?' data-id="'+id+'" class="ln eg"':'')+'>'+
+ '<path class="tb" d="'+d+'" stroke="#6f6553" stroke-width="'+(w+1.6)+'" fill="none" stroke-linecap="round"/>'+
+ '<path class="tb" d="'+d+'" stroke="#d6ccb9" stroke-width="'+w+'" fill="none" stroke-linecap="round"/>'+
+ '<path class="tb" d="'+d+'" stroke="#f6f2ea" stroke-width="'+(w*.38).toFixed(1)+'" fill="none" stroke-linecap="round" transform="translate(-.5,-.7)"/>'+
+ '</g>'+(id?'<path class="hit" data-id="'+id+'" d="'+d+'"/>':'');
+}
+function eStri(clipId,x0,y0,x1,y1,step,dir,col){var s='<g clip-path="url(#'+clipId+')" style="pointer-events:none" stroke="'+(col||'#7d7468')+'" stroke-width=".7" fill="none">';
+ if(dir==='h')for(var y=y0;y<=y1;y+=step)s+='<path d="M'+x0+' '+y+' Q'+((x0+x1)/2)+' '+(y+step*.8)+' '+x1+' '+y+'"/>';else for(var x=x0;x<=x1;x+=step)s+='<path d="M'+x+' '+y0+' L'+(x+(dir==='v'?0:dir))+' '+y1+'"/>';return s+'</g>'}
+/* ================= TRONCO ENCEFÁLICO: vista anterior ================= */
+EFIG.tronco=function(){
+ var p=eP(),fol='';for(var k=0;k<16;k++){var y=238+k*6;fol+='<path d="M'+(26+k*.8)+' '+(y+12)+' C60 '+(y-4)+' 96 '+(y-6)+' 122 '+(y+2)+'" stroke="#4a443c" stroke-width=".9" fill="none"/>'}
+ var CB='M108 236 C70 226 30 240 22 275 C16 305 40 332 92 332 C108 330 118 320 122 300 Z';
+ var halfU='<path d="'+CB+'" fill="url(#'+p+'sf2)" stroke="#2a2622" stroke-width="1.2"/><clipPath id="'+p+'cb"><path d="'+CB+'"/></clipPath><g clip-path="url(#'+p+'cb)">'+fol+'<path d="'+CB+'" fill="url(#'+p+'vig)"/></g>'+
+  '<g data-id="cereb" class="eg"><path class="ef" d="'+CB+'" fill="transparent" fill-opacity=".45"/></g>'+
+  '<path class="ef" data-id="pedunculo" d="M104 84 L140 86 L150 142 L112 146 Z" fill="url(#'+p+'lh)" stroke="#5e574d"/>'+
+  '<clipPath id="'+p+'pd"><path d="M104 84 L140 86 L150 142 L112 146 Z"/></clipPath>'+eStri(p+'pd',100,84,150,146,4,8)+
+  '<path class="ef" data-id="pcm" d="M88 160 C60 160 40 172 38 190 C40 206 58 214 88 212 Z" fill="url(#'+p+'sf2)" stroke="#5e574d"/>';
+ var halfO=eNerve('M150 128 C130 134 112 142 94 152',4,'n3')+eNerve('M90 180 C70 178 52 174 30 166',9,'n5')+eNerve('M152 236 C150 222 146 212 140 198',3.6,'n6')+eNerve('M116 234 C96 230 76 228 54 228',4.2,'n7')+eNerve('M110 241 C92 242 70 244 46 246',5,'n8')+
+  '<g data-id="n12" class="ln eg">'+[[256,262],[266,274],[276,286]].map(function(q){return '<path class="tb" d="M129 '+q[0]+' L104 '+q[1]+'" stroke="#8c7f68" stroke-width="2.6" stroke-linecap="round"/>'}).join('')+'</g><path class="hit" data-id="n12" d="M129 252 L129 280 L104 286"/>'+
+  '<g data-id="n910" class="ln eg">'+[[256,252],[266,266],[276,282],[286,298]].map(function(q){return '<path class="tb" d="M108 '+q[0]+' L74 '+q[1]+'" stroke="#8c7f68" stroke-width="2.6" stroke-linecap="round"/>'}).join('')+'</g><path class="hit" data-id="n910" d="M108 254 L108 288 M76 252 L74 298"/>'+
+  eNerve('M144 40 C130 30 116 22 98 16',8,'n2')+eNerve('M146 54 C126 66 104 82 92 104',6,'trato');
+ var lower='<path class="ef" data-id="piramide" d="M134 238 L158 238 L158 326 L144 330 C138 300 134 270 134 238 Z" fill="url(#'+p+'lh)" stroke="#5e574d"/>'+
+  '<ellipse class="ef" data-id="oliva" cx="118" cy="272" rx="9" ry="22" fill="url(#'+p+'sf)" stroke="#5e574d"/>';
+ var M='matrix(-1 0 0 1 320 0)';
+ var PO='M90 156 C110 138 210 138 230 156 C246 176 246 214 230 232 C210 240 110 240 90 232 C74 214 74 176 90 156 Z';
+ var body=
+  '<g filter="url(#'+p+'sh)">'+halfU+'<g transform="'+M+'">'+halfU+'</g></g>'+
+  '<path class="ef" data-id="fossa" d="M140 86 L180 86 L168 140 L152 140 Z" fill="#6f675c" stroke="#4a443c"/>'+
+  '<circle class="ef" data-id="mamilar" cx="152" cy="94" r="7" fill="url(#'+p+'sf)" stroke="#4a443c"/><circle class="ef" data-id="mamilar" cx="168" cy="94" r="7" fill="url(#'+p+'sf)" stroke="#4a443c"/>'+
+  '<path class="ef" data-id="quiasma" d="M144 40 L176 40 L174 56 L146 56 Z" fill="url(#'+p+'nv)" stroke="#6f6553"/>'+
+  '<path class="ef" data-id="ponte" d="'+PO+'" fill="url(#'+p+'sf)" stroke="#2a2622" stroke-width="1.4"/>'+
+  '<clipPath id="'+p+'po"><path d="'+PO+'"/></clipPath>'+eStri(p+'po',76,146,244,236,4.4,'h','#8b8276')+'<path d="'+PO+'" fill="url(#'+p+'vig)" style="pointer-events:none"/>'+
+  '<path class="ln eg" data-id="basilar" d="M160 146 L160 232" stroke="#4a443c" stroke-width="2.2" fill="none"/><path class="hit" data-id="basilar" d="M160 150 L160 228" style="stroke-width:10"/>'+
+  '<path d="M112 236 L208 236 L190 330 L130 330 Z" fill="url(#'+p+'sf2)" stroke="#2a2622" stroke-width="1.2"/>'+
+  lower+'<g transform="'+M+'">'+lower+'</g>'+
+  '<path d="M160 240 L160 318" stroke="#2a2622" stroke-width="1.4"/>'+
+  '<g class="ln eg" data-id="decuss">'+[0,6,12].map(function(o){return '<path class="tb" d="M'+(146+o/2)+' '+(318+o)+' L'+(174-o/2)+' '+(342+o)+'" stroke="#5e574d" stroke-width="3"/><path class="tb" d="M'+(174-o/2)+' '+(318+o)+' L'+(146+o/2)+' '+(342+o)+'" stroke="#5e574d" stroke-width="3"/>'}).join('')+'</g><rect class="hit" data-id="decuss" x="146" y="320" width="28" height="30" style="stroke-width:4;fill:transparent;pointer-events:all"/>'+
+  '<path class="ef" data-id="medula" d="M140 348 L180 348 L178 434 L142 434 Z" fill="url(#'+p+'lh)" stroke="#2a2622" stroke-width="1.2"/>'+
+  halfO+'<g transform="'+M+'">'+halfO+'</g>';
+ return {p:p,vb:[10,8,300,430],t:'Tronco encefálico em vista anterior',body:body,mirrorX:320,pair:['n2','trato','mamilar','pedunculo','n3','n5','pcm','n6','n7','n8','n12','n910','oliva','piramide','cereb']};
+};
+SVGF.tronco=function(lab){return eFig('tronco',lab)};
+FIG.troncoAnt=function(){return eFig('tronco',true)};
+
+/* ===== conversão dos esquemas existentes para o padrão em relevo (tons de cinza, gradientes e sombra) ===== */
+function eSkinCSS(q,p){
+ return '<style>'+
+ '.'+q+' .s-wm,.'+q+' .s-wm2,.'+q+' .wm,.'+q+' .tr,.'+q+' .pcm,.'+q+' .peduncle,.'+q+' .pyr,.'+q+' .cba{fill:url(#'+p+'lh);stroke:#6d665b}'+
+ '.'+q+' .base{fill:#e6e1d9}'+
+ '.'+q+' .s-gm,.'+q+' .gm,.'+q+' .cortex,.'+q+' .cerebS,.'+q+' .cereb,.'+q+' .pons,.'+q+' .medulla,.'+q+' .ponsS,.'+q+' .bulbS,.'+q+' .mes,.'+q+' .cordS,.'+q+' .cord,.'+q+' .s-out{fill:url(#'+p+'sf2);stroke:#4a443c}'+
+ '.'+q+' .s-deep,.'+q+' .thal,.'+q+' .coll,.'+q+' .mam,.'+q+' .mamS,.'+q+' .olive,.'+q+' .nt{fill:url(#'+p+'nuc);stroke:#3a342d}'+
+ '.'+q+' .s-gel,.'+q+' .sg,.'+q+' .hypo,.'+q+' .septum{fill:url(#'+p+'sf);stroke:#6d665b}'+
+ '.'+q+' .s-csf,.'+q+' .v4,.'+q+' .fossa,.'+q+' .cist,.'+q+' .cc{fill:#aab1b5;stroke:#59636a}'+
+ '.'+q+' .s-nv,.'+q+' .nervef,.'+q+' .nerveT,.'+q+' .optic,.'+q+' .rootl,.'+q+' .nerve,.'+q+' .thin,.'+q+' .deco{stroke:#c2b6a0}'+
+ '.'+q+' .s-gang,.'+q+' .gang,.'+q+' .pine,.'+q+' .hypoph,.'+q+' .chiasm,.'+q+' .optS{fill:url(#'+p+'nv);stroke:#6f6553}'+
+ '.'+q+' .sulcL,.'+q+' .s-ln,.'+q+' .sulc,.'+q+' .fil,.'+q+' .outline{stroke:#221e19}.'+q+' .s-ln2{stroke:#4a443c}'+
+ '.'+q+' .s-vein{stroke:#565b63}.'+q+' .s-art,.'+q+' .s-art2{stroke:#7a5e52}'+
+ '.'+q+' .gyrus{stroke:#ece8e1;opacity:.85}.'+q+' .wmS{stroke:#f1ede6}.'+q+' .fornix{stroke:#e2ddd4}.'+q+' .aq{stroke:#59636a}'+
+ '.'+q+' .zone,.'+q+' .s-zone{stroke:none}.'+q+' .dura{stroke:#4a443c}.'+q+' .dec{stroke:#6d665b}'+
+ '.'+q+' .arbor path{stroke:#f3efe8}'+
+ '</style>';
+}
+function eWrapOld(name,oldFn,t,opt){
+ EFIG[name]=function(){
+  var p=eP(),q='q'+p,svg=oldFn(),m=svg.match(/viewBox="([^"]+)"/),vb=m[1].split(/[\s,]+/).map(Number);
+  var inner=svg.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
+  var R={p:p,cls:q,vb:vb,t:t,body:eSkinCSS(q,p)+'<g filter="url(#'+p+'sh)">'+inner+'</g>'};
+  if(opt)for(var k in opt)R[k]=opt[k];return R;
+ };
+ SVGF[name]=function(lab){return eFig(name,lab)};
+}
+(function(){
+ var O={dorsal:svgDorsal,cerebsag:svgCerebSag,cerebinf:svgCerebInf,base:svgBase,ventr:svgVentr,dura:svgDura,liquor:svgLiquor,corte:svgCorte,vista:svgVista};
+ eWrapOld('dorsal',O.dorsal,'Tronco encefálico em vista dorsal',{mirrorX:360,pair:['td_talamo','td_pulvinar','td_cgl','td_cgm','td_colsup','td_colinf','td_n4','td_pcs','td_pcm','td_pci','td_locus','td_colfacial','td_sulclim','td_vest','td_estrias','td_trigxii','td_trigx','td_postrema','td_tubgracil','td_tubcun','td_fgracil','td_fcun']});
+ eWrapOld('cerebsag',O.cerebsag,'Cerebelo em secção sagital mediana');
+ eWrapOld('cerebinf',O.cerebinf,'Cerebelo em vista inferior',{mirrorX:360,pair:['ci_tonsila','ci_floculo','ci_pedfloc','ci_biventre','ci_hem','ci_pcort']});
+ eWrapOld('base',O.base,'Base do encéfalo',{mirrorX:400,pair:['b_bulbo','b_trato','b_solf','b_reto','b_orbit','b_trigono','b_estlat','b_spa','b_slat','b_polotemp','b_n2','b_tro','b_mamilar','b_ped','b_n3','b_unco','b_parahip','b_scol','b_fusi','b_n5','b_oliva','b_cereb']});
+ eWrapOld('ventr',O.ventr,'Ventrículos encefálicos');
+ eWrapOld('dura',O.dura,'Pregas e seios da dura-máter');
+ eWrapOld('liquor',O.liquor,'Ventrículos, cisternas e circulação do liquor');
+ eWrapOld('corte',O.corte,'Medula espinal em corte transversal');
+ eWrapOld('vista',O.vista,'Medula e saco dural em vista posterior');
+})();
+/* eFig com classe de escopo */
+(function(){var f=eFig;eFig=function(name,lab,ids){var s=f(name,lab,ids);return s}})();
+FIG.troncoDorsal=function(){return eFig('dorsal',true,['td_colsup','td_colinf','td_n4','td_pcs','td_pcm','td_pci','td_locus','td_colfacial','td_sulclim','td_sulcomed','td_vest','td_trigxii','td_trigx','td_postrema','td_obex','td_tubgracil','td_tubcun','td_pineal','td_veu'])};
+FIG.cerebeloSag=function(){return eFig('cerebsag',true)};
+FIG.cerebeloInf=function(){return eFig('cerebinf',true)};
+FIG.telBase=function(){return eFig('base',true,['b_bulbo','b_trato','b_solf','b_reto','b_orbit','b_trigono','b_estlat','b_spa','b_quiasma','b_tro','b_tuber','b_mamilar','b_unco','b_parahip','b_scol','b_fusi','b_fossa','b_ponte'])};
+FIG.ventriculos=function(){return eFig('ventr',true)};
+FIG.duraSeios=function(){return eFig('dura',true)};
+FIG.liquorCirc=function(){return eFig('liquor',true)};
+FIG.medCorteMacro=function(){return eFig('corte',true,['fp','fl','fa','cp','ca','cl','cc','cgc','szi','fma','smp','rd','ge','rv','ne'])};
+FIG.medCorteTratos=function(){return eFig('corte',true,['gr','cu','csl','ctl','eta','ecp','eca','csa','cba','sg','nt'])};
+
+/* ================= CEREBELO: secção sagital mediana (redesenho realista) ================= */
+EFIG.cerebsag=function(){
+ var p=eP(),C=[214,150],D=Math.PI/180;
+ function P(a,r){return [C[0]+Math.cos(a*D)*r,C[1]+Math.sin(a*D)*r]}
+ var L=[['cs_lingula',-168,-152,58],['cs_central',-152,-128,84],['cs_culmen',-128,-90,108],['cs_declive',-90,-58,112],['cs_folium',-58,-40,114],['cs_tuber',-40,12,118],['cs_piramide',12,52,110],['cs_uvula',52,98,96],['cs_nodulo',98,142,62]];
+ var rr=eRng(17),body='',core=28;
+ var shapes='',folia='',arb='',back='';
+ L.forEach(function(l){var a0=l[1],a1=l[2],R=l[3],n=Math.max(3,Math.round((a1-a0)/5.5)),pts=[P(a0,core)],step=(a1-a0)/n;
+  for(var i=0;i<=n;i++){var a=a0+i*step;pts.push(P(a,R*(i%1===0?1:1)));if(i<n){var am=a+step/2;pts.push(P(am,R+4))}}
+  /* contorno com lóbulos em folhas */
+  var d='M'+P(a0,core).map(function(v){return v.toFixed(1)}).join(' ');
+  d+=' L'+P(a0,R-4).map(function(v){return v.toFixed(1)}).join(' ');
+  for(var i=0;i<n;i++){var aa=a0+i*step,ab=aa+step,am=aa+step/2,c1=P(am,R+5),e=P(ab,R-4);d+=' Q'+c1[0].toFixed(1)+' '+c1[1].toFixed(1)+' '+e[0].toFixed(1)+' '+e[1].toFixed(1)}
+  d+=' L'+P(a1,core).map(function(v){return v.toFixed(1)}).join(' ')+' Z';
+  var bk='M'+C[0]+' '+C[1];for(var t=a0;t<=a1+.01;t+=2){var q=P(t,R-2);bk+=' L'+q[0].toFixed(1)+' '+q[1].toFixed(1)}back+='<path d="'+bk+' Z" fill="#5a5248"/>';
+  shapes+='<path class="ef" data-id="'+l[0]+'" d="'+d+'" fill="url(#'+p+'sf2)" stroke="#3a342d" stroke-width="1.1"/>';
+  for(var i=1;i<n;i++){var a=a0+i*step,q1=P(a,R*.55),q2=P(a,R-5);folia+='<path d="M'+q1[0].toFixed(1)+' '+q1[1].toFixed(1)+' L'+q2[0].toFixed(1)+' '+q2[1].toFixed(1)+'" stroke="#3a342d" stroke-width="1.2" fill="none"/>'}
+  /* ramo de substância branca */
+  var am=(a0+a1)/2,b1=P(am,core),b2=P(am,R*.62);arb+='<path d="M'+C[0]+' '+C[1]+' L'+b1[0].toFixed(1)+' '+b1[1].toFixed(1)+' L'+b2[0].toFixed(1)+' '+b2[1].toFixed(1)+'" stroke="#f6f3ee" stroke-width="'+(R>80?5:3.4)+'" stroke-linecap="round" fill="none"/>';
+  for(var i=0;i<n;i++){var a=a0+(i+.5)*step,s1=P(am,R*.5),s2=P(a,R*.82);arb+='<path d="M'+s1[0].toFixed(1)+' '+s1[1].toFixed(1)+' Q'+P((am+a)/2,R*.7)[0].toFixed(1)+' '+P((am+a)/2,R*.7)[1].toFixed(1)+' '+s2[0].toFixed(1)+' '+s2[1].toFixed(1)+'" stroke="#f6f3ee" stroke-width="1.5" stroke-linecap="round" fill="none"/>'}
+ });
+ function fis(id,a,R){var q1=P(a,core),q2=P(a,R-2);return '<path class="ln eg" data-id="'+id+'" d="M'+q1[0].toFixed(1)+' '+q1[1].toFixed(1)+' L'+q2[0].toFixed(1)+' '+q2[1].toFixed(1)+'" stroke="#141210" stroke-width="2.6" fill="none"/><path class="hit" data-id="'+id+'" d="M'+q1[0].toFixed(1)+' '+q1[1].toFixed(1)+' L'+q2[0].toFixed(1)+' '+q2[1].toFixed(1)+'"/>'}
+ var ST='M44 32 C70 36 104 46 132 58 L136 98 C150 120 152 168 140 196 L130 208 L136 300 L84 300 L80 210 C56 204 34 180 30 150 C28 120 40 106 52 100 Z';
+ body='<g filter="url(#'+p+'sh)"><path d="'+ST+'" fill="url(#'+p+'lv)" stroke="#3a342d" stroke-width="1.2"/>'+back+shapes+'</g>'+
+  '<path class="ef" data-id="cs_mes" d="M44 32 C70 36 104 46 132 58 L136 98 L52 100 C46 76 44 54 44 32 Z" fill="url(#'+p+'lv)" stroke="#3a342d" stroke-width="1"/>'+
+  '<path class="ef" data-id="cs_ponte" d="M52 100 L136 98 C150 120 152 168 140 196 L80 206 C56 200 34 178 30 150 C28 122 40 106 52 100 Z" fill="url(#'+p+'sf)" stroke="#3a342d" stroke-width="1"/>'+
+  eStri(p+'pc',30,108,140,200,5,'h','#9b9387').replace('clip-path="url(#'+p+'pc)"','')+
+  '<path class="ef" data-id="cs_bulbo" d="M80 206 L140 196 L136 300 L84 300 Z" fill="url(#'+p+'lv)" stroke="#3a342d" stroke-width="1"/>'+
+  '<path class="ln eg" data-id="cs_aq" d="M92 64 L134 96" stroke="#59636a" stroke-width="5" stroke-linecap="round"/><path class="hit" data-id="cs_aq" d="M92 64 L134 96"/>'+
+  '<path class="ef" data-id="cs_v4" d="M136 98 C160 108 186 118 '+P(-178,30).map(function(v){return v.toFixed(1)}).join(' ')+' L'+P(150,30).map(function(v){return v.toFixed(1)}).join(' ')+' C190 200 160 200 140 196 C150 168 150 120 136 98 Z" fill="#aab1b5" stroke="#59636a"/>'+
+  '<path class="ef" data-id="cs_tela" d="M'+P(150,30).map(function(v){return v.toFixed(1)}).join(' ')+' C196 196 168 200 140 204 L142 210 C172 208 200 204 '+P(146,34).map(function(v){return v.toFixed(1)}).join(' ')+' Z" fill="#8a8276"/>'+
+  '<g style="pointer-events:none">'+folia+arb+'</g>'+
+  '<circle class="ef" data-id="cs_medular" cx="'+C[0]+'" cy="'+C[1]+'" r="'+(core-2)+'" fill="url(#'+p+'wm)" stroke="none"/>'+
+  fis('cs_fprima',-90,108)+fis('cs_fhoriz',-40,114)+fis('cs_fpl',98,96)+
+  '<text x="40" y="22" font-family="Source Sans 3,Arial" font-size="9" fill="#6b645a">ANTERIOR</text><text x="340" y="22" font-family="Source Sans 3,Arial" font-size="9" fill="#6b645a" text-anchor="end">POSTERIOR</text>';
+ return {p:p,vb:[20,10,330,300],t:'Cerebelo em secção sagital mediana',body:body,lo:{cx:200}};
+};
+(function(){var A={cs_lingula:-160,cs_central:-140,cs_culmen:-109,cs_declive:-74,cs_folium:-49,cs_tuber:-14,cs_piramide:32,cs_uvula:75,cs_nodulo:120};
+ var R={cs_lingula:45,cs_central:66,cs_culmen:84,cs_declive:88,cs_folium:90,cs_tuber:92,cs_piramide:86,cs_uvula:74,cs_nodulo:48};
+ SCH.forEach(function(s){if(s.fig!=='cerebsag')return;var D=Math.PI/180;
+  if(A[s.id]!=null)s.a=[Math.round(214+Math.cos(A[s.id]*D)*R[s.id]),Math.round(150+Math.sin(A[s.id]*D)*R[s.id])];
+  var M={cs_fprima:[214,44],cs_fhoriz:[214+Math.round(Math.cos(-40*D)*100),150+Math.round(Math.sin(-40*D)*100)],cs_fpl:[214+Math.round(Math.cos(98*D)*80),150+Math.round(Math.sin(98*D)*80)],cs_medular:[214,150],cs_v4:[160,150],cs_tela:[168,200],cs_aq:[112,80],cs_mes:[80,66],cs_ponte:[70,150],cs_bulbo:[108,260]};
+  if(M[s.id])s.a=M[s.id]});})();
+SVGF.cerebsag=function(lab){return eFig('cerebsag',lab)};
+
+/* ================= MEDULA: corte transversal (redesenho realista) ================= */
+EFIG.corte=function(){
+ var p=eP(),M='matrix(-1 0 0 1 500 0)';
+ var gmS='fill:url(#'+p+'gm);stroke:#5e574d;stroke-width:.8';
+ var half='<path class="ef" data-id="szi" d="'+GRAYP.szi+'" style="'+gmS+'"/><path class="ef" data-id="cp" d="'+GRAYP.cp+'" style="'+gmS+'"/><path class="ef" data-id="sg" d="'+GRAYP.sg+'" fill="#d2cabd" stroke="#5e574d" stroke-width=".8"/><path class="ef" data-id="cl" d="'+GRAYP.cl+'" style="'+gmS+'"/><path class="ef" data-id="ca" d="'+GRAYP.ca+'" style="'+gmS+'"/><circle class="ef" data-id="nt" cx="266" cy="148" r="5" fill="#6d665b"/>';
+ var cells='',r=eRng(5);for(var k=0;k<26;k++){var x=262+r()*44,y=182+r()*56;cells+='<path d="M'+x.toFixed(1)+' '+y.toFixed(1)+' l2 -2 l2 2 l-1 2 l-2 0 Z" fill="#4a443c" opacity=".75"/>'}
+ var tr=Object.keys(TRACTS).map(function(k){return '<polygon class="ef" data-id="'+k+'" points="'+TRACTS[k]+'" fill="#000" fill-opacity=".06" stroke="#6d665b" stroke-width=".7" stroke-dasharray="3 2"/>'}).join('');
+ var body='<defs><radialGradient id="'+p+'gm" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="#b9b0a3"/><stop offset="1" stop-color="#8a8276"/></radialGradient>'+
+  '<pattern id="'+p+'dot" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r=".55" fill="#8c8478" opacity=".55"/><circle cx="3.7" cy="3.6" r=".45" fill="#8c8478" opacity=".4"/></pattern></defs>'+
+  '<text x="250" y="44" text-anchor="middle" font-family="Source Sans 3,Arial" font-size="9" fill="#6b645a">POSTERIOR</text><text x="250" y="294" text-anchor="middle" font-family="Source Sans 3,Arial" font-size="9" fill="#6b645a">ANTERIOR</text>'+
+  '<g filter="url(#'+p+'sh)"><ellipse cx="250" cy="165" rx="150" ry="110" fill="url(#'+p+'wm)"/></g>'+
+  '<ellipse cx="250" cy="165" rx="150" ry="110" fill="url(#'+p+'dot)"/>'+
+  '<clipPath id="'+p+'c"><ellipse cx="250" cy="165" rx="150" ry="110"/></clipPath><g clip-path="url(#'+p+'c)">'+
+  '<polygon class="ez" data-id="fp" points="250,40 314,40 306,82 258,160 250,160"/>'+
+  '<polygon class="ez" data-id="fl" points="314,40 420,40 420,300 400,300 322,262 300,238 314,215 306,166 286,160 306,82"/>'+
+  '<polygon class="ez" data-id="fa" points="250,300 400,300 322,262 300,238 280,246 258,174 250,174"/>'+
+  '<g transform="'+M+'">'+tr+'</g>'+
+  '<ellipse cx="250" cy="165" rx="150" ry="110" fill="url(#'+p+'vig)" style="pointer-events:none"/></g>'+
+  half+'<g transform="'+M+'">'+half+'</g>'+cells+'<g transform="'+M+'">'+cells+'</g>'+
+  '<rect class="ef" data-id="cgc" x="240" y="159" width="20" height="14" style="'+gmS+'"/>'+
+  '<rect class="ef" data-id="cba" x="242" y="173" width="16" height="8" fill="#ece8e1" stroke="#8a8276" stroke-width=".6"/>'+
+  '<circle class="ef" data-id="cc" cx="250" cy="166" r="4" fill="#4a443c"/><circle class="hit" data-id="cc" cx="250" cy="166" r="3" style="stroke-width:8"/>'+
+  '<circle class="hit" data-id="nt" cx="266" cy="148" r="3" style="stroke-width:8"/><circle class="hit" data-id="nt" cx="234" cy="148" r="3" style="stroke-width:8"/>'+
+  '<path class="ef" data-id="fma" d="M244,276 L250,238 L256,276 Z" fill="#fff" stroke="#6d665b" stroke-width=".8"/>'+
+  '<path class="ln eg" data-id="smp" d="M250 55 L250 157" stroke="#6d665b" stroke-width="1.4"/><line class="hit" data-id="smp" x1="250" y1="55" x2="250" y2="150" style="stroke-width:10"/>'+
+  '<ellipse cx="250" cy="165" rx="150" ry="110" fill="none" stroke="#3a342d" stroke-width="2"/>'+
+  eNerve('M310,64 C335,50 370,48 404,56',8,'rd')+eNerve('M322,262 C372,262 428,160 450,84',8,'rv')+eNerve('M444,68 C462,72 480,86 500,106',12,'ne')+
+  '<ellipse class="ef" data-id="ge" cx="424" cy="62" rx="22" ry="14" fill="url(#'+p+'nv)" stroke="#6f6553"/><g style="pointer-events:none">'+[0,1,2,3,4].map(function(i){return '<circle cx="'+(412+i*6)+'" cy="'+(58+(i%2)*6)+'" r="2" fill="#a59780"/>'}).join('')+'</g>';
+ return {p:p,vb:[88,30,424,270],t:'Medula espinal em corte transversal',body:body};
+};
+SVGF.corte=function(lab){return eFig('corte',lab)};
+
+/* ================= TRONCO: vista dorsal e IV ventrículo (redesenho realista) ================= */
+EFIG.dorsal=function(){
+ var p=eP(),M='matrix(-1 0 0 1 360 0)';
+ function F(id,d,fill,extra){return '<path'+(id?' class="ef" data-id="'+id+'"':'')+' d="'+d+'" fill="'+fill+'" stroke="#4a443c" stroke-width=".9"'+(extra||'')+'/>'}
+ function E(id,cx,cy,rx,ry,fill){return '<ellipse'+(id?' class="ef" data-id="'+id+'"':'')+' cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="'+fill+'" stroke="#4a443c" stroke-width=".9"/>'}
+ var SF='url(#'+p+'sf)',SF2='url(#'+p+'sf2)',LH='url(#'+p+'lh)';
+ var PCS='M166 204 C160 232 142 268 122 298 L104 290 C126 262 146 226 154 202 Z',PCI='M122 302 C138 338 156 372 176 398 L160 406 C140 376 120 342 104 308 Z',PCM='M104 246 C76 240 54 260 52 288 C50 318 70 336 98 332 L118 314 L104 300 L120 268 Z';
+ var fl=function(id,d){return '<clipPath id="'+p+id+'"><path d="'+d+'"/></clipPath>'};
+ var half=
+  F('td_talamo','M178 30 C150 22 112 30 98 58 C88 82 94 112 116 126 C134 132 160 130 178 126 Z',SF2)+
+  E('td_pulvinar',112,118,22,16,SF)+E('td_cgl',84,142,12,9,SF)+E('td_cgm',106,152,10,8,SF)+
+  E('td_colsup',160,162,15,14,SF)+E('td_colinf',163,194,12,11,SF)+
+  eNerve('M166 208 C150 214 126 216 94 214',3.4,'td_n4')+
+  F('td_pcm',PCM,SF2)+fl('m',PCM)+'<g clip-path="url(#'+p+'m)" stroke="#8c8478" stroke-width=".7" fill="none" style="pointer-events:none">'+[0,1,2,3,4,5,6,7].map(function(i){return '<path d="M'+(56+i*7)+' 250 Q'+(70+i*6)+' 290 '+(60+i*7)+' 334"/>'}).join('')+'</g>'+
+  F('td_pcs',PCS,LH)+fl('s',PCS)+'<g clip-path="url(#'+p+'s)" stroke="#8c8478" stroke-width=".6" fill="none" style="pointer-events:none">'+[0,1,2,3].map(function(i){return '<path d="M'+(156-i*4)+' 204 C'+(150-i*4)+' 232 '+(134-i*4)+' 268 '+(116-i*4)+' 296"/>'}).join('')+'</g>'+
+  F('td_pci',PCI,LH)+
+  F('td_vest','M176 282 C150 288 132 294 122 300 C134 308 154 318 176 330 Z','#d3ccc0')+
+  F('','M180 222 L180 398 L172 392 C170 340 170 280 172 226 Z','#e2ddd4')+
+  E('td_colfacial',172,264,7,11,SF)+
+  F('td_trigxii','M178 336 L166 338 L178 382 Z','#ddd7cd')+
+  F('td_trigx','M164 340 L152 346 L174 386 Z','#a69d90')+
+  F('td_postrema','M157 366 L153 374 L172 392 Z','#8c8478')+
+  E('td_locus',170,240,4,7,'#4b4f57')+
+  '<path class="ln eg" data-id="td_estrias" d="M178 306 C162 302 146 300 130 300" stroke="#f7f4ef" stroke-width="1.6" fill="none"/><path class="hit" data-id="td_estrias" d="M178 306 C162 302 146 300 130 300"/>'+
+  eSul('M170 226 C164 260 164 300 162 336 C160 360 166 380 176 392','td_sulclim',1.4,p)+
+  E('td_tubgracil',172,414,8,12,SF)+E('td_tubcun',152,408,9,13,SF)+
+  F('td_fgracil','M180 426 L164 424 C166 460 166 490 168 512 L180 512 Z',LH)+
+  F('td_fcun','M164 424 L140 420 C144 460 146 490 150 512 L168 512 C166 490 166 460 164 424 Z',LH);
+ var V4='M180 214 C162 240 140 276 122 300 C140 330 162 370 180 402 C198 370 220 330 238 300 C220 276 198 240 180 214 Z';
+ var body='<text x="180" y="24" text-anchor="middle" font-family="Source Sans 3,Arial" font-size="8" fill="#6b645a">DORSAL · CEREBELO REMOVIDO</text>'+
+  '<g filter="url(#'+p+'sh)"><path d="M140 412 C140 460 146 500 150 514 L210 514 C214 500 220 460 220 412 Z" fill="'+LH+'"/>'+
+  F('td_v4',V4,'#c7c0b4')+half+'<g transform="'+M+'">'+half+'</g></g>'+
+  E('td_pineal',180,140,9,12,'url(#'+p+'nv)')+
+  F('td_veu','M172 208 L188 208 L194 248 L166 248 Z','#ece8e1')+
+  '<path class="ln eg" data-id="td_sulcomed" d="M180 222 L180 398" stroke="#2a2622" stroke-width="1.6"/><path class="hit" data-id="td_sulcomed" d="M180 222 L180 398"/>'+
+  E('td_obex',180,402,4,4,'#3a342d')+'<path d="M180 412 L180 512" stroke="#4a443c" stroke-width="1" stroke-dasharray="3 2"/>';
+ return {p:p,vb:[40,14,280,504],t:'Tronco encefálico em vista dorsal',body:body,mirrorX:360,pair:['td_talamo','td_pulvinar','td_cgl','td_cgm','td_colsup','td_colinf','td_n4','td_pcs','td_pcm','td_pci','td_locus','td_colfacial','td_sulclim','td_vest','td_estrias','td_trigxii','td_trigx','td_postrema','td_tubgracil','td_tubcun','td_fgracil','td_fcun']};
+};
+SVGF.dorsal=function(lab){return eFig('dorsal',lab)};
+SCH.forEach(function(s){if(s.id==='td_pcm')s.a=[78,288]});
+
+/* ================= BASE DO ENCÉFALO (redesenho realista) ================= */
+EFIG.base=function(){
+ var p=eP(),M='matrix(-1 0 0 1 400 0)',HO='M200 28 C150 18 80 28 50 88 C30 138 38 198 58 228 C70 258 60 300 70 340 C82 388 130 428 196 438 L200 438 Z';
+ function half(seedBase){
+  var OCC=[],sd=seedBase;
+  function W(pts,a){sd+=7;var w=eWig(pts,a==null?1.4:a,9,sd);w.forEach(function(q){OCC.push(q)});return eSmooth(w)}
+  /* espaço reservado para estruturas centrais */
+  for(var y=180;y<330;y+=6)for(var x=160;x<200;x+=6)OCC.push([x,y]);for(var y=330;y<440;y+=6)for(var x=100;x<200;x+=6)OCC.push([x,y]);
+  for(var x=134;x<200;x+=6)for(var y=150;y<214;y+=6)OCC.push([x,y]);
+  var named=eGy2(W([[188,46],[186,90],[186,130],[184,160]]),15,'b_reto')+
+   eGy2(W([[150,270],[140,300],[136,330],[140,356]]),16,'b_parahip')+eGy2(W([[116,256],[100,292],[96,324],[100,356]]),16,'b_fusi');
+  var fill=eGyrFill([[48,90],[90,34],[170,26],[176,150],[150,170],[110,186],[60,206],[40,150]],-1.2,70,70,sd+1,16,OCC,11.5)+
+   eGyrFill([[58,226],[110,212],[150,238],[160,250],[124,250],[90,280],[80,340],[96,392],[150,428],[196,436],[196,440],[120,430],[74,380],[60,300]],1.5,70,70,sd+2,15,OCC,11);
+  return {g:'<g filter="url(#'+p+'sh)"><path d="'+HO+'" fill="#8c8478"/></g><clipPath id="'+p+'h'+seedBase+'"><path d="'+HO+'"/></clipPath><g clip-path="url(#'+p+'h'+seedBase+')">'+fill+named+
+   eSul('M172 48 L170 162','b_solf',2,p)+eSul('M56 210 C90 204 112 200 134 204','b_slat',3,p)+eSul('M128 252 C112 292 108 324 112 352','b_scol',2,p)+
+   '<path d="'+HO+'" fill="url(#'+p+'vig)" style="pointer-events:none"/></g><path d="'+HO+'" fill="none" stroke="#2a2622" stroke-width="1.6"/>'};
+ }
+ var H=half(500),H2=half(500);
+ var CB='M190 330 C160 322 112 330 92 362 C82 400 122 430 172 430 L192 420 Z',fol='';
+ for(var k=0;k<16;k++){var y=336+k*6;fol+='<path d="M'+(92+k)+' '+(y+10)+' C120 '+(y-4)+' 160 '+(y-6)+' 192 '+(y-2)+'" stroke="#4a443c" stroke-width=".9" fill="none"/>'}
+ var front=
+  '<ellipse class="ef" data-id="b_bulbo" cx="171" cy="72" rx="8" ry="18" fill="url(#'+p+'sf)" stroke="#4a443c"/>'+eNerve('M171 90 L172 150',6,'b_trato')+
+  '<polygon class="ef" data-id="b_trigono" points="164,150 180,150 172,166" fill="#d9d3c8" stroke="#4a443c" stroke-width=".8"/>'+
+  '<path class="ln eg" data-id="b_estlat" d="M166 156 C140 162 120 176 112 196" stroke="#f1ede6" stroke-width="2.6" fill="none"/><path class="hit" data-id="b_estlat" d="M166 156 C140 162 120 176 112 196"/>'+
+  '<polygon class="ef" data-id="b_spa" points="140,170 180,172 178,198 142,202" fill="#b8b0a4" stroke="#5e574d" stroke-width=".8"/>'+
+  '<g style="pointer-events:none">'+[[148,180],[156,186],[166,178],[152,194],[170,190],[160,196]].map(function(q){return '<circle cx="'+q[0]+'" cy="'+q[1]+'" r="1.4" fill="#4a443c"/>'}).join('')+'</g>'+
+  '<polygon class="ez" data-id="b_orbit" points="70,90 150,64 158,166 88,186"/><ellipse class="ez" data-id="b_polotemp" cx="88" cy="238" rx="22" ry="16"/>'+
+  eNerve('M186 150 L192 184',8,'b_n2')+eNerve('M188 200 C170 214 156 232 150 254',7,'b_tro')+
+  '<ellipse class="ef" data-id="b_unco" cx="156" cy="256" rx="11" ry="13" fill="url(#'+p+'sf)" stroke="#4a443c"/>'+
+  '<path class="ef" data-id="b_ped" d="M190 232 L166 250 L176 272 L196 256 Z" fill="url(#'+p+'lh)" stroke="#5e574d"/>'+
+  eNerve('M194 248 C186 238 178 232 170 224',3,'b_n3')+eNerve('M164 290 L134 282',8,'b_n5')+
+  '<ellipse class="ef" data-id="b_oliva" cx="182" cy="348" rx="6" ry="14" fill="url(#'+p+'sf)" stroke="#4a443c"/>';
+ var cer='<path class="ef" data-id="b_cereb" d="'+CB+'" fill="url(#'+p+'sf2)" stroke="#2a2622" stroke-width="1.2"/><clipPath id="'+p+'cb"><path d="'+CB+'"/></clipPath><g clip-path="url(#'+p+'cb)" style="pointer-events:none">'+fol+'<path d="'+CB+'" fill="url(#'+p+'vig)"/></g>';
+ var body='<text x="200" y="22" text-anchor="middle" font-family="Source Sans 3,Arial" font-size="8" fill="#6b645a">ANTERIOR</text>'+
+  H.g+'<g transform="'+M+'">'+H2.g+'</g>'+cer+'<g transform="'+M+'">'+cer+'</g>'+
+  '<path d="M200 30 L200 150 M200 420 L200 440" stroke="#2a2622" stroke-width="1.6"/>'+
+  front+'<g transform="'+M+'">'+front+'</g>'+
+  '<path class="ef" data-id="b_quiasma" d="M186 186 L214 186 L212 200 L188 200 Z" fill="url(#'+p+'nv)" stroke="#6f6553"/>'+
+  '<ellipse class="ef" data-id="b_tuber" cx="200" cy="212" rx="12" ry="8" fill="#a69e91" stroke="#5e574d"/>'+
+  '<circle class="ef" data-id="b_infund" cx="200" cy="210" r="4" fill="url(#'+p+'nv)" stroke="#6f6553"/>'+
+  '<circle class="ef" data-id="b_mamilar" cx="193" cy="228" r="6" fill="url(#'+p+'sf)" stroke="#4a443c"/><circle class="ef" data-id="b_mamilar" cx="207" cy="228" r="6" fill="url(#'+p+'sf)" stroke="#4a443c"/>'+
+  '<polygon class="ef" data-id="b_fossa" points="191,236 209,236 205,254 195,254" fill="#6f675c"/>'+
+  '<ellipse class="ef" data-id="b_ponte" cx="200" cy="292" rx="40" ry="32" fill="url(#'+p+'sf)" stroke="#2a2622" stroke-width="1.2"/>'+
+  '<clipPath id="'+p+'po"><ellipse cx="200" cy="292" rx="40" ry="32"/></clipPath>'+eStri(p+'po',160,264,240,322,4,'h','#8b8276')+
+  '<path d="M200 262 L200 322" stroke="#4a443c" stroke-width="1.4"/>'+
+  '<path class="ef" data-id="b_bulbo2" d="M184 322 L216 322 L210 384 L190 384 Z" fill="url(#'+p+'lh)" stroke="#2a2622"/>'+
+  '<path d="M200 324 L200 384" stroke="#4a443c" stroke-width="1"/>';
+ return {p:p,vb:[20,14,360,432],t:'Base do encéfalo',body:body,mirrorX:400,pair:['b_bulbo','b_trato','b_solf','b_reto','b_orbit','b_trigono','b_estlat','b_spa','b_slat','b_polotemp','b_n2','b_tro','b_mamilar','b_ped','b_n3','b_unco','b_parahip','b_scol','b_fusi','b_n5','b_oliva','b_cereb']};
+};
+SVGF.base=function(lab){return eFig('base',lab)};
+
+/* ================= CEREBELO: vista inferior (redesenho realista) ================= */
+EFIG.cerebinf=function(){
+ var p=eP(),M='matrix(-1 0 0 1 360 0)';
+ var HEM='M180 60 C140 40 70 44 36 90 C10 130 18 200 70 230 C110 252 156 246 172 220 L172 150 Z';
+ var r=eRng(8),fol='';for(var k=0;k<34;k++){var rr=20+k*5.4;fol+='<path d="M'+(176-rr*1.3).toFixed(1)+' '+(150+rr*.1).toFixed(1)+' A'+(rr*1.3).toFixed(1)+' '+rr.toFixed(1)+' 0 0 1 '+(176-rr*.2).toFixed(1)+' '+(150-rr).toFixed(1)+'" fill="none" stroke="#3b3631" stroke-width="1"/>'}
+ var fol2='';for(var k=0;k<30;k++){var rr=20+k*5.4;fol2+='<path d="M'+(176-rr*1.25).toFixed(1)+' '+(150).toFixed(1)+' A'+(rr*1.25).toFixed(1)+' '+rr.toFixed(1)+' 0 0 0 176 '+(150+rr).toFixed(1)+'" fill="none" stroke="#3b3631" stroke-width="1"/>'}
+ function ov(id,cx,cy,rx,ry,n,ang){var c='<ellipse class="ef" data-id="'+id+'" cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="url(#'+p+'sf)" stroke="#3a342d"/><clipPath id="'+p+id+'"><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'"/></clipPath><g clip-path="url(#'+p+id+')" style="pointer-events:none">';
+  for(var i=-n;i<=n;i++){var y=cy+i*(ry*2/(2*n+2));c+='<path d="M'+(cx-rx)+' '+(y+(ang||0))+' Q'+cx+' '+(y-4)+' '+(cx+rx)+' '+(y-(ang||0))+'" stroke="#4a443c" stroke-width=".9" fill="none"/>'}return c+'</g>'}
+ var half='<path d="'+HEM+'" fill="url(#'+p+'sf2)" stroke="#2a2622" stroke-width="1.4"/><clipPath id="'+p+'h"><path d="'+HEM+'"/></clipPath><g clip-path="url(#'+p+'h)" style="pointer-events:none">'+fol+fol2+'<path d="'+HEM+'" fill="url(#'+p+'vig)"/></g>'+
+  '<g data-id="ci_hem" class="eg"><path class="ef" d="'+HEM+'" fill="transparent" fill-opacity=".4"/></g>'+
+  ov('ci_tonsila',150,186,20,34,6,2)+ov('ci_biventre',94,206,30,14,3,4)+ov('ci_floculo',104,96,22,12,3,0)+
+  eNerve('M126 98 L160 112',5,'ci_pedfloc')+
+  '<path class="ef" data-id="ci_pcort" d="M150 70 L178 70 L178 106 L146 100 Z" fill="url(#'+p+'wm)" stroke="#6d665b"/>'+
+  '<g style="pointer-events:none">'+[0,1,2,3].map(function(i){return '<circle cx="'+(154+i*6)+'" cy="'+(80+(i%2)*8)+'" r="1" fill="#8c8478"/>'}).join('')+'</g>';
+ var body='<text x="180" y="22" text-anchor="middle" font-family="Source Sans 3,Arial" font-size="8" fill="#6b645a">FACE INFERIOR · PEDÚNCULOS SECCIONADOS</text>'+
+  '<g filter="url(#'+p+'sh)">'+half+'<g transform="'+M+'">'+half+'</g></g>'+
+  '<path class="ef" data-id="ci_verme" d="M168 108 L192 108 L196 240 L164 240 Z" fill="url(#'+p+'lh)" stroke="#3a342d"/>'+
+  '<g style="pointer-events:none">'+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19].map(function(i){var y=196+i*2.2;return ''}).join('')+[...Array(18)].map(function(_,i){var y=196+i*2.4;return '<path d="M166 '+y+' Q180 '+(y+3)+' 194 '+y+'" stroke="#4a443c" stroke-width=".8" fill="none"/>'}).join('')+'</g>'+
+  ov('ci_nodulo',180,120,10,8,1,0)+ov('ci_uvula',180,160,11,28,5,0);
+ return {p:p,vb:[10,14,340,250],t:'Cerebelo em vista inferior',body:body,mirrorX:360,pair:['ci_tonsila','ci_floculo','ci_pedfloc','ci_biventre','ci_hem','ci_pcort']};
+};
+SVGF.cerebinf=function(lab){return eFig('cerebinf',lab)};
+
 /* recalcula o índice das estruturas depois que todas as estações foram registradas */
 SCHM=Object.fromEntries(SCH.map(function(s){return[s.id,s]}));
 
@@ -2730,7 +3361,7 @@ LESSON.medmacro=[
   ['p','A medula é um cilindro um pouco achatado no sentido anteroposterior, com duas dilatações:'],
   ['ul',['**Intumescência cervical:** onde se ligam as raízes do plexo braquial (membros superiores).','**Intumescência lombossacral:** onde se ligam as raízes do plexo lombossacral (membros inferiores).']],
   ['p','Elas existem porque os membros exigem muito mais neurônios e fibras do que o tronco.'],
-  ['fig','medCorteMacro','Sulcos, funículos e colunas da medula em corte transversal.'],
+  ['fig','medCorteMacro','Sulcos, funículos, colunas e raízes da medula em corte transversal.'],
   ['ul',['**Fissura mediana anterior** e **sulco mediano posterior**, na linha média.','**Sulco lateral anterior**, onde saem as raízes ventrais (motoras).','**Sulco lateral posterior**, onde entram as raízes dorsais (sensitivas).','**Sulco intermédio posterior**, só na medula cervical (e torácica alta), que divide o funículo posterior em fascículos grácil e cuneiforme.']],
   ['chk','O que explica as intumescências da medula?',['Maior quantidade de liquor nesses níveis','Maior número de neurônios e fibras para os membros','Presença dos gânglios espinais dentro da medula'],1,'Os plexos braquial e lombossacral exigem mais neurônios e fibras.']]},
  {t:'Substância cinzenta e funículos',b:[
@@ -2832,7 +3463,7 @@ LESSON.tronco=[
  {t:'Cerebelo: forma e divisões',b:[
   ['p','O cerebelo fica atrás da ponte e do bulbo, na fossa posterior, separado do lobo occipital pelo **tentório do cerebelo**. Tem uma parte mediana, o **verme**, e dois **hemisférios**. Funciona na postura, no equilíbrio, na coordenação e no aprendizado motor, e participa de algumas funções cognitivas.'],
   ['p','Sulcos transversais formam as **folhas**; fissuras mais profundas separam **lóbulos**. Por dentro há o **corpo medular** com lâminas brancas ("árvore da vida") coberto pelo **córtex cerebelar**, e quatro pares de **núcleos centrais**: **denteado, emboliforme, globoso e fastigial**. Todas as fibras que saem do cerebelo partem desses núcleos.'],
-  ['fig','cerebeloSag','Lóbulos do verme em secção sagital mediana.'],
+  ['fig','cerebeloDorsal','Cerebelo em vista superior: verme, hemisférios, lóbulos e fissuras.'],['fig','cerebeloSag','Lóbulos do verme em secção sagital mediana.'],
   ['tbl',[['Divisão anatômica','Limite'],['Lobo anterior','Acima da fissura prima'],['Lobo posterior','Entre a fissura prima e a posterolateral'],['Lobo floculonodular','Nódulo + flóculos, abaixo da fissura posterolateral']]],
   ['key','Para a prova basta reconhecer três lóbulos (**nódulo, flóculo e tonsila**) e duas fissuras (**prima e posterolateral**). O lobo floculonodular cuida do **equilíbrio**.'],
   ['fig','cerebeloInf','Face inferior do cerebelo com as tonsilas.'],
@@ -2864,7 +3495,6 @@ QB.push(
 );
 
 /* Capítulo 6 — Diencéfalo: macroscopia */
-FIG.medialDien=stLesson('medial',['talamo','hipotalamo','comissura','quiasmaM','hipofise','mamilarM','pineal','aqueduto','fornix','septo','tronco_cc']);
 LESSON.diencefalo=[
  {t:'Cérebro = telencéfalo + diencéfalo',b:[
   ['p','O **cérebro** corresponde ao prosencéfalo do embrião e ocupa cerca de **80% da cavidade craniana**. Tem duas partes: o **telencéfalo**, que cresce muito para os lados e para trás formando os hemisférios, e o **diencéfalo**, que fica no meio, quase todo escondido, visível apenas na face inferior do cérebro.'],
@@ -2929,7 +3559,7 @@ LESSON.telencefalo=[
   ['p','Os lobos recebem o nome dos ossos vizinhos: **frontal, parietal, temporal e occipital**. A **ínsula** fica no fundo do sulco lateral, sem contato com o osso. Na face lateral, o limite do lobo occipital é uma linha imaginária do sulco parieto-occipital até a **incisura pré-occipital** (cerca de 4 cm do polo occipital).'],
   ['key','A divisão em lobos é útil na clínica, mas **não é funcional**, com uma exceção: o lobo occipital inteiro serve à visão.']]},
  {t:'Face superolateral, giro a giro',b:[
-  ['fig','telLateral','Sulcos e giros da face superolateral.'],
+  ['fig','telLatSulcos','Sulcos da face superolateral.'],['fig','telLateral','Giros da face superolateral.'],
   ['tbl',[['Lobo','Sulcos','Giros'],['Frontal','Pré-central, frontal superior e frontal inferior','Pré-central (motor), frontal superior, médio e inferior (partes orbital, triangular e opercular)'],['Parietal','Pós-central e intraparietal','Pós-central (somestésico), lóbulo parietal superior e inferior (giros supramarginal e angular)'],['Temporal','Temporal superior e inferior','Temporal superior, médio e inferior; temporais transversos no assoalho do sulco lateral'],['Occipital','Pequenos e inconstantes','Pequenos e irregulares na face lateral']]],
   ['p','O **giro frontal inferior** é dividido pelos ramos anterior e ascendente do sulco lateral em **parte orbital** (abaixo do anterior), **triangular** (entre os dois) e **opercular** (entre o ascendente e o sulco pré-central). No hemisfério esquerdo, ele é o **giro de Broca**, área da expressão da linguagem.'],
   ['p','O **supramarginal** se curva em volta da ponta do sulco lateral; o **angular**, em volta da ponta do sulco temporal superior. No assoalho do sulco lateral, o **giro temporal transverso anterior** abriga a área da **audição**.'],
