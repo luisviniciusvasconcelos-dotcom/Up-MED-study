@@ -643,13 +643,13 @@ html,body{background:var(--bg)}
      ============================================================ -->
 <script>
 window.FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyAemespQNAtaGe6I-tF90qfH9gIyTyYZ2k",
+  authDomain: "anatomia-quiz-turma.firebaseapp.com",
+  databaseURL: "https://anatomia-quiz-turma-default-rtdb.firebaseio.com",
+  projectId: "anatomia-quiz-turma",
+  storageBucket: "anatomia-quiz-turma.firebasestorage.app",
+  messagingSenderId: "222597975109",
+  appId: "1:222597975109:web:48655cfd003ae73a04272c"
 };
 </script>
 
@@ -668,8 +668,11 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='2.4.0';
+var APP_VERSION='2.5.0';
 var VERSIONS=[
+ {v:'2.5.0',date:'20/10/2026',changes:['Plataforma online: login com e-mail e senha pelo Firebase, progresso salvo na nuvem e ranking compartilhado da turma.','Regras de segurança do banco: só quem tem conta lê o ranking, cada aluno altera apenas os próprios dados e só o administrador cria estações.'],
+  tests:['Criar conta no tablet, sair e entrar no celular com o mesmo e-mail.','Responder questões e conferir o ranking em outro aparelho.','Recuperar a senha pelo link "Esqueci a senha".'],
+  analysis:'O progresso feito na versão de teste ficou salvo só no aparelho e não migra para a conta online. A corrida da turma passa a funcionar e precisa ser testada com pelo menos dois aparelhos.'},
  {v:'2.4.0',date:'18/10/2026',changes:['Barra lateral e barra inferior em verde profundo; botões e destaques em verde mais escuro.','Aulas completas, progressivas e com figuras próprias nos três primeiros módulos: Organização e desenvolvimento, Tecido nervoso, Nervos e terminações.','Cada aula tem índice, pontos-chave, quadros "Na clínica" e "Para memorizar", tabelas e perguntas de conferência no meio do texto.','Banco ampliado de 190 para 265 questões; os três primeiros módulos passaram a ter de 33 a 38 questões cada.','Explicação em três níveis (curta, completa e correlação clínica) em todas as questões dos três primeiros módulos.','Flashcards com revisão espaçada (Errei, Difícil, Fácil) e exportação de baralhos para o Anki.'],
   tests:['Ler uma aula inteira no tablet e responder as perguntas de conferência.','Abrir as abas Curta, Completa e Correlação clínica depois de responder.','Exportar um baralho e importar no Anki do celular.'],
   analysis:'O conteúdo novo segue a ordem do livro; os próximos lotes completam os demais módulos. O escurecimento forçado pelo navegador do aplicativo não tem como ser bloqueado pelo site no Samsung Internet.'},
