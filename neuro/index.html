@@ -710,8 +710,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.1.2';
+var APP_VERSION='3.1.3';
 var VERSIONS=[
+ {v:'3.1.3',date:'20/10/2026',changes:['Revisão do dia: questões erradas entram na revisão na hora, em vez de só no dia seguinte (inclusive as que você errou antes desta versão). Acertos continuam voltando em 3, 7, 16 e 35 dias.','O cartão da revisão mostra quantas questões voltam amanhã e explica como a fila funciona.'],tests:['Errar uma questão e conferir que o número da revisão sobe na hora.','Acertar a questão na revisão e conferir que ela sai da fila.','Acertar uma questão nova e conferir que ela não entra hoje.'],analysis:'A revisão funcionava, mas só liberava questões no dia seguinte; no primeiro dia de uso o cartão ficava sempre zerado e parecia quebrado.'},
  {v:'3.1.2',date:'20/10/2026',changes:['Estação do dia fixa: a estação sorteada fica gravada no seu progresso e só muda à meia-noite. Antes, ela podia trocar de imagem e estrutura ao longo do dia quando as estações com foto terminavam de carregar ou quando o conjunto de estações mudava, e continuava aparecendo como respondida.'],tests:['Responder a estação, recarregar a página e conferir que a mesma estação continua, já respondida.','Adicionar estações novas no mesmo dia e conferir que a estação do dia não muda.','Simular a virada do dia e conferir que uma nova estação aparece liberada.'],analysis:'O sorteio dependia do tamanho da lista de estações, que muda quando as fotos do Firebase chegam depois da primeira tela. Gravar a escolha do dia resolve e ainda sincroniza entre aparelhos.'},
  {v:'3.1.1',date:'20/10/2026',changes:['Botão Voltar em todas as telas internas: retorna à tela anterior (e não só ao painel), inclusive pelo botão voltar do celular e do navegador.','Gabarito corrigido em 20 questões de múltipla escolha cuja alternativa correta estava fora da posição esperada (ex.: coluna lateral da substância cinzenta = medula torácica e lombar alta; término da medula; forame magno; C8; sulco bulbopontino; vestibulococlear; peso do encéfalo; potencial de repouso e transporte axonal).','Revisão de todo o banco: ajustes em afirmações e pares que divergiam do material de referência (SNA como componente eferente visceral, forame do nervo facial, corpúsculo de Ruffini, proprioceptores, astrócitos, assertiva-razão do cerebelo e dos plexos corioides).'],tests:['Banco validado (formatos, gabaritos, ids únicos).','Ids das questões antigas preservados (progresso mantido).','Regressões de estações e prova prática.','Navegação: pilha de telas, Voltar no cabeçalho e voltar do sistema.'],analysis:'Correções só em alternativas, afirmações e pares; enunciados intactos para não perder progresso.'},
  {v:'3.1.0',date:'20/10/2026',changes:['Novo padrão de ilustração anatômica, desenhado do zero: tons de cinza, relevo, giros e folhas com volume, e nomes escritos dos dois lados com linhas tracejadas.','Redesenhados: hemisfério cerebral em vista lateral (giros e sulcos), face medial em corte sagital, base do encéfalo, tronco encefálico em vista anterior e dorsal (IV ventrículo), cerebelo em vista superior (novo), em corte sagital e em vista inferior, e medula em corte transversal (estrutura e tratos).','Dura-máter e seios, liquor e cisternas, ventrículos e medula em vista posterior passaram para o mesmo padrão de cores.','Nas aulas as figuras vêm com os nomes escritos. Na prova prática a mesma figura aparece sem nomes, para você identificar.','Nova estação: cerebelo em vista superior.'],
@@ -4398,13 +4399,14 @@ window.__onRecord=function(q,ok){
  p.days[k]=(p.days[k]||0)+1;
  var wk=p.wks[w]||(p.wks[w]={a:0,c:0});wk.a++;if(ok)wk.c++;
  var s=p.srs[q.id],t=dayNum();
- if(!s){s=p.srs[q.id]={b:ok?2:1,due:t+(ok?SRS_INT[2]:SRS_INT[1])}}
+ if(!s){s=p.srs[q.id]={b:ok?2:1,due:t+(ok?SRS_INT[2]:0)}}
  else if(ok){s.b=Math.min(5,s.b+1);s.due=t+SRS_INT[s.b]}
- else{s.b=1;s.due=t+1}
+ else{s.b=1;s.due=t}
  checkBadges();
 };
 window.__onGame=function(g,pts){var p=S.priv;p.days[dayKey()]=(p.days[dayKey()]||0)+1;checkBadges()};
-function dueList(){var t=dayNum(),s=S.priv.srs;return Object.keys(s).filter(function(id){return QBY[id]&&s[id].due<=t}).map(function(id){return QBY[id]})}
+function dueSoon(n){var t=dayNum()+(n||1),s=S.priv.srs;return Object.keys(s).filter(function(id){return QBY[id]&&s[id].due===t}).length}
+function dueList(){var t=dayNum(),s=S.priv.srs;return Object.keys(s).filter(function(id){return QBY[id]&&(s[id].due<=t||s[id].b===1)}).map(function(id){return QBY[id]})}
 function streak(){var d=new Date(),n=0,days=S.priv.days;if(!days[dayKey(d)]){d.setDate(d.getDate()-1)}while(days[dayKey(d)]){n++;d.setDate(d.getDate()-1)}return n}
 function bestStreak(){var keys=Object.keys(S.priv.days).sort(),best=0,cur=0,prev=null;keys.forEach(function(k){var t=dayNum(new Date(k+'T12:00:00'));cur=(prev!=null&&t===prev+1)?cur+1:1;prev=t;best=Math.max(best,cur)});return best}
 function cnt(k,v){var c=S.priv.c;if(v===undefined)return c[k]||0;c[k]=v}
@@ -4507,7 +4509,7 @@ VIEWS.painel=function(){
   '<div class="sd-body"><div id="sdfig" class="sdfig">'+figure(SD.st)+'</div><div class="grid" style="gap:8px;align-content:start"><h3>Qual é a estrutura marcada?</h3>'+
   SD.opts.map(function(o,k){var c='';if(res){if(o===SD.pin.n)c='right';else if(o===res.pick)c='wrong'}return '<button class="opt '+c+'" data-x="sd" data-xv="'+esc(o)+'" '+(res?'disabled':'')+'><span class="k">'+'ABCD'[k]+'</span><span>'+esc(o)+'</span></button>'}).join('')+
   (res?'<p class="small">'+(res.ok?'<b style="color:var(--ok)">Correto, +10 pontos.</b> ':'<b style="color:var(--bad)">Era '+esc(SD.pin.n)+'.</b> ')+esc(SD.pin.i||'')+' Volte amanhã para outra estação.</p>':'')+'</div></div></section>'+
-  '<section class="card rev"><span class="eyebrow">Revisão do dia</span><b class="big num">'+due+'</b><p class="small muted">'+(due?'questão'+(due===1?'':'s')+' para revisar hoje, no momento certo para fixar.':'Nada pendente. As questões voltam aqui conforme você responde.')+'</p><button class="btn pri" data-x="review" '+(due?'':'disabled')+'>Revisar agora</button>'+
+  '<section class="card rev"><span class="eyebrow">Revisão do dia</span><b class="big num">'+due+'</b><p class="small muted">'+(due?(due===1?'questão':'questões')+' para revisar agora. Os erros entram aqui na hora; os acertos voltam em alguns dias, no momento certo para fixar.':'Nada pendente agora. Questões que você errar aparecem aqui na hora; as que acertar voltam em alguns dias.')+(dueSoon(1)?' Amanhã: '+dueSoon(1)+'.':'')+'</p><button class="btn pri" data-x="review" '+(due?'':'disabled')+'>Revisar agora</button>'+
   '<div class="streak"><span class="eyebrow">Sequência</span><b class="num">'+stk+' dia'+(stk===1?'':'s')+'</b><span class="small muted">Recorde: '+bestStreak()+'</span></div>'+heatmap()+'</section>'+
  '</div>'+
  '<div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Questões</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div><div class="stat"><span class="eyebrow">Posição</span><b>'+(pos?pos+'º':'–')+'</b></div></div>'+
