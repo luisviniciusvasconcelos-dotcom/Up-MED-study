@@ -759,11 +759,11 @@ svg.eng{width:100%;height:auto}
 .kickcard p{margin:0}
 .acclist{display:grid;gap:0;border-top:1px solid var(--line)}
 .accrow{display:grid;gap:10px;padding:14px 4px;border-bottom:1px solid var(--line)}
-@media (min-width:900px){.accrow{grid-template-columns:minmax(0,1fr) auto;align-items:center}}
+
 .accm{display:grid;gap:2px;min-width:0}
 .accm span{overflow-wrap:anywhere}
 .accs{display:grid;gap:8px;justify-items:start}
-@media (min-width:900px){.accs{justify-items:end}}
+
 .acctag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
 .acctag.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent);border-color:transparent}
 .acctag.venc,.acctag.blq{color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent);border-color:transparent}
@@ -771,6 +771,9 @@ svg.eng{width:100%;height:auto}
 .accdate{display:inline-flex;align-items:center;gap:6px}
 .accdate input{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 .accblock{color:var(--bad)}
+
+.accconf{flex-basis:100%;display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:color-mix(in srgb,var(--bad) 8%,transparent)}
+.accdel{background:var(--bad);color:#fff;border-color:var(--bad)}
 
 </style>
 </head>
@@ -811,8 +814,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.4.0';
+var APP_VERSION='3.4.1';
 var VERSIONS=[
+ {v:'3.4.1',date:'20/10/2026',changes:['Marca d’água removida de todas as telas.','Painel Acessos: botão Remover em cada aluno, com confirmação. Remover apaga o acesso, a posição no ranking e o progresso; se a pessoa entrar de novo, volta como “aguardando liberação”.'],tests:['Remover um aluno: some da lista e do ranking, a tela dele fecha na hora e, ao entrar de novo, reaparece como aguardando.','Marca d’água ausente.'],analysis:'A remoção precisa das regras do banco atualizadas nesta versão (o administrador ganha permissão só para apagar esses registros).'},
  {v:'3.4.0',date:'20/10/2026',changes:['Acesso liberado pelo administrador: contas novas ficam em “aguardando liberação” até o responsável liberar; o acesso tem data de vencimento e pode ser renovado ou suspenso.','Painel “Acessos” para o administrador (Perfil → Liberar acessos): lista de contas com e-mail, turma, último acesso e aparelho; liberar por 30 dias, 6 meses ou até uma data; bloquear; busca e filtros.','Uma sessão por vez: ao entrar em outro aparelho, o anterior mostra o aviso “Sua conta foi aberta em outro aparelho”, com a opção de continuar ali (o que derruba o outro).','Marca d’água discreta com o nome e o e-mail do aluno em todas as telas.','Quando o acesso é liberado, renovado ou suspenso, a tela do aluno muda na hora, sem recarregar.'],tests:['Aluno novo vê a tela de espera; o administrador libera e a plataforma abre sozinha.','Sessão em outro aparelho mostra o aviso; “Continuar neste aparelho” retoma a conta.','Bloqueio pelo administrador fecha o acesso na hora.','Marca d’água presente; regressões de navegação, questões e estações.'],analysis:'As regras novas do banco são o que torna o bloqueio real: sem elas, a plataforma continua funcionando como antes. O conteúdo ainda está no arquivo público; a próxima etapa (carregar aulas e questões do servidor só para contas liberadas) fecha essa brecha.'},
  {v:'3.3.0',date:'20/10/2026',changes:['Parte 2 do conteúdo (capítulos 9 a 16): aulas completas de Nervos e terminações, Nervos cranianos, SNA (aspectos gerais e anatomia), Estrutura da medula, do bulbo, da ponte e do mesencéfalo.','Cerca de 160 questões novas nesses oito módulos, com explicação curta, completa e correlação clínica, em todos os formatos (múltipla escolha, caso clínico, V ou F, associação, ordem, lacuna e assertiva-razão).','Resumos refeitos para os oito módulos.','Figuras novas no padrão em relevo, com nomes: formação do nervo espinal e trajeto do simpático, fuso neuromuscular, territórios de inervação da língua, organização do simpático e do parassimpático, lâminas de Rexed, bulbo fechado, bulbo aberto (oliva), ponte (colículo facial) e mesencéfalo (colículo superior).','Oito estações novas na prova prática, com essas figuras sem nomes, incluindo os cortes do tronco encefálico.','Figuras das aulas ampliáveis: toque na figura para abrir em tela cheia, com zoom e arraste (útil no celular).'],tests:['Banco validado; ids antigos preservados.','Todas as estações novas respondidas corretamente por toque em três rodadas.','Aulas dos oito módulos abertas no celular, sem rolagem lateral.','Figura ampliada: abrir, aumentar, fechar.'],analysis:'Os cortes do tronco são a parte mais cobrada em prova prática e agora têm estação própria. Com os nomes nos dois lados, as figuras ficam pequenas no celular; a ampliação em tela cheia resolve. Próximo passo: Parte 3 (capítulos 17 a 24).'},
  {v:'3.2.0',date:'20/10/2026',changes:['Painel mais curto: os 32 módulos viraram uma lista compacta agrupada por área, que abre e fecha (a área em que você está estudando já vem aberta e o painel lembra o que você deixou aberto). No celular o painel ficou com menos da metade da altura.','Cartão Continuar de onde parou no topo do painel: leva direto à seção da aula em que você parou e sugere o próximo passo (terminar a aula, treinar o módulo ou seguir para o próximo).','Cada módulo mostra se tem aula, se a aula já foi lida ou se a aula ainda vem num próximo lote.','Menu do celular com o botão Mais: Perfil, Buscar, Caderno, Flashcards e Conquistas a um toque de qualquer tela.','Aula com barra fixa no topo: seção atual, barra de progresso da leitura, botões de seção anterior e próxima e índice que abre por cima do texto. A seção atual fica destacada no índice.','A plataforma guarda a seção em que você parou e oferece Continuar dali ao reabrir a aula.'],tests:['Painel no celular e no computador: abrir e fechar áreas, recarregar e conferir que o estado ficou.','Continuar a aula pelo cartão do painel e conferir que abre na seção certa.','Barra da aula: rolar e conferir a seção e o progresso; usar anterior, próxima e o índice.','Menu Mais: abrir, navegar, fechar tocando fora.','Regressões de questões, estações, revisão e navegação.'],analysis:'O painel tinha cerca de 7 telas de altura no celular, com os módulos no fim; agora a navegação principal fica no topo e o restante (estação, revisão e desempenho) vem depois. Próximo passo sugerido: busca acessível dentro das aulas e confirmação ao sair de uma prova pela metade.'},
@@ -4922,6 +4926,7 @@ var FirebaseStore={
   member:function(uid,d){return FirebaseStore.db.ref('members/'+uid).update(d)},
   members:function(){return FirebaseStore.db.ref('members').once('value').then(function(s){return s.val()||{}})},
   claim:function(uid,d){return FirebaseStore.db.ref('sessions/'+uid).set(d)},
+  remove:function(uid){var u={};['members','access','scores','private','sessions'].forEach(function(k){u[k+'/'+uid]=null});return FirebaseStore.db.ref().update(u)},
   watchSession:function(uid,cb){var r=FirebaseStore.db.ref('sessions/'+uid);var h=r.on('value',function(s){cb(s.val())},function(e){console.warn(e)});return function(){r.off('value',h)}}
  },
  /* Corrida da turma: salas em races/{code} */
@@ -5077,7 +5082,7 @@ function shell(inner){
  var nav=function(list){return list.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
  return '<div class="shell"><aside class="side"><div class="logo">'+LOGO+'<span class="wmark"><b>Up-MED</b><small>study</small></span></div>'+nav(NAV)+'<div class="side-sep"></div>'+nav(NAV2)+
  '<div class="foot">'+avatar(S.user,32)+'<span><b>'+esc(S.user.name)+'</b><br><span style="opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</span></span></div></aside>'+
- '<main class="main" id="main">'+watermark()+'<div class="page">'+backBar()+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV.slice(0,4))+moreBtn()+'</nav>'+moreSheet()+'</div>';
+ '<main class="main" id="main"><div class="page">'+backBar()+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV.slice(0,4))+moreBtn()+'</nav>'+moreSheet()+'</div>';
 }
 var MORE=[['perfil','Perfil']].concat(NAV2);
 function moreBtn(){var on=MORE.some(function(n){return n[0]===S.view});return '<button class="navb" data-more="1" aria-haspopup="true" aria-expanded="false" '+(on?'aria-current="page"':'')+'>'+IC.mais+'<span>Mais</span></button>'}
@@ -6308,7 +6313,7 @@ VIEWS.acessos=function(){
  '<p class="small muted">Contas aparecem aqui quando a pessoa entra pela primeira vez nesta versão. Liberar soma o prazo a partir de hoje (ou do vencimento atual, se ainda estiver valendo).</p>'+
  (ACCV.loading&&!ACCV.list?'<p class="muted">Carregando…</p>':'')+(ACCV.err?'<p class="small" style="color:var(--bad)">Não foi possível ler a lista: '+esc(ACCV.err)+'. Confira as regras do banco.</p>':'')+
  '<div class="acclist">'+(F.length?F.map(function(m){var s=st(m);return '<div class="accrow"><div class="accm"><b>'+esc(m.name||'(sem nome)')+'</b><span class="small">'+esc(m.email)+'</span><span class="small muted">'+esc(m.turma||'')+(m.last?' · último acesso '+fmtDate(m.last):'')+(m.dev?' · '+esc(m.dev):'')+'</span></div>'+
-  '<div class="accs"><span class="acctag '+s+'">'+lab[s]+(s==='ok'?' até '+fmtDate(m.until):s==='venc'?' em '+fmtDate(m.until):'')+'</span>'+(s==='adm'?'':'<div class="actions"><button class="btn pri sm" data-acc="d30" data-uid="'+m.uid+'">+30 dias</button><button class="btn ghost sm" data-acc="d180" data-uid="'+m.uid+'">+6 meses</button><label class="small accdate">Até <input type="date" data-accdate="'+m.uid+'"></label>'+(s==='ok'?'<button class="btn ghost sm accblock" data-acc="block" data-uid="'+m.uid+'">Bloquear</button>':'')+'</div>')+'</div></div>'}).join(''):'<p class="muted">Nenhuma conta nesse filtro.</p>')+'</div></div>';
+  '<div class="accs"><span class="acctag '+s+'">'+lab[s]+(s==='ok'?' até '+fmtDate(m.until):s==='venc'?' em '+fmtDate(m.until):'')+'</span>'+(s==='adm'?'':'<div class="actions"><button class="btn pri sm" data-acc="d30" data-uid="'+m.uid+'">+30 dias</button><button class="btn ghost sm" data-acc="d180" data-uid="'+m.uid+'">+6 meses</button><label class="small accdate">Até <input type="date" data-accdate="'+m.uid+'"></label>'+(s==='ok'?'<button class="btn ghost sm accblock" data-acc="block" data-uid="'+m.uid+'">Bloquear</button>':'')+(ACCV.confirm===m.uid?'<span class="accconf"><span class="small">Remover '+esc((m.name||m.email).split(' ')[0])+'? Apaga acesso, ranking e progresso.</span><button class="btn sm accdel" data-acc="delok" data-uid="'+m.uid+'">Sim, remover</button><button class="btn ghost sm" data-acc="delno" data-uid="'+m.uid+'">Cancelar</button></span>':'<button class="btn ghost sm accblock" data-acc="del" data-uid="'+m.uid+'">Remover</button>')+'</div>')+'</div></div>'}).join(''):'<p class="muted">Nenhuma conta nesse filtro.</p>')+'</div></div>';
 };
 function setUntil(uid,until){var m=(ACCV.list||[]).find(function(x){return x.uid===uid});var v={until:until,by:S.user.uid,at:Date.now()};if(!until)v.blocked=true;
  return Store.access.set(uid,v).then(function(){if(m){m.until=until;m.blocked=!until}toast(until>Date.now()?'Acesso liberado até '+fmtDate(until)+'.':'Acesso bloqueado.');S.keepScroll=true;render()}).catch(function(e){toast('Não foi possível salvar: '+(e&&e.code||e))})}
@@ -6316,6 +6321,9 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-acc]
  if(b.dataset.accf){ACCV.f=b.dataset.accf;S.keepScroll=true;render();return}
  var a=b.dataset.acc,uid=b.dataset.uid;
  if(a==='reload'){ACCV.list=null;ACCV.err=null;loadMembers();render();return}
+ if(a==='del'){ACCV.confirm=uid;S.keepScroll=true;render();return}
+ if(a==='delno'){ACCV.confirm=null;S.keepScroll=true;render();return}
+ if(a==='delok'){ACCV.confirm=null;b.disabled=true;Store.access.remove(uid).then(function(){ACCV.list=(ACCV.list||[]).filter(function(x){return x.uid!==uid});if(S.scores)delete S.scores[uid];toast('Aluno removido. Se entrar de novo, aparece como aguardando.');S.keepScroll=true;render()}).catch(function(e){toast('Não foi possível remover: '+(e&&e.code||e))});return}
  var m=(ACCV.list||[]).find(function(x){return x.uid===uid});if(!m)return;var base=Math.max(Date.now(),m.until||0),day=864e5;
  if(a==='d30')setUntil(uid,base+30*day);else if(a==='d180')setUntil(uid,base+182*day);else if(a==='block')setUntil(uid,0)});
 document.addEventListener('change',function(e){var t=e.target;if(!t.dataset||!t.dataset.accdate||!t.value)return;var p=t.value.split('-');var until=new Date(+p[0],+p[1]-1,+p[2],23,59,59).getTime();if(until<Date.now()){toast('Escolha uma data futura.');return}setUntil(t.dataset.accdate,until)});
