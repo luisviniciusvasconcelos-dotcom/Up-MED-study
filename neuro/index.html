@@ -742,6 +742,36 @@ svg.eng{width:100%;height:auto}
 .figov-sc{overflow:auto;-webkit-overflow-scrolling:touch;padding:12px}
 .figov-in svg{width:100%;height:auto;display:block}
 
+/* v3.4 acesso, sessão e marca d'água */
+.main{position:relative}
+.wmk{position:absolute;inset:0;pointer-events:none;z-index:3;background-repeat:repeat}
+@media print{.wmk{position:fixed}}
+.lockwrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:var(--bg)}
+.lockcard{max-width:520px;display:grid;gap:14px;padding:28px}
+.lockcard h1{font-size:24px;margin:0}
+.lockcard p{margin:0}
+.logo-row{display:flex;align-items:center;gap:10px}
+.logo-row .logo-mark{width:34px;height:34px}
+.lockinfo{display:grid;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface2)}
+.kickov{position:fixed;inset:0;z-index:80;background:rgba(10,24,18,.55);display:grid;place-items:center;padding:20px}
+.kickcard{max-width:460px;display:grid;gap:12px;padding:24px}
+.kickcard h2{margin:0;font-size:20px}
+.kickcard p{margin:0}
+.acclist{display:grid;gap:0;border-top:1px solid var(--line)}
+.accrow{display:grid;gap:10px;padding:14px 4px;border-bottom:1px solid var(--line)}
+@media (min-width:900px){.accrow{grid-template-columns:minmax(0,1fr) auto;align-items:center}}
+.accm{display:grid;gap:2px;min-width:0}
+.accm span{overflow-wrap:anywhere}
+.accs{display:grid;gap:8px;justify-items:start}
+@media (min-width:900px){.accs{justify-items:end}}
+.acctag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
+.acctag.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent);border-color:transparent}
+.acctag.venc,.acctag.blq{color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent);border-color:transparent}
+.acctag.pend{color:var(--amber,#9a6b00);background:color-mix(in srgb,#d4a017 14%,transparent);border-color:transparent}
+.accdate{display:inline-flex;align-items:center;gap:6px}
+.accdate input{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.accblock{color:var(--bad)}
+
 </style>
 </head>
 <body>
@@ -781,8 +811,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.3.0';
+var APP_VERSION='3.4.0';
 var VERSIONS=[
+ {v:'3.4.0',date:'20/10/2026',changes:['Acesso liberado pelo administrador: contas novas ficam em “aguardando liberação” até o responsável liberar; o acesso tem data de vencimento e pode ser renovado ou suspenso.','Painel “Acessos” para o administrador (Perfil → Liberar acessos): lista de contas com e-mail, turma, último acesso e aparelho; liberar por 30 dias, 6 meses ou até uma data; bloquear; busca e filtros.','Uma sessão por vez: ao entrar em outro aparelho, o anterior mostra o aviso “Sua conta foi aberta em outro aparelho”, com a opção de continuar ali (o que derruba o outro).','Marca d’água discreta com o nome e o e-mail do aluno em todas as telas.','Quando o acesso é liberado, renovado ou suspenso, a tela do aluno muda na hora, sem recarregar.'],tests:['Aluno novo vê a tela de espera; o administrador libera e a plataforma abre sozinha.','Sessão em outro aparelho mostra o aviso; “Continuar neste aparelho” retoma a conta.','Bloqueio pelo administrador fecha o acesso na hora.','Marca d’água presente; regressões de navegação, questões e estações.'],analysis:'As regras novas do banco são o que torna o bloqueio real: sem elas, a plataforma continua funcionando como antes. O conteúdo ainda está no arquivo público; a próxima etapa (carregar aulas e questões do servidor só para contas liberadas) fecha essa brecha.'},
  {v:'3.3.0',date:'20/10/2026',changes:['Parte 2 do conteúdo (capítulos 9 a 16): aulas completas de Nervos e terminações, Nervos cranianos, SNA (aspectos gerais e anatomia), Estrutura da medula, do bulbo, da ponte e do mesencéfalo.','Cerca de 160 questões novas nesses oito módulos, com explicação curta, completa e correlação clínica, em todos os formatos (múltipla escolha, caso clínico, V ou F, associação, ordem, lacuna e assertiva-razão).','Resumos refeitos para os oito módulos.','Figuras novas no padrão em relevo, com nomes: formação do nervo espinal e trajeto do simpático, fuso neuromuscular, territórios de inervação da língua, organização do simpático e do parassimpático, lâminas de Rexed, bulbo fechado, bulbo aberto (oliva), ponte (colículo facial) e mesencéfalo (colículo superior).','Oito estações novas na prova prática, com essas figuras sem nomes, incluindo os cortes do tronco encefálico.','Figuras das aulas ampliáveis: toque na figura para abrir em tela cheia, com zoom e arraste (útil no celular).'],tests:['Banco validado; ids antigos preservados.','Todas as estações novas respondidas corretamente por toque em três rodadas.','Aulas dos oito módulos abertas no celular, sem rolagem lateral.','Figura ampliada: abrir, aumentar, fechar.'],analysis:'Os cortes do tronco são a parte mais cobrada em prova prática e agora têm estação própria. Com os nomes nos dois lados, as figuras ficam pequenas no celular; a ampliação em tela cheia resolve. Próximo passo: Parte 3 (capítulos 17 a 24).'},
  {v:'3.2.0',date:'20/10/2026',changes:['Painel mais curto: os 32 módulos viraram uma lista compacta agrupada por área, que abre e fecha (a área em que você está estudando já vem aberta e o painel lembra o que você deixou aberto). No celular o painel ficou com menos da metade da altura.','Cartão Continuar de onde parou no topo do painel: leva direto à seção da aula em que você parou e sugere o próximo passo (terminar a aula, treinar o módulo ou seguir para o próximo).','Cada módulo mostra se tem aula, se a aula já foi lida ou se a aula ainda vem num próximo lote.','Menu do celular com o botão Mais: Perfil, Buscar, Caderno, Flashcards e Conquistas a um toque de qualquer tela.','Aula com barra fixa no topo: seção atual, barra de progresso da leitura, botões de seção anterior e próxima e índice que abre por cima do texto. A seção atual fica destacada no índice.','A plataforma guarda a seção em que você parou e oferece Continuar dali ao reabrir a aula.'],tests:['Painel no celular e no computador: abrir e fechar áreas, recarregar e conferir que o estado ficou.','Continuar a aula pelo cartão do painel e conferir que abre na seção certa.','Barra da aula: rolar e conferir a seção e o progresso; usar anterior, próxima e o índice.','Menu Mais: abrir, navegar, fechar tocando fora.','Regressões de questões, estações, revisão e navegação.'],analysis:'O painel tinha cerca de 7 telas de altura no celular, com os módulos no fim; agora a navegação principal fica no topo e o restante (estação, revisão e desempenho) vem depois. Próximo passo sugerido: busca acessível dentro das aulas e confirmação ao sair de uma prova pela metade.'},
  {v:'3.1.4',date:'20/10/2026',changes:['Abertura mais segura: se o servidor demorar ou der erro ao carregar o progresso, a plataforma mostra uma mensagem com o motivo e um botão Tentar de novo, em vez de ficar carregando para sempre.','Proteção do progresso: se a leitura falhar, nada é gravado por cima do seu progresso salvo.'],tests:['Abrir com o servidor lento e conferir a mensagem após alguns segundos.','Abrir normalmente e conferir o painel.'],analysis:'Relato de tela presa em carregamento. Qualquer erro durante a abertura deixava a tela parada sem explicação; agora o erro aparece na tela e pode ser enviado em print.'},
@@ -4882,6 +4913,17 @@ var FirebaseStore={
  saveStation:function(st){return this.db.ref('stations/'+st.id).set(JSON.parse(JSON.stringify(st)))},
  deleteStation:function(id){return this.db.ref('stations/'+id).remove()},
  updateProfile:function(uid,patch){var self=this;var p=[this.db.ref('profiles/'+uid).update(patch)];if(patch.name&&this.auth.currentUser)p.push(this.auth.currentUser.updateProfile({displayName:patch.name}));return Promise.all(p)},
+ /* controle de acesso (v3.4) */
+ access:{
+  get:function(uid){return FirebaseStore.db.ref('access/'+uid).once('value').then(function(s){return s.val()})},
+  watch:function(uid,cb){var r=FirebaseStore.db.ref('access/'+uid);var h=r.on('value',function(s){cb(s.val())},function(e){console.warn(e);cb({__err:true})});return function(){r.off('value',h)}},
+  set:function(uid,v){return FirebaseStore.db.ref('access/'+uid).set(v)},
+  all:function(){return FirebaseStore.db.ref('access').once('value').then(function(s){return s.val()||{}})},
+  member:function(uid,d){return FirebaseStore.db.ref('members/'+uid).update(d)},
+  members:function(){return FirebaseStore.db.ref('members').once('value').then(function(s){return s.val()||{}})},
+  claim:function(uid,d){return FirebaseStore.db.ref('sessions/'+uid).set(d)},
+  watchSession:function(uid,cb){var r=FirebaseStore.db.ref('sessions/'+uid);var h=r.on('value',function(s){cb(s.val())},function(e){console.warn(e)});return function(){r.off('value',h)}}
+ },
  /* Corrida da turma: salas em races/{code} */
  duel:{
   create:function(id,data){var db=FirebaseStore.db,a=data.a,b=data.b;var entry={id:id,a:a,b:b,at:data.at};return db.ref('duels/'+id).set(data).then(function(){return Promise.all([db.ref('inbox/'+a.uid+'/'+id).set(entry),db.ref('inbox/'+b.uid+'/'+id).set(entry)])})},
@@ -5035,7 +5077,7 @@ function shell(inner){
  var nav=function(list){return list.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
  return '<div class="shell"><aside class="side"><div class="logo">'+LOGO+'<span class="wmark"><b>Up-MED</b><small>study</small></span></div>'+nav(NAV)+'<div class="side-sep"></div>'+nav(NAV2)+
  '<div class="foot">'+avatar(S.user,32)+'<span><b>'+esc(S.user.name)+'</b><br><span style="opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</span></span></div></aside>'+
- '<main class="main" id="main"><div class="page">'+backBar()+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV.slice(0,4))+moreBtn()+'</nav>'+moreSheet()+'</div>';
+ '<main class="main" id="main">'+watermark()+'<div class="page">'+backBar()+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV.slice(0,4))+moreBtn()+'</nav>'+moreSheet()+'</div>';
 }
 var MORE=[['perfil','Perfil']].concat(NAV2);
 function moreBtn(){var on=MORE.some(function(n){return n[0]===S.view});return '<button class="navb" data-more="1" aria-haspopup="true" aria-expanded="false" '+(on?'aria-current="page"':'')+'>'+IC.mais+'<span>Mais</span></button>'}
@@ -5467,7 +5509,7 @@ function refreshStations(){Store.listStations().then(function(s){var before=JSON
    INICIALIZAÇÃO
    ========================================================= */
 function onUser(u){
- if(!u){S.user=null;S.priv=null;S.scores=null;S.admin=false;authMode='in';render();return}
+ if(!u){accessCleanup();S.user=null;S.priv=null;S.scores=null;S.admin=false;authMode='in';render();return}
  S.user=u;$('#app').innerHTML='<div style="padding:40px;text-align:center" class="muted">Carregando seu progresso…</div>';
  var lim=function(pr,v,ms){return Promise.race([Promise.resolve(pr).catch(function(e){console.warn(e);return v}),new Promise(function(res){setTimeout(function(){res(v)},ms||10000)})])};
  var loadErr=null;
@@ -5476,7 +5518,7 @@ function onUser(u){
   if(loadErr){bootFail('Não foi possível ler seu progresso ('+(loadErr.code||loadErr.message||loadErr)+').');return}
   try{
   var p=r[0]||blankPriv();var b=blankPriv();Object.keys(b).forEach(function(k){if(p[k]==null)p[k]=b[k]});if(!p.stats.mods)p.stats.mods={};if(!p.stats.week)p.stats.week=b.stats.week;if(!Array.isArray(p.hist))p.hist=Object.values(p.hist||{});
-  S.priv=p;S.admin=r[1];S.stations=r[2]||{};S.view='painel';render();if(!loadErr)persist();
+  S.priv=p;S.admin=r[1];S.stations=r[2]||{};S.view='painel';accessGate(u,function(){render();if(!loadErr)persist()});
   }catch(e){console.error(e);bootFail('Erro ao abrir o painel: '+(e&&e.message||e))}
  });
 }
@@ -5746,7 +5788,7 @@ VIEWS.perfil=function(){
  '<div class="card grid"><div class="row-b"><h3>Conquistas recentes</h3><button class="btn ghost sm" data-nav="conquistas">Ver todas</button></div><div class="medals">'+(got.length?got.slice(-6).map(function(b){return '<span title="'+esc(b.n)+'">'+medalSvg(true,b.mod)+'</span>'}).join(''):'<p class="small muted">Nenhuma ainda. Responda 10 questões para a primeira.</p>')+'</div></div>'+
  '<div class="card grid"><h3>Desempenho por módulo</h3>'+MODULES.map(function(m){var s=modStats(m.id);return '<div style="display:grid;gap:4px"><div style="display:flex;justify-content:space-between;gap:8px" class="small"><span>'+esc(m.n)+'</span><span class="num muted">'+(s.a?s.acc+'% · '+s.a+' resp.':'–')+'</span></div>'+meter(s.acc,s.a)+'</div>'}).join('')+'</div>'+
  '<div class="card grid"><h3>Preferências</h3><span class="small" style="font-weight:700">Aparência</span><div class="chips">'+[['system','Automático'],['light','Claro'],['dark','Escuro']].map(function(t){return '<button class="chip" data-theme-set="'+t[0]+'" aria-pressed="'+(th===t[0])+'">'+t[1]+'</button>'}).join('')+'</div><span class="small" style="font-weight:700">Sons de acerto e erro</span><div class="chips"><button class="chip" data-x="sound" data-xv="1" aria-pressed="'+!!snd+'">Ligados</button><button class="chip" data-x="sound" data-xv="0" aria-pressed="'+!snd+'">Desligados</button></div></div>'+
- (S.admin?'<div class="card grid"><h3>Administração</h3><p class="small muted">Você pode criar estações de prova prática com fotos.</p><div class="actions"><button class="btn dark" data-nav="editor">Editor de estações</button></div></div>':'')+
+ (S.admin?'<div class="card grid"><h3>Administração</h3><p class="small muted">Você pode criar estações de prova prática com fotos e liberar o acesso dos alunos.</p><div class="actions"><button class="btn dark" data-nav="editor">Editor de estações</button>'+(Store.mode==='firebase'?'<button class="btn pri" data-nav="acessos">Liberar acessos</button>':'')+'</div></div>':'')+
  '<div class="card grid"><h3>Sobre</h3><p class="small muted">Up-MED study · versão '+APP_VERSION+' · '+(Store.mode==='firebase'?'online':'versão de teste, dados neste aparelho')+'</p><div class="actions"><button class="btn ghost sm" data-act="versions">Histórico de versões</button></div></div>';
 };
 
@@ -6176,6 +6218,108 @@ document.addEventListener('click',function(e){
   b.disabled=true;Store.duel.create(id,data).then(function(){startQuiz(duelQs(seed),'Duelo contra '+name,{kind:'duel',meta:{seed:seed,role:'online',id:id}})}).catch(function(err){b.disabled=false;toast(errMsg(err))});return}
  if(x==='duPlay'){var d=(DO.list||[]).find(function(z){return z.id===v});if(!d)return;var op=d.a.uid===S.user.uid?d.b:d.a;startQuiz(duelQs(d.seed),'Duelo contra '+op.name,{kind:'duel',meta:{seed:d.seed,role:'online',id:d.id}});return}
 });
+
+/* ===== v3.4 — controle de acesso: liberação pelo administrador, uma sessão por vez e marca d'água ===== */
+var ACC={unsubA:null,unsubS:null,sid:null,until:0,kicked:false};
+function accessCleanup(){if(ACC.unsubA){ACC.unsubA();ACC.unsubA=null}if(ACC.unsubS){ACC.unsubS();ACC.unsubS=null}ACC.kicked=false;var k=$('#kickov');if(k)k.remove()}
+function devId(){var d=null;try{d=localStorage.getItem('upmed_dev')}catch(e){}if(!d){d='d'+Math.random().toString(36).slice(2,10)+Date.now().toString(36);try{localStorage.setItem('upmed_dev',d)}catch(e){}}return d}
+function devName(){var u=navigator.userAgent||'';var os=/Android/i.test(u)?'Android':/iPhone|iPad|iPod/i.test(u)?'iPhone/iPad':/Windows/i.test(u)?'Windows':/Mac OS/i.test(u)?'Mac':/Linux/i.test(u)?'Linux':'Aparelho';var br=/Edg\//.test(u)?'Edge':/Chrome\//.test(u)?'Chrome':/Firefox\//.test(u)?'Firefox':/Safari\//.test(u)?'Safari':'navegador';return os+' · '+br}
+function accessOn(){return Store.mode==='firebase'&&!!Store.access}
+function fmtDate(t){var d=new Date(t);return ('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear()}
+
+/* chamado pelo onUser depois de carregar o progresso */
+function accessGate(u,go){
+ accessCleanup();
+ if(!accessOn()){go();return}
+ Store.access.member(u.uid,{name:u.name||'',email:u.email||'',turma:u.turma||'',last:Date.now(),dev:devName()}).catch(function(e){console.warn(e)});
+ var started=false;
+ function start(){if(started)return;started=true;startSession(u);go()}
+ if(S.admin){start();return}
+ var first=true;
+ ACC.unsubA=Store.access.watch(u.uid,function(a){
+  if(a&&a.__err){/* regras do banco ainda sem o controle de acesso: segue como antes */ start();return}
+  ACC.until=a&&a.until||0;
+  var ok=ACC.until>Date.now();
+  if(ok){start();if(!first&&S.view)render()}
+  else if(started){/* vencido ou bloqueado durante o uso */ if(ACC.unsubS){ACC.unsubS();ACC.unsubS=null}started=false;renderLocked(u,a)}
+  else renderLocked(u,a);
+  first=false;
+ });
+}
+function renderLocked(u,a){
+ var exp=a&&a.until&&a.until<=Date.now(),blk=a&&a.blocked;
+ $('#app').innerHTML='<div class="lockwrap"><div class="card lockcard"><div class="logo-row">'+LOGO+'<b>Up-MED study</b></div>'+
+  '<h1>'+(blk?'Acesso suspenso':exp?'Seu acesso venceu':'Acesso aguardando liberação')+'</h1>'+
+  '<p>'+(blk?'O acesso desta conta foi suspenso pelo responsável pela plataforma. O acesso é pessoal; se acha que houve engano, fale com ele.':exp?'O acesso desta conta terminou em <b>'+fmtDate(a.until)+'</b>. Para renovar, fale com o responsável pela plataforma.':'Sua conta foi criada. O acesso é pessoal e é liberado pelo responsável pela plataforma depois da confirmação.')+'</p>'+
+  '<div class="lockinfo"><span class="small muted">Conta</span><b>'+esc(u.name||'')+'</b><span>'+esc(u.email||'')+'</span></div>'+
+  '<p class="small muted">Assim que o acesso for liberado, esta tela se abre sozinha.</p>'+
+  '<div class="actions"><button class="btn ghost" data-act="logout">Sair</button></div></div></div>';
+}
+
+/* uma sessão por vez: o último aparelho a entrar fica com a conta */
+function startSession(u){
+ ACC.sid=devId();ACC.kicked=false;
+ Store.access.claim(u.uid,{sid:ACC.sid,at:Date.now(),dev:devName()}).then(function(){
+  ACC.unsubS=Store.access.watchSession(u.uid,function(s){
+   if(!s||!s.sid)return;
+   if(s.sid!==ACC.sid){if(!ACC.kicked){ACC.kicked=true;showKicked(s)}}
+   else if(ACC.kicked){ACC.kicked=false;var k=$('#kickov');if(k)k.remove()}
+  });
+ }).catch(function(e){console.warn(e)});
+}
+function showKicked(s){
+ stopTimers();var old=$('#kickov');if(old)old.remove();
+ var ov=document.createElement('div');ov.id='kickov';ov.className='kickov';ov.setAttribute('role','dialog');
+ ov.innerHTML='<div class="card kickcard"><h2>Sua conta foi aberta em outro aparelho</h2><p>'+(s.dev?'Aparelho: <b>'+esc(s.dev)+'</b>. ':'')+'Por segurança, a conta só pode ser usada em um aparelho por vez.</p><p class="small muted">O acesso é pessoal. Se não foi você, saia e use “Esqueci a senha” na tela de entrada para criar uma senha nova.</p><div class="actions"><button class="btn pri" data-sess="take">Continuar neste aparelho</button><button class="btn ghost" data-sess="out">Sair</button></div></div>';
+ document.body.appendChild(ov);
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-sess]');if(!b||!S.user)return;
+ if(b.dataset.sess==='take'){Store.access.claim(S.user.uid,{sid:ACC.sid,at:Date.now(),dev:devName()}).then(function(){ACC.kicked=false;var k=$('#kickov');if(k)k.remove();render()})}
+ else{var k=$('#kickov');if(k)k.remove();Store.signOut()}});
+
+/* marca d'água com nome e e-mail */
+function watermark(){
+ if(!S.user)return '';
+ var t=(S.user.name||'')+' · '+(S.user.email||'');
+ var x=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+ var svg="<svg xmlns='http://www.w3.org/2000/svg' width='420' height='240'><text x='210' y='126' text-anchor='middle' transform='rotate(-22 210 120)' font-family='Arial,sans-serif' font-size='14' font-weight='700' fill='#1f2937' fill-opacity='0.075'>"+x+"</text></svg>";
+ return '<div class="wmk" aria-hidden="true" style="background-image:url(&quot;data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg).replace(/'/g,'%27')+'&quot;)"></div>';
+}
+
+/* ---------- painel de acessos (administrador) ---------- */
+var ACCV={q:'',f:'todos',list:null,loading:false};
+function loadMembers(){if(!accessOn()){ACCV.list=[];return}ACCV.loading=true;
+ Promise.all([Store.access.members(),Store.access.all()]).then(function(r){var m=r[0]||{},a=r[1]||{};
+  ACCV.list=Object.keys(m).map(function(k){var x=m[k]||{};var ac=a[k]||{};return{uid:k,name:x.name||'',email:x.email||'',turma:x.turma||'',last:x.last||0,dev:x.dev||'',until:ac.until||0,blocked:!!ac.blocked}}).sort(function(p,q){return(q.last||0)-(p.last||0)});
+  ACCV.loading=false;if(S.view==='acessos'){S.keepScroll=true;render()}}).catch(function(e){ACCV.loading=false;ACCV.list=[];ACCV.err=String(e&&e.message||e);if(S.view==='acessos')render()})}
+VIEWS.acessos=function(){
+ if(!S.admin)return VIEWS.painel();
+ if(!accessOn())return '<div class="top"><div><div class="eyebrow">Administração</div><h1>Acessos</h1></div></div><div class="card"><p class="muted">O controle de acesso só funciona no modo online.</p></div>';
+ if(!ACCV.list&&!ACCV.loading)loadMembers();
+ var now=Date.now(),L=ACCV.list||[];
+ var st=function(m){return m.uid===S.user.uid?'adm':m.until>now?'ok':m.blocked?'blq':m.until?'venc':'pend'};
+ var cnt={pend:0,ok:0,venc:0,adm:0,blq:0};L.forEach(function(m){cnt[st(m)]++});
+ var q=ACCV.q.trim().toLowerCase();
+ var F=L.filter(function(m){if(ACCV.f!=='todos'&&st(m)!==ACCV.f)return false;return !q||(m.name+' '+m.email+' '+m.turma).toLowerCase().indexOf(q)>=0});
+ var lab={pend:'Aguardando',ok:'Liberado',venc:'Vencido',adm:'Administrador',blq:'Bloqueado'};
+ return '<div class="top"><div><div class="eyebrow">Administração</div><h1>Acessos</h1></div><button class="btn ghost sm" data-acc="reload">Atualizar lista</button></div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Aguardando</span><b>'+cnt.pend+'</b></div><div class="stat"><span class="eyebrow">Liberados</span><b>'+cnt.ok+'</b></div><div class="stat"><span class="eyebrow">Vencidos</span><b>'+cnt.venc+'</b></div><div class="stat"><span class="eyebrow">Total</span><b>'+L.length+'</b></div></div>'+
+ '<div class="card grid"><div class="row-b" style="flex-wrap:wrap;gap:8px"><input id="accQ" class="in" type="search" placeholder="Buscar por nome, e-mail ou turma" value="'+esc(ACCV.q)+'" style="flex:1;min-width:200px"><div class="chips">'+[['todos','Todos'],['pend','Aguardando'],['ok','Liberados'],['venc','Vencidos'],['blq','Bloqueados']].map(function(c){return '<button class="chip" data-accf="'+c[0]+'" aria-pressed="'+(ACCV.f===c[0])+'">'+c[1]+'</button>'}).join('')+'</div></div>'+
+ '<p class="small muted">Contas aparecem aqui quando a pessoa entra pela primeira vez nesta versão. Liberar soma o prazo a partir de hoje (ou do vencimento atual, se ainda estiver valendo).</p>'+
+ (ACCV.loading&&!ACCV.list?'<p class="muted">Carregando…</p>':'')+(ACCV.err?'<p class="small" style="color:var(--bad)">Não foi possível ler a lista: '+esc(ACCV.err)+'. Confira as regras do banco.</p>':'')+
+ '<div class="acclist">'+(F.length?F.map(function(m){var s=st(m);return '<div class="accrow"><div class="accm"><b>'+esc(m.name||'(sem nome)')+'</b><span class="small">'+esc(m.email)+'</span><span class="small muted">'+esc(m.turma||'')+(m.last?' · último acesso '+fmtDate(m.last):'')+(m.dev?' · '+esc(m.dev):'')+'</span></div>'+
+  '<div class="accs"><span class="acctag '+s+'">'+lab[s]+(s==='ok'?' até '+fmtDate(m.until):s==='venc'?' em '+fmtDate(m.until):'')+'</span>'+(s==='adm'?'':'<div class="actions"><button class="btn pri sm" data-acc="d30" data-uid="'+m.uid+'">+30 dias</button><button class="btn ghost sm" data-acc="d180" data-uid="'+m.uid+'">+6 meses</button><label class="small accdate">Até <input type="date" data-accdate="'+m.uid+'"></label>'+(s==='ok'?'<button class="btn ghost sm accblock" data-acc="block" data-uid="'+m.uid+'">Bloquear</button>':'')+'</div>')+'</div></div>'}).join(''):'<p class="muted">Nenhuma conta nesse filtro.</p>')+'</div></div>';
+};
+function setUntil(uid,until){var m=(ACCV.list||[]).find(function(x){return x.uid===uid});var v={until:until,by:S.user.uid,at:Date.now()};if(!until)v.blocked=true;
+ return Store.access.set(uid,v).then(function(){if(m){m.until=until;m.blocked=!until}toast(until>Date.now()?'Acesso liberado até '+fmtDate(until)+'.':'Acesso bloqueado.');S.keepScroll=true;render()}).catch(function(e){toast('Não foi possível salvar: '+(e&&e.code||e))})}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-acc],[data-accf]');if(!b||S.view!=='acessos')return;
+ if(b.dataset.accf){ACCV.f=b.dataset.accf;S.keepScroll=true;render();return}
+ var a=b.dataset.acc,uid=b.dataset.uid;
+ if(a==='reload'){ACCV.list=null;ACCV.err=null;loadMembers();render();return}
+ var m=(ACCV.list||[]).find(function(x){return x.uid===uid});if(!m)return;var base=Math.max(Date.now(),m.until||0),day=864e5;
+ if(a==='d30')setUntil(uid,base+30*day);else if(a==='d180')setUntil(uid,base+182*day);else if(a==='block')setUntil(uid,0)});
+document.addEventListener('change',function(e){var t=e.target;if(!t.dataset||!t.dataset.accdate||!t.value)return;var p=t.value.split('-');var until=new Date(+p[0],+p[1]-1,+p[2],23,59,59).getTime();if(until<Date.now()){toast('Escolha uma data futura.');return}setUntil(t.dataset.accdate,until)});
+document.addEventListener('input',function(e){if(e.target.id==='accQ'){ACCV.q=e.target.value;var pos=e.target.selectionStart;S.keepScroll=true;render();var i=$('#accQ');if(i){i.focus();try{i.setSelectionRange(pos,pos)}catch(x){}}}});
 
 window.UPMED={boot:boot};
 boot();

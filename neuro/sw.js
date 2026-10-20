@@ -1,5 +1,5 @@
 /* Up-MED study — rede primeiro: sempre a versão mais nova; cópia salva só sem internet. */
-var CACHE='upmed-neuro-v3-3-0';
+var CACHE='upmed-neuro-v3-4-0';
 var CORE=['./','./index.html','./icon.svg','./icon-192.png','./manifest.webmanifest'];
 self.addEventListener('install',function(e){self.skipWaiting();e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(CORE)}).catch(function(){}))});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!==CACHE}).map(function(k){return caches.delete(k)}))}).then(function(){return self.clients.claim()}))});
