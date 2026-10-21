@@ -775,6 +775,13 @@ svg.eng{width:100%;height:auto}
 .accconf{flex-basis:100%;display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:color-mix(in srgb,var(--bad) 8%,transparent)}
 .accdel{background:var(--bad);color:#fff;border-color:var(--bad)}
 
+/* v3.4.2 nome longo na barra lateral */
+.side .foot{min-width:0}
+.side .foot .av{flex:0 0 auto}
+.foot-t{min-width:0;overflow:hidden}
+.foot-t b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hello h1{overflow-wrap:anywhere}
+
 </style>
 </head>
 <body>
@@ -814,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.4.1';
+var APP_VERSION='3.4.2';
 var VERSIONS=[
+ {v:'3.4.2',date:'21/10/2026',changes:['Painel volta à ordem anterior: estação do dia, revisão, sequência e desempenho antes da lista de módulos (o cartão Continuar de onde parou fica no topo).','Nome ou e-mail longo não ultrapassa mais a barra lateral (corta com reticências).','Quando o nome cadastrado é um e-mail, a saudação usa só a primeira parte.'],tests:['Conta com nome longo em forma de e-mail: barra lateral dentro do limite e saudação curta.','Ordem do painel conferida.'],analysis:'Correção pedida pelo usuário após a 3.2.0.'},
  {v:'3.4.1',date:'20/10/2026',changes:['Marca d’água removida de todas as telas.','Painel Acessos: botão Remover em cada aluno, com confirmação. Remover apaga o acesso, a posição no ranking e o progresso; se a pessoa entrar de novo, volta como “aguardando liberação”.'],tests:['Remover um aluno: some da lista e do ranking, a tela dele fecha na hora e, ao entrar de novo, reaparece como aguardando.','Marca d’água ausente.'],analysis:'A remoção precisa das regras do banco atualizadas nesta versão (o administrador ganha permissão só para apagar esses registros).'},
  {v:'3.4.0',date:'20/10/2026',changes:['Acesso liberado pelo administrador: contas novas ficam em “aguardando liberação” até o responsável liberar; o acesso tem data de vencimento e pode ser renovado ou suspenso.','Painel “Acessos” para o administrador (Perfil → Liberar acessos): lista de contas com e-mail, turma, último acesso e aparelho; liberar por 30 dias, 6 meses ou até uma data; bloquear; busca e filtros.','Uma sessão por vez: ao entrar em outro aparelho, o anterior mostra o aviso “Sua conta foi aberta em outro aparelho”, com a opção de continuar ali (o que derruba o outro).','Marca d’água discreta com o nome e o e-mail do aluno em todas as telas.','Quando o acesso é liberado, renovado ou suspenso, a tela do aluno muda na hora, sem recarregar.'],tests:['Aluno novo vê a tela de espera; o administrador libera e a plataforma abre sozinha.','Sessão em outro aparelho mostra o aviso; “Continuar neste aparelho” retoma a conta.','Bloqueio pelo administrador fecha o acesso na hora.','Marca d’água presente; regressões de navegação, questões e estações.'],analysis:'As regras novas do banco são o que torna o bloqueio real: sem elas, a plataforma continua funcionando como antes. O conteúdo ainda está no arquivo público; a próxima etapa (carregar aulas e questões do servidor só para contas liberadas) fecha essa brecha.'},
  {v:'3.3.0',date:'20/10/2026',changes:['Parte 2 do conteúdo (capítulos 9 a 16): aulas completas de Nervos e terminações, Nervos cranianos, SNA (aspectos gerais e anatomia), Estrutura da medula, do bulbo, da ponte e do mesencéfalo.','Cerca de 160 questões novas nesses oito módulos, com explicação curta, completa e correlação clínica, em todos os formatos (múltipla escolha, caso clínico, V ou F, associação, ordem, lacuna e assertiva-razão).','Resumos refeitos para os oito módulos.','Figuras novas no padrão em relevo, com nomes: formação do nervo espinal e trajeto do simpático, fuso neuromuscular, territórios de inervação da língua, organização do simpático e do parassimpático, lâminas de Rexed, bulbo fechado, bulbo aberto (oliva), ponte (colículo facial) e mesencéfalo (colículo superior).','Oito estações novas na prova prática, com essas figuras sem nomes, incluindo os cortes do tronco encefálico.','Figuras das aulas ampliáveis: toque na figura para abrir em tela cheia, com zoom e arraste (útil no celular).'],tests:['Banco validado; ids antigos preservados.','Todas as estações novas respondidas corretamente por toque em três rodadas.','Aulas dos oito módulos abertas no celular, sem rolagem lateral.','Figura ampliada: abrir, aumentar, fechar.'],analysis:'Os cortes do tronco são a parte mais cobrada em prova prática e agora têm estação própria. Com os nomes nos dois lados, as figuras ficam pequenas no celular; a ampliação em tela cheia resolve. Próximo passo: Parte 3 (capítulos 17 a 24).'},
@@ -5081,7 +5089,7 @@ function renderAuthKeep(m,t){var e=$('#aEmail')&&$('#aEmail').value,n=$('#aName'
 function shell(inner){
  var nav=function(list){return list.map(function(n){return '<button class="navb" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')};
  return '<div class="shell"><aside class="side"><div class="logo">'+LOGO+'<span class="wmark"><b>Up-MED</b><small>study</small></span></div>'+nav(NAV)+'<div class="side-sep"></div>'+nav(NAV2)+
- '<div class="foot">'+avatar(S.user,32)+'<span><b>'+esc(S.user.name)+'</b><br><span style="opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</span></span></div></aside>'+
+ '<div class="foot">'+avatar(S.user,32)+'<span class="foot-t"><b>'+esc(S.user.name)+'</b><br><span style="opacity:.7">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</span></span></div></aside>'+
  '<main class="main" id="main"><div class="page">'+backBar()+inner+'</div></main><nav class="bottom" aria-label="Navegação">'+nav(NAV.slice(0,4))+moreBtn()+'</nav>'+moreSheet()+'</div>';
 }
 var MORE=[['perfil','Perfil']].concat(NAV2);
@@ -5089,6 +5097,7 @@ function moreBtn(){var on=MORE.some(function(n){return n[0]===S.view});return '<
 function moreSheet(){return '<div class="msheet" id="msheet" hidden><button class="msheet-bg" data-more="0" aria-label="Fechar menu" tabindex="-1"></button><div class="msheet-p" role="menu" aria-label="Mais opções"><div class="msheet-h">'+avatar(S.user,36)+'<div><b>'+esc(S.user.name)+'</b><div class="small muted">'+(Store.mode==='firebase'?'Online · turma conectada':'Versão de teste')+'</div></div></div>'+MORE.map(function(n){return '<button class="msheet-i" role="menuitem" data-nav="'+n[0]+'" '+(S.view===n[0]?'aria-current="page"':'')+'>'+IC[n[0]]+'<span>'+n[1]+'</span></button>'}).join('')+'</div></div>'}
 function toggleMore(open){var m=$('#msheet');if(!m)return;if(open==null)open=m.hidden;m.hidden=!open;var b=document.querySelector('.bottom [data-more]');if(b)b.setAttribute('aria-expanded',String(open))}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')toggleMore(false)});
+function firstName(u){var n=String(u&&u.name||'').trim();if(n.indexOf('@')>=0)n=n.split('@')[0].split(/[._-]/)[0];n=n.split(/\s+/)[0]||'';return n?n.charAt(0).toUpperCase()+n.slice(1):''}
 function avatar(u,size){size=size||36;var ini=String(u&&u.name||'?').trim().split(/\s+/).map(function(w){return w[0]}).slice(0,2).join('').toUpperCase();return u&&u.av?'<img class="av" src="'+esc(u.av)+'" alt="" width="'+size+'" height="'+size+'" style="width:'+size+'px;height:'+size+'px">':'<span class="av" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*.4)+'px">'+esc(ini)+'</span>'}
 function render(){
  if(!S.user){renderAuth();return}
@@ -5127,7 +5136,7 @@ function modStats(id){var m=S.priv.stats.mods[id]||{a:0,c:0};var tot=QB.filter(f
 function meter(acc,a){var cls=!a?'':acc<50?'lo':acc<70?'mid':'';return '<div class="meter" aria-hidden="true"><i class="'+cls+'" style="width:'+(a?acc:0)+'%"></i></div>'}
 function vPainel(){
  var st=S.priv.stats,errs=Object.keys(S.priv.errs).filter(function(k){return QBY[k]}).length;
- var first=S.user.name.split(' ')[0];
+ var first=firstName(S.user);
  if(!S.scores)loadScores();
  var pos=myPos();
  return (Store.mode==='local'?'<div class="banner">Versão de teste: progresso e ranking ficam salvos só neste aparelho e navegador.</div>':'')+
@@ -5679,7 +5688,7 @@ function modList(){
 document.addEventListener('toggle',function(e){var d=e.target;if(!d||!d.dataset||!d.dataset.area)return;var o=lsGetSafe('upmed_areas',null);if(!o){o={};document.querySelectorAll('details[data-area]').forEach(function(x){o[x.dataset.area]=x.open})}o[d.dataset.area]=d.open;lsSetSafe('upmed_areas',o)},true);
 
 VIEWS.painel=function(){
- var st=S.priv.stats,first=S.user.name.split(' ')[0],due=dueList().length,stk=streak();
+ var st=S.priv.stats,first=firstName(S.user),due=dueList().length,stk=streak();
  if(!S.scores)loadScores();var pos=myPos();
  SD=stationOfDay();var res=S.priv.c.sd&&S.priv.c.sd.day===dayKey()?S.priv.c.sd:null;
  afterFns.push(paintSD);
@@ -5687,8 +5696,8 @@ VIEWS.painel=function(){
  return (Store.mode==='local'?'<div class="banner">Versão de teste: progresso e ranking ficam salvos só neste aparelho e navegador.</div>':'')+
  '<div class="top"><div class="hello">'+avatar(S.user,52)+'<div><div class="eyebrow">Neuroanatomia · '+QB.length+' questões · '+MODULES.length+' módulos</div><h1>Olá, '+esc(first)+'</h1></div></div>'+
  '<div class="actions"><button class="btn ghost sm" data-nav="busca">'+IC.busca+'Buscar</button><button class="btn ghost sm" data-nav="caderno">'+IC.caderno+'Caderno</button></div></div>'+
- contCard()+modList()+
- '<h2 class="sec-h">Hoje</h2><div class="hero-grid">'+
+ contCard()+
+ '<div class="hero-grid">'+
   '<section class="card sdcard"><div class="row-b"><span class="tag amb">Estação do dia</span><span class="small muted">'+esc(SD.st.t)+'</span></div>'+
   '<div class="sd-body"><div id="sdfig" class="sdfig">'+figure(SD.st)+'</div><div class="grid" style="gap:8px;align-content:start"><h3>Qual é a estrutura marcada?</h3>'+
   SD.opts.map(function(o,k){var c='';if(res){if(o===SD.pin.n)c='right';else if(o===res.pick)c='wrong'}return '<button class="opt '+c+'" data-x="sd" data-xv="'+esc(o)+'" '+(res?'disabled':'')+'><span class="k">'+'ABCD'[k]+'</span><span>'+esc(o)+'</span></button>'}).join('')+
@@ -5696,11 +5705,11 @@ VIEWS.painel=function(){
   '<section class="card rev"><span class="eyebrow">Revisão do dia</span><b class="big num">'+due+'</b><p class="small muted">'+(due?(due===1?'questão':'questões')+' para revisar agora. Os erros entram aqui na hora; os acertos voltam em alguns dias, no momento certo para fixar.':'Nada pendente agora. Questões que você errar aparecem aqui na hora; as que acertar voltam em alguns dias.')+(dueSoon(1)?' Amanhã: '+dueSoon(1)+'.':'')+'</p><button class="btn pri" data-x="review" '+(due?'':'disabled')+'>Revisar agora</button>'+
   '<div class="streak"><span class="eyebrow">Sequência</span><b class="num">'+stk+' dia'+(stk===1?'':'s')+'</b><span class="small muted">Recorde: '+bestStreak()+'</span></div>'+heatmap()+'</section>'+
  '</div>'+
- '<h2 class="sec-h">Seu desempenho</h2><div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Questões</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div><div class="stat"><span class="eyebrow">Posição</span><b>'+(pos?pos+'º':'–')+'</b></div></div>'+
+ '<div class="stats"><div class="stat"><span class="eyebrow">Pontos</span><b>'+st.xp+'</b></div><div class="stat"><span class="eyebrow">Questões</span><b>'+st.answered+'</b></div><div class="stat"><span class="eyebrow">Acerto</span><b>'+pct(st.correct,st.answered)+'%</b></div><div class="stat"><span class="eyebrow">Posição</span><b>'+(pos?pos+'º':'–')+'</b></div></div>'+
  '<div class="grid g2"><section class="card grid"><div class="row-b"><h3>Acerto por semana</h3><span class="small muted">últimas 8 semanas</span></div>'+accChart()+'</section>'+
  '<section class="card grid"><h3>Seus pontos fracos</h3>'+(weak.length?weak.map(function(w){return '<div class="weak">'+glyph(w.m.id,36)+'<div style="min-width:0"><b class="small">'+esc(w.m.n)+'</b>'+meter(w.s.acc,w.s.a)+'<span class="small muted num">'+w.s.acc+'% em '+w.s.a+' respostas</span></div><button class="btn ghost sm" data-x="train" data-xv="'+w.m.id+'">Treinar</button></div>'}).join(''):'<p class="small muted">Responda pelo menos 5 questões de um módulo para ver onde precisa reforçar.</p>')+
  '<div class="actions"><button class="btn dark sm" data-act="sim">Simulado misto</button><button class="btn ghost sm" data-x="weekly">Desafio da semana</button></div></section></div>'+
- '';
+ modList();
 };
 
 /* ---------- MÓDULO (resumo + treino) ---------- */
