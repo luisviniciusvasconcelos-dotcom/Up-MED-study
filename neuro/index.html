@@ -821,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.4.3';
+var APP_VERSION='3.4.4';
 var VERSIONS=[
+ {v:'3.4.4',date:'24/10/2026',changes:['Textos de compartilhamento (cartão de resultado e convite de duelo) passam a usar o endereço em que o app está aberto, preparando a mudança para o endereço da marca.'],tests:['Compartilhar o resultado mostra o endereço atual do app.','Convite de duelo mostra o endereço atual do app.'],analysis:'Mudança só de texto; nada de acesso, ranking ou progresso foi alterado.'},
  {v:'3.4.3',date:'23/10/2026',changes:['Painel Acessos passa a listar também quem está no ranking mas ainda não entrou na versão nova, para poder remover ou liberar essas pessoas.'],tests:['Aluna só no ranking aparece na lista e é removida.'],analysis:'Antes, só apareciam contas que tinham entrado depois da 3.4.0.'},
  {v:'3.4.2',date:'21/10/2026',changes:['Painel volta à ordem anterior: estação do dia, revisão, sequência e desempenho antes da lista de módulos (o cartão Continuar de onde parou fica no topo).','Nome ou e-mail longo não ultrapassa mais a barra lateral (corta com reticências).','Quando o nome cadastrado é um e-mail, a saudação usa só a primeira parte.'],tests:['Conta com nome longo em forma de e-mail: barra lateral dentro do limite e saudação curta.','Ordem do painel conferida.'],analysis:'Correção pedida pelo usuário após a 3.2.0.'},
  {v:'3.4.1',date:'20/10/2026',changes:['Marca d’água removida de todas as telas.','Painel Acessos: botão Remover em cada aluno, com confirmação. Remover apaga o acesso, a posição no ranking e o progresso; se a pessoa entrar de novo, volta como “aguardando liberação”.'],tests:['Remover um aluno: some da lista e do ranking, a tela dele fecha na hora e, ao entrar de novo, reaparece como aguardando.','Marca d’água ausente.'],analysis:'A remoção precisa das regras do banco atualizadas nesta versão (o administrador ganha permissão só para apagar esses registros).'},
@@ -5946,7 +5947,7 @@ function shareCard(title,ok,n,xp){
  g.fillStyle='rgba(255,255,255,.15)';rr(g,90,1170,900,12,6);g.fill();g.fillStyle='#9BCDB3';rr(g,90,1170,Math.max(12,900*ok/n),12,6);g.fill();
  g.fillStyle='#ffffff';g.font='700 56px '+B;g.fillText(Math.round(100*ok/n)+'% de acerto · +'+xp+' pontos',90,1290);
  g.fillStyle='rgba(255,255,255,.85)';g.font='700 48px '+B;g.fillText(S.user.name,90,1640);g.fillStyle='rgba(255,255,255,.6)';g.font='400 40px '+B;g.fillText([S.user.turma,S.user.fac].filter(Boolean).join(' · ')||new Date().toLocaleDateString('pt-BR'),90,1700);
- g.fillStyle='rgba(255,255,255,.6)';g.font='400 34px '+B;g.fillText('Estude também:',90,1790);g.fillText('luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro',90,1840);
+ g.fillStyle='rgba(255,255,255,.6)';g.font='400 34px '+B;g.fillText('Estude também:',90,1790);g.fillText((location.host+location.pathname.replace(/[^\/]*$/,'')).replace(/\/$/,''),90,1840);
  return new Promise(function(res){c.toBlob(res,'image/png')});
 }
 function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
@@ -6017,7 +6018,7 @@ document.addEventListener('click',function(e){
  /* duelo */
  if(x==='duNew'){var seed=Math.floor(Math.random()*4294967295);startQuiz(duelQs(seed),'Duelo',{kind:'duel',meta:{seed:seed,role:'host'}});return}
  if(x==='copy'){var el=document.getElementById(v);if(!el)return;var txt=el.value;if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(function(){toast('Código copiado.')}).catch(function(){el.select();toast('Selecione e copie o código.')});else{el.select();toast('Selecione e copie o código.')}return}
- if(x==='shareText'){var el2=document.getElementById(v);var t='Duelo no Up-MED study! Abra luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro , vá em Games > Duelo e cole o código:\n\n'+el2.value;if(navigator.share)navigator.share({text:t}).catch(function(){});else{el2.select();toast('Copie o código e envie pelo seu aplicativo de mensagens.')}return}
+ if(x==='shareText'){var el2=document.getElementById(v);var t='Duelo no Up-MED study! Abra '+(location.host+location.pathname.replace(/[^\/]*$/,'')).replace(/\/$/,'')+' , vá em Games > Duelo e cole o código:\n\n'+el2.value;if(navigator.share)navigator.share({text:t}).catch(function(){});else{el2.select();toast('Copie o código e envie pelo seu aplicativo de mensagens.')}return}
  /* corrida */
  if(x==='rcNew'){var code='';for(var k=0;k<4;k++)code+='ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(Math.random()*24)];var data={host:S.user.uid,seed:Math.floor(Math.random()*4294967295),state:'lobby',q:-1,at:Date.now(),players:{}};data.players[S.user.uid]={name:S.user.name,sc:0};Store.race.create(code,data).then(function(){raceWatch(code)}).catch(function(err){toast(errMsg(err))});return}
  if(x==='rcStart'){Store.race.update(RC.code,{state:'play',q:0,qAt:Date.now()});return}
