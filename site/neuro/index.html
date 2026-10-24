@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Up-MED study</title>
+<meta name="description" content="Neuroanatomia em questões, prova prática e ranking da turma.">
+<meta name="theme-color" content="#164A37">
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Porta de entrada da Up-MED: login, verificação de acesso e carregamento do app protegido. */
+:root{
+  --bg:#f7fbf8; --surface:#ffffff; --ink:#1e293b; --muted:#5f6f68; --line:#dcebe2;
+  --brand:#1e6b4e; --brandInk:#ffffff; --soft:#e3f4ea; --gold:#b8902f; --bad:#c2412f; --ok:#23845f;
+  --display:"Sora","Segoe UI",system-ui,sans-serif; --body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0c161c; --surface:#13222b; --ink:#e3ecef; --muted:#93a6ae; --line:#26404d;
+  --brand:#38b3a4; --brandInk:#06201c; --soft:#0f2531; --gold:#e9c46a; --bad:#ff7a66; --ok:#47c08f; color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;display:grid;place-items:center;min-height:100vh;
+  padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+.card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px 24px;display:grid;gap:18px;box-shadow:0 20px 50px -30px rgba(0,0,0,.35)}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:19px}
+.brand svg{width:40px;height:40px;flex:none}
+h1{font-family:var(--display);font-size:22px;line-height:1.2;margin:0;letter-spacing:-.01em}
+p{margin:0}
+.muted{color:var(--muted)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--soft);border-radius:12px;padding:4px;gap:4px}
+.tabs button{border:0;border-radius:9px;padding:9px;background:transparent;font:600 15px var(--body);color:var(--muted);cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+form{display:grid;gap:12px}
+label{display:grid;gap:5px;font-size:14px;font-weight:600}
+input{font:16px var(--body);padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:11px;padding:13px 16px;font:600 16px var(--body);cursor:pointer;text-decoration:none;text-align:center}
+.btn.primary{background:var(--brand);color:var(--brandInk)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn[disabled]{opacity:.6;cursor:default}
+.link{background:none;border:0;padding:0;color:var(--brand);font:600 15px var(--body);cursor:pointer;text-decoration:underline;justify-self:start}
+.msg{border-radius:10px;padding:10px 12px;font-size:15px;background:var(--soft)}
+.msg.err{background:color-mix(in srgb,var(--bad) 12%,var(--surface));color:var(--bad)}
+.stack{display:grid;gap:10px}
+.spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--brand);animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.row{display:flex;align-items:center;gap:12px}
+.fine{font-size:13px;color:var(--muted)}
+.fine a{color:inherit}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+</style>
+</head>
+<body>
+<main class="card" aria-live="polite">
+  <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1E6B4E"/><path d="M10.5 29.5V14L20 24L29.5 14V29.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.7 12.6L29.5 8.8L33.3 12.6" fill="none" stroke="#D4AF4F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Up-MED study</div>
+  <div id="view" style="display:grid;gap:16px"><div class="row"><span class="spin"></span><span class="muted">Conectando…</span></div></div>
+  <p class="fine"><a href="../assinar/">Conheça a Up-MED</a> · <a href="../assinar/privacidade/">Privacidade</a> · <a href="../assinar/termos/">Termos</a></p>
+</main>
+
+<script>
+window.FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAemespQNAtaGe6I-tF90qfH9gIyTyYZ2k",
+  authDomain: "anatomia-quiz-turma.firebaseapp.com",
+  databaseURL: "https://anatomia-quiz-turma-default-rtdb.firebaseio.com",
+  projectId: "anatomia-quiz-turma"
+};
+</script>
+<script>
+(function(){
+  'use strict';
+  var FB_VER = '10.12.2';
+  var APP_PATH = 'app/neuro';
+  var ASSINAR = '../assinar/';
+  var view = document.getElementById('view');
+  var auth, db, unsubAuth = null, accRef = null, accHandler = null, mode = 'in', loading = false;
+
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function fmtDate(t){ var d = new Date(t); return ('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear(); }
+  function devName(){ var u=navigator.userAgent||''; var os=/Android/i.test(u)?'Android':/iPhone|iPad|iPod/i.test(u)?'iPhone/iPad':/Windows/i.test(u)?'Windows':/Mac OS/i.test(u)?'Mac':/Linux/i.test(u)?'Linux':'Aparelho'; var br=/Edg\//.test(u)?'Edge':/Chrome\//.test(u)?'Chrome':/Firefox\//.test(u)?'Firefox':/Safari\//.test(u)?'Safari':'navegador'; return os+' · '+br; }
+  function loadScript(src){ return new Promise(function(res, rej){ var s=document.createElement('script'); s.src=src; s.async=true; s.onload=res; s.onerror=function(){ rej(new Error('load')); }; document.head.appendChild(s); }); }
+  function withTimeout(p, ms){ return Promise.race([p, new Promise(function(_, rej){ setTimeout(function(){ rej(new Error('timeout')); }, ms); })]); }
+  function lsGet(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } }
+  function lsSet(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+
+  /* ---------- cópia local do app (só para quem já teve acesso confirmado) ---------- */
+  function idb(){ return new Promise(function(res, rej){ try { var r = indexedDB.open('upmed-portal', 1); r.onupgradeneeded = function(){ r.result.createObjectStore('app'); }; r.onsuccess = function(){ res(r.result); }; r.onerror = function(){ rej(r.error); }; } catch(e){ rej(e); } }); }
+  function cacheGet(){ return idb().then(function(d){ return new Promise(function(res){ var q = d.transaction('app').objectStore('app').get('neuro'); q.onsuccess = function(){ res(q.result || null); }; q.onerror = function(){ res(null); }; }); }).catch(function(){ return null; }); }
+  function cachePut(v){ return idb().then(function(d){ return new Promise(function(res){ var t = d.transaction('app','readwrite'); t.objectStore('app').put(v,'neuro'); t.oncomplete = res; t.onerror = res; }); }).catch(function(){}); }
+  function cacheClear(){ return idb().then(function(d){ return new Promise(function(res){ var t = d.transaction('app','readwrite'); t.objectStore('app').delete('neuro'); t.oncomplete = res; t.onerror = res; }); }).catch(function(){}); }
+
+  /* ---------- telas ---------- */
+  function busy(text){ view.innerHTML = '<div class="row"><span class="spin"></span><span class="muted">'+esc(text)+'</span></div>'; }
+
+  function showAuth(err){
+    var up = mode === 'up';
+    view.innerHTML =
+      '<div class="stack"><h1>'+(up ? 'Criar conta' : 'Entrar')+'</h1>'+
+      '<p class="muted">'+(up ? 'Use o mesmo e-mail da sua compra. O acesso é liberado sozinho quando o pagamento é aprovado.' : 'Entre com o e-mail e a senha da sua conta.')+'</p></div>'+
+      '<div class="tabs" role="group" aria-label="Entrar ou criar conta"><button type="button" id="tIn" aria-pressed="'+!up+'">Entrar</button><button type="button" id="tUp" aria-pressed="'+up+'">Criar conta</button></div>'+
+      (err ? '<p class="msg err" role="alert">'+esc(err)+'</p>' : '')+
+      '<form id="f" novalidate>'+
+      (up ? '<label>Nome<input id="fName" autocomplete="name" required maxlength="60"></label><label>Turma<input id="fTurma" placeholder="Ex.: Medicina 2026.1" maxlength="60"></label>' : '')+
+      '<label>E-mail<input id="fEmail" type="email" autocomplete="email" required></label>'+
+      '<label>Senha<input id="fPass" type="password" autocomplete="'+(up?'new-password':'current-password')+'" required minlength="6"></label>'+
+      '<button class="btn primary" id="fGo" type="submit">'+(up ? 'Criar conta' : 'Entrar')+'</button></form>'+
+      (up ? '' : '<button type="button" class="link" id="fReset">Esqueci a senha</button>');
+    view.querySelector('#tIn').onclick = function(){ mode = 'in'; showAuth(); };
+    view.querySelector('#tUp').onclick = function(){ mode = 'up'; showAuth(); };
+    var rs = view.querySelector('#fReset');
+    if (rs) rs.onclick = function(){
+      var em = (view.querySelector('#fEmail').value || '').trim();
+      if (!em){ showAuth('Digite seu e-mail no campo acima e toque de novo em "Esqueci a senha".'); return; }
+      auth.sendPasswordResetEmail(em).then(function(){ showAuth(); var m = document.createElement('p'); m.className='msg'; m.textContent='Se esse e-mail tiver conta, chega um link para criar uma senha nova.'; view.insertBefore(m, view.querySelector('form')); }).catch(function(e){ showAuth(errText(e)); });
+    };
+    view.querySelector('#f').onsubmit = function(ev){
+      ev.preventDefault();
+      var email = view.querySelector('#fEmail').value.trim(), pass = view.querySelector('#fPass').value;
+      var go = view.querySelector('#fGo'); go.disabled = true;
+      if (up){
+        var name = view.querySelector('#fName').value.trim(), turma = view.querySelector('#fTurma').value.trim();
+        if (!name){ go.disabled = false; showAuth('Digite seu nome.'); return; }
+        lsSet('upmed_portal_pending', {name: name, turma: turma});
+        auth.createUserWithEmailAndPassword(email, pass).then(function(cred){
+          return Promise.all([cred.user.updateProfile({displayName: name}), db.ref('profiles/'+cred.user.uid).set({name: name, turma: turma, createdAt: Date.now()})]);
+        }).catch(function(e){ go.disabled = false; showAuth(errText(e)); });
+      } else {
+        auth.signInWithEmailAndPassword(email, pass).catch(function(e){ go.disabled = false; showAuth(errText(e)); });
+      }
+    };
+  }
+
+  function errText(e){
+    var c = (e && e.code) || '';
+    if (/invalid-email/.test(c)) return 'Esse e-mail não parece válido.';
+    if (/email-already-in-use/.test(c)) return 'Já existe conta com esse e-mail. Toque em Entrar.';
+    if (/weak-password/.test(c)) return 'A senha precisa ter pelo menos 6 caracteres.';
+    if (/wrong-password|invalid-credential|user-not-found|invalid-login/.test(c)) return 'E-mail ou senha incorretos.';
+    if (/too-many-requests/.test(c)) return 'Muitas tentativas. Espere alguns minutos e tente de novo.';
+    if (/network/.test(c)) return 'Sem conexão com a internet.';
+    return 'Não deu certo agora. Tente de novo.';
+  }
+
+  function showGate(kind, data, user){
+    var title, text, actions = '';
+    if (kind === 'pending'){ title = 'Falta liberar seu acesso'; text = 'Sua conta foi criada. Assine o semestre com este mesmo e-mail ('+esc(user.email)+') e o acesso abre aqui sozinho, em segundos.'; actions = '<a class="btn primary" href="'+ASSINAR+'">Assinar o semestre</a>'; }
+    else if (kind === 'expired'){ title = 'Seu acesso terminou'; text = 'O acesso desta conta venceu em '+fmtDate(data.until)+'. Renove para continuar de onde parou; seu progresso está guardado.'; actions = '<a class="btn primary" href="'+ASSINAR+'">Renovar</a>'; }
+    else if (kind === 'blocked'){ title = 'Acesso suspenso'; text = 'O acesso desta conta foi suspenso. Se acha que houve engano, responda o e-mail da sua compra.'; }
+    else { title = 'Não conseguimos verificar seu acesso'; text = 'Pode ser a conexão. Seu acesso não foi alterado.'; actions = '<button class="btn primary" id="gRetry" type="button">Tentar de novo</button>'; }
+    view.innerHTML = '<div class="stack"><h1>'+title+'</h1><p class="muted">'+text+'</p></div><div class="stack">'+actions+'<button class="btn ghost" id="gOut" type="button">Sair desta conta</button></div>';
+    var r = view.querySelector('#gRetry'); if (r) r.onclick = function(){ location.reload(); };
+    view.querySelector('#gOut').onclick = function(){ cacheClear(); lsSet('upmed_portal_acc', null); auth.signOut(); };
+  }
+
+  /* ---------- verificação de acesso (falha fechada) ---------- */
+  function onUser(u){
+    stopWatch();
+    if (!u){ cacheClear(); lsSet('upmed_portal_acc', null); showAuth(); return; }
+    busy('Verificando seu acesso…');
+    var pend = lsGet('upmed_portal_pending') || {};
+    var name = u.displayName || pend.name || (u.email || '').split('@')[0];
+    var memberRec = {name: name, email: u.email || '', last: Date.now(), dev: devName()};
+    if (pend.turma) memberRec.turma = pend.turma;
+    db.ref('members/'+u.uid).update(memberRec).catch(function(e){ console.warn(e); });
+
+    withTimeout(db.ref('admins/'+u.uid).once('value'), 10000).then(function(s){ return s.val() === true; }).catch(function(){ return false; }).then(function(isAdmin){
+      if (isAdmin){ loadApp(u, true); return; }
+      accRef = db.ref('access/'+u.uid);
+      accHandler = accRef.on('value', function(s){
+        var a = s.val();
+        if (a && a.blocked){ lsSet('upmed_portal_acc', null); showGate('blocked', a, u); return; }
+        if (a && a.until > Date.now()){ lsSet('upmed_portal_acc', {uid: u.uid, until: a.until}); loadApp(u, false); return; }
+        lsSet('upmed_portal_acc', null);
+        showGate(a && a.until ? 'expired' : 'pending', a, u);
+      }, function(e){ console.warn(e); offlineOrError(u); });
+    });
+  }
+  function stopWatch(){ if (accRef && accHandler){ accRef.off('value', accHandler); } accRef = null; accHandler = null; }
+
+  /* Sem conexão: só abre a cópia salva de quem tinha acesso válido confirmado neste aparelho. */
+  function offlineOrError(u){
+    var acc = lsGet('upmed_portal_acc');
+    if (!navigator.onLine && acc && acc.uid === u.uid && acc.until > Date.now()){
+      cacheGet().then(function(c){ if (c && c.html){ boot(c.html); } else { showGate('error', null, u); } });
+      return;
+    }
+    showGate('error', null, u);
+  }
+
+  /* ---------- carrega o app protegido ---------- */
+  function loadApp(u, isAdmin){
+    if (loading) return; loading = true;
+    busy('Abrindo a Up-MED…');
+    withTimeout(db.ref(APP_PATH+'/version').once('value'), 15000).then(function(s){
+      var version = s.val();
+      if (!version) throw new Error('sem-versao');
+      return cacheGet().then(function(c){
+        if (c && c.version === version && c.html) return c.html;
+        busy('Baixando a versão '+String(version).slice(0, 12)+'…');
+        return withTimeout(db.ref(APP_PATH+'/html').once('value'), 60000).then(function(h){
+          var html = h.val();
+          if (!html) throw new Error('sem-app');
+          return cachePut({version: version, html: html, at: Date.now()}).then(function(){ return html; });
+        });
+      });
+    }).then(boot).catch(function(e){
+      console.warn(e); loading = false;
+      if (e && e.message === 'sem-versao' && isAdmin){ view.innerHTML = '<div class="stack"><h1>App ainda não publicado</h1><p class="muted">Rode a publicação no GitHub (Actions → Publicar app) e volte aqui.</p></div>'; return; }
+      offlineOrError(u);
+    });
+  }
+
+  function boot(html){
+    stopWatch();
+    if (unsubAuth){ unsubAuth(); unsubAuth = null; }
+    var go = function(){ document.open(); document.write(html); document.close(); };
+    try { firebase.app().delete().then(go, go); } catch(e){ go(); }
+  }
+
+  /* ---------- início ---------- */
+  var base = 'https://www.gstatic.com/firebasejs/'+FB_VER+'/';
+  withTimeout(loadScript(base+'firebase-app-compat.js').then(function(){ return Promise.all([loadScript(base+'firebase-auth-compat.js'), loadScript(base+'firebase-database-compat.js')]); }), 15000).then(function(){
+    if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
+    auth = firebase.auth(); db = firebase.database();
+    unsubAuth = auth.onAuthStateChanged(onUser);
+  }).catch(function(){
+    var acc = lsGet('upmed_portal_acc');
+    if (acc && acc.until > Date.now() && !navigator.onLine){ cacheGet().then(function(c){ if (c && c.html) boot(c.html); else noConn(); }); return; }
+    noConn();
+  });
+  function noConn(){ view.innerHTML = '<div class="stack"><h1>Sem conexão</h1><p class="muted">Não foi possível conectar. Confira a internet e, se usar bloqueador de anúncios, libere este site.</p></div><button class="btn primary" type="button" onclick="location.reload()">Tentar de novo</button>'; }
+})();
+</script>
+</body>
+</html>

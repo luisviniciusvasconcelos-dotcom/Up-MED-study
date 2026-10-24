@@ -1,0 +1,21 @@
+name: Publicar app
+
+on:
+  push:
+    branches: [main]
+    paths: ['neuro/index.html']
+  workflow_dispatch:
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Publicar no Firebase
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: node scripts/publicar-app.mjs

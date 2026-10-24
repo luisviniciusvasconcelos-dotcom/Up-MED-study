@@ -1,0 +1,12 @@
+name = "liberador-upmed"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+# Confere compras pendentes (quem pagou antes de criar a conta) a cada 15 minutos
+[triggers]
+crons = ["*/15 * * * *"]
+
+[vars]
+DATABASE_URL = "https://anatomia-quiz-turma-default-rtdb.firebaseio.com"
+DIAS_PADRAO = "183"
+DIAS_TOLERANCIA = "3"

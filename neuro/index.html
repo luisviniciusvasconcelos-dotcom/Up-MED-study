@@ -821,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.4.4';
+var APP_VERSION='3.5.0';
 var VERSIONS=[
+ {v:'3.5.0',date:'24/10/2026',changes:['Conteúdo protegido: o app passa a ser entregue pelo portal de entrada só para quem tem acesso válido; o código público não traz mais as questões.','Verificação de acesso falha fechada: sem confirmar o acesso, o app não abre.','Telas de acesso pendente e vencido ganham o botão para assinar ou renovar.','Tela de entrada sem o nome da faculdade, já que a plataforma atende várias turmas.'],tests:['Conta sem acesso vê a tela de assinatura e não chega ao conteúdo.','Conta com acesso abre o app normalmente.','Sem internet, quem já tinha acesso confirmado no aparelho abre a cópia salva.'],analysis:'A proteção agora está no banco (regras) e na entrega, não só na tela.'},
  {v:'3.4.4',date:'24/10/2026',changes:['Textos de compartilhamento (cartão de resultado e convite de duelo) passam a usar o endereço em que o app está aberto, preparando a mudança para o endereço da marca.'],tests:['Compartilhar o resultado mostra o endereço atual do app.','Convite de duelo mostra o endereço atual do app.'],analysis:'Mudança só de texto; nada de acesso, ranking ou progresso foi alterado.'},
  {v:'3.4.3',date:'23/10/2026',changes:['Painel Acessos passa a listar também quem está no ranking mas ainda não entrou na versão nova, para poder remover ou liberar essas pessoas.'],tests:['Aluna só no ranking aparece na lista e é removida.'],analysis:'Antes, só apareciam contas que tinham entrado depois da 3.4.0.'},
  {v:'3.4.2',date:'21/10/2026',changes:['Painel volta à ordem anterior: estação do dia, revisão, sequência e desempenho antes da lista de módulos (o cartão Continuar de onde parou fica no topo).','Nome ou e-mail longo não ultrapassa mais a barra lateral (corta com reticências).','Quando o nome cadastrado é um e-mail, a saudação usa só a primeira parte.'],tests:['Conta com nome longo em forma de e-mail: barra lateral dentro do limite e saudação curta.','Ordem do painel conferida.'],analysis:'Correção pedida pelo usuário após a 3.2.0.'},
@@ -5059,7 +5060,7 @@ applyTheme(lsGet('upmed2_theme','light'));
 var authMode='in';
 function renderAuth(msg,msgType){
  var app=$('#app');
- app.innerHTML='<div class="auth"><section class="auth-hero"><div class="auth-logo">'+LOGO+'</div><div class="eyebrow" style="color:inherit;opacity:.7">UNCISAL · Medicina</div><div class="mark">Up-MED<br><span>study</span></div><p>Neuroanatomia em questões, prova prática com peças reais e ranking da turma.</p>'+
+ app.innerHTML='<div class="auth"><section class="auth-hero"><div class="auth-logo">'+LOGO+'</div><div class="eyebrow" style="color:inherit;opacity:.7">Neuroanatomia · Medicina</div><div class="mark">Up-MED<br><span>study</span></div><p>Neuroanatomia em questões, prova prática com peças reais e ranking da turma.</p>'+
  '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3"><path d="M100 20c-40 0-70 30-70 70 0 25 12 40 25 50l5 40h80l5-40c13-10 25-25 25-50 0-40-30-70-70-70z"/><path d="M100 20v160M60 60c15 10 25 10 40 0M100 60c15 10 25 10 40 0M55 105c20 8 30 8 45 0M100 105c15 8 25 8 45 0"/></svg></section>'+
  '<section class="auth-card"><form id="authForm" novalidate>'+
  '<div class="seg" role="group" aria-label="Entrar ou criar conta"><button type="button" data-am="in" aria-pressed="'+(authMode==='in')+'">Entrar</button><button type="button" data-am="up" aria-pressed="'+(authMode==='up')+'">Criar conta</button></div>'+
@@ -6253,7 +6254,7 @@ function accessGate(u,go){
  if(S.admin){start();return}
  var first=true;
  ACC.unsubA=Store.access.watch(u.uid,function(a){
-  if(a&&a.__err){/* regras do banco ainda sem o controle de acesso: segue como antes */ start();return}
+  if(a&&a.__err){/* falha fechada: sem confirmar o acesso, não abre */ if(started){if(ACC.unsubS){ACC.unsubS();ACC.unsubS=null}started=false}renderLocked(u,a);first=false;return}
   ACC.until=a&&a.until||0;
   var ok=ACC.until>Date.now();
   if(ok){start();if(!first&&S.view)render()}
@@ -6263,13 +6264,13 @@ function accessGate(u,go){
  });
 }
 function renderLocked(u,a){
- var exp=a&&a.until&&a.until<=Date.now(),blk=a&&a.blocked;
+ var err=a&&a.__err,exp=!err&&a&&a.until&&a.until<=Date.now(),blk=!err&&a&&a.blocked;
  $('#app').innerHTML='<div class="lockwrap"><div class="card lockcard"><div class="logo-row">'+LOGO+'<b>Up-MED study</b></div>'+
-  '<h1>'+(blk?'Acesso suspenso':exp?'Seu acesso venceu':'Acesso aguardando liberação')+'</h1>'+
-  '<p>'+(blk?'O acesso desta conta foi suspenso pelo responsável pela plataforma. O acesso é pessoal; se acha que houve engano, fale com ele.':exp?'O acesso desta conta terminou em <b>'+fmtDate(a.until)+'</b>. Para renovar, fale com o responsável pela plataforma.':'Sua conta foi criada. O acesso é pessoal e é liberado pelo responsável pela plataforma depois da confirmação.')+'</p>'+
+  '<h1>'+(err?'Não foi possível verificar seu acesso':blk?'Acesso suspenso':exp?'Seu acesso venceu':'Falta liberar seu acesso')+'</h1>'+
+  '<p>'+(err?'Pode ser a conexão. Seu acesso não foi alterado; tente de novo em instantes.':blk?'O acesso desta conta foi suspenso. Se acha que houve engano, responda o e-mail da sua compra.':exp?'O acesso desta conta terminou em <b>'+fmtDate(a.until)+'</b>. Renove para continuar de onde parou; seu progresso está guardado.':'Sua conta foi criada. Assine o semestre com este mesmo e-mail e o acesso abre aqui sozinho, em segundos.')+'</p>'+
   '<div class="lockinfo"><span class="small muted">Conta</span><b>'+esc(u.name||'')+'</b><span>'+esc(u.email||'')+'</span></div>'+
   '<p class="small muted">Assim que o acesso for liberado, esta tela se abre sozinha.</p>'+
-  '<div class="actions"><button class="btn ghost" data-act="logout">Sair</button></div></div></div>';
+  '<div class="actions">'+(err?'':blk?'':'<a class="btn pri" href="../assinar/">'+(exp?'Renovar':'Assinar o semestre')+'</a>')+'<button class="btn ghost" data-act="logout">Sair</button></div></div></div>';
 }
 
 /* uma sessão por vez: o último aparelho a entrar fica com a conta */

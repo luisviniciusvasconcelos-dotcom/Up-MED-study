@@ -1,0 +1,114 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "admins": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false
+      }
+    },
+
+    "access": {
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && root.child('admins').child(auth.uid).val() === true",
+        ".validate": "newData.child('until').isNumber()"
+      }
+    },
+
+    "members": {
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".validate": "root.child('admins').child(auth.uid).val() === true || (auth.uid === $uid && newData.child('email').val() === auth.token.email)",
+        "name": { ".validate": "newData.isString() && newData.val().length <= 80" },
+        "email": { ".validate": "newData.isString() && newData.val().length <= 120" },
+        "turma": { ".validate": "newData.isString() && newData.val().length <= 80" },
+        "dev": { ".validate": "newData.isString() && newData.val().length <= 60" },
+        "last": { ".validate": "newData.isNumber()" },
+        "$other": { ".validate": "root.child('admins').child(auth.uid).val() === true" }
+      }
+    },
+
+    "sessions": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)"
+      }
+    },
+
+    "profiles": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        "name": { ".validate": "newData.isString() && newData.val().length <= 80" },
+        "turma": { ".validate": "newData.isString() && newData.val().length <= 80" }
+      }
+    },
+
+    "private": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)"
+      }
+    },
+
+    "scores": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".validate": "root.child('admins').child(auth.uid).val() === true || (newData.child('xp').isNumber() && newData.child('answered').isNumber() && newData.child('correct').isNumber() && newData.child('correct').val() <= newData.child('answered').val() && newData.child('xp').val() >= 0 && newData.child('xp').val() <= (data.child('xp').isNumber() ? data.child('xp').val() : 0) + 20000 && newData.child('answered').val() <= (data.child('answered').isNumber() ? data.child('answered').val() : 0) + 1000)"
+      }
+    },
+
+    "stations": {
+      ".read": "auth != null && (root.child('admins').child(auth.uid).val() === true || (root.child('access').child(auth.uid).child('until').val() > now && root.child('access').child(auth.uid).child('blocked').val() !== true))",
+      "$id": {
+        ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
+      }
+    },
+
+    "app": {
+      ".read": "auth != null && (root.child('admins').child(auth.uid).val() === true || (root.child('access').child(auth.uid).child('until').val() > now && root.child('access').child(auth.uid).child('blocked').val() !== true))",
+      ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
+    },
+
+    "duels": {
+      "$id": {
+        ".read": "auth != null",
+        ".write": "auth != null && !data.exists() && (newData.child('a/uid').val() === auth.uid || newData.child('b/uid').val() === auth.uid)",
+        "res": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && (root.child('duels').child($id).child('a/uid').val() === auth.uid || root.child('duels').child($id).child('b/uid').val() === auth.uid)"
+          }
+        }
+      }
+    },
+
+    "inbox": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        "$id": {
+          ".write": "auth != null && (auth.uid === $uid || (!data.exists() && (newData.child('a/uid').val() === auth.uid || newData.child('b/uid').val() === auth.uid)))"
+        }
+      }
+    },
+
+    "races": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        ".validate": "$code.length <= 8"
+      }
+    },
+
+    "kiwify": {
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
+      ".write": false
+    }
+  }
+}
