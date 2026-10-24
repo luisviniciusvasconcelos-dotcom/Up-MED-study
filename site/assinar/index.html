@@ -68,7 +68,7 @@ main{position:relative}
 
 /* nav */
 .nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:40;padding-top:14px}
-.nav .bar{backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);background:rgba(6,16,12,.78);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 16px;border-radius:14px;border:1px solid var(--line)}
+.nav .bar{background:rgba(6,16,12,.95);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 16px;border-radius:14px;border:1px solid var(--line)}
 .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:16px;text-decoration:none;letter-spacing:-.01em}
 .logo svg{width:28px;height:28px;flex:none}
 .nav nav{display:flex;align-items:center;gap:26px;font-size:15px;color:var(--muted)}
@@ -158,7 +158,7 @@ section{position:relative}
 /* recursos: rolagem lateral */
 .hscroll{padding-block:110px 40px}.hscroll .pin{display:grid;gap:36px}
 .hscroll .pin > .wrap{width:100%;margin:0 auto}
-.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-left:max(var(--gutter),calc((100vw - var(--maxw))/2 + var(--gutter)));padding-right:var(--gutter);padding-bottom:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-left:max(var(--gutter),calc((100vw - var(--maxw))/2 + var(--gutter)));padding-right:var(--gutter);padding-bottom:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
 .track .card{scroll-snap-align:start}
 .card{flex:0 0 min(78vw,380px);aspect-ratio:4/5;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:24px}
 .card .art{position:absolute;inset:0;transform:scale(1.02);transition:transform 1.2s cubic-bezier(.2,.7,.1,1);background:radial-gradient(120% 80% at 70% 30%,rgba(92,207,155,.16),transparent 60%),linear-gradient(180deg,#0f1f18,#08120e)}
@@ -301,6 +301,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   .card .art svg{inset:12% 8% 46%;height:42%}
   .nav .btn.ghost{display:none}
 }
+@media (pointer:coarse),(max-width:760px){.rig,.layer,.fnode,.glare i{will-change:auto}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .hero h1 .ln > span{transform:none}
@@ -640,7 +641,10 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   /* fundo: fibras com impulsos (barato: DPR 1, 30 qps, sprite pronto, para quando some) */
   var cv = document.getElementById('bg'), ctx = cv.getContext('2d');
   var small = window.matchMedia('(max-width: 760px)').matches, weak = (navigator.hardwareConcurrency || 4) <= 4;
-  var animateBg = !RM && !small && !weak;
+  var coarse = window.matchMedia('(pointer: coarse)').matches;
+  /* modo leve: celular, toque ou aparelho fraco. Nada anima a cada quadro; a janela fica parada e só os cartões trocam. */
+  var lite = RM || small || weak || coarse;
+  var animateBg = !lite;
   var fibers = [];
   for (var i=0;i<11;i++){ var y = .1 + i*.075; fibers.push({y0:y, y1:y + ((i%3)-1)*.18, a:.1+((i*7)%5)*.035, ph:i*1.7, sp:.00012+(i%4)*.00004, pulses:[(i*.13)%1, (i*.37+.5)%1]}); }
   function sprite(col){ var c = document.createElement('canvas'); c.width = c.height = 12; var x = c.getContext('2d'); var g = x.createRadialGradient(6,6,0,6,6,6); g.addColorStop(0,col); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0,0,12,12); return c; }
@@ -692,7 +696,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     if (active.hero && animateBg && t - lastBg > 33){ drawBg(t); lastBg = t; }
 
     /* janela 3D */
-    if (active.hero && !RM){
+    if (active.hero && !lite){
       heroTick(t);
       idle++;
       if (idle > 90 || touch){ tx = Math.sin(t/2800)*.3; ty = Math.cos(t/3300)*.2; }
@@ -705,7 +709,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     }
 
     /* o laço só continua enquanto há algo se mexendo */
-    if (moving || active.hero) settle = 0; else settle++;
+    if (moving || (active.hero && !lite)) settle = 0; else settle++;
     if (settle < 3){ requestAnimationFrame(frame); } else { running = false; }
   }
   function kick(){ if (!running){ running = true; settle = 0; requestAnimationFrame(frame); } }
@@ -717,6 +721,18 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   measure();
   if (!animateBg) drawBg(0);
+  if (lite){
+    /* janela parada numa inclinação bonita; cartões continuam alternando, sem laço por quadro */
+    rig.style.transform = 'rotateY(-14deg) rotateX(6deg)';
+    layers.forEach(function(L){ L.el.style.transform = 'translate3d(0,0,'+L.d+'px)'; });
+    if (!RM) setInterval(function(){ if (active.hero && !document.hidden) heroTick(performance.now()); }, 900);
+  }
+  /* animações dos desenhos das etapas só rodam na tela */
+  document.querySelectorAll('.vis svg').forEach(function(sv){
+    if (!sv.pauseAnimations) return;
+    sv.pauseAnimations();
+    new IntersectionObserver(function(es){ if (es[0].isIntersecting) sv.unpauseAnimations(); else sv.pauseAnimations(); }).observe(sv);
+  });
   kick();
 })();
 </script>
