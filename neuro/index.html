@@ -22,8 +22,8 @@
   --brand:#e3f4ea; --brandInk:#14532d; --accent:#2a8a55; --accentInk:#ffffff;
   --navHover:rgba(20,83,45,.07); --navActive:rgba(20,83,45,.13); --logoEm:#2a8a55; --sideLine:rgba(20,83,45,.15); --hi:#E9C46A; --hiInk:#5a4300;
   --ok:#23845f; --bad:#c2412f; --warn:#b07a00;
-  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
-  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-display:"Sora","Segoe UI",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   --r:12px;
 }
@@ -823,7 +823,7 @@ var LESSON={};
 
 var APP_VERSION='3.5.0';
 var VERSIONS=[
- {v:'3.5.0',date:'24/10/2026',changes:['Conteúdo protegido: o app passa a ser entregue pelo portal de entrada só para quem tem acesso válido; o código público não traz mais as questões.','Verificação de acesso falha fechada: sem confirmar o acesso, o app não abre.','Telas de acesso pendente e vencido ganham o botão para assinar ou renovar.','Tela de entrada sem o nome da faculdade, já que a plataforma atende várias turmas.'],tests:['Conta sem acesso vê a tela de assinatura e não chega ao conteúdo.','Conta com acesso abre o app normalmente.','Sem internet, quem já tinha acesso confirmado no aparelho abre a cópia salva.'],analysis:'A proteção agora está no banco (regras) e na entrega, não só na tela.'},
+ {v:'3.5.0',date:'24/10/2026',changes:['Conteúdo protegido: o app passa a ser entregue pelo portal de entrada só para quem tem acesso válido; o código público não traz mais as questões.','Verificação de acesso falha fechada: sem confirmar o acesso, o app não abre.','Telas de acesso pendente e vencido ganham o botão para assinar ou renovar.','Tela de entrada sem o nome da faculdade, já que a plataforma atende várias turmas.','Fontes iguais às da página e do Instagram (Sora e Source Sans 3), que já eram carregadas mas não eram usadas.'],tests:['Conta sem acesso vê a tela de assinatura e não chega ao conteúdo.','Conta com acesso abre o app normalmente.','Sem internet, quem já tinha acesso confirmado no aparelho abre a cópia salva.'],analysis:'A proteção agora está no banco (regras) e na entrega, não só na tela.'},
  {v:'3.4.4',date:'24/10/2026',changes:['Textos de compartilhamento (cartão de resultado e convite de duelo) passam a usar o endereço em que o app está aberto, preparando a mudança para o endereço da marca.'],tests:['Compartilhar o resultado mostra o endereço atual do app.','Convite de duelo mostra o endereço atual do app.'],analysis:'Mudança só de texto; nada de acesso, ranking ou progresso foi alterado.'},
  {v:'3.4.3',date:'23/10/2026',changes:['Painel Acessos passa a listar também quem está no ranking mas ainda não entrou na versão nova, para poder remover ou liberar essas pessoas.'],tests:['Aluna só no ranking aparece na lista e é removida.'],analysis:'Antes, só apareciam contas que tinham entrado depois da 3.4.0.'},
  {v:'3.4.2',date:'21/10/2026',changes:['Painel volta à ordem anterior: estação do dia, revisão, sequência e desempenho antes da lista de módulos (o cartão Continuar de onde parou fica no topo).','Nome ou e-mail longo não ultrapassa mais a barra lateral (corta com reticências).','Quando o nome cadastrado é um e-mail, a saudação usa só a primeira parte.'],tests:['Conta com nome longo em forma de e-mail: barra lateral dentro do limite e saudação curta.','Ordem do painel conferida.'],analysis:'Correção pedida pelo usuário após a 3.2.0.'},
