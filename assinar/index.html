@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Up-MED study</title>
+<meta name="description" content="Neuroanatomia para a prova teórica e prática. 581 questões comentadas, estações de prova prática e ranking da turma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Up-MED study · Neuroanatomia para a prova prática">
+<meta property="og:description" content="581 questões comentadas, 44 estações de prova prática e ranking da turma. R$ 89 por semestre.">
+<meta property="og:image" content="https://luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro/icon-512.png">
+<meta name="theme-color" content="#06100c">
+<link rel="icon" href="../neuro/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../neuro/icon-180.png">
+<style>
+/* Layout: landing escura de rolagem longa. Topo com janela 3D da sessão de estudo, recursos em rolagem lateral,
+   etapas em cartões empilhados, frase revelada por rolagem, números reais, autor, oferta e rodapé com marca animada.
+   Visual único e deliberado (escuro), por isso sem bloco de tema claro. */
+:root{
+  --bg:#06100c; --bg-2:#0b1813; --text:#ecf4ef; --muted:#8da397; --line:rgba(255,255,255,.09);
+  --accent:#5ccf9b; --accent-2:#d4af4f; --ok:#7be3a6; --bad:#f08a74;
+  --glass:linear-gradient(155deg,rgba(255,255,255,.085),rgba(255,255,255,.025) 45%,rgba(255,255,255,.04));
+  --glass-border:rgba(255,255,255,.12); --glass-blur:blur(22px) saturate(150%); --radius:22px;
+  --gutter:clamp(16px,4vw,48px); --maxw:1280px;
+  --display:"Sora","Segoe UI",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:auto}
+html,body{overflow-x:clip}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--bg)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.03em;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.7}
+.em{color:var(--accent)}
+.gold{color:var(--accent-2)}
+.glass{background:var(--glass),rgba(12,24,19,.82);border:1px solid var(--glass-border);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -30px rgba(0,0,0,.8);border-radius:var(--radius)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:14px 24px;font:600 16px var(--body);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .2s,background .2s,border-color .2s;white-space:nowrap}
+.btn.solid{background:var(--text);color:#06100c}
+.btn.solid:hover{transform:translateY(-1px);background:#fff}
+.btn.ghost{background:rgba(255,255,255,.06);border-color:var(--glass-border);color:var(--text)}
+.btn.ghost:hover{border-color:rgba(255,255,255,.3)}
+.btn.green{background:var(--accent);color:#04120c}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+
+/* fundo animado */
+main{position:relative}
+#bg{position:absolute;top:0;left:0;width:100%;height:115svh;z-index:-1;opacity:.6;pointer-events:none;display:block}
+
+/* nav */
+.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:40;padding-top:14px}
+.nav .bar{backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);background:var(--glass),rgba(8,18,14,.55);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 16px;border-radius:999px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:16px;text-decoration:none;letter-spacing:-.01em}
+.logo svg{width:28px;height:28px;flex:none}
+.nav nav{display:flex;align-items:center;gap:26px;font-size:15px;color:var(--muted)}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--text)}
+.nav .right{display:flex;align-items:center;gap:8px}
+.nav .btn{padding:10px 18px;font-size:15px}
+
+/* hero */
+.hero{min-height:100svh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:24px;padding-top:110px;padding-bottom:60px;position:relative}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 55% 60% at 18% 52%,rgba(6,16,12,.78),transparent 75%)}
+.hero .copy{display:grid;gap:26px;min-width:0;position:relative;z-index:2}
+.hero h1{font-size:clamp(44px,6.4vw,100px);line-height:.98;font-weight:600}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .ln > span{display:block;transform:translateY(105%);animation:rise 1.1s cubic-bezier(.2,.7,.1,1) forwards}
+.hero h1 .ln:nth-child(2) > span{animation-delay:.1s}
+.hero h1 .ln:nth-child(3) > span{animation-delay:.2s}
+@keyframes rise{to{transform:none}}
+.lede{font-size:clamp(18px,1.5vw,20px);color:var(--muted);max-width:34rem}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.meta{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:28px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.meta b{color:var(--text);font-weight:500;font-size:15px;display:block}
+
+/* janela 3D */
+.stage{perspective:1497px;height:clamp(360px,34vw,440px);margin-right:calc(-1*var(--gutter) - 6vw);position:relative}
+.rig{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.layer{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.flow{position:absolute;top:-2%;left:0;width:106%;height:115%;border-radius:18px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(20,34,28,.96),rgba(8,15,12,.95) 45%,rgba(12,22,18,.96));
+  border:1px solid rgba(255,255,255,.1);border-right:0;box-shadow:0 60px 120px -40px rgba(0,0,0,.9)}
+.flow::after{content:"";position:absolute;top:0;right:0;bottom:0;width:32%;pointer-events:none;background:linear-gradient(90deg,rgba(6,16,12,0),var(--bg) 92%)}
+.fbar{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:13px}
+.fbar .t{font-weight:600}
+.fbar .s{color:var(--muted);font-family:var(--mono);font-size:12px}
+.live{margin-left:auto;margin-right:34%;display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ok);border:1px solid rgba(123,227,166,.35);border-radius:999px;padding:3px 9px}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.fbody{position:absolute;inset:45px 0 0 0;background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:18px 18px}
+.tools{position:absolute;top:12px;left:12px;display:grid;gap:4px}
+.tools span{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted);font-size:13px}
+.zoom{position:absolute;top:14px;left:48px;font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:3px 7px}
+.wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.wires path{fill:none;stroke:rgba(255,255,255,.18);stroke-width:1.4;vector-effect:non-scaling-stroke}
+.wires .pulse{stroke-width:2.6;stroke-dasharray:7 93;stroke-dashoffset:100;animation:pulse 2.4s linear infinite}
+.wires .p1{stroke:var(--accent);color:var(--accent)}
+.wires .p2{stroke:var(--accent-2);color:var(--accent-2);animation-delay:1.2s}
+@keyframes pulse{to{stroke-dashoffset:0}}
+.wlabel{position:absolute;font-family:var(--mono);font-size:10.5px;color:var(--muted);background:rgba(6,16,12,.9);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+.fbase,.fnode{position:absolute;width:23%;border-radius:9px;padding:12px 11px}
+.fbase{border:1px dashed rgba(255,255,255,.14);background:rgba(255,255,255,.015);box-shadow:inset 0 0 18px rgba(0,0,0,.45);transform:translateY(-50%);height:58px}
+.fbase::before,.fbase::after{content:"";position:absolute;top:50%;width:7px;height:7px;border-radius:50%;background:#0b1813;border:1px solid rgba(255,255,255,.3);transform:translateY(-50%)}
+.fbase::before{left:-4px}.fbase::after{right:-4px}
+.fnode{background:linear-gradient(160deg,#16261f,#0e1a15);border:1px solid rgba(255,255,255,.12);
+  transform:translate(-14px,calc(-50% - 30px));will-change:transform;
+  box-shadow:-10px 32px 34px -12px rgba(0,0,0,.8);transition:border-color .3s,box-shadow .3s}
+.fnode b{display:block;font-size:13px;font-weight:600;line-height:1.25}
+.fnode small{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:4px}
+.fnode.on{border-color:var(--accent);box-shadow:-10px 32px 34px -12px rgba(0,0,0,.8),0 0 0 1px rgba(92,207,155,.4),0 0 26px rgba(92,207,155,.35)}
+.fnode.on.miss{border-color:var(--accent-2);box-shadow:-10px 32px 34px -12px rgba(0,0,0,.8),0 0 0 1px rgba(212,175,79,.4),0 0 26px rgba(212,175,79,.3)}
+.spin{width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);border-top-color:var(--accent);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.runs{position:absolute;left:4%;bottom:5%;width:44%;font-family:var(--mono);font-size:10.5px}
+.runs h4{margin:0 0 6px;font-weight:500;font-size:10px;letter-spacing:.12em;color:var(--muted)}
+.runs #runs > div{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-top:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.runs #runs em{font-style:normal;color:var(--ok)}
+.runs #runs em.r{color:var(--accent-2)}
+.runs #runs span{overflow:hidden;text-overflow:ellipsis}
+.chip{position:absolute;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;font-family:var(--mono);font-size:12px;white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.chip.c2 i{background:var(--accent-2);box-shadow:0 0 10px var(--accent-2)}
+.glare{position:absolute;inset:0;pointer-events:none;border-radius:18px;overflow:hidden}
+.glare i{position:absolute;left:0;top:0;width:70%;aspect-ratio:1;margin:-35% 0 0 -35%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.08),transparent);will-change:transform}
+
+/* faixa de temas */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding:20px 0;position:relative;background:rgba(6,16,12,.6)}
+.marquee .cap{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px;padding-inline:16px}
+.mtrack{display:flex;gap:56px;width:max-content;animation:mq 60s linear infinite}
+.mtrack span{font-family:var(--display);font-size:20px;font-weight:400;color:rgba(236,244,239,.55);white-space:nowrap;letter-spacing:-.01em}
+.mtrack span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:14px;vertical-align:middle;opacity:.7}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section{position:relative}
+.head{display:grid;gap:16px;max-width:44rem}
+.head h2{font-size:clamp(32px,4.2vw,58px);line-height:1.04;font-weight:600}
+.head p{color:var(--muted);font-size:18px}
+
+/* recursos: rolagem lateral */
+.hscroll .pin{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;gap:40px;overflow:hidden}
+.track{display:flex;gap:20px;padding-left:max(var(--gutter),calc((100vw - var(--maxw))/2 + var(--gutter)));padding-right:var(--gutter);will-change:transform}
+.card{flex:0 0 min(78vw,380px);aspect-ratio:4/5;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:24px}
+.card .art{position:absolute;inset:0;transform:scale(1.02);transition:transform 1.2s cubic-bezier(.2,.7,.1,1);background:radial-gradient(120% 80% at 70% 30%,rgba(92,207,155,.16),transparent 60%),linear-gradient(180deg,#0f1f18,#08120e)}
+.card:hover .art{transform:scale(1.08)}
+.card .art svg{position:absolute;inset:14% 10% 34%;width:80%;height:52%}
+.card .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,16,12,.8) 0%,transparent 25%,transparent 55%,rgba(6,16,12,.92) 82%)}
+.card .top,.card .bot{position:relative;z-index:1}
+.card .top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
+.card .bot{display:grid;gap:8px}
+.card h3{font-size:24px;font-weight:600}
+.card p{color:var(--muted);font-size:16px}
+.progress{height:1px;background:var(--line);margin-inline:max(var(--gutter),calc((100vw - var(--maxw))/2 + var(--gutter)));position:relative}
+.progress i{position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+/* como funciona: cartões empilhados */
+.steps{padding-block:120px 60px}
+.stack{display:grid;gap:40px;margin-top:56px}
+.scard{position:sticky;min-height:min(66vh,540px);display:grid;grid-template-columns:1fr 1.1fr;gap:28px;padding:28px;overflow:hidden;background:linear-gradient(160deg,#122219,#09140f);border:1px solid var(--glass-border);border-radius:28px;box-shadow:0 -20px 60px -30px rgba(0,0,0,.8);transform-origin:50% 0}
+.scard .shadow{position:absolute;inset:0;background:#030806;opacity:0;pointer-events:none;border-radius:inherit;z-index:3}
+.scard .copy{display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:12px}
+.scard .num{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.12em}
+.scard h3{font-size:clamp(28px,3vw,44px);line-height:1.05;font-weight:600}
+.scard p{color:var(--muted);font-size:18px;max-width:28rem}
+.vis{border-radius:20px;position:relative;overflow:hidden;min-height:300px;background:linear-gradient(rgba(6,16,12,.35),rgba(6,16,12,.6)),radial-gradient(90% 70% at 60% 40%,rgba(92,207,155,.14),transparent 70%),#0a1511;border:1px solid var(--line)}
+.vis svg{position:absolute;inset:0;width:100%;height:100%}
+.vis text{font-family:var(--mono);fill:var(--muted)}
+
+/* visuais animados */
+.draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.1,1)}
+.on .draw{stroke-dashoffset:0}
+.pop{opacity:0;transform:scale(.6);transform-box:fill-box;transform-origin:center;transition:opacity .4s,transform .5s cubic-bezier(.2,.9,.3,1.3)}
+.on .pop{opacity:1;transform:none}
+.travel{offset-rotate:0deg;animation:travel 2.6s ease-in-out infinite}
+
+/* frase revelada */
+.reveal{height:220vh}
+.reveal .pin{position:sticky;top:0;height:100svh;display:grid;place-items:center}
+.reveal p{font-family:var(--display);font-size:clamp(30px,4.6vw,66px);line-height:1.12;font-weight:500;letter-spacing:-.03em;max-width:22ch;text-wrap:balance}
+.reveal p .w{opacity:.12;transition:opacity .25s}
+.reveal p .w.lit{opacity:1}
+
+/* questão real */
+.qsec{padding-block:80px 120px}
+.qgrid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start;margin-top:8px}
+.q{padding:30px;display:grid;gap:18px}
+.qmeta{display:flex;gap:8px;flex-wrap:wrap}
+.qmeta span{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.q .stem{font-size:20px;font-weight:600;line-height:1.4}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:14px;text-align:left;width:100%;font:17px var(--body);color:var(--text);background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s}
+.opt b{font-family:var(--mono);font-weight:400;color:var(--muted)}
+.opt:hover:not(:disabled){border-color:rgba(255,255,255,.3)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--ok);background:rgba(123,227,166,.08)}
+.opt.wrong{border-color:var(--bad);background:rgba(240,138,116,.08)}
+.exp{border-left:2px solid var(--accent);padding-left:16px;display:grid;gap:6px;color:var(--muted)}
+.exp strong{color:var(--text)}
+
+/* números */
+.stats{background:var(--bg);padding-top:clamp(96px,14vh,150px);padding-bottom:clamp(80px,12vh,130px);position:relative}
+.stats::before,.stats::after{content:"";position:absolute;left:0;right:0;pointer-events:none}
+.stats::before{top:-120px;height:120px;background:linear-gradient(transparent,var(--bg))}
+.stats::after{bottom:-100px;height:100px;background:linear-gradient(var(--bg),transparent);z-index:1}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:48px}
+.tile{padding:24px;display:grid;gap:10px;align-content:start}
+.tile strong{font-family:var(--display);font-size:clamp(40px,4.4vw,60px);font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.tile p{color:var(--muted);font-size:15px}
+.tile svg{width:100%;height:56px;margin-top:6px}
+.tile svg rect{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+.tile.on svg rect{transform:none}
+.tile .legend{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+
+/* autor */
+.author{padding-block:110px;display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:56px;align-items:center}
+.photo{border-radius:24px;overflow:hidden;aspect-ratio:4/5;max-width:100%;position:relative;border:1px solid var(--glass-border)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92) contrast(1.03)}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(6,16,12,.55))}
+.author blockquote{margin:16px 0 0;font-family:var(--display);font-size:clamp(24px,2.8vw,36px);line-height:1.25;font-weight:400;letter-spacing:-.02em}
+.author .sig{margin-top:22px;color:var(--muted)}
+.author .sig b{color:var(--text);font-weight:600}
+
+/* oferta */
+.cta{padding-block:40px 120px}
+.ctabox{border-radius:32px;padding:clamp(32px,6vw,72px);position:relative;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 120%,rgba(92,207,155,.28),transparent 60%),radial-gradient(60% 50% at 85% 10%,rgba(212,175,79,.12),transparent 70%),linear-gradient(160deg,#10231a,#07120d)}
+.ctabox::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(3,8,6,.6));pointer-events:none}
+.ctain{position:relative;display:grid;gap:22px;justify-items:center;text-align:center}
+.ctain h2{font-size:clamp(34px,5vw,70px);line-height:1.02;font-weight:600}
+.price{display:flex;align-items:baseline;gap:10px;justify-content:center}
+.price strong{font-family:var(--display);font-size:clamp(56px,7vw,96px);font-weight:600;letter-spacing:-.05em;line-height:1}
+.price span{color:var(--muted)}
+.inc{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;max-width:46rem;color:var(--muted);font-size:16px}
+.inc span::before{content:"✓";color:var(--accent);margin-right:8px}
+.fine{font-size:14px;color:var(--muted);max-width:40rem}
+
+/* faq */
+.faq{padding-block:40px 120px;max-width:860px}
+details{border-bottom:1px solid var(--line);padding-block:22px}
+summary{list-style:none;cursor:pointer;font-family:var(--display);font-size:20px;font-weight:500;display:flex;justify-content:space-between;gap:16px;letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{margin-top:12px;color:var(--muted);max-width:44rem}
+
+/* rodapé */
+footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;overflow:hidden}
+.fgrid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:32px}
+.fgrid h5{margin:0 0 14px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.fgrid ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px}
+.fgrid a{text-decoration:none;color:rgba(236,244,239,.8)}
+.fgrid a:hover{color:var(--text)}
+.fgrid .blurb{color:var(--muted);font-size:15px;max-width:22rem;margin-top:14px}
+.word{margin-top:48px}
+.word svg{width:100%;height:auto;display:block}
+.word text{font-family:var(--display);font-weight:600;font-size:250px;letter-spacing:-12px}
+.w-base{fill:rgba(255,255,255,.035);stroke:rgba(255,255,255,.16);stroke-width:1}
+.w-dots{fill:none;stroke:rgba(92,207,155,.6);stroke-width:2;stroke-linecap:round;stroke-dasharray:.1 16;animation:dots 6s linear infinite}
+.w-run{fill:none;stroke:url(#wg);stroke-width:2.4;stroke-dasharray:90 420;animation:run 7s linear infinite}
+.word:not(.on) .w-dots,.word:not(.on) .w-run{animation-play-state:paused}
+.paused .mtrack,.paused .live i,.paused .spin,.paused .wires .pulse{animation-play-state:paused}
+@keyframes dots{to{stroke-dashoffset:-161}}
+@keyframes run{to{stroke-dashoffset:-1020}}
+.fbottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-block:22px;font-size:13px;color:var(--muted)}
+
+/* responsivo */
+@media (max-width:1000px){
+  .hero{grid-template-columns:minmax(0,1fr);padding-top:120px}
+  .stage{height:380px;margin-right:calc(-1*var(--gutter))}
+  .qgrid,.author{grid-template-columns:minmax(0,1fr)}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .author .photo{max-width:300px}
+}
+@media (max-width:900px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .nav nav{display:none}
+  .scard{grid-template-columns:minmax(0,1fr);padding:18px}
+  .scard .vis{order:-1;min-height:220px}
+  .scard .copy{padding:6px}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .stage{height:300px}
+  .flow{width:150%}
+  .live{margin-right:52%}
+  .chip{display:none}
+  .runs{width:62%}
+  .fnode{padding:9px 8px}.fnode b{font-size:11.5px}.fnode small{font-size:9.5px}
+  .tiles{grid-template-columns:minmax(0,1fr)}
+  .q{padding:20px}
+  .meta{gap:14px;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .card .art svg{inset:12% 8% 46%;height:42%}
+  .nav .btn.ghost{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .hero h1 .ln > span{transform:none}
+  .reveal{height:auto}.reveal .pin{position:static;height:auto;padding-block:120px}
+  .reveal p .w{opacity:1}
+  .draw{stroke-dashoffset:0}.pop{opacity:1;transform:none}
+  .tile svg rect{transform:none}
+  .hscroll{height:auto!important}.hscroll .pin{position:static;height:auto;padding-block:100px}
+  .track{overflow-x:auto;transform:none!important;padding-bottom:12px}
+  #bg{display:none}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+
+
+
+<header class="nav"><div class="wrap"><div class="bar glass">
+  <a class="logo" href="#topo" aria-label="Up-MED study, início">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1E6B4E"/><path d="M10.5 29.5V14L20 24L29.5 14V29.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.7 12.6L29.5 8.8L33.3 12.6" fill="none" stroke="#D4AF4F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Up-MED study
+  </a>
+  <nav aria-label="Seções">
+    <a href="#como">Como funciona</a><a href="#recursos">Recursos</a><a href="#questao">Testar</a><a href="#preco">Preço</a>
+  </nav>
+  <div class="right">
+    <a class="btn ghost" href="https://luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro/" target="_blank" rel="noopener">Entrar</a>
+    <a class="btn solid js-buy" href="#preco">Assinar</a>
+  </div>
+</div></div></header>
+
+<main id="topo">
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="wrap hero" id="hero">
+  <div class="copy">
+    <span class="eyebrow">Neuroanatomia · ciclo básico</span>
+    <h1><span class="ln"><span>Neuro para a</span></span><span class="ln"><span>prova <span class="em">prática</span></span></span><span class="ln"><span>sem susto.</span></span></h1>
+    <p class="lede">A Up-MED treina neuroanatomia no formato das provas do ciclo básico: questões comentadas, estações para identificar estruturas e um ranking com a sua turma. Feita por um estudante de medicina.</p>
+    <div class="ctas">
+      <a class="btn solid js-buy" href="#preco">Assinar por R$ 89 →</a>
+      <a class="btn ghost" href="#questao">Responder uma questão</a>
+    </div>
+    <div class="meta"><span><b>581</b>questões comentadas</span><span><b>44</b>estações de prova prática</span><span><b>7</b>formatos de questão</span></div>
+  </div>
+
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="rig" id="rig">
+      <div class="layer" data-depth="0">
+        <div class="flow">
+          <div class="fbar"><span class="t">Simulado · Tronco encefálico</span><span class="s">12 questões · nível 2</span><span class="live"><i></i>EM CURSO</span></div>
+          <div class="fbody" id="fbody">
+            <div class="tools"><span>↖</span><span>+</span><span>⟲</span></div>
+            <span class="zoom">revisão espaçada</span>
+            <svg class="wires" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M28 52 C33 52 32 30 38 30"/><path d="M28 52 C33 52 32 74 38 74"/><path d="M59 30 C65 30 64 52 70 52"/><path d="M59 74 C65 74 64 52 70 52"/>
+              <path class="pulse p1" pathLength="100" d="M28 52 C33 52 32 30 38 30"/><path class="pulse p2" pathLength="100" d="M28 52 C33 52 32 74 38 74"/>
+              <path class="pulse p1" pathLength="100" d="M59 30 C65 30 64 52 70 52"/><path class="pulse p2" pathLength="100" d="M59 74 C65 74 64 52 70 52"/>
+            </svg>
+            <span class="wlabel" style="left:30%;top:36%">acertou</span>
+            <span class="wlabel" style="left:31%;top:63%">errou</span>
+            <div class="fbase" style="left:7%;top:52%"></div><div class="fbase" style="left:38%;top:30%"></div><div class="fbase" style="left:38%;top:74%"></div><div class="fbase" style="left:70%;top:52%"></div>
+            <div class="fnode" style="left:7%;top:52%"><b>Questão 7 de 12</b><small id="n0s">caso clínico · bulbo</small></div>
+            <div class="fnode" style="left:38%;top:30%"><b>Acertou</b><small>+15 XP · ranking</small></div>
+            <div class="fnode" style="left:38%;top:74%"><b>Errou</b><small>entra na revisão</small></div>
+            <div class="fnode" style="left:70%;top:52%"><b>Próxima questão</b><small><i class="spin"></i>escolhendo</small></div>
+            <div class="runs"><h4>ÚLTIMAS RESPOSTAS</h4><div id="runs"></div></div>
+          </div>
+          <div class="glare"><i id="glare"></i></div>
+        </div>
+      </div>
+      <div class="layer" data-depth="90"><span class="chip glass" style="left:46%;top:-3%"><i></i>581 questões comentadas</span></div>
+      <div class="layer" data-depth="140"><span class="chip glass c2" style="left:-6%;bottom:-17%"><i></i>acerto no nível 2 → +15 XP</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="marquee" aria-label="Temas cobertos">
+  <p class="cap">24 temas de neuroanatomia, da evolução do sistema nervoso às grandes vias</p>
+  <div class="mtrack" id="mtrack"></div>
+</div>
+
+<!-- RECURSOS -->
+<section class="hscroll" id="recursos">
+  <div class="pin">
+    <div class="wrap"><div class="head"><span class="eyebrow">Recursos</span><h2>Tudo o que a prova de neuro cobra, num lugar só.</h2></div></div>
+    <div class="track" id="track">
+      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><g id="grid"></g></svg></div><div class="shade"></div>
+        <div class="top"><span>01</span><span>QUESTÕES</span></div><div class="bot"><h3>581 questões comentadas</h3><p>Cada uma com explicação curta e direta, da embriologia à vascularização.</p></div></article>
+      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true" font-family="IBM Plex Mono, monospace" font-size="5.2">
+          <g fill="none" stroke="rgba(255,255,255,.22)"><rect x="8" y="4" width="104" height="9" rx="4.5"/><rect x="8" y="15" width="104" height="9" rx="4.5"/><rect x="8" y="26" width="104" height="9" rx="4.5"/><rect x="8" y="37" width="104" height="9" rx="4.5" stroke="#5ccf9b"/><rect x="8" y="48" width="104" height="9" rx="4.5"/><rect x="8" y="59" width="104" height="9" rx="4.5"/><rect x="8" y="70" width="104" height="9" rx="4.5"/></g>
+          <g fill="rgba(236,244,239,.7)"><text x="14" y="10.4">MÚLTIPLA ESCOLHA</text><text x="14" y="21.4">CASO CLÍNICO</text><text x="14" y="32.4">ASSOCIAÇÃO</text><text x="14" y="43.4" fill="#5ccf9b">ASSERÇÃO E RAZÃO</text><text x="14" y="54.4">VERDADEIRO OU FALSO</text><text x="14" y="65.4">LACUNA</text><text x="14" y="76.4">ORDENAÇÃO</text></g></svg></div><div class="shade"></div>
+        <div class="top"><span>02</span><span>FORMATOS</span></div><div class="bot"><h3>7 formatos de prova</h3><p>Do caso clínico à asserção e razão, como os professores cobram.</p></div></article>
+      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
+          <ellipse cx="60" cy="40" rx="34" ry="26" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.35)" stroke-width=".6"/>
+          <path d="M60 37c3 0 5-1 6-4 1-4 3-9 6-13 1-1 3-1 2 1-1 4-3 8-4 12 0 3 3 4 5 5 2 1 2 2 0 3-2 1-3 2-2 5 2 4 4 8 3 12-2 3-7 3-10 0-3-3-4-8-5-11-1-2-1-2-1-2z" fill="rgba(92,207,155,.25)" stroke="rgba(236,244,239,.5)" stroke-width=".5"/>
+          <path d="M60 37c-3 0-5-1-6-4-1-4-3-9-6-13-1-1-3-1-2 1 1 4 3 8 4 12 0 3-3 4-5 5-2 1-2 2 0 3 2 1 3 2 2 5-2 4-4 8-3 12 2 3 7 3 10 0 3-3 4-8 5-11 1-2 1-2 1-2z" fill="rgba(92,207,155,.25)" stroke="rgba(236,244,239,.5)" stroke-width=".5"/>
+          <g fill="#d4af4f"><circle cx="40" cy="24" r="3.4"/><circle cx="84" cy="30" r="3.4"/><circle cx="74" cy="58" r="3.4"/></g>
+          <g font-family="IBM Plex Mono, monospace" font-size="4" fill="#06100c" text-anchor="middle"><text x="40" y="25.4">1</text><text x="84" y="31.4">2</text><text x="74" y="59.4">3</text></g></svg></div><div class="shade"></div>
+        <div class="top"><span>03</span><span>PRÁTICA</span></div><div class="bot"><h3>Estações de prova prática</h3><p>11 fotos reais de peças e 33 esquemas numerados para identificar.</p></div></article>
+      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
+          <path d="M10 70H112M10 8V70" stroke="rgba(255,255,255,.18)" stroke-width=".6" fill="none"/>
+          <path d="M12 12C20 40 26 54 34 58V14C44 34 52 42 62 44V12C74 26 86 30 100 30" fill="none" stroke="#5ccf9b" stroke-width="1.3"/>
+          <g fill="#d4af4f"><circle cx="34" cy="14" r="2"/><circle cx="62" cy="12" r="2"/></g>
+          <g font-family="IBM Plex Mono, monospace" font-size="4.4" fill="rgba(236,244,239,.6)"><text x="28" y="9">revisão</text><text x="56" y="7">revisão</text></g></svg></div><div class="shade"></div>
+        <div class="top"><span>04</span><span>REVISÃO</span></div><div class="bot"><h3>Seus erros voltam</h3><p>O que você erra entra numa fila de revisão espaçada até virar acerto seguro.</p></div></article>
+      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
+          <g fill="rgba(92,207,155,.35)"><rect x="18" y="8" width="84" height="10" rx="3" fill="#d4af4f"/><rect x="18" y="22" width="70" height="10" rx="3"/><rect x="18" y="36" width="62" height="10" rx="3"/><rect x="18" y="50" width="48" height="10" rx="3"/><rect x="18" y="64" width="40" height="10" rx="3"/></g>
+          <g font-family="IBM Plex Mono, monospace" font-size="5" fill="rgba(236,244,239,.6)"><text x="8" y="15.5">1</text><text x="8" y="29.5">2</text><text x="8" y="43.5">3</text><text x="8" y="57.5">4</text><text x="8" y="71.5">5</text></g></svg></div><div class="shade"></div>
+        <div class="top"><span>05</span><span>TURMA</span></div><div class="bot"><h3>Ranking da sua turma</h3><p>Pontos por acerto, com peso pela dificuldade. Dá para ver onde a turma está fraca.</p></div></article>
+      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
+          <rect x="30" y="14" width="64" height="44" rx="4" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.18)" stroke-width=".6" transform="rotate(-8 62 36)"/>
+          <rect x="28" y="16" width="64" height="44" rx="4" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.22)" stroke-width=".6" transform="rotate(4 60 38)"/>
+          <rect x="26" y="18" width="64" height="44" rx="4" fill="#10201a" stroke="#5ccf9b" stroke-width=".8"/>
+          <g font-family="IBM Plex Mono, monospace" font-size="4.6" fill="rgba(236,244,239,.75)" text-anchor="middle"><text x="58" y="36">Fascículo cuneiforme</text><text x="58" y="46" fill="#5ccf9b">acima de T6</text></g></svg></div><div class="shade"></div>
+        <div class="top"><span>06</span><span>FLASHCARDS</span></div><div class="bot"><h3>Flashcards e Anki</h3><p>Revise no celular ou exporte para o Anki, se você já usa.</p></div></article>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="steps" id="como"><div class="wrap">
+  <div class="head"><span class="eyebrow">Como funciona</span><h2>Quatro passos entre você e a prova prática.</h2></div>
+  <div class="stack" id="stack">
+    <article class="scard" style="top:calc(13vh + 0px)"><div class="copy"><span class="num">01 / ASSINE</span><div style="display:grid;gap:14px"><h3>Pix ou cartão, acesso na hora.</h3><p>Crie a conta com o mesmo e-mail da compra. O acesso abre sozinho quando o pagamento é aprovado.</p></div></div>
+      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
+        <g fill="none" stroke="rgba(255,255,255,.2)"><rect class="pop" x="34" y="120" width="110" height="60" rx="12"/><rect class="pop" x="256" y="120" width="110" height="60" rx="12" stroke="#5ccf9b"/></g>
+        <path class="draw" pathLength="1" d="M144 150H256" stroke="#5ccf9b" stroke-width="1.5" fill="none"/>
+        <circle r="4" fill="#d4af4f"><animateMotion dur="2.4s" repeatCount="indefinite" path="M144 150H256"/></circle>
+        <text x="89" y="147" text-anchor="middle" font-size="13" style="fill:#ecf4ef">Pagamento</text><text x="89" y="165" text-anchor="middle" font-size="11">Pix · cartão</text>
+        <text x="311" y="147" text-anchor="middle" font-size="13" style="fill:#5ccf9b">Liberado ✓</text><text x="311" y="165" text-anchor="middle" font-size="11">6 meses</text>
+        <text x="200" y="230" text-anchor="middle" font-size="11">garantia de 7 dias</text>
+      </svg></div><div class="shadow"></div></article>
+
+    <article class="scard" style="top:calc(13vh + 20px)"><div class="copy"><span class="num">02 / ESTUDE</span><div style="display:grid;gap:14px"><h3>Questões no formato da prova.</h3><p>Escolha o tema ou faça um simulado. Cada resposta vem com a explicação do porquê.</p></div></div>
+      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
+        <text x="40" y="62" font-size="12" style="fill:#ecf4ef">O tronco encefálico é formado por:</text>
+        <g fill="none" stroke="rgba(255,255,255,.18)"><rect x="40" y="82" width="320" height="34" rx="9" stroke="#7be3a6" class="pop"/><rect x="40" y="124" width="320" height="34" rx="9"/><rect x="40" y="166" width="320" height="34" rx="9"/><rect x="40" y="208" width="320" height="34" rx="9"/></g>
+        <g font-size="12"><text x="56" y="104" style="fill:#ecf4ef">A  Mesencéfalo, ponte e bulbo</text><text x="56" y="146">B  Diencéfalo, ponte e bulbo</text><text x="56" y="188">C  Mesencéfalo, cerebelo e ponte</text><text x="56" y="230">D  Tálamo, mesencéfalo e bulbo</text></g>
+        <text class="pop" x="340" y="104" font-size="13" text-anchor="end" style="fill:#7be3a6">✓</text>
+      </svg></div><div class="shadow"></div></article>
+
+    <article class="scard" style="top:calc(13vh + 40px)"><div class="copy"><span class="num">03 / TREINE A PRÁTICA</span><div style="display:grid;gap:14px"><h3>Estações numeradas, corrigidas.</h3><p>Identifique a estrutura pelo número, confira o nome e guarde o que errou para a próxima rodada.</p></div></div>
+      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
+        <ellipse cx="200" cy="150" rx="110" ry="82" fill="rgba(255,255,255,.035)" stroke="rgba(236,244,239,.4)"/>
+        <g fill="rgba(92,207,155,.22)" stroke="rgba(236,244,239,.55)" stroke-width="1">
+          <path d="M200 140c10 0 16-5 19-14 3-12 8-26 18-38 3-4 9-3 8 3-3 12-11 26-12 38 0 9 9 12 16 15 6 3 6 8-1 10-6 2-9 6-6 14 6 13 12 26 8 37-5 9-21 9-30 1-9-9-11-24-14-33-2-5-4-6-6-6z"/>
+          <path d="M200 140c-10 0-16-5-19-14-3-12-8-26-18-38-3-4-9-3-8 3 3 12 11 26 12 38 0 9-9 12-16 15-6 3-6 8 1 10 6 2 9 6 6 14-6 13-12 26-8 37 5 9 21 9 30 1 9-9 11-24 14-33 2-5 4-6 6-6z"/></g>
+        <circle cx="200" cy="150" r="3" fill="#06100c" stroke="rgba(236,244,239,.6)"/>
+        <g class="pop"><circle cx="160" cy="88" r="11" fill="#d4af4f"/><text x="160" y="92" text-anchor="middle" font-size="12" style="fill:#06100c">1</text></g>
+        <g class="pop" style="transition-delay:.15s"><circle cx="268" cy="152" r="11" fill="#d4af4f"/><text x="268" y="156" text-anchor="middle" font-size="12" style="fill:#06100c">2</text></g>
+        <g class="pop" style="transition-delay:.3s"><circle cx="238" cy="212" r="11" fill="#d4af4f"/><text x="238" y="216" text-anchor="middle" font-size="12" style="fill:#06100c">3</text></g>
+        <text class="pop" style="transition-delay:.6s" x="200" y="268" text-anchor="middle" font-size="12">1 · fascículo cuneiforme ✓</text>
+      </svg></div><div class="shadow"></div></article>
+
+    <article class="scard" style="top:calc(13vh + 60px)"><div class="copy"><span class="num">04 / REVISE</span><div style="display:grid;gap:14px"><h3>Seus erros voltam na hora certa.</h3><p>O que você errou volta em intervalos cada vez maiores até ficar firme. Na véspera, você revisa só o que precisa.</p></div></div>
+      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
+        <path d="M40 240H368M40 40V240" stroke="rgba(255,255,255,.14)" fill="none"/>
+        <path class="draw" pathLength="1" d="M44 60C70 150 90 196 110 206V70C140 140 160 168 190 176V64C230 108 260 122 300 128V60C320 80 340 86 364 88" fill="none" stroke="#5ccf9b" stroke-width="2"/>
+        <g class="pop" style="transition-delay:.8s" fill="#d4af4f"><circle cx="110" cy="70" r="4"/><circle cx="190" cy="64" r="4"/><circle cx="300" cy="60" r="4"/></g>
+        <text x="44" y="262" font-size="11">tempo</text><text x="30" y="52" font-size="11" text-anchor="end" transform="rotate(-90 30 52)">lembrança</text>
+        <text class="pop" style="transition-delay:1s" x="236" y="44" font-size="11" style="fill:#d4af4f">revisões</text>
+      </svg></div><div class="shadow"></div></article>
+  </div>
+</div></section>
+
+<!-- FRASE -->
+<section class="reveal" id="reveal"><div class="pin wrap"><p id="rline">A prova prática não pergunta o que você leu. Pergunta o que você <span class="em">reconhece</span>. A Up-MED treina exatamente isso.</p></div></section>
+
+<!-- QUESTÃO REAL -->
+<section class="qsec" id="questao"><div class="wrap qgrid">
+  <div class="head"><span class="eyebrow">Questão real da plataforma</span><h2>Responda uma. Vale mais que qualquer descrição.</h2><p>Toda questão tem comentário. Errou, ela volta para a sua fila de revisão.</p></div>
+  <div class="q glass" aria-live="polite">
+    <div class="qmeta"><span>CASO CLÍNICO</span><span>EMBRIOLOGIA DO SNC</span><span>NÍVEL 2</span></div>
+    <p class="stem">Recém-nascido com falha de fechamento do neuróporo caudal apresenta tecido nervoso exposto na região lombar. O diagnóstico é:</p>
+    <div class="opts" id="opts"></div>
+    <div class="exp" id="exp" hidden><strong id="verdict"></strong><p>O não fechamento do neuróporo caudal causa defeitos como mielomeningocele. Falha do neuróporo rostral leva à anencefalia. A suplementação de ácido fólico reduz o risco.</p></div>
+    <a class="btn green js-buy" id="afterQ" href="#preco" hidden>Quero as outras 580 →</a>
+  </div>
+</div></section>
+
+<!-- NÚMEROS -->
+<section class="stats"><div class="wrap">
+  <div class="head"><span class="eyebrow">Em números</span><h2>O banco hoje, contado no código.</h2></div>
+  <div class="tiles">
+    <div class="tile glass" data-n="581"><strong>0</strong><p>questões comentadas</p>
+      <svg viewBox="0 0 120 56" preserveAspectRatio="none" aria-hidden="true"><rect x="4" y="47.3" width="34" height="8.7" rx="2" fill="#5ccf9b" opacity=".5"/><rect x="43" y="0" width="34" height="56" rx="2" fill="#5ccf9b"/><rect x="82" y="41.7" width="34" height="14.3" rx="2" fill="#5ccf9b" opacity=".75"/></svg>
+      <div class="legend"><span>nível 1: 64</span><span>2: 412</span><span>3: 105</span></div></div>
+    <div class="tile glass" data-n="7"><strong>0</strong><p>formatos de questão</p>
+      <svg viewBox="0 0 120 56" preserveAspectRatio="none" aria-hidden="true"><g fill="#5ccf9b"><rect x="2" y="0" width="14" height="56" rx="2"/><rect x="19" y="34" width="14" height="22" rx="2" opacity=".8"/><rect x="36" y="36.8" width="14" height="19.2" rx="2" opacity=".8"/><rect x="53" y="38.1" width="14" height="17.9" rx="2" opacity=".8"/><rect x="70" y="42.3" width="14" height="13.7" rx="2" opacity=".7"/><rect x="87" y="43.8" width="14" height="12.2" rx="2" opacity=".7"/><rect x="104" y="46.4" width="14" height="9.6" rx="2" opacity=".7"/></g></svg>
+      <div class="legend"><span>múlt. escolha 216</span><span>ordenação 37</span></div></div>
+    <div class="tile glass" data-n="24"><strong>0</strong><p>temas com questões</p>
+      <svg viewBox="0 0 120 56" preserveAspectRatio="none" aria-hidden="true" id="modbars"></svg>
+      <div class="legend"><span>tecido nervoso 54</span><span>límbico 7</span></div></div>
+    <div class="tile glass" data-n="44"><strong>0</strong><p>estações de prova prática</p>
+      <svg viewBox="0 0 120 56" preserveAspectRatio="none" aria-hidden="true"><rect x="4" y="18" width="27" height="20" rx="3" fill="#d4af4f"/><rect x="34" y="18" width="82" height="20" rx="3" fill="#5ccf9b"/></svg>
+      <div class="legend"><span>11 fotos reais</span><span>33 esquemas</span></div></div>
+  </div>
+</div></section>
+
+<!-- AUTOR -->
+<section><div class="wrap author">
+  <div class="photo"><img id="authorPhoto" src="luis.jpg" alt="Luís Vinícius, estudante de medicina, de jaleco" width="640" height="800" loading="lazy"></div>
+  <div><span class="eyebrow">Quem fez</span>
+    <blockquote>Comecei a Up-MED para estudar para as minhas provas. A turma começou a usar, pediu mais, e ela virou isto. Cada questão passa por mim antes de entrar.</blockquote>
+    <p class="sig"><b>Luís Vinícius</b> · estudante de medicina na UNCISAL, Maceió</p></div>
+</div></section>
+
+<!-- OFERTA -->
+<section class="cta" id="preco"><div class="wrap"><div class="ctabox">
+  <div class="ctain">
+    <span class="eyebrow">Assinatura semestral</span>
+    <h2>Um semestre de neuro.<br>Um preço de fundador.</h2>
+    <div class="price"><strong>R$ 89</strong><span>a cada 6 meses</span></div>
+    <div class="inc"><span>581 questões comentadas</span><span>44 estações de prova prática</span><span>ranking da turma</span><span>revisão espaçada</span><span>flashcards e Anki</span><span>temas novos sem custo extra</span></div>
+    <div class="ctas" style="justify-content:center"><a class="btn solid js-buy" id="checkout" href="#preco">Assinar agora →</a><a class="btn ghost" href="#questao">Responder uma questão</a></div>
+    <p class="fine">Quem assina agora mantém R$ 89 em todas as renovações enquanto a assinatura estiver ativa. Pix ou cartão pela Kiwify. Cancele quando quiser e use até o fim do período pago. Se não servir, peça reembolso em até 7 dias pela própria página de compra.</p>
+  </div>
+</div></div></section>
+
+<!-- DÚVIDAS -->
+<section class="wrap faq" id="duvidas">
+  <div class="head" style="margin-bottom:20px"><span class="eyebrow">Dúvidas</span><h2>Perguntas frequentes</h2></div>
+  <details><summary>Como recebo o acesso?</summary><p>Crie sua conta na Up-MED com o mesmo e-mail da compra. O acesso é liberado automaticamente assim que o pagamento é aprovado. Se você comprar antes de criar a conta, ele é liberado em até 15 minutos depois do cadastro.</p></details>
+  <details><summary>Serve para a minha faculdade?</summary><p>O conteúdo segue a neuroanatomia que os cursos de medicina cobram, com a Terminologia Anatômica oficial. O ranking é por turma.</p></details>
+  <details><summary>Funciona no celular?</summary><p>Funciona no celular, tablet e computador, pelo navegador, e dá para instalar na tela inicial.</p></details>
+  <details><summary>Posso dividir a conta?</summary><p>O acesso é pessoal e funciona em uma sessão por vez. Ao entrar em outro aparelho, a sessão anterior é encerrada.</p></details>
+  <details><summary>Meu nome aparece no ranking?</summary><p>Aparece o nome que você cadastrou, que pode ser um apelido.</p></details>
+  <details><summary>E se eu cancelar?</summary><p>Você continua com acesso até o fim do semestre já pago. Não há multa nem fidelidade.</p></details>
+  <details><summary>Isso substitui o livro?</summary><p>Não. A Up-MED é material de treino e revisão. O livro e as aulas continuam sendo a base.</p></details>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><a class="logo" href="#topo"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1E6B4E"/><path d="M10.5 29.5V14L20 24L29.5 14V29.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.7 12.6L29.5 8.8L33.3 12.6" fill="none" stroke="#D4AF4F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Up-MED study</a>
+      <p class="blurb">Neuroanatomia para a prova teórica e prática do ciclo básico. Conteúdo autoral; fotos de peças do Wikimedia Commons, com o crédito de cada autor dentro da plataforma.</p></div>
+    <div><h5>Produto</h5><ul><li><a href="#como">Como funciona</a></li><li><a href="#recursos">Recursos</a></li><li><a href="#preco">Preço</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
+    <div><h5>Plataforma</h5><ul><li><a href="https://luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro/" target="_blank" rel="noopener">Entrar</a></li><li><a href="https://luisviniciusvasconcelos-dotcom.github.io/Up-MED-study/neuro/" target="_blank" rel="noopener">Criar conta</a></li></ul></div>
+    <div><h5>Suporte</h5><ul><li>Reembolso em 7 dias pela Kiwify</li><li>Responda o e-mail da sua compra</li></ul></div>
+  </div>
+  <div class="word" id="word" aria-hidden="true">
+    <svg viewBox="0 0 1200 270"><defs><linearGradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#5ccf9b"/><stop offset=".5" stop-color="#d4af4f"/><stop offset="1" stop-color="#5ccf9b"/></linearGradient></defs>
+      <text class="w-base" x="600" y="200" text-anchor="middle">up-med</text>
+      <text class="w-dots" x="600" y="200" text-anchor="middle">up-med</text>
+      <text class="w-run" x="600" y="200" text-anchor="middle">up-med</text></svg>
+  </div>
+  <div class="fbottom"><span>© 2026 Up-MED study. Todos os direitos reservados.</span><span>Material de estudo. Não substitui livro, aula ou orientação docente.</span></div>
+</div></footer>
+
+<script>
+(function(){
+  /* Troque pelo link de checkout da Kiwify */
+  var CHECKOUT_URL = 'https://pay.kiwify.com.br/COLE-AQUI-O-LINK';
+  var ready = CHECKOUT_URL.indexOf('COLE-AQUI') === -1;
+  if (ready) document.querySelectorAll('.js-buy').forEach(function(a){ a.href = CHECKOUT_URL; a.target = '_blank'; a.rel = 'noopener'; });
+
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp = function(v,a,b){ return Math.max(a, Math.min(b, v)); };
+  var lerp = function(a,b,t){ return a + (b-a)*t; };
+
+  /* faixa de temas (temas reais com questões) */
+  var temas = ['Evolução do sistema nervoso','Desenvolvimento e organização geral','Tecido nervoso','Medula: macroscopia','Medula: estrutura interna','Tronco encefálico','Bulbo','Ponte','Mesencéfalo','Cerebelo','Diencéfalo','Telencéfalo','Meninges e liquor','Nervos e terminações','Nervos cranianos','Sistema nervoso autônomo','Vascularização','Sistema límbico','Grandes vias aferentes','Grandes vias eferentes'];
+  var mt = document.getElementById('mtrack');
+  mt.innerHTML = temas.concat(temas).map(function(t){ return '<span>'+t+'</span>'; }).join('');
+
+  /* barras por tema (contagem real por tema) */
+  var porTema = [54,50,50,37,31,31,31,30,28,28,26,26,24,21,21,20,11,11,11,10,8,8,7,7];
+  var mb = document.getElementById('modbars'), w = 120/porTema.length;
+  mb.innerHTML = porTema.map(function(v,i){ var h = v/54*56; return '<rect x="'+(i*w+.6).toFixed(2)+'" y="'+(56-h).toFixed(2)+'" width="'+(w-1.2).toFixed(2)+'" height="'+h.toFixed(2)+'" rx="1" fill="#5ccf9b" opacity="'+(0.45+0.55*v/54).toFixed(2)+'"/>'; }).join('');
+
+  /* grade do card de questões */
+  var g = document.getElementById('grid'), cells = '';
+  for (var r=0;r<6;r++) for (var c=0;c<10;c++){ var on = ((r*10+c)*37)%11 < 7; cells += '<rect x="'+(6+c*11.2)+'" y="'+(6+r*11.6)+'" width="8.4" height="8.4" rx="2" fill="'+(on?'#5ccf9b':'rgba(255,255,255,.08)')+'" opacity="'+(on?.35+((r+c)%4)*.15:1)+'"/>'; }
+  g.innerHTML = cells;
+
+  /* questão real */
+  var opts = ['Mielomeningocele','Anencefalia','Espinha bífida oculta','Hidrocefalia congênita'];
+  var box = document.getElementById('opts');
+  opts.forEach(function(t,i){
+    var b = document.createElement('button'); b.type='button'; b.className='opt'; b.id='q-opt'+i;
+    b.innerHTML = '<b>'+'ABCD'[i]+'</b><span>'+t+'</span>';
+    b.addEventListener('click', function(){
+      box.querySelectorAll('.opt').forEach(function(x,j){ x.disabled = true; if (j===0) x.classList.add('right'); });
+      if (i!==0) b.classList.add('wrong');
+      var v = document.getElementById('verdict');
+      v.textContent = i===0 ? 'Correto.' : 'Não foi dessa vez. A resposta é mielomeningocele.';
+      v.style.color = i===0 ? 'var(--ok)' : 'var(--bad)';
+      document.getElementById('exp').hidden = false; document.getElementById('afterQ').hidden = false;
+    });
+    box.appendChild(b);
+  });
+
+  /* frase palavra por palavra */
+  var rl = document.getElementById('rline'), words = [];
+  (function split(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(n){
+      if (n.nodeType===3){
+        var frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function(p){
+          if (!p) return;
+          if (/^\s+$/.test(p)) frag.appendChild(document.createTextNode(p));
+          else { var s = document.createElement('span'); s.className = 'w'; s.textContent = p; frag.appendChild(s); words.push(s); }
+        });
+        node.replaceChild(frag, n);
+      } else if (n.nodeType===1){ split(n); }
+    });
+  })(rl);
+
+  /* aparece ao entrar na tela */
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('on'); if (e.target.classList.contains('tile')) count(e.target); io.unobserve(e.target); } }); }, {threshold:.35});
+  document.querySelectorAll('.vis, .tile').forEach(function(el){ io.observe(el.classList.contains('vis') ? el : el); });
+  document.querySelectorAll('.vis').forEach(function(v){ var o = new IntersectionObserver(function(es){ if (es[0].isIntersecting){ v.parentNode.classList.add('on'); o.disconnect(); } }, {threshold:.3}); o.observe(v); });
+  function count(tile){
+    var el = tile.querySelector('strong'), n = +tile.dataset.n;
+    if (RM){ el.textContent = n; return; }
+    var t0 = performance.now();
+    (function step(t){ var p = clamp((t-t0)/1600,0,1); el.textContent = Math.round(n*(1-Math.pow(1-p,3))); if (p<1) requestAnimationFrame(step); })(t0);
+  }
+  if (RM) document.querySelectorAll('.tile').forEach(function(t){ t.classList.add('on'); t.querySelector('strong').textContent = t.dataset.n; });
+
+  /* janela da sessão de estudo */
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.fnode'));
+  var runsEl = document.getElementById('runs');
+  var sample = [['Bulbo','caso clínico',2],['Ponte','associação',2],['Mesencéfalo','múltipla escolha',2],['Cerebelo','asserção e razão',3],['Meninges','verdadeiro ou falso',1],['Nervos cranianos','lacuna',2],['Vascularização','múltipla escolha',3]];
+  var XP = {1:10,2:15,3:20};
+  var routeI = 0, stepI = 0, cur = sample[0], hitRoute = true, lastStep = 0;
+  function addRun(){
+    var d = new Date(), hh = String(d.getHours()).padStart(2,'0'), mm = String(d.getMinutes()).padStart(2,'0');
+    var row = document.createElement('div');
+    row.innerHTML = '<span>'+hh+':'+mm+' · '+cur[0]+'</span>' + (hitRoute ? '<em>+'+XP[cur[2]]+' XP ✓</em>' : '<em class="r">revisão ↺</em>');
+    runsEl.insertBefore(row, runsEl.firstChild);
+    while (runsEl.children.length > 3) runsEl.removeChild(runsEl.lastChild);
+  }
+  function heroTick(t){
+    if (t - lastStep < 900) return;
+    lastStep = t;
+    var route = hitRoute ? [0,1,3] : [0,2,3];
+    nodes.forEach(function(n){ n.classList.remove('on','miss'); });
+    var idx = route[stepI];
+    nodes[idx].classList.add('on'); if (!hitRoute && idx===2) nodes[idx].classList.add('miss');
+    if (idx===0) document.getElementById('n0s').textContent = cur[1]+' · '+cur[0].toLowerCase();
+    stepI++;
+    if (stepI >= route.length){ addRun(); stepI = 0; routeI++; cur = sample[routeI % sample.length]; hitRoute = (routeI % 3) !== 2; }
+  }
+  [['Tronco encefálico',true],['Bulbo',false]].forEach(function(x,i){ cur = sample[i]; hitRoute = x[1]; addRun(); });
+  cur = sample[2]; hitRoute = true; routeI = 2;
+
+  /* cursor e inclinação */
+  var hero = document.getElementById('hero'), stage = document.getElementById('stage'), rig = document.getElementById('rig'), glare = document.getElementById('glare');
+  var layers = Array.prototype.slice.call(rig.querySelectorAll('.layer')).map(function(el){ return {el:el, k:(+el.dataset.depth||0)/100, d:+el.dataset.depth||0, x:0, y:0}; });
+  var tx=0, ty=0, cx=0, cy=0, idle=0, touch=false;
+  hero.addEventListener('pointermove', function(e){
+    if (e.pointerType === 'touch'){ touch = true; return; }
+    var r = stageRect;
+    tx = clamp(((e.clientX - r.left)/r.width)*2-1, -1, 1); ty = clamp(((e.clientY - r.top)/r.height)*2-1, -1, 1); idle = 0;
+  });
+  hero.addEventListener('pointerleave', function(){ idle = 90; });
+  hero.addEventListener('pointerenter', function(){ stageRect = stage.getBoundingClientRect(); });
+  var BASE_RY=-16, BASE_RX=7, MAX_RY=13, MAX_RX=9;
+
+  /* fundo: fibras com impulsos (barato: DPR 1, 30 qps, sprite pronto, para quando some) */
+  var cv = document.getElementById('bg'), ctx = cv.getContext('2d');
+  var small = window.matchMedia('(max-width: 760px)').matches, weak = (navigator.hardwareConcurrency || 4) <= 4;
+  var animateBg = !RM && !small && !weak;
+  var fibers = [];
+  for (var i=0;i<11;i++){ var y = .1 + i*.075; fibers.push({y0:y, y1:y + ((i%3)-1)*.18, a:.1+((i*7)%5)*.035, ph:i*1.7, sp:.00012+(i%4)*.00004, pulses:[(i*.13)%1, (i*.37+.5)%1]}); }
+  function sprite(col){ var c = document.createElement('canvas'); c.width = c.height = 12; var x = c.getContext('2d'); var g = x.createRadialGradient(6,6,0,6,6,6); g.addColorStop(0,col); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0,0,12,12); return c; }
+  var spG = sprite('rgba(124,232,180,.9)'), spY = sprite('rgba(212,175,79,.9)');
+  var fadeX, fadeY;
+  function sizeCanvas(){
+    cv.width = Math.round(cv.clientWidth*.5); cv.height = Math.round(cv.clientHeight*.5);
+    fadeX = ctx.createLinearGradient(0,0,cv.width,0); fadeX.addColorStop(0,'rgba(0,0,0,.35)'); fadeX.addColorStop(.35,'rgba(0,0,0,.6)'); fadeX.addColorStop(.7,'#000');
+    fadeY = ctx.createLinearGradient(0,0,0,cv.height); fadeY.addColorStop(0,'#000'); fadeY.addColorStop(.7,'#000'); fadeY.addColorStop(1,'rgba(0,0,0,0)');
+  }
+  sizeCanvas();
+  function drawBg(t){
+    var W = cv.width, H = cv.height; ctx.clearRect(0,0,W,H); ctx.lineWidth = .7;
+    for (var k=0;k<fibers.length;k++){
+      var f = fibers[k], wob = Math.sin(t*.0003 + f.ph)*.03;
+      var x0=0,y0=(f.y0+wob)*H, x1=W*.35,y1=(f.y0-.12+wob)*H, x2=W*.65,y2=(f.y1+.12-wob)*H, x3=W,y3=(f.y1-wob)*H;
+      ctx.beginPath(); ctx.moveTo(x0,y0); ctx.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+      ctx.strokeStyle = 'rgba(92,207,155,'+f.a+')'; ctx.stroke();
+      for (var j=0;j<2;j++){
+        var u = (f.pulses[j] + t*f.sp) % 1, v = 1-u;
+        var x = v*v*v*x0 + 3*v*v*u*x1 + 3*v*u*u*x2 + u*u*u*x3, yy = v*v*v*y0 + 3*v*v*u*y1 + 3*v*u*u*y2 + u*u*u*y3;
+        ctx.drawImage(j ? spY : spG, x-6, yy-6);
+      }
+    }
+    ctx.globalCompositeOperation = 'destination-in'; ctx.fillStyle = fadeX; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = fadeY; ctx.fillRect(0,0,W,H); ctx.globalCompositeOperation = 'source-over';
+  }
+
+  /* seções guiadas pela rolagem: só calculam quando estão perto da tela */
+  var hs = document.getElementById('recursos'), track = document.getElementById('track'), prog = document.getElementById('prog'), dist = 0;
+  var scards = Array.prototype.slice.call(document.querySelectorAll('.scard')), shadows = scards.map(function(c){ return c.querySelector('.shadow'); });
+  var stackEl = document.getElementById('stack'), rv = document.getElementById('reveal'), word = document.getElementById('word');
+  var active = {hero:true, hs:false, stack:false, rv:false};
+  function watch(el, key, margin){ new IntersectionObserver(function(es){ active[key] = es[0].isIntersecting; kick(); }, {rootMargin: margin || '0px'}).observe(el); }
+  watch(hero,'hero'); watch(hs,'hs','200px 0px'); watch(stackEl,'stack','200px 0px'); watch(rv,'rv','200px 0px');
+  new IntersectionObserver(function(es){ word.classList.toggle('on', es[0].isIntersecting); }).observe(word);
+  new IntersectionObserver(function(es){ document.body.classList.toggle('paused', !es[0].isIntersecting); }).observe(hero);
+
+  var hsTop = 0, hsH = 0, rvTop = 0, rvH = 0;
+  function measure(){
+    var y = window.scrollY;
+    if (!RM){ dist = Math.max(0, track.scrollWidth - window.innerWidth); hs.style.height = (window.innerHeight + dist) + 'px'; }
+    var r = hs.getBoundingClientRect(); hsTop = r.top + y; hsH = hs.offsetHeight;
+    r = rv.getBoundingClientRect(); rvTop = r.top + y; rvH = rv.offsetHeight;
+    stageRect = stage.getBoundingClientRect();
+    var fl = glare.parentNode; gw = fl.offsetWidth; gh = fl.offsetHeight;
+  }
+  var gw = 0, gh = 0;
+  var stageRect = stage.getBoundingClientRect();
+
+  var sy = window.scrollY, lastFrame = 0, lastBg = 0, litN = -1, lastP = -1, running = false, settle = 0;
+  function frame(t){
+    var Y = window.scrollY, ih = window.innerHeight;
+    sy = lerp(sy, Y, .075);
+    var moving = Math.abs(sy - Y) > .5;
+
+    /* fundo: só desenha com o topo na tela, a 30 quadros por segundo */
+    if (active.hero && animateBg && t - lastBg > 33){ drawBg(t); lastBg = t; }
+
+    /* janela 3D */
+    if (active.hero && !RM){
+      heroTick(t);
+      idle++;
+      if (idle > 90 || touch){ tx = Math.sin(t/2800)*.3; ty = Math.cos(t/3300)*.2; }
+      cx = lerp(cx, tx, .07); cy = lerp(cy, ty, .07);
+      var sp = clamp(Y/ih,0,1);
+      rig.style.transform = 'rotateY('+(BASE_RY*(1-sp*.5) + cx*MAX_RY).toFixed(3)+'deg) rotateX('+(BASE_RX - cy*MAX_RX).toFixed(3)+'deg) translateY('+(sp*-40).toFixed(2)+'px)';
+      for (var li=0; li<layers.length; li++){ var L = layers[li], e = .06 + li*.025; L.x = lerp(L.x, cx, e); L.y = lerp(L.y, cy, e); L.el.style.transform = 'translate3d('+(L.x*L.k*40).toFixed(2)+'px,'+(L.y*L.k*30).toFixed(2)+'px,'+L.d+'px)'; }
+      for (var ni=0; ni<nodes.length; ni++){ nodes[ni].style.transform = 'translate('+(-14 + cx*(16+ni*4)).toFixed(2)+'px,calc(-50% + '+(-30 + cy*(12+ni*3)).toFixed(2)+'px))'; }
+      glare.style.transform = 'translate('+(gw*(.5+cx*.35)).toFixed(1)+'px,'+(gh*(.4+cy*.3)).toFixed(1)+'px)';
+    }
+
+    if (!RM){
+      if (active.hs){
+        var total = hsH - ih, p = total > 0 ? clamp((Y - hsTop)/total,0,1) : 0;
+        if (Math.abs(p - lastP) > .0005){ lastP = p; track.style.transform = 'translate3d('+(-p*dist).toFixed(1)+'px,0,0)'; prog.style.width = (p*100).toFixed(2)+'%'; }
+      }
+      if (active.stack){
+        var tops = scards.map(function(c){ return c.getBoundingClientRect().top; }), hgt = scards.map(function(c){ return c.offsetHeight; });
+        for (var ci=0; ci<scards.length-1; ci++){
+          var depth = scards.length - 1 - ci;
+          var behind = clamp((ih*.13 + (ci+1)*20 + hgt[ci]*.5 - tops[ci+1])/(hgt[ci]*.6),0,1);
+          scards[ci].style.transform = 'scale('+(1 - behind*.035*depth).toFixed(4)+')';
+          shadows[ci].style.opacity = (behind*.55).toFixed(3);
+        }
+      }
+      if (active.rv){
+        var rt = rvH - ih, rp = rt > 0 ? clamp((Y - rvTop)/rt,0,1) : 1, lit = Math.floor(rp*words.length*1.15);
+        if (lit !== litN){ litN = lit; for (var wi=0; wi<words.length; wi++) words[wi].classList.toggle('lit', wi < lit); }
+      }
+    }
+
+    /* o laço só continua enquanto há algo se mexendo */
+    if (moving || active.hero) settle = 0; else settle++;
+    if (settle < 3){ requestAnimationFrame(frame); } else { running = false; }
+  }
+  function kick(){ if (!running){ running = true; settle = 0; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', kick, {passive:true});
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
+
+  var rz; window.addEventListener('resize', function(){ clearTimeout(rz); rz = setTimeout(function(){ sizeCanvas(); measure(); kick(); }, 150); });
+  window.addEventListener('load', function(){ measure(); kick(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  measure();
+  if (!animateBg) drawBg(0);
+  if (RM){ words.forEach(function(w){ w.classList.add('lit'); }); }
+  kick();
+})();
+</script>
+
+</body>
+</html>
