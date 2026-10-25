@@ -7,7 +7,7 @@
 <meta name="description" content="Neuroanatomia para a prova teórica e prática. 581 questões comentadas, estações de prova prática e ranking da turma.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Up-MED study · Neuroanatomia para a prova prática">
 <meta property="og:description" content="581 questões comentadas, 44 estações de prova prática e ranking da turma. R$ 89 por semestre.">
@@ -52,6 +52,7 @@ p{margin:0}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px}
 .eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.7}
 .em{color:var(--accent)}
+h1 .em,h2 .em,.reveal .em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.06em}
 .gold{color:var(--accent-2)}
 .glass{background:var(--glass),rgba(12,24,19,.82);border:1px solid var(--glass-border);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -30px rgba(0,0,0,.8);border-radius:var(--radius)}
@@ -66,6 +67,11 @@ p{margin:0}
 /* fundo animado */
 main{position:relative}
 #bg{position:absolute;top:0;left:0;width:100%;height:115svh;z-index:-1;opacity:.6;pointer-events:none;display:block}
+#veil{display:none}
+.full #bg{position:fixed;top:-4vh;left:-12vw;width:124vw;height:108vh;z-index:-2;will-change:transform,opacity}
+.full #veil{display:block;position:fixed;inset:0;background:var(--bg);opacity:0;z-index:-1;pointer-events:none}
+body::after{content:"";position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
 /* nav */
 .nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:40;padding-top:14px}
@@ -162,7 +168,23 @@ section{position:relative}
 .card{flex:0 0 min(78vw,380px);aspect-ratio:4/5;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:24px}
 .card .art{position:absolute;inset:0;transform:scale(1.02);transition:transform 1.2s cubic-bezier(.2,.7,.1,1);background:radial-gradient(120% 80% at 70% 30%,rgba(92,207,155,.16),transparent 60%),linear-gradient(180deg,#0f1f18,#08120e)}
 .card:hover .art{transform:scale(1.08)}
-.card .art svg{position:absolute;inset:14% 10% 34%;width:80%;height:52%}
+.card .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+/* carrossel de vidro líquido (WebGL), guiado pela rolagem */
+.lg{position:relative;width:100%;height:clamp(240px,40svh,480px)}
+.hscroll.lg-on .pin{padding-top:72px}
+.hscroll.lg-on .head{max-width:62rem}
+.hscroll.lg-on .head h2{font-size:clamp(30px,3.4vw,48px)}
+.lg canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer}
+.lg-cap{display:grid;justify-items:center;text-align:center;gap:8px}
+.lg-k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;transition:opacity .25s}
+.lg-t{position:relative;width:100%;height:1.22em;overflow:hidden;font-family:var(--display);font-weight:600;letter-spacing:-.025em;font-size:clamp(24px,2.8vw,38px);line-height:1.22}
+.lg-line{position:absolute;left:0;right:0;top:0;white-space:nowrap}
+.lg-line span{display:inline-block;white-space:pre}
+.lg-s{color:var(--muted);font-size:17px;max-width:32rem;min-height:3.1em;transition:opacity .25s,transform .25s}
+.lg-s.out,.lg-k.out{opacity:0;transform:translateY(6px)}
+.lg-note{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);opacity:.75}
+.hscroll.lg-on .pin{gap:clamp(12px,2.6vh,28px)}
+.hscroll.lg-on .track{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .card .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,16,12,.8) 0%,transparent 25%,transparent 55%,rgba(6,16,12,.92) 82%)}
 .card .top,.card .bot{position:relative;z-index:1}
 .card .top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
@@ -182,7 +204,19 @@ section{position:relative}
 .scard h3{font-size:clamp(28px,3vw,44px);line-height:1.05;font-weight:600}
 .scard p{color:var(--muted);font-size:18px;max-width:28rem}
 .vis{border-radius:20px;position:relative;overflow:hidden;min-height:300px;background:linear-gradient(rgba(6,16,12,.35),rgba(6,16,12,.6)),radial-gradient(90% 70% at 60% 40%,rgba(92,207,155,.14),transparent 70%),#0a1511;border:1px solid var(--line)}
+.vis .shot{position:absolute;inset:-3%;background-size:cover;background-position:top center;opacity:.42;transform:scale(1.02);transition:transform 9s cubic-bezier(.2,.6,.2,1)}
+.vis .shot::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(6,16,12,.35),rgba(6,16,12,.8))}
+.scard.on .vis .shot{transform:scale(1.1)}
 .vis svg{position:absolute;inset:0;width:100%;height:100%}
+.ring{transform-box:fill-box;transform-origin:center;animation:ring 2.4s cubic-bezier(.2,.7,.1,1) infinite}
+@keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(1.25);opacity:0}}
+.floaty{animation:floaty 3.2s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-6px)}}
+.grow{transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.1,1) .2s}
+.on .grow{transform:none}
+.scrub{animation:scrub 7s linear infinite}
+@keyframes scrub{from{transform:translateX(0)}to{transform:translateX(320px)}}
+.scard:not(.on) .ring,.scard:not(.on) .floaty,.scard:not(.on) .scrub{animation-play-state:paused}
 .vis text{font-family:var(--mono);fill:var(--muted)}
 
 /* visuais animados */
@@ -242,7 +276,8 @@ section{position:relative}
 /* oferta */
 .cta{padding-block:40px 120px}
 .ctabox{border-radius:32px;padding:clamp(32px,6vw,72px);position:relative;overflow:hidden;
-  background:radial-gradient(120% 90% at 50% 120%,rgba(92,207,155,.28),transparent 60%),radial-gradient(60% 50% at 85% 10%,rgba(212,175,79,.12),transparent 70%),linear-gradient(160deg,#10231a,#07120d)}
+  background:radial-gradient(120% 90% at 50% 120%,rgba(92,207,155,.3),transparent 60%),radial-gradient(60% 50% at 85% 10%,rgba(212,175,79,.12),transparent 70%),linear-gradient(rgba(7,18,13,.66),rgba(7,18,13,.86)),url(telas/cta.webp) center bottom/cover,#07120d;
+  border:1px solid var(--glass-border);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 40px 80px -40px rgba(0,0,0,.9)}
 .ctabox::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(3,8,6,.6));pointer-events:none}
 .ctain{position:relative;display:grid;gap:22px;justify-items:center;text-align:center}
 .ctain h2{font-size:clamp(34px,5vw,70px);line-height:1.02;font-weight:600}
@@ -264,7 +299,10 @@ details p{margin-top:12px;color:var(--muted);max-width:44rem}
 
 /* rodapé */
 footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;overflow:hidden}
-.fgrid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:32px}
+.fgrid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px}
+.upd{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ok);border:1px solid rgba(123,227,166,.3);border-radius:999px;padding:5px 11px}
+.upd i{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:blink 1.6s infinite}
+.social{display:flex;gap:10px}.social a{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:var(--muted)}.social a:hover{color:var(--text);border-color:rgba(255,255,255,.3)}.social svg{width:16px;height:16px}
 .fgrid h5{margin:0 0 14px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .fgrid ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px}
 .fgrid a{text-decoration:none;color:rgba(236,244,239,.8)}
@@ -286,6 +324,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 @media (pointer:coarse),(max-width:760px){
   .nav .bar{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(8,18,14,.94)}
   .rig,.layer,.fnode,.glare i{will-change:auto}
+  body::after{display:none}
 }
 /* responsivo */
 @media (max-width:1000px){
@@ -313,7 +352,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   .tiles{grid-template-columns:minmax(0,1fr)}
   .q{padding:20px}
   .meta{gap:14px;grid-template-columns:repeat(3,minmax(0,1fr))}
-  .card .art svg{inset:12% 8% 46%;height:42%}
+  .lg{height:clamp(200px,36svh,340px)}.lg-s{font-size:15px;min-height:4.5em}.hscroll.lg-on .head h2{font-size:28px}
   .nav .btn.ghost{display:none}
 }
 @media (prefers-reduced-motion:reduce){
@@ -350,6 +389,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 
 <main id="topo">
 <canvas id="bg" aria-hidden="true"></canvas>
+<div id="veil" aria-hidden="true"></div>
 <div class="wrap hero" id="hero">
   <div class="copy">
     <span class="eyebrow">Neuroanatomia · ciclo básico</span>
@@ -401,39 +441,25 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 <!-- RECURSOS -->
 <section class="hscroll" id="recursos">
   <div class="pin">
-    <div class="wrap"><div class="head"><span class="eyebrow">Recursos</span><h2>Tudo o que a prova de neuro cobra, num lugar só.</h2></div></div>
+    <div class="wrap"><div class="head"><span class="eyebrow">Recursos</span><h2>Tudo o que a prova de neuro cobra, num <span class="em">lugar só</span>.</h2></div></div>
     <div class="track" id="track">
-      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><g id="grid"></g></svg></div><div class="shade"></div>
+      <article class="card glass" data-wide><div class="art"><img src="telas/d_questao.webp" alt="Questão comentada no app, com a explicação completa" loading="lazy" decoding="async"></div><div class="shade"></div>
         <div class="top"><span>01</span><span>QUESTÕES</span></div><div class="bot"><h3>581 questões comentadas</h3><p>Cada uma com explicação curta e direta, da embriologia à vascularização.</p></div></article>
-      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true" font-family="IBM Plex Mono, monospace" font-size="5.2">
-          <g fill="none" stroke="rgba(255,255,255,.22)"><rect x="8" y="4" width="104" height="9" rx="4.5"/><rect x="8" y="15" width="104" height="9" rx="4.5"/><rect x="8" y="26" width="104" height="9" rx="4.5"/><rect x="8" y="37" width="104" height="9" rx="4.5" stroke="#5ccf9b"/><rect x="8" y="48" width="104" height="9" rx="4.5"/><rect x="8" y="59" width="104" height="9" rx="4.5"/><rect x="8" y="70" width="104" height="9" rx="4.5"/></g>
-          <g fill="rgba(236,244,239,.7)"><text x="14" y="10.4">MÚLTIPLA ESCOLHA</text><text x="14" y="21.4">CASO CLÍNICO</text><text x="14" y="32.4">ASSOCIAÇÃO</text><text x="14" y="43.4" fill="#5ccf9b">ASSERÇÃO E RAZÃO</text><text x="14" y="54.4">VERDADEIRO OU FALSO</text><text x="14" y="65.4">LACUNA</text><text x="14" y="76.4">ORDENAÇÃO</text></g></svg></div><div class="shade"></div>
+      <article class="card glass"><div class="art"><img src="telas/m_assercao.webp" alt="Questão de associação aberta no celular" loading="lazy" decoding="async"></div><div class="shade"></div>
         <div class="top"><span>02</span><span>FORMATOS</span></div><div class="bot"><h3>7 formatos de prova</h3><p>Do caso clínico à asserção e razão, como os professores cobram.</p></div></article>
-      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
-          <ellipse cx="60" cy="40" rx="34" ry="26" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.35)" stroke-width=".6"/>
-          <path d="M60 37c3 0 5-1 6-4 1-4 3-9 6-13 1-1 3-1 2 1-1 4-3 8-4 12 0 3 3 4 5 5 2 1 2 2 0 3-2 1-3 2-2 5 2 4 4 8 3 12-2 3-7 3-10 0-3-3-4-8-5-11-1-2-1-2-1-2z" fill="rgba(92,207,155,.25)" stroke="rgba(236,244,239,.5)" stroke-width=".5"/>
-          <path d="M60 37c-3 0-5-1-6-4-1-4-3-9-6-13-1-1-3-1-2 1 1 4 3 8 4 12 0 3-3 4-5 5-2 1-2 2 0 3 2 1 3 2 2 5-2 4-4 8-3 12 2 3 7 3 10 0 3-3 4-8 5-11 1-2 1-2 1-2z" fill="rgba(92,207,155,.25)" stroke="rgba(236,244,239,.5)" stroke-width=".5"/>
-          <g fill="#d4af4f"><circle cx="40" cy="24" r="3.4"/><circle cx="84" cy="30" r="3.4"/><circle cx="74" cy="58" r="3.4"/></g>
-          <g font-family="IBM Plex Mono, monospace" font-size="4" fill="#06100c" text-anchor="middle"><text x="40" y="25.4">1</text><text x="84" y="31.4">2</text><text x="74" y="59.4">3</text></g></svg></div><div class="shade"></div>
+      <article class="card glass"><div class="art"><img src="telas/m_pratica.webp" alt="Estação de prova prática com a estrutura marcada" loading="lazy" decoding="async"></div><div class="shade"></div>
         <div class="top"><span>03</span><span>PRÁTICA</span></div><div class="bot"><h3>Estações de prova prática</h3><p>11 fotos reais de peças e 33 esquemas numerados para identificar.</p></div></article>
-      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
-          <path d="M10 70H112M10 8V70" stroke="rgba(255,255,255,.18)" stroke-width=".6" fill="none"/>
-          <path d="M12 12C20 40 26 54 34 58V14C44 34 52 42 62 44V12C74 26 86 30 100 30" fill="none" stroke="#5ccf9b" stroke-width="1.3"/>
-          <g fill="#d4af4f"><circle cx="34" cy="14" r="2"/><circle cx="62" cy="12" r="2"/></g>
-          <g font-family="IBM Plex Mono, monospace" font-size="4.4" fill="rgba(236,244,239,.6)"><text x="28" y="9">revisão</text><text x="56" y="7">revisão</text></g></svg></div><div class="shade"></div>
+      <article class="card glass" data-wide><div class="art"><img src="telas/d_painel.webp" alt="Painel com a revisão do dia e a sequência de estudo" loading="lazy" decoding="async"></div><div class="shade"></div>
         <div class="top"><span>04</span><span>REVISÃO</span></div><div class="bot"><h3>Seus erros voltam</h3><p>O que você erra entra numa fila de revisão espaçada até virar acerto seguro.</p></div></article>
-      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
-          <g fill="rgba(92,207,155,.35)"><rect x="18" y="8" width="84" height="10" rx="3" fill="#d4af4f"/><rect x="18" y="22" width="70" height="10" rx="3"/><rect x="18" y="36" width="62" height="10" rx="3"/><rect x="18" y="50" width="48" height="10" rx="3"/><rect x="18" y="64" width="40" height="10" rx="3"/></g>
-          <g font-family="IBM Plex Mono, monospace" font-size="5" fill="rgba(236,244,239,.6)"><text x="8" y="15.5">1</text><text x="8" y="29.5">2</text><text x="8" y="43.5">3</text><text x="8" y="57.5">4</text><text x="8" y="71.5">5</text></g></svg></div><div class="shade"></div>
+      <article class="card glass"><div class="art"><img src="telas/m_ranking.webp" alt="Ranking da turma no celular" loading="lazy" decoding="async"></div><div class="shade"></div>
         <div class="top"><span>05</span><span>TURMA</span></div><div class="bot"><h3>Ranking da sua turma</h3><p>Pontos por acerto, com peso pela dificuldade. Dá para ver onde a turma está fraca.</p></div></article>
-      <article class="card glass"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true">
-          <rect x="30" y="14" width="64" height="44" rx="4" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.18)" stroke-width=".6" transform="rotate(-8 62 36)"/>
-          <rect x="28" y="16" width="64" height="44" rx="4" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.22)" stroke-width=".6" transform="rotate(4 60 38)"/>
-          <rect x="26" y="18" width="64" height="44" rx="4" fill="#10201a" stroke="#5ccf9b" stroke-width=".8"/>
-          <g font-family="IBM Plex Mono, monospace" font-size="4.6" fill="rgba(236,244,239,.75)" text-anchor="middle"><text x="58" y="36">Fascículo cuneiforme</text><text x="58" y="46" fill="#5ccf9b">acima de T6</text></g></svg></div><div class="shade"></div>
+      <article class="card glass"><div class="art"><img src="telas/m_flash.webp" alt="Flashcard virado, com a resposta" loading="lazy" decoding="async"></div><div class="shade"></div>
         <div class="top"><span>06</span><span>FLASHCARDS</span></div><div class="bot"><h3>Flashcards e Anki</h3><p>Revise no celular ou exporte para o Anki, se você já usa.</p></div></article>
     </div>
+    <div class="lg" id="lg" hidden aria-hidden="true"><canvas></canvas></div>
+    <div class="lg-cap wrap" id="lgCap" hidden aria-hidden="true"><span class="lg-k" id="lgK"></span><div class="lg-t" id="lgT"></div><p class="lg-s" id="lgS"></p></div>
     <div class="progress"><i id="prog"></i></div>
+    <p class="lg-note wrap">Telas reais do app, numa conta de demonstração.</p>
   </div>
 </section>
 
@@ -441,9 +467,10 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 <section class="steps" id="como"><div class="wrap">
   <div class="head"><span class="eyebrow">Como funciona</span><h2>Quatro passos entre você e a prova prática.</h2></div>
   <div class="stack" id="stack">
-    <article class="scard" style="top:calc(13vh + 0px)"><div class="copy"><span class="num">01 / ASSINE</span><div style="display:grid;gap:14px"><h3>Pix ou cartão, acesso na hora.</h3><p>Crie a conta com o mesmo e-mail da compra. O acesso abre sozinho quando o pagamento é aprovado.</p></div></div>
-      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
-        <g fill="none" stroke="rgba(255,255,255,.2)"><rect class="pop" x="34" y="120" width="110" height="60" rx="12"/><rect class="pop" x="256" y="120" width="110" height="60" rx="12" stroke="#5ccf9b"/></g>
+    <article class="scard" style="top:calc(13vh + 0px)"><div class="copy"><span class="num">01 / ASSINE</span><div style="display:grid;gap:14px"><h3>Pix ou cartão, acesso automático.</h3><p>Crie a conta com o mesmo e-mail da compra. O acesso abre sozinho quando o pagamento é aprovado.</p></div></div>
+      <div class="vis"><div class="shot" style="background-image:url(telas/d_auth.webp);background-position:78% center"></div><svg viewBox="0 0 400 300" aria-hidden="true">
+        <g fill="none" stroke="rgba(255,255,255,.2)"><rect class="pop" fill="rgba(6,16,12,.7)" x="34" y="120" width="110" height="60" rx="12"/><rect class="pop" fill="rgba(6,16,12,.7)" x="256" y="120" width="110" height="60" rx="12" stroke="#5ccf9b"/></g>
+        <rect class="ring" x="256" y="120" width="110" height="60" rx="12" fill="none" stroke="#5ccf9b"/>
         <path class="draw" pathLength="1" d="M144 150H256" stroke="#5ccf9b" stroke-width="1.5" fill="none"/>
         <circle r="4" fill="#d4af4f"><animateMotion dur="2.4s" repeatCount="indefinite" path="M144 150H256"/></circle>
         <text x="89" y="147" text-anchor="middle" font-size="13" style="fill:#ecf4ef">Pagamento</text><text x="89" y="165" text-anchor="middle" font-size="11">Pix · cartão</text>
@@ -452,16 +479,19 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
       </svg></div><div class="shadow"></div></article>
 
     <article class="scard" style="top:calc(13vh + 20px)"><div class="copy"><span class="num">02 / ESTUDE</span><div style="display:grid;gap:14px"><h3>Questões no formato da prova.</h3><p>Escolha o tema ou faça um simulado. Cada resposta vem com a explicação do porquê.</p></div></div>
-      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
+      <div class="vis"><div class="shot" style="background-image:url(telas/d_questao.webp)"></div><svg viewBox="0 0 400 300" aria-hidden="true">
+        <rect x="40" y="28" width="320" height="4" rx="2" fill="rgba(255,255,255,.1)"/><rect class="grow" x="40" y="28" width="186" height="4" rx="2" fill="#5ccf9b"/><text x="360" y="20" font-size="10" text-anchor="end">7 de 12</text>
         <text x="40" y="62" font-size="12" style="fill:#ecf4ef">O tronco encefálico é formado por:</text>
-        <g fill="none" stroke="rgba(255,255,255,.18)"><rect x="40" y="82" width="320" height="34" rx="9" stroke="#7be3a6" class="pop"/><rect x="40" y="124" width="320" height="34" rx="9"/><rect x="40" y="166" width="320" height="34" rx="9"/><rect x="40" y="208" width="320" height="34" rx="9"/></g>
+        <g fill="rgba(6,16,12,.72)" stroke="rgba(255,255,255,.18)"><rect x="40" y="82" width="320" height="34" rx="9" stroke="#7be3a6" class="pop"/><rect x="40" y="124" width="320" height="34" rx="9"/><rect x="40" y="166" width="320" height="34" rx="9"/><rect x="40" y="208" width="320" height="34" rx="9"/></g>
         <g font-size="12"><text x="56" y="104" style="fill:#ecf4ef">A  Mesencéfalo, ponte e bulbo</text><text x="56" y="146">B  Diencéfalo, ponte e bulbo</text><text x="56" y="188">C  Mesencéfalo, cerebelo e ponte</text><text x="56" y="230">D  Tálamo, mesencéfalo e bulbo</text></g>
         <text class="pop" x="340" y="104" font-size="13" text-anchor="end" style="fill:#7be3a6">✓</text>
+        <g class="pop" style="transition-delay:.5s"><g class="floaty"><rect x="290" y="252" width="70" height="24" rx="12" fill="rgba(123,227,166,.14)" stroke="#7be3a6"/><text x="325" y="268" text-anchor="middle" font-size="11" style="fill:#7be3a6">+15 XP</text></g></g>
       </svg></div><div class="shadow"></div></article>
 
     <article class="scard" style="top:calc(13vh + 40px)"><div class="copy"><span class="num">03 / TREINE A PRÁTICA</span><div style="display:grid;gap:14px"><h3>Estações numeradas, corrigidas.</h3><p>Identifique a estrutura pelo número, confira o nome e guarde o que errou para a próxima rodada.</p></div></div>
-      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
-        <ellipse cx="200" cy="150" rx="110" ry="82" fill="rgba(255,255,255,.035)" stroke="rgba(236,244,239,.4)"/>
+      <div class="vis"><div class="shot" style="background-image:url(telas/d_pratica.webp)"></div><svg viewBox="0 0 400 300" aria-hidden="true">
+        <ellipse cx="200" cy="150" rx="110" ry="82" fill="rgba(6,16,12,.65)" stroke="rgba(236,244,239,.4)"/>
+        <circle cx="352" cy="50" r="18" fill="rgba(6,16,12,.7)" stroke="rgba(255,255,255,.12)" stroke-width="3"/><circle class="draw" pathLength="1" cx="352" cy="50" r="18" fill="none" stroke="#d4af4f" stroke-width="3" transform="rotate(-90 352 50)"/><text x="352" y="54" text-anchor="middle" font-size="10" style="fill:#ecf4ef">0:42</text><text x="352" y="86" text-anchor="middle" font-size="9">estação 3/10</text>
         <g fill="rgba(92,207,155,.22)" stroke="rgba(236,244,239,.55)" stroke-width="1">
           <path d="M200 140c10 0 16-5 19-14 3-12 8-26 18-38 3-4 9-3 8 3-3 12-11 26-12 38 0 9 9 12 16 15 6 3 6 8-1 10-6 2-9 6-6 14 6 13 12 26 8 37-5 9-21 9-30 1-9-9-11-24-14-33-2-5-4-6-6-6z"/>
           <path d="M200 140c-10 0-16-5-19-14-3-12-8-26-18-38-3-4-9-3-8 3 3 12 11 26 12 38 0 9-9 12-16 15-6 3-6 8 1 10 6 2 9 6 6 14-6 13-12 26-8 37 5 9 21 9 30 1 9-9 11-24 14-33 2-5 4-6 6-6z"/></g>
@@ -473,12 +503,13 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
       </svg></div><div class="shadow"></div></article>
 
     <article class="scard" style="top:calc(13vh + 60px)"><div class="copy"><span class="num">04 / REVISE</span><div style="display:grid;gap:14px"><h3>Seus erros voltam na hora certa.</h3><p>O que você errou volta em intervalos cada vez maiores até ficar firme. Na véspera, você revisa só o que precisa.</p></div></div>
-      <div class="vis"><svg viewBox="0 0 400 300" aria-hidden="true">
+      <div class="vis"><div class="shot" style="background-image:url(telas/d_painel.webp)"></div><svg viewBox="0 0 400 300" aria-hidden="true">
         <path d="M40 240H368M40 40V240" stroke="rgba(255,255,255,.14)" fill="none"/>
         <path class="draw" pathLength="1" d="M44 60C70 150 90 196 110 206V70C140 140 160 168 190 176V64C230 108 260 122 300 128V60C320 80 340 86 364 88" fill="none" stroke="#5ccf9b" stroke-width="2"/>
         <g class="pop" style="transition-delay:.8s" fill="#d4af4f"><circle cx="110" cy="70" r="4"/><circle cx="190" cy="64" r="4"/><circle cx="300" cy="60" r="4"/></g>
         <text x="44" y="262" font-size="11">tempo</text><text x="30" y="52" font-size="11" text-anchor="end" transform="rotate(-90 30 52)">lembrança</text>
-        <text class="pop" style="transition-delay:1s" x="236" y="44" font-size="11" style="fill:#d4af4f">revisões</text>
+        <text class="pop" style="transition-delay:1s;fill:#d4af4f" x="236" y="44" font-size="11">revisões</text>
+        <g class="scrub"><line x1="44" y1="36" x2="44" y2="240" stroke="#ecf4ef" stroke-opacity=".55"/><circle cx="44" cy="36" r="3.5" fill="#ecf4ef"/></g>
       </svg></div><div class="shadow"></div></article>
   </div>
 </div></section>
@@ -529,7 +560,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 <section class="cta" id="preco"><div class="wrap"><div class="ctabox">
   <div class="ctain">
     <span class="eyebrow">Assinatura semestral</span>
-    <h2>Um semestre de neuro.<br>Um preço de fundador.</h2>
+    <h2>Um semestre de neuro.<br>Um preço de <span class="em">fundador</span>.</h2>
     <div class="price"><strong>R$ 89</strong><span>a cada 6 meses</span></div>
     <div class="inc"><span>581 questões comentadas</span><span>44 estações de prova prática</span><span>ranking da turma</span><span>revisão espaçada</span><span>flashcards e Anki</span><span>temas novos sem custo extra</span></div>
     <div class="ctas" style="justify-content:center"><a class="btn solid js-buy" id="checkout" href="#preco">Assinar agora →</a><a class="btn ghost" href="#questao">Responder uma questão</a></div>
@@ -553,10 +584,11 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 <footer><div class="wrap">
   <div class="fgrid">
     <div><a class="logo" href="#topo"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1E6B4E"/><path d="M10.5 29.5V14L20 24L29.5 14V29.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.7 12.6L29.5 8.8L33.3 12.6" fill="none" stroke="#D4AF4F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Up-MED study</a>
-      <p class="blurb">Neuroanatomia para a prova teórica e prática do ciclo básico. Conteúdo autoral; fotos de peças do Wikimedia Commons, com o crédito de cada autor dentro da plataforma.</p></div>
+      <p class="blurb">Neuroanatomia para a prova teórica e prática do ciclo básico. Conteúdo autoral; fotos de peças do Wikimedia Commons, com o crédito de cada autor dentro da plataforma.</p><span class="upd"><i></i>ATUALIZADA EM OUTUBRO DE 2026</span></div>
     <div><h5>Produto</h5><ul><li><a href="#como">Como funciona</a></li><li><a href="#recursos">Recursos</a></li><li><a href="#preco">Preço</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
     <div><h5>Plataforma</h5><ul><li><a href="../neuro/" target="_blank" rel="noopener">Entrar</a></li><li><a href="../neuro/" target="_blank" rel="noopener">Criar conta</a></li></ul></div>
-    <div><h5>Suporte</h5><ul><li><a href="https://www.instagram.com/upmed.study/" target="_blank" rel="noopener">Instagram @upmed.study</a></li><li>Reembolso em 7 dias pela Kiwify</li><li>Responda o e-mail da sua compra</li></ul></div>
+    <div><h5>Suporte</h5><ul><li><a href="https://www.instagram.com/upmed.study/" target="_blank" rel="noopener">Instagram @upmed.study</a></li><li><a href="mailto:upmed.study@gmail.com">upmed.study@gmail.com</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
+    <div><h5>Legal</h5><ul><li><a href="privacidade/">Privacidade</a></li><li><a href="termos/">Termos de uso</a></li><li><a href="termos/">Reembolso em 7 dias</a></li></ul></div>
   </div>
   <div class="word" id="word" aria-hidden="true">
     <svg viewBox="0 0 1200 270"><defs><linearGradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#5ccf9b"/><stop offset=".5" stop-color="#d4af4f"/><stop offset="1" stop-color="#5ccf9b"/></linearGradient></defs>
@@ -564,7 +596,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
       <text class="w-dots" x="600" y="200" text-anchor="middle">up-med</text>
       <text class="w-run" x="600" y="200" text-anchor="middle">up-med</text></svg>
   </div>
-  <div class="fbottom"><span>© 2026 Up-MED study. Todos os direitos reservados.</span><span><a href="privacidade/">Privacidade</a> · <a href="termos/">Termos de uso</a> · Material de estudo; não substitui livro, aula ou orientação docente.</span></div>
+  <div class="fbottom"><span>© 2026 Up-MED study. Todos os direitos reservados.</span><span class="social"><a href="https://www.instagram.com/upmed.study/" target="_blank" rel="noopener" aria-label="Instagram da Up-MED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="mailto:upmed.study@gmail.com" aria-label="E-mail da Up-MED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></a></span><span><a href="privacidade/">Privacidade</a> · <a href="termos/">Termos de uso</a> · Material de estudo; não substitui livro, aula ou orientação docente.</span></div>
 </div></footer>
 
 <script>
@@ -589,9 +621,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   mb.innerHTML = porTema.map(function(v,i){ var h = v/54*56; return '<rect x="'+(i*w+.6).toFixed(2)+'" y="'+(56-h).toFixed(2)+'" width="'+(w-1.2).toFixed(2)+'" height="'+h.toFixed(2)+'" rx="1" fill="#5ccf9b" opacity="'+(0.45+0.55*v/54).toFixed(2)+'"/>'; }).join('');
 
   /* grade do card de questões */
-  var g = document.getElementById('grid'), cells = '';
-  for (var r=0;r<6;r++) for (var c=0;c<10;c++){ var on = ((r*10+c)*37)%11 < 7; cells += '<rect x="'+(6+c*11.2)+'" y="'+(6+r*11.6)+'" width="8.4" height="8.4" rx="2" fill="'+(on?'#5ccf9b':'rgba(255,255,255,.08)')+'" opacity="'+(on?.35+((r+c)%4)*.15:1)+'"/>'; }
-  g.innerHTML = cells;
+
 
   /* questão real */
   var opts = ['Mielomeningocele','Anencefalia','Espinha bífida oculta','Hidrocefalia congênita'];
@@ -685,6 +715,8 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   /* modo leve: celular, toque ou aparelho fraco. A janela do topo não anima a cada quadro. */
   var lite = RM || small || weak || coarse;
   var animateBg = !lite;
+  var full = !lite, veil = document.getElementById('veil'), veilOp = 0;
+  if (full) document.documentElement.classList.add('full');
   var fibers = [];
   for (var i=0;i<11;i++){ var y = .1 + i*.075; fibers.push({y0:y, y1:y + ((i%3)-1)*.18, a:.1+((i*7)%5)*.035, ph:i*1.7, sp:.00012+(i%4)*.00004, pulses:[(i*.13)%1, (i*.37+.5)%1]}); }
   function sprite(col){ var c = document.createElement('canvas'); c.width = c.height = 12; var x = c.getContext('2d'); var g = x.createRadialGradient(6,6,0,6,6,6); g.addColorStop(0,col); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0,0,12,12); return c; }
@@ -726,14 +758,215 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   var hsTop = 0, hsH = 0, rvTop = 0, rvH = 0;
   function measure(){
     var y = window.scrollY;
-    if (!RM){ dist = Math.max(0, track.scrollWidth - window.innerWidth); hs.style.height = (window.innerHeight + dist) + 'px'; }
+    if (LG){ hs.style.height = Math.round(window.innerHeight*(1 + (LG.n-1)*.55)) + 'px'; }
+    else if (!RM){ dist = Math.max(0, track.scrollWidth - window.innerWidth); hs.style.height = (window.innerHeight + dist) + 'px'; }
     var r = hs.getBoundingClientRect(); hsTop = r.top + y; hsH = hs.offsetHeight;
+    if (LG) LG.resize();
     r = rv.getBoundingClientRect(); rvTop = r.top + y; rvH = rv.offsetHeight;
     stageRect = stage.getBoundingClientRect();
     var fl = glare.parentNode; gw = fl.offsetWidth; gh = fl.offsetHeight;
   }
   var gw = 0, gh = 0;
   var stageRect = stage.getBoundingClientRect();
+
+  /* Recursos: carrossel de vidro líquido. A faixa de telas é desenhada num canvas 2D e curvada por uma lente WebGL:
+     bordas ampliadas e curvas, separação de cor, e a curva aumenta com a velocidade da rolagem.
+     Sem WebGL ou com movimento reduzido, a faixa de cartões normal continua no lugar. */
+  var LG = (function(){
+    if (RM) return null;
+    var box = document.getElementById('lg'), cap = document.getElementById('lgCap'), canvas = box.querySelector('canvas'), gl = null;
+    try { gl = canvas.getContext('webgl', {antialias:false, alpha:false, premultipliedAlpha:false, preserveDrawingBuffer:false}); } catch(e){}
+    if (!gl) return null;
+    var vs = 'attribute vec2 p; varying vec2 v; void main(){ v = p*.5+.5; v.y = 1.-v.y; gl_Position = vec4(p,0.,1.); }';
+    var fs = [
+      'precision mediump float;',
+      'varying vec2 v; uniform sampler2D t; uniform float k; uniform float ca;',
+      'const vec3 BG = vec3(.0235,.0627,.0471);',
+      'vec2 warp(vec2 uv){',
+      '  float cx = uv.x-.5; float e = smoothstep(.16,.5,abs(cx)); e = e*e*(3.-2.*e);',
+      '  float sxv = .5 + cx*(1.-.10*k*e);',
+      '  float syv = .5 + (uv.y-.5)/(1.+.85*k*e);',
+      '  syv += (uv.y-.5)*.025*k*e*sin(cx*6.2831);',
+      '  return vec2(sxv,syv); }',
+      'vec3 tap(vec2 uv){ return (uv.x<0.||uv.x>1.||uv.y<0.||uv.y>1.) ? BG : texture2D(t,vec2(uv.x,1.-uv.y)).rgb; }',
+      'void main(){',
+      '  float cx = v.x-.5; float e = smoothstep(.2,.5,abs(cx)); vec2 d = vec2(sign(cx)*ca*e*e,0.);',
+      '  vec3 col = vec3(tap(warp(v+d)).r, tap(warp(v)).g, tap(warp(v-d)).b);',
+      '  col += vec3(.045,.07,.058)*e*e*smoothstep(0.,.6,1.-abs(v.y-.5)*2.);',
+      '  float f = smoothstep(0.,.08,v.y)*smoothstep(1.,.92,v.y)*smoothstep(0.,.025,v.x)*smoothstep(1.,.975,v.x);',
+      '  gl_FragColor = vec4(mix(BG,col,f),1.); }'
+    ].join('\n');
+    function sh(type, src){ var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null; }
+    var a = sh(gl.VERTEX_SHADER, vs), b = sh(gl.FRAGMENT_SHADER, fs);
+    if (!a || !b) return null;
+    var prog = gl.createProgram(); gl.attachShader(prog, a); gl.attachShader(prog, b); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+    var cvs = 'attribute vec2 p; uniform vec4 r; uniform vec2 res; varying vec2 u; void main(){ u = p; vec2 q = r.xy + p*r.zw; gl_Position = vec4(q.x/res.x*2.-1., 1.-q.y/res.y*2., 0., 1.); }';
+    var cfs = 'precision mediump float; varying vec2 u; uniform sampler2D t; uniform float al; void main(){ vec4 c = texture2D(t,u); gl_FragColor = vec4(c.rgb, c.a*al); }';
+    var ca2 = sh(gl.VERTEX_SHADER, cvs), cb2 = sh(gl.FRAGMENT_SHADER, cfs);
+    if (!ca2 || !cb2) return null;
+    var cprog = gl.createProgram(); gl.attachShader(cprog, ca2); gl.attachShader(cprog, cb2); gl.linkProgram(cprog);
+    if (!gl.getProgramParameter(cprog, gl.LINK_STATUS)) return null;
+    var fullBuf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, fullBuf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    var unitBuf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, unitBuf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0,0, 1,0, 0,1, 1,1]), gl.STATIC_DRAW);
+    var locL = gl.getAttribLocation(prog, 'p'), locC = gl.getAttribLocation(cprog, 'p');
+    var uK = gl.getUniformLocation(prog, 'k'), uCA = gl.getUniformLocation(prog, 'ca');
+    var uR = gl.getUniformLocation(cprog, 'r'), uRes = gl.getUniformLocation(cprog, 'res'), uAl = gl.getUniformLocation(cprog, 'al');
+    function mkTex(){ var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); return t; }
+    function upload(t, src){ gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src); }
+    var fbTex = mkTex(), fb = gl.createFramebuffer(), glowTex = mkTex();
+    (function(){ var g = document.createElement('canvas'); g.width = g.height = 128; var c = g.getContext('2d'), gr = c.createRadialGradient(64,64,0,64,64,64);
+      gr.addColorStop(0,'rgba(92,207,155,.11)'); gr.addColorStop(1,'rgba(92,207,155,0)'); c.fillStyle = gr; c.fillRect(0,0,128,128); upload(glowTex, g); })();
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    var cards = Array.prototype.slice.call(track.querySelectorAll('.card')).map(function(c){
+      var sp = c.querySelectorAll('.top span');
+      return {src:c.querySelector('.art img').getAttribute('src'), num:sp[0].textContent, tag:sp[1].textContent,
+        title:c.querySelector('h3').textContent, sub:c.querySelector('.bot p').textContent, wide:c.hasAttribute('data-wide'), img:null, bmp:null};
+    });
+    var n = cards.length;
+    var W = 0, H = 0, dpr = 1, ph = 0, gap = 0, widths = [], centers = [], period = 0;
+
+    function rr(c, x, y, w, h, r){ c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); }
+    function bitmap(cd, w, h){
+      var o = document.createElement('canvas'); o.width = Math.ceil(w); o.height = Math.ceil(h);
+      var c = o.getContext('2d'), r = h*.045;
+      rr(c, .5, .5, w-1, h-1, r); c.save(); c.clip();
+      var gr = c.createLinearGradient(0,0,0,h); gr.addColorStop(0,'#13241c'); gr.addColorStop(1,'#08120e'); c.fillStyle = gr; c.fillRect(0,0,w,h);
+      if (cd.img){
+        var im = cd.img, s = Math.max(w/im.naturalWidth, h/im.naturalHeight), sw = w/s, shh = h/s;
+        c.drawImage(im, (im.naturalWidth - sw)/2, 0, sw, shh, 0, 0, w, h);
+      }
+      var sh2 = c.createLinearGradient(0,h*.6,0,h); sh2.addColorStop(0,'rgba(6,16,12,0)'); sh2.addColorStop(1,'rgba(6,16,12,.55)'); c.fillStyle = sh2; c.fillRect(0,h*.6,w,h*.4);
+      c.restore();
+      rr(c, .5, .5, w-1, h-1, r); c.lineWidth = Math.max(1, dpr); c.strokeStyle = 'rgba(255,255,255,.14)'; c.stroke();
+      var fsz = Math.round(11*dpr), pad = 12*dpr, label = cd.num + '  ' + cd.tag;
+      c.font = '500 ' + fsz + 'px "IBM Plex Mono", ui-monospace, monospace';
+      var tw = c.measureText(label).width, bh = fsz*2.1;
+      rr(c, pad, pad, tw + fsz*1.8, bh, bh/2); c.fillStyle = 'rgba(6,16,12,.82)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.14)'; c.stroke();
+      c.fillStyle = '#ecf4ef'; c.textBaseline = 'middle'; c.fillText(label, pad + fsz*.9, pad + bh/2 + dpr*.5);
+      return o;
+    }
+    function build(){ try { cards.forEach(function(cd, i){ if (!cd.tex) cd.tex = mkTex(); upload(cd.tex, bitmap(cd, widths[i], ph)); }); } catch(err){ fail(); } }
+    function layout(){
+      dpr = Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 2);
+      var cw = box.clientWidth, ch = box.clientHeight;
+      if (!cw || !ch) return false;
+      W = Math.round(cw*dpr); H = Math.round(ch*dpr);
+      canvas.width = W; canvas.height = H;
+      gl.bindTexture(gl.TEXTURE_2D, fbTex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fb); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, fbTex, 0); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      ph = Math.min(H*.86, W*(cw < 700 ? .5 : .33)); gap = ph*.12;
+      widths = cards.map(function(c){ return Math.round(ph*(c.wide ? 1.5 : .72)); });
+      centers = []; var acc = 0;
+      widths.forEach(function(w, i){ if (i) acc += widths[i-1]/2 + gap + w/2; centers.push(acc); });
+      period = acc + widths[n-1]/2 + gap + widths[0]/2;
+      build(); return true;
+    }
+    function camAt(pos){
+      var f = Math.floor(pos), t = pos - f, i = ((f % n) + n) % n, j = (i + 1) % n, loops = Math.floor(f / n)*period;
+      var x0 = centers[i] + loops, x1 = (j === 0 ? centers[0] + period : centers[j]) + loops;
+      return x0 + (x1 - x0)*t;
+    }
+
+    var target = 0, pos = 0, vis = 0, vel = 0, rise = 1, slide = 1, introT0 = null, started = false, seen = false, ready = false;
+    var raf = 0, lastT = 0, still = 0, idx = -1;
+    function quad(tex, x, y, w, h, al){ gl.bindTexture(gl.TEXTURE_2D, tex); gl.uniform4f(uR, x, y, w, h); gl.uniform1f(uAl, al); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); }
+    function render(){
+      if (!W || dead) return;
+      var cam = camAt(vis), top = H*.5 - ph/2;
+      /* 1. faixa de telas numa textura */
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fb); gl.viewport(0, 0, W, H);
+      gl.clearColor(.0235, .0627, .0471, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(cprog); gl.bindBuffer(gl.ARRAY_BUFFER, unitBuf); gl.enableVertexAttribArray(locC); gl.vertexAttribPointer(locC, 2, gl.FLOAT, false, 0, 0);
+      gl.uniform2f(uRes, W, H); gl.enable(gl.BLEND);
+      quad(glowTex, W*.08, H*.55 - W*.42, W*.84, W*.84, 1);
+      for (var i = 0; i < n; i++) for (var k = -2; k <= 2; k++){
+        var w = widths[i], x = W/2 + centers[i] + k*period - cam - w/2;
+        if (x > W || x + w < 0 || !cards[i].tex) continue;
+        var d = Math.abs(x + w/2 - W/2)/W;
+        quad(cards[i].tex, x, top + rise*H*(.6 + .8*d), w, ph, 1 - Math.min(1, d*1.2)*.45);
+      }
+      gl.disable(gl.BLEND);
+      /* 2. lente de vidro sobre a faixa */
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H);
+      gl.useProgram(prog); gl.bindBuffer(gl.ARRAY_BUFFER, fullBuf); gl.enableVertexAttribArray(locL); gl.vertexAttribPointer(locL, 2, gl.FLOAT, false, 0, 0);
+      gl.bindTexture(gl.TEXTURE_2D, fbTex);
+      var speed = Math.min(Math.abs(vel)*.22, .7);
+      gl.uniform1f(uK, 1 + slide*.8 + speed); gl.uniform1f(uCA, .004 + speed*.007);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    var tEl = document.getElementById('lgT'), sEl = document.getElementById('lgS'), kEl = document.getElementById('lgK');
+    function roll(el, txt, dir){
+      Array.prototype.slice.call(el.children).forEach(function(line){
+        Array.prototype.forEach.call(line.children, function(sp, j){ sp.style.transition = 'transform .45s cubic-bezier(.55,0,1,.45) '+(j*8)+'ms, opacity .35s '+(j*8)+'ms'; sp.style.transform = 'translateY('+(-110*dir)+'%)'; sp.style.opacity = '0'; });
+        setTimeout(function(){ if (line.parentNode) line.parentNode.removeChild(line); }, 800);
+      });
+      var line = document.createElement('div'), spans = [];
+      line.className = 'lg-line';
+      txt.split('').forEach(function(ch){ var sp = document.createElement('span'); sp.textContent = ch; sp.style.transform = 'translateY('+(110*dir)+'%)'; sp.style.opacity = '0'; line.appendChild(sp); spans.push(sp); });
+      el.appendChild(line); void line.offsetWidth;
+      spans.forEach(function(sp, j){ var dl = 220 + j*16; sp.style.transition = 'transform .75s cubic-bezier(.16,1,.3,1) '+dl+'ms, opacity .5s '+dl+'ms'; sp.style.transform = 'none'; sp.style.opacity = '1'; });
+    }
+    var swapT = 0;
+    function label(i, dir){
+      var cd = cards[i];
+      roll(tEl, cd.title, dir);
+      sEl.classList.add('out'); kEl.classList.add('out'); clearTimeout(swapT);
+      swapT = setTimeout(function(){ sEl.textContent = cd.sub; kEl.textContent = cd.num + ' / ' + cd.tag + '  ·  ' + (i+1) + ' de ' + n; sEl.classList.remove('out'); kEl.classList.remove('out'); }, 260);
+    }
+    var eo = function(x){ return x >= 1 ? 1 : 1 - Math.pow(2, -10*x); };
+    var eio = function(x){ return x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20*x - 10)/2 : (2 - Math.pow(2, -20*x + 10))/2; };
+    function tick(t){
+      raf = 0;
+      var dt = lastT ? Math.min(.05, (t - lastT)/1000) : 1/60; lastT = t;
+      if (introT0 !== null){
+        var e = (t - introT0)/1000;
+        rise = 1 - eo(clamp(e/1.4, 0, 1)); slide = 1 - eio(clamp(e/1.8, 0, 1));
+        if (e >= 1.8){ introT0 = null; rise = 0; slide = 0; }
+      }
+      pos += (target - pos)*(1 - Math.exp(-dt*7));
+      var prev = vis; vis = pos - 1.5*slide;
+      vel = vel*.5 + ((vis - prev)/dt)*.5;
+      var i = clamp(Math.round(pos), 0, n-1);
+      if (i !== idx && started){ label(i, idx < 0 || i > idx ? 1 : -1); idx = i; }
+      render();
+      if (Math.abs(target - pos) > .0004 || Math.abs(vel) > .02 || introT0 !== null) still = 0; else still++;
+      if (still < 3) raf = requestAnimationFrame(tick); else lastT = 0;
+    }
+    function go(){ if (!raf && W && ready) raf = requestAnimationFrame(tick); }
+    function start(){ if (started || !ready || !seen) return; started = true; introT0 = performance.now(); go(); }
+
+    function load(){
+      var left = n;
+      cards.forEach(function(cd){
+        var im = new Image(); im.decoding = 'async';
+        im.onload = function(){ cd.img = im; done(); }; im.onerror = done; im.src = cd.src;
+      });
+      function done(){ if (--left) return; ready = true; if (W) build(); start(); go(); }
+    }
+    if (document.readyState === 'complete') load(); else window.addEventListener('load', load);
+
+    canvas.addEventListener('click', function(e){
+      var r = canvas.getBoundingClientRect(), x = (e.clientX - r.left)/r.width, d = x < .38 ? -1 : x > .62 ? 1 : 0;
+      if (!d || idx < 0) return;
+      var i = clamp(idx + d, 0, n-1), total = hsH - window.innerHeight;
+      window.scrollTo({top: hsTop + (i/(n-1))*total, behavior: 'smooth'});
+    });
+
+    var dead = false;
+    function fail(){ if (dead) return; dead = true; W = 0; box.hidden = true; cap.hidden = true; hs.classList.remove('lg-on'); LG = null; setTimeout(function(){ measure(); kick(); }, 0); }
+    canvas.addEventListener('webglcontextlost', function(e){ e.preventDefault(); fail(); });
+    box.hidden = false; cap.hidden = false; hs.classList.add('lg-on');
+    return {
+      n: n,
+      resize: function(){ if (layout()) { render(); } },
+      set: function(p){ var q = p*(n-1); target = q - Math.sin(q*Math.PI*2)/(Math.PI*2)*.9; if (!seen){ seen = true; pos = target; } start(); go(); }
+    };
+  })();
+
 
   var sy = window.scrollY, lastFrame = 0, lastBg = 0, litN = -1, lastP = -1, running = false, settle = 0;
   function frame(t){
@@ -742,7 +975,15 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     var moving = Math.abs(sy - Y) > .5;
 
     /* fundo: só desenha com o topo na tela, a 30 quadros por segundo */
-    if (active.hero && animateBg && t - lastBg > 33){ drawBg(t); lastBg = t; }
+    if (full){
+      var vwp = window.innerWidth/100, vhp = ih/100;
+      cv.style.transform = 'translate3d('+((Math.sin(sy/700)*7 + Math.sin(sy/1900)*3)*vwp).toFixed(1)+'px,'+(Math.sin(sy/1300)*-2*vhp).toFixed(1)+'px,0) scale('+(1.02 + Math.abs(Math.sin(sy/1600))*.04).toFixed(4)+') rotate('+(Math.sin(sy/1100)*-1.2).toFixed(3)+'deg)';
+      cv.style.opacity = (.6*(1 - clamp(sy/ih,0,1)*.6)).toFixed(3);
+      veilOp = clamp((sy - ih*.12)/(ih*.45), 0, 1)*.97;
+      veil.style.opacity = veilOp.toFixed(3);
+      cv.style.visibility = veilOp > .965 ? 'hidden' : 'visible';
+    }
+    if (active.hero && animateBg && veilOp < .965 && t - lastBg > 33){ drawBg(t); lastBg = t; }
 
     /* janela 3D */
     if (active.hero && !lite){
@@ -760,7 +1001,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     if (!RM){
       if (active.hs){
         var total = hsH - ih, p = total > 0 ? clamp((Y - hsTop)/total,0,1) : 0;
-        if (Math.abs(p - lastP) > .0005){ lastP = p; track.style.transform = 'translate3d('+(-p*dist).toFixed(1)+'px,0,0)'; prog.style.width = (p*100).toFixed(2)+'%'; }
+        if (Math.abs(p - lastP) > .0005 || lastP < 0){ lastP = p; if (LG) LG.set(p); else track.style.transform = 'translate3d('+(-p*dist).toFixed(1)+'px,0,0)'; prog.style.width = (p*100).toFixed(2)+'%'; }
       }
       if (active.stack){
         var tops = scards.map(function(c){ return c.getBoundingClientRect().top; }), hgt = scards.map(function(c){ return c.offsetHeight; });
