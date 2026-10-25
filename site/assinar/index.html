@@ -75,7 +75,7 @@ body::after{content:"";position:fixed;inset:0;z-index:70;pointer-events:none;opa
 
 /* nav */
 .nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:40;padding-top:14px}
-.nav .bar{backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);background:var(--glass),rgba(8,18,14,.55);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 16px;border-radius:999px}
+.nav .bar{background:var(--glass),rgba(8,18,14,.94);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 16px;border-radius:999px}
 .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:16px;text-decoration:none;letter-spacing:-.01em}
 .logo svg{width:28px;height:28px;flex:none}
 .nav nav{display:flex;align-items:center;gap:26px;font-size:15px;color:var(--muted)}
@@ -162,19 +162,51 @@ section{position:relative}
 .head h2{font-size:clamp(32px,4.2vw,58px);line-height:1.04;font-weight:600}
 .head p{color:var(--muted);font-size:18px}
 
+/* benefícios */
+.bene{padding-block:110px 30px}
+.bgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:48px}
+.bcard{padding:26px;display:grid;gap:12px;align-content:start;opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.1,1),transform .7s cubic-bezier(.2,.7,.1,1),border-color .3s}
+.bcard.on{opacity:1;transform:none}
+.bcard:hover{border-color:rgba(92,207,155,.4)}
+.bcard .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(92,207,155,.1);border:1px solid rgba(92,207,155,.3);color:var(--accent)}
+.bcard .ic svg{width:22px;height:22px}
+.bcard h3{font-size:21px;line-height:1.2;font-weight:600;letter-spacing:-.015em}
+.bcard p{color:var(--muted);font-size:16px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.vs > div{padding:26px 28px;border-radius:var(--radius);border:1px solid var(--line)}
+.vs .no{background:rgba(255,255,255,.02)}
+.vs .yes{background:linear-gradient(160deg,rgba(92,207,155,.13),rgba(92,207,155,.03));border-color:rgba(92,207,155,.35)}
+.vs h4{margin:0 0 14px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.vs .yes h4{color:var(--accent)}
+.vs ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.vs li{display:flex;gap:12px;font-size:16px;line-height:1.45}
+.vs .no li{color:var(--muted)}
+.vs li::before{flex:none;width:20px;font-family:var(--mono)}
+.vs .no li::before{content:"×";color:rgba(240,138,116,.8)}
+.vs .yes li::before{content:"✓";color:var(--accent)}
+
 /* recursos: rolagem lateral */
-.hscroll .pin{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;gap:40px;overflow:hidden}
-.track{display:flex;gap:20px;padding-left:max(var(--gutter),calc((100vw - var(--maxw))/2 + var(--gutter)));padding-right:var(--gutter);will-change:transform}
+.hscroll{padding-block:110px 70px}
+.hscroll .pin{display:flex;flex-direction:column;gap:40px}
+.track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-left:max(var(--gutter),calc((100vw - var(--maxw))/2 + var(--gutter)));padding-right:var(--gutter);padding-bottom:12px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+.track .card{scroll-snap-align:start}
 .card{flex:0 0 min(78vw,380px);aspect-ratio:4/5;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:24px}
 .card .art{position:absolute;inset:0;transform:scale(1.02);transition:transform 1.2s cubic-bezier(.2,.7,.1,1);background:radial-gradient(120% 80% at 70% 30%,rgba(92,207,155,.16),transparent 60%),linear-gradient(180deg,#0f1f18,#08120e)}
 .card:hover .art{transform:scale(1.08)}
 .card .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
-/* carrossel de vidro líquido (WebGL), guiado pela rolagem */
+/* carrossel de vidro líquido (WebGL): arrastar, setas e troca automática */
 .lg{position:relative;width:100%;height:clamp(240px,40svh,480px)}
-.hscroll.lg-on .pin{padding-top:72px}
 .hscroll.lg-on .head{max-width:62rem}
 .hscroll.lg-on .head h2{font-size:clamp(30px,3.4vw,48px)}
-.lg canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer}
+.lg canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.lg canvas.drag{cursor:grabbing}
+.lg-nav{display:flex;align-items:center;gap:14px;margin-top:6px}
+.lg-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-border);background:rgba(255,255,255,.05);color:var(--text);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,background .2s}
+.lg-nav button:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.09)}
+.lg-nav svg{width:16px;height:16px}
+.lg-dots{display:flex;gap:8px}
+.lg-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .3s,width .3s}
+.lg-dots i.on{background:var(--accent);width:22px;border-radius:4px}
 .lg-cap{display:grid;justify-items:center;text-align:center;gap:8px}
 .lg-k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;transition:opacity .25s}
 .lg-t{position:relative;width:100%;height:1.22em;overflow:hidden;font-family:var(--display);font-weight:600;letter-spacing:-.025em;font-size:clamp(24px,2.8vw,38px);line-height:1.22}
@@ -322,7 +354,6 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 
 /* celular e toque: sem desfoque e sem camadas extras */
 @media (pointer:coarse),(max-width:760px){
-  .nav .bar{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(8,18,14,.94)}
   .rig,.layer,.fnode,.glare i{will-change:auto}
   body::after{display:none}
 }
@@ -334,12 +365,13 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .author .photo{max-width:300px}
 }
-@media (max-width:900px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.bgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){
   .nav nav{display:none}
   .scard{grid-template-columns:minmax(0,1fr);padding:18px}
   .scard .vis{order:-1;min-height:220px}
   .scard .copy{padding:6px}
+  .vs{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:560px){
   body{font-size:16px}
@@ -350,6 +382,8 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   .runs{width:62%}
   .fnode{padding:9px 8px}.fnode b{font-size:11.5px}.fnode small{font-size:9.5px}
   .tiles{grid-template-columns:minmax(0,1fr)}
+  .bgrid{grid-template-columns:minmax(0,1fr)}
+  .bcard{padding:22px}
   .q{padding:20px}
   .meta{gap:14px;grid-template-columns:repeat(3,minmax(0,1fr))}
   .lg{height:clamp(200px,36svh,340px)}.lg-s{font-size:15px;min-height:4.5em}.hscroll.lg-on .head h2{font-size:28px}
@@ -362,8 +396,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   .reveal p .w{opacity:1}
   .draw{stroke-dashoffset:0}.pop{opacity:1;transform:none}
   .tile svg rect{transform:none}
-  .hscroll{height:auto!important}.hscroll .pin{position:static;height:auto;padding-block:100px}
-  .track{overflow-x:auto;transform:none!important;padding-bottom:12px}
+  .bcard{opacity:1;transform:none}
   #bg{display:none}
 }
 </style>
@@ -379,7 +412,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     Up-MED study
   </a>
   <nav aria-label="Seções">
-    <a href="#como">Como funciona</a><a href="#recursos">Recursos</a><a href="#questao">Testar</a><a href="#preco">Preço</a>
+    <a href="#beneficios">Benefícios</a><a href="#como">Como funciona</a><a href="#recursos">Recursos</a><a href="#questao">Testar</a><a href="#preco">Preço</a>
   </nav>
   <div class="right">
     <a class="btn ghost" href="../neuro/" target="_blank" rel="noopener">Entrar</a>
@@ -438,6 +471,16 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   <div class="mtrack" id="mtrack"></div>
 </div>
 
+<!-- BENEFÍCIOS -->
+<section class="bene" id="beneficios"><div class="wrap">
+  <div class="head"><span class="eyebrow">O que muda para você</span><h2>Menos susto na bancada. Mais <span class="em">certeza</span> na hora de responder.</h2><p>O que a Up-MED faz pelo seu estudo de neuro, na prática.</p></div>
+  <div class="bgrid"><article class="bcard glass" style="transition-delay:0ms"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c-4.4 0-8 3-8 7 0 2.6 1.6 4.6 3.8 5.7L8 20h8l.2-3.3C18.4 15.6 20 13.6 20 11c0-4-3.6-7-8-7z"/><path d="M12 4v16M8 9c1.3.4 2.7.4 4 0M12 13c1.3.4 2.7.4 4 0"/></svg></span><h3>Você reconhece a estrutura na peça</h3><p>Treina identificando estruturas numeradas em fotos de peças reais e em esquemas, do jeito que a prova prática cobra. Na bancada, a imagem já é familiar.</p></article><article class="bcard glass" style="transition-delay:90ms"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><h3>Estuda o que precisa, não o que já sabe</h3><p>Errou, a questão volta. Acertou, ela espaça. O seu tempo vai para os pontos fracos, não para reler o que você já domina.</p></article><article class="bcard glass" style="transition-delay:180ms"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg></span><h3>Entende o porquê, não decora a letra</h3><p>Cada questão tem comentário curto, completo e correlação clínica. Você sai sabendo explicar a resposta, não só marcar.</p></article><article class="bcard glass" style="transition-delay:0ms"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><h3>Treina no formato que cai</h3><p>Caso clínico, asserção e razão, associação, lacuna: os 7 formatos que os professores usam. Na prova, o formato não é surpresa.</p></article><article class="bcard glass" style="transition-delay:90ms"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16"/><path d="M8 16V11M12 16V7M16 16v-3"/></svg></span><h3>Sabe onde está fraco antes da prova</h3><p>O painel mostra o acerto por tema e aponta os módulos que pedem reforço. Você descobre a lacuna enquanto ainda dá tempo.</p></article><article class="bcard glass" style="transition-delay:180ms"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><h3>Estuda no tempo que você tem</h3><p>Sessões curtas no celular, entre uma aula e outra. A revisão do dia diz exatamente o que fazer hoje, sem montar cronograma.</p></article></div>
+  <div class="vs">
+    <div class="no"><h4>Estudando só pelo livro</h4><ul><li>Reler capítulos inteiros sem saber o que priorizar</li><li>Descobrir os pontos fracos só quando sai a nota</li><li>Pouco tempo de laboratório para treinar identificação</li><li>Decorar a resposta sem entender o porquê</li></ul></div>
+    <div class="yes"><h4>Com a Up-MED</h4><ul><li>Questões no formato da prova desde a primeira semana</li><li>Pontos fracos no painel, antes da prova</li><li>Identificação de estruturas treinada no celular, quantas vezes quiser</li><li>Comentário em cada questão explicando o porquê</li></ul></div>
+  </div>
+</div></section>
+
 <!-- RECURSOS -->
 <section class="hscroll" id="recursos">
   <div class="pin">
@@ -457,8 +500,8 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
         <div class="top"><span>06</span><span>FLASHCARDS</span></div><div class="bot"><h3>Flashcards e Anki</h3><p>Revise no celular ou exporte para o Anki, se você já usa.</p></div></article>
     </div>
     <div class="lg" id="lg" hidden aria-hidden="true"><canvas></canvas></div>
-    <div class="lg-cap wrap" id="lgCap" hidden aria-hidden="true"><span class="lg-k" id="lgK"></span><div class="lg-t" id="lgT"></div><p class="lg-s" id="lgS"></p></div>
-    <div class="progress"><i id="prog"></i></div>
+    <div class="lg-cap wrap" id="lgCap" hidden><span class="lg-k" id="lgK" aria-hidden="true"></span><div class="lg-t" id="lgT" aria-hidden="true"></div><p class="lg-s" id="lgS" aria-hidden="true"></p>
+      <div class="lg-nav"><button type="button" id="lgPrev" aria-label="Tela anterior"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3 5 8l5 5"/></svg></button><span class="lg-dots" id="lgDots" aria-hidden="true"></span><button type="button" id="lgNext" aria-label="Próxima tela"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 3 5 5-5 5"/></svg></button></div></div>
     <p class="lg-note wrap">Telas reais do app, numa conta de demonstração.</p>
   </div>
 </section>
@@ -585,7 +628,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   <div class="fgrid">
     <div><a class="logo" href="#topo"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1E6B4E"/><path d="M10.5 29.5V14L20 24L29.5 14V29.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25.7 12.6L29.5 8.8L33.3 12.6" fill="none" stroke="#D4AF4F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Up-MED study</a>
       <p class="blurb">Neuroanatomia para a prova teórica e prática do ciclo básico. Conteúdo autoral; fotos de peças do Wikimedia Commons, com o crédito de cada autor dentro da plataforma.</p><span class="upd"><i></i>ATUALIZADA EM OUTUBRO DE 2026</span></div>
-    <div><h5>Produto</h5><ul><li><a href="#como">Como funciona</a></li><li><a href="#recursos">Recursos</a></li><li><a href="#preco">Preço</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
+    <div><h5>Produto</h5><ul><li><a href="#beneficios">Benefícios</a></li><li><a href="#como">Como funciona</a></li><li><a href="#recursos">Recursos</a></li><li><a href="#preco">Preço</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
     <div><h5>Plataforma</h5><ul><li><a href="../neuro/" target="_blank" rel="noopener">Entrar</a></li><li><a href="../neuro/" target="_blank" rel="noopener">Criar conta</a></li></ul></div>
     <div><h5>Suporte</h5><ul><li><a href="https://www.instagram.com/upmed.study/" target="_blank" rel="noopener">Instagram @upmed.study</a></li><li><a href="mailto:upmed.study@gmail.com">upmed.study@gmail.com</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
     <div><h5>Legal</h5><ul><li><a href="privacidade/">Privacidade</a></li><li><a href="termos/">Termos de uso</a></li><li><a href="termos/">Reembolso em 7 dias</a></li></ul></div>
@@ -658,7 +701,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
 
   /* aparece ao entrar na tela */
   var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('on'); if (e.target.classList.contains('tile')) count(e.target); io.unobserve(e.target); } }); }, {threshold:.35});
-  document.querySelectorAll('.vis, .tile').forEach(function(el){ io.observe(el.classList.contains('vis') ? el : el); });
+  document.querySelectorAll('.vis, .tile, .bcard').forEach(function(el){ io.observe(el.classList.contains('vis') ? el : el); });
   document.querySelectorAll('.vis').forEach(function(v){ var o = new IntersectionObserver(function(es){ if (es[0].isIntersecting){ v.parentNode.classList.add('on'); o.disconnect(); } }, {threshold:.3}); o.observe(v); });
   function count(tile){
     var el = tile.querySelector('strong'), n = +tile.dataset.n;
@@ -746,7 +789,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   }
 
   /* seções guiadas pela rolagem: só calculam quando estão perto da tela */
-  var hs = document.getElementById('recursos'), track = document.getElementById('track'), prog = document.getElementById('prog'), dist = 0;
+  var hs = document.getElementById('recursos'), track = document.getElementById('track');
   var scards = Array.prototype.slice.call(document.querySelectorAll('.scard')), shadows = scards.map(function(c){ return c.querySelector('.shadow'); });
   var stackEl = document.getElementById('stack'), rv = document.getElementById('reveal'), word = document.getElementById('word');
   var active = {hero:true, hs:false, stack:false, rv:false};
@@ -758,8 +801,6 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
   var hsTop = 0, hsH = 0, rvTop = 0, rvH = 0;
   function measure(){
     var y = window.scrollY;
-    if (LG){ hs.style.height = Math.round(window.innerHeight*(1 + (LG.n-1)*.55)) + 'px'; }
-    else if (!RM){ dist = Math.max(0, track.scrollWidth - window.innerWidth); hs.style.height = (window.innerHeight + dist) + 'px'; }
     var r = hs.getBoundingClientRect(); hsTop = r.top + y; hsH = hs.offsetHeight;
     if (LG) LG.resize();
     r = rv.getBoundingClientRect(); rvTop = r.top + y; rvH = rv.offsetHeight;
@@ -872,7 +913,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     }
 
     var target = 0, pos = 0, vis = 0, vel = 0, rise = 1, slide = 1, introT0 = null, started = false, seen = false, ready = false;
-    var raf = 0, lastT = 0, still = 0, idx = -1;
+    var raf = 0, lastT = 0, still = 0, idx = -1, lastRi = null;
     function quad(tex, x, y, w, h, al){ gl.bindTexture(gl.TEXTURE_2D, tex); gl.uniform4f(uR, x, y, w, h); gl.uniform1f(uAl, al); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); }
     function render(){
       if (!W || dead) return;
@@ -912,7 +953,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     }
     var swapT = 0;
     function label(i, dir){
-      var cd = cards[i];
+      var cd = cards[i]; idx = i; paintDots();
       roll(tEl, cd.title, dir);
       sEl.classList.add('out'); kEl.classList.add('out'); clearTimeout(swapT);
       swapT = setTimeout(function(){ sEl.textContent = cd.sub; kEl.textContent = cd.num + ' / ' + cd.tag + '  ·  ' + (i+1) + ' de ' + n; sEl.classList.remove('out'); kEl.classList.remove('out'); }, 260);
@@ -927,17 +968,17 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
         rise = 1 - eo(clamp(e/1.4, 0, 1)); slide = 1 - eio(clamp(e/1.8, 0, 1));
         if (e >= 1.8){ introT0 = null; rise = 0; slide = 0; }
       }
-      pos += (target - pos)*(1 - Math.exp(-dt*7));
+      if (!dragging) pos += (target - pos)*(1 - Math.exp(-dt*6));
       var prev = vis; vis = pos - 1.5*slide;
       vel = vel*.5 + ((vis - prev)/dt)*.5;
-      var i = clamp(Math.round(pos), 0, n-1);
-      if (i !== idx && started){ label(i, idx < 0 || i > idx ? 1 : -1); idx = i; }
+      var ri = Math.round(pos), i = ((ri % n) + n) % n;
+      if (ri !== lastRi && started){ label(i, lastRi === null || ri > lastRi ? 1 : -1); lastRi = ri; idx = i; }
       render();
-      if (Math.abs(target - pos) > .0004 || Math.abs(vel) > .02 || introT0 !== null) still = 0; else still++;
+      if (dragging || Math.abs(target - pos) > .0004 || Math.abs(vel) > .02 || introT0 !== null) still = 0; else still++;
       if (still < 3) raf = requestAnimationFrame(tick); else lastT = 0;
     }
     function go(){ if (!raf && W && ready) raf = requestAnimationFrame(tick); }
-    function start(){ if (started || !ready || !seen) return; started = true; introT0 = performance.now(); go(); }
+    function start(){ if (started || !ready || !seen) return; started = true; introT0 = performance.now(); go(); schedule(); }
 
     function load(){
       var left = n;
@@ -949,12 +990,36 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     }
     if (document.readyState === 'complete') load(); else window.addEventListener('load', load);
 
-    canvas.addEventListener('click', function(e){
-      var r = canvas.getBoundingClientRect(), x = (e.clientX - r.left)/r.width, d = x < .38 ? -1 : x > .62 ? 1 : 0;
-      if (!d || idx < 0) return;
-      var i = clamp(idx + d, 0, n-1), total = hsH - window.innerHeight;
-      window.scrollTo({top: hsTop + (i/(n-1))*total, behavior: 'smooth'});
+    /* navegação: setas, arrastar e troca automática (pausa fora da tela, com o dedo/mouse em cima ou aba escondida) */
+    var dots = document.getElementById('lgDots'), dragging = false, hover = false, inView = false, autoT = 0;
+    for (var di = 0; di < n; di++) dots.appendChild(document.createElement('i'));
+    function paintDots(){ Array.prototype.forEach.call(dots.children, function(d, j){ d.classList.toggle('on', j === idx); }); }
+    function goTo(t){ target = Math.round(t); go(); schedule(); }
+    function schedule(){ clearTimeout(autoT); if (!started || dragging || hover || !inView || document.hidden) return; autoT = setTimeout(function(){ goTo(target + 1); }, 4200); }
+    document.getElementById('lgPrev').addEventListener('click', function(){ goTo(target - 1); });
+    document.getElementById('lgNext').addEventListener('click', function(){ goTo(target + 1); });
+    new IntersectionObserver(function(es){ inView = es[0].isIntersecting; if (inView){ seen = true; start(); } schedule(); }, {threshold:.35}).observe(box);
+    document.addEventListener('visibilitychange', schedule);
+    box.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse'){ hover = true; clearTimeout(autoT); } });
+    box.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse'){ hover = false; schedule(); } });
+    var x0 = 0, p0 = 0, lx = 0, lt = 0, v = 0, moved = 0;
+    canvas.addEventListener('pointerdown', function(e){
+      if (!started) return;
+      dragging = true; moved = 0; x0 = lx = e.clientX; p0 = pos; lt = performance.now(); v = 0; clearTimeout(autoT);
+      canvas.classList.add('drag'); try { canvas.setPointerCapture(e.pointerId); } catch(err){}
+      go();
     });
+    canvas.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var now = performance.now(); v = (e.clientX - lx)/Math.max(1, now - lt); lx = e.clientX; lt = now; moved = Math.max(moved, Math.abs(e.clientX - x0));
+      var avg = (period/n)/dpr; pos = p0 - (e.clientX - x0)/avg; target = pos;
+    });
+    function up(e){
+      if (!dragging) return; dragging = false; canvas.classList.remove('drag');
+      if (moved < 6){ var r = canvas.getBoundingClientRect(), x = (e.clientX - r.left)/r.width; goTo(Math.round(pos) + (x < .38 ? -1 : x > .62 ? 1 : 0)); return; }
+      var avg = (period/n)/dpr; goTo(Math.round(pos - v*220/avg));
+    }
+    canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
 
     var dead = false;
     function fail(){ if (dead) return; dead = true; W = 0; box.hidden = true; cap.hidden = true; hs.classList.remove('lg-on'); LG = null; setTimeout(function(){ measure(); kick(); }, 0); }
@@ -962,8 +1027,7 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     box.hidden = false; cap.hidden = false; hs.classList.add('lg-on');
     return {
       n: n,
-      resize: function(){ if (layout()) { render(); } },
-      set: function(p){ var q = p*(n-1); target = q - Math.sin(q*Math.PI*2)/(Math.PI*2)*.9; if (!seen){ seen = true; pos = target; } start(); go(); }
+      resize: function(){ if (layout()) { render(); } }
     };
   })();
 
@@ -999,10 +1063,6 @@ footer{background:#040b08;border-top:1px solid var(--line);padding-top:72px;over
     }
 
     if (!RM){
-      if (active.hs){
-        var total = hsH - ih, p = total > 0 ? clamp((Y - hsTop)/total,0,1) : 0;
-        if (Math.abs(p - lastP) > .0005 || lastP < 0){ lastP = p; if (LG) LG.set(p); else track.style.transform = 'translate3d('+(-p*dist).toFixed(1)+'px,0,0)'; prog.style.width = (p*100).toFixed(2)+'%'; }
-      }
       if (active.stack){
         var tops = scards.map(function(c){ return c.getBoundingClientRect().top; }), hgt = scards.map(function(c){ return c.offsetHeight; });
         for (var ci=0; ci<scards.length-1; ci++){
