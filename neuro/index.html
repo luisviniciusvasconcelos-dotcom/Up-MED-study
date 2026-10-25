@@ -821,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.5.0';
+var APP_VERSION='3.5.1';
 var VERSIONS=[
+ {v:'3.5.1',date:'24/10/2026',changes:['Progresso salvo com segurança: cada resposta fica guardada na hora neste aparelho e vai para o servidor em meio segundo, e também no instante em que você fecha ou minimiza o app. Antes, quem respondia (por exemplo, a estação do dia) e fechava logo em seguida podia perder a resposta.','Ao abrir, se este aparelho tiver progresso mais novo que o do servidor, ele é recuperado e reenviado.','Rede de segurança: qualquer mudança de progresso que não tenha sido salva é detectada depois do toque e salva.','Continuar neste aparelho, depois de a conta ser aberta em outro, agora busca o progresso mais novo antes de seguir, sem sobrescrever o que foi feito no outro aparelho.','Sair grava o que estiver pendente antes de desconectar.'],tests:['Responder a estação do dia e fechar o app em menos de 1 segundo: ao abrir, a resposta continua lá.','Responder questões, fechar e abrir: acertos, pontos e revisão mantidos.','Usar em dois aparelhos e tocar em Continuar neste aparelho: o progresso do outro aparelho aparece.'],analysis:'O app esperava 1,2 s antes de salvar e não salvava ao fechar; no celular, fechar logo após responder perdia a gravação.'},
  {v:'3.5.0',date:'24/10/2026',changes:['Conteúdo protegido: o app passa a ser entregue pelo portal de entrada só para quem tem acesso válido; o código público não traz mais as questões.','Verificação de acesso falha fechada: sem confirmar o acesso, o app não abre.','Telas de acesso pendente e vencido ganham o botão para assinar ou renovar.','Tela de entrada sem o nome da faculdade, já que a plataforma atende várias turmas.'],tests:['Conta sem acesso vê a tela de assinatura e não chega ao conteúdo.','Conta com acesso abre o app normalmente.','Sem internet, quem já tinha acesso confirmado no aparelho abre a cópia salva.'],analysis:'A proteção agora está no banco (regras) e na entrega, não só na tela.'},
  {v:'3.4.4',date:'24/10/2026',changes:['Textos de compartilhamento (cartão de resultado e convite de duelo) passam a usar o endereço em que o app está aberto, preparando a mudança para o endereço da marca.'],tests:['Compartilhar o resultado mostra o endereço atual do app.','Convite de duelo mostra o endereço atual do app.'],analysis:'Mudança só de texto; nada de acesso, ranking ou progresso foi alterado.'},
  {v:'3.4.3',date:'23/10/2026',changes:['Painel Acessos passa a listar também quem está no ranking mas ainda não entrou na versão nova, para poder remover ou liberar essas pessoas.'],tests:['Aluna só no ranking aparece na lista e é removida.'],analysis:'Antes, só apareciam contas que tinham entrado depois da 3.4.0.'},
@@ -4981,15 +4982,32 @@ var S={user:null,admin:false,priv:null,view:'painel',sub:null,stations:{},scores
 function blankPriv(){return{stats:{answered:0,correct:0,xp:0,mods:{},week:{id:weekId(),xp:0}},w:{},seen:{},errs:{},hist:[],days:{},wks:{},srs:{},fav:{},badges:{},c:{},weekly:{}}}
 
 var saveT=null;
+var lastSnap='';
+function bkKey(){return 'upmed2_bk_'+(S.user&&S.user.uid)}
 function persist(){
- if(!S.user)return;clearTimeout(saveT);
- saveT=setTimeout(function(){
+ if(!S.user||!S.priv)return;if(typeof ACC!=='undefined'&&ACC.kicked)return;
+ S.priv.at=Date.now();
+ try{lastSnap=JSON.stringify(S.priv);if(Store&&Store.mode!=='local')localStorage.setItem(bkKey(),lastSnap)}catch(e){}
+ clearTimeout(saveT);saveT=setTimeout(saveNow,500);
+}
+/* grava já: usado ao fechar, minimizar ou sair, para não perder o que acabou de ser respondido */
+function flushSave(){if(saveT)return saveNow();return Promise.resolve()}
+function saveNow(){
+  clearTimeout(saveT);saveT=null;
+  if(!S.user||!S.priv||(typeof ACC!=='undefined'&&ACC.kicked))return Promise.resolve();
   var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
-  Store.savePrivate(S.user.uid,p).catch(function(e){console.warn(e)});
+  var done=Store.savePrivate(S.user.uid,p).catch(function(e){console.warn(e)});
   var mods={};Object.keys(st.mods).forEach(function(k){mods[k]={a:st.mods[k].a,c:st.mods[k].c,xp:st.mods[k].xp||0}});
   Store.saveScore(S.user.uid,{name:S.user.name,turma:S.user.turma||'',fac:S.user.fac||'',av:S.user.av||'',wk2:p.weekly&&p.weekly.id===weekId()?{id:p.weekly.id,best:p.weekly.best||0}:null,xp:st.xp,answered:st.answered,correct:st.correct,week:st.week,mods:mods,at:Date.now()}).then(function(){S.scores=null}).catch(function(e){console.warn(e)});
- },1200);
+  return done;
 }
+/* rede de segurança: depois de qualquer toque ou digitação, se o progresso mudou e ninguém salvou, salva */
+var dirtyT=null;
+function dirtyCheck(){if(!S.user||!S.priv||(typeof ACC!=='undefined'&&ACC.kicked))return;var j;try{j=JSON.stringify(S.priv)}catch(e){return}if(j!==lastSnap)persist()}
+['click','change','keyup','pointerup'].forEach(function(ev){document.addEventListener(ev,function(){clearTimeout(dirtyT);dirtyT=setTimeout(dirtyCheck,250)},true)});
+document.addEventListener('visibilitychange',function(){if(document.hidden){dirtyCheck();flushSave()}});
+window.addEventListener('pagehide',function(){dirtyCheck();flushSave()});
+setInterval(function(){if(!document.hidden)dirtyCheck()},15000);
 function record(q,ok,partial){
  var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
  var gain=ok?XPD[q.d]:Math.round((partial||0)*XPD[q.d]*0.5);
@@ -5491,7 +5509,7 @@ document.addEventListener('click',function(e){
  if(d.act==='rkRefresh'){S.scores=null;render();return}
  /* perfil */
  if(d.themeSet){lsSet('upmed2_theme',d.themeSet);applyTheme(d.themeSet);S.keepScroll=true;render();return}
- if(d.act==='logout'){Store.signOut();return}
+ if(d.act==='logout'){var uid0=S.user&&S.user.uid;Promise.race([flushSave(),new Promise(function(res){setTimeout(res,2500)})]).then(function(){try{localStorage.removeItem('upmed2_bk_'+uid0)}catch(e){}Store.signOut()});return}
  if(d.act==='versions'){showVersions();return}
  /* editor */
  if(d.edph){var p=PHOTO[d.edph];var ex=S.stations['ph-'+p.id];edOpen(ex?JSON.parse(JSON.stringify(ex)):{id:'ph-'+p.id,photo:p.id,t:p.t,src:commonsSrc(p.f),credit:commonsPage(p.f),pins:[]},p.list,p.key?commonsPage(p.key):'');return}
@@ -5534,8 +5552,10 @@ function onUser(u){
   if(r[0]==='__timeout'){bootFail('O servidor demorou para devolver seu progresso.');return}
   if(loadErr){bootFail('Não foi possível ler seu progresso ('+(loadErr.code||loadErr.message||loadErr)+').');return}
   try{
-  var p=r[0]||blankPriv();var b=blankPriv();Object.keys(b).forEach(function(k){if(p[k]==null)p[k]=b[k]});if(!p.stats.mods)p.stats.mods={};if(!p.stats.week)p.stats.week=b.stats.week;if(!Array.isArray(p.hist))p.hist=Object.values(p.hist||{});
-  S.priv=p;S.admin=r[1];S.stations=r[2]||{};S.view='painel';accessGate(u,function(){render();if(!loadErr)persist()});
+  var p=r[0]||blankPriv();
+  if(Store.mode!=='local'){try{var bk=JSON.parse(localStorage.getItem('upmed2_bk_'+u.uid)||'null');if(bk&&bk.stats&&(bk.at||0)>((r[0]&&r[0].at)||0))p=bk}catch(e){}}
+  var b=blankPriv();Object.keys(b).forEach(function(k){if(p[k]==null)p[k]=b[k]});if(!p.stats.mods)p.stats.mods={};if(!p.stats.week)p.stats.week=b.stats.week;if(!Array.isArray(p.hist))p.hist=Object.values(p.hist||{});
+  S.priv=p;lastSnap='';S.admin=r[1];S.stations=r[2]||{};S.view='painel';accessGate(u,function(){render();if(!loadErr)persist()});
   }catch(e){console.error(e);bootFail('Erro ao abrir o painel: '+(e&&e.message||e))}
  });
 }
@@ -6291,7 +6311,9 @@ function showKicked(s){
  document.body.appendChild(ov);
 }
 document.addEventListener('click',function(e){var b=e.target.closest('[data-sess]');if(!b||!S.user)return;
- if(b.dataset.sess==='take'){Store.access.claim(S.user.uid,{sid:ACC.sid,at:Date.now(),dev:devName()}).then(function(){ACC.kicked=false;var k=$('#kickov');if(k)k.remove();render()})}
+ if(b.dataset.sess==='take'){Store.access.claim(S.user.uid,{sid:ACC.sid,at:Date.now(),dev:devName()}).then(function(){return Store.loadPrivate(S.user.uid).catch(function(){return null})}).then(function(np){
+   if(np&&np.stats&&(np.at||0)>=(S.priv.at||0)){var bb=blankPriv();Object.keys(bb).forEach(function(k){if(np[k]==null)np[k]=bb[k]});if(!np.stats.mods)np.stats.mods={};if(!np.stats.week)np.stats.week=bb.stats.week;if(!Array.isArray(np.hist))np.hist=Object.values(np.hist||{});S.priv=np;try{lastSnap=JSON.stringify(np);localStorage.setItem('upmed2_bk_'+S.user.uid,lastSnap)}catch(e){}}
+   ACC.kicked=false;var k=$('#kickov');if(k)k.remove();render()})}
  else{var k=$('#kickov');if(k)k.remove();Store.signOut()}});
 
 /* marca d'água com nome e e-mail */
