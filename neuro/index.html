@@ -821,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.7.0';
+var APP_VERSION='3.7.1';
 var VERSIONS=[
+ {v:'3.7.1',date:'26/10/2026',changes:['Estação do dia com as imagens novas: agora ela sorteia só entre as peças 3D e os cortes de ressonância de cérebro real (12 estações e 27 cortes), no mesmo padrão das aulas do cérebro.','Se a estação de hoje ainda não tinha sido respondida, ela já vem no novo padrão; quem já respondeu hoje mantém o resultado.'],tests:['Abrir o painel e conferir a estação do dia com imagem 3D ou corte de ressonância.','Responder e fechar o app: a resposta continua salva.'],analysis:'Pedido de padronizar as imagens das estações no modelo das aulas do cérebro.'},
  {v:'3.7.0',date:'26/10/2026',changes:['Figuras para explorar nas aulas do cérebro: toque em cada ponto da peça para ver o nome e a função, percorra as estruturas em ordem ou faça um teste rápido de 5 toques.','Navegador de cortes: uma barra percorre 20 cortes frontais e 16 horizontais de ressonância de um cérebro real, com as estruturas marcadas em cada corte.','Circuitos passo a passo: Papez, vias direta e indireta dos núcleos da base, linguagem, leitura, trato corticospinal, tato fino, eixo do cortisol, ADH, medo e memória.','Lesão → sintoma: toque no local da lesão para ver o quadro clínico, ou leia o caso e encontre a lesão (face lateral, face medial e estruturas profundas).','Novos quadros comparativos (partes do diencéfalo, lobos, vias direta e indireta, tipos de fibras, hemisférios, amígdala e hipocampo, diabetes insípido e SIADH, artérias do tálamo).','Pegadinhas de prova em cada seção das aulas do cérebro.','Trilha do cérebro: ordem sugerida dos 9 módulos, com mini-teste de 5 questões no fim de cada aula e o progresso marcado.'],tests:['Abrir uma aula do cérebro, tocar nos pontos da figura e fazer o teste rápido.','Arrastar a barra do navegador de cortes e trocar entre frontais e horizontais.','Seguir um circuito até o fim e fazer o desafio de lesões.','Fazer o mini-teste e ver o passo marcado na trilha.'],analysis:'Recursos acrescentados às aulas existentes, sem reescrever o conteúdo.'},
  {v:'3.6.0',date:'26/10/2026',changes:['Bloco completo do cérebro (telencéfalo e diencéfalo): nove módulos com aula, resumo e cerca de 40 questões cada — Diencéfalo, Telencéfalo, Hipotálamo, Tálamo, Núcleos da base, Substância branca e córtex, Áreas funcionais do córtex, Sistema límbico e Anatomia da memória.','Explicações em três níveis (curta, completa e clínica) em todas as novas questões, com casos clínicos e vários formatos: múltipla escolha, caso, verdadeiro ou falso, associação, asserção-razão, ordenação e lacuna.','Novas figuras de alta resolução nas aulas, feitas a partir de dados reais de neuroimagem: faces lateral, medial, inferior e superior do hemisfério, áreas funcionais, sistema límbico, fascículos de substância branca, núcleos da base em 3D e cortes frontal, horizontal e sagital de ressonância.','12 novas estações de identificação do cérebro, com 161 estruturas para reconhecer e localizar por toque.','Os flashcards dos novos módulos são gerados automaticamente a partir das questões.'],tests:['Abrir a aula de cada módulo do cérebro e conferir texto, figuras e questões de fixação.','Treinar 10 questões de cada módulo e ver as três explicações.','Fazer a prática de estações nos modos Identifique e Localize com as estações do cérebro.'],analysis:'Imagens geradas a partir de dados abertos de neuroimagem (modelo fsaverage do FreeSurfer, distribuído com o projeto NiiVue, licença BSD-2), com crédito em cada estação.'},
  {v:'3.4.5',date:'24/10/2026',changes:['Progresso salvo com segurança: cada resposta fica guardada na hora neste aparelho e vai para o servidor em meio segundo, e também no instante em que você fecha ou minimiza o app. Antes, quem respondia (por exemplo, a estação do dia) e fechava logo em seguida podia perder a resposta.','Ao abrir, se este aparelho tiver progresso mais novo que o do servidor, ele é recuperado e reenviado.','Rede de segurança: qualquer mudança de progresso que não tenha sido salva é detectada depois do toque e salva.','Continuar neste aparelho, depois de a conta ser aberta em outro, agora busca o progresso mais novo antes de seguir, sem sobrescrever o que foi feito no outro aparelho.','Sair grava o que estiver pendente antes de desconectar.'],tests:['Responder a estação do dia e fechar o app em menos de 1 segundo: ao abrir, a resposta continua lá.','Responder questões, fechar e abrir: acertos, pontos e revisão mantidos.','Usar em dois aparelhos e tocar em Continuar neste aparelho: o progresso do outro aparelho aparece.'],analysis:'O app esperava 1,2 s antes de salvar e não salvava ao fechar; no celular, fechar logo após responder perdia a gravação.'},
@@ -5660,6 +5661,17 @@ document.addEventListener('click',function(e){
 document.addEventListener('input',function(e){var r=e.target;if(!r.matches||!r.matches('[data-cbwr]'))return;var id=r.getAttribute('data-cbwr'),w=CBW[id];if(!w)return;w.f=+r.value;w.sel=null;
  var st=document.getElementById(id+'_st'),pn=document.getElementById(id+'_pn');if(st)st.innerHTML=cbSerieStage(id);if(pn)pn.innerHTML=cbSeriePanel(id);cbPreload(id)});
 
+
+/* ---------- estação do dia: só com as imagens novas (peças 3D e cortes de ressonância) ---------- */
+var CB_GENERIC={'Córtex cerebral (substância cinzenta)':1,'Substância branca (centro branco medular)':1};
+function cbSliceStations(){var out=[],cr='https://github.com/niivue/niivue/tree/main/packages/niivue/demos/images';
+ ['cor','axi'].forEach(function(ax){var F=CB_SERIE[ax].frames;F.forEach(function(fr,i){if(fr.l.length<5)return;
+  out.push({id:'cb-s-'+ax+'-'+i,kind:'img',t:(ax==='cor'?'Corte frontal de ressonância, visto de frente (o lado direito do paciente fica à esquerda)':'Corte horizontal de ressonância, visto de cima (anterior em cima)')+' · corte '+(i+1)+' de '+F.length,src:CB_IMG+'serie/'+fr.f,credit:cr,pins:fr.l})})});return out}
+function cbDailyStations(){return CB_STATIONS.map(function(s){return{id:s.id,kind:'img',t:s.t,note:s.note,src:s.src,credit:s.credit,pins:s.pins}}).concat(cbSliceStations())}
+function cbPickDay(){var sts=cbDailyStations(),pool=[];sts.forEach(function(s){s.pins.forEach(function(p){if(!CB_GENERIC[p.n])pool.push({st:s,pin:p})})});
+ var it=pool[hashNum('sd'+dayKey())%pool.length];var others=shuffleSeed(it.st.pins.filter(function(p){return p.n!==it.pin.n}).map(function(p){return p.n}),hashNum(dayKey()+'o')).slice(0,3);
+ return{st:it.st,pin:it.pin,opts:shuffleSeed([it.pin.n].concat(others),hashNum(dayKey()+'p'))}}
+
 /* ---------- trilha do cérebro ---------- */
 var CB_TRAIL=[['diencefalo','Diencéfalo'],['telencefalo','Telencéfalo'],['cortex','Substância branca e córtex'],['cortfunc','Áreas funcionais'],['nucbase','Núcleos da base'],['talamo','Tálamo'],['hipotal','Hipotálamo'],['limbico','Sistema límbico'],['memoria','Memória']];
 function cbTrailIdx(id){for(var i=0;i<CB_TRAIL.length;i++)if(CB_TRAIL[i][0]===id)return i;return -1}
@@ -5675,6 +5687,10 @@ function cbMiniHTML(id){
 }
 function cbInstall(){
  if(window.__cbInst)return;window.__cbInst=1;
+ stationOfDay=function(){var dk=dayKey(),c=S.priv.c,sv=c.sdPick,answered=!!(c.sd&&c.sd.day===dk);
+  if(sv&&sv.day===dk){var all=cbDailyStations().concat(allStations()),st0=null;for(var i=0;i<all.length;i++)if(all[i].id===sv.st){st0=all[i];break}
+   var pin0=st0&&st0.pins.find(function(p){return p.n===sv.n});if(pin0&&sv.opts&&sv.opts.length&&(/^cb-/.test(st0.id)||answered))return{st:st0,pin:pin0,opts:sv.opts}}
+  var r=cbPickDay();c.sdPick={day:dk,st:r.st.id,n:r.pin.n,opts:r.opts};afterFns.push(function(){try{persist()}catch(e){}});return r};
  var vm=VIEWS.modulo;VIEWS.modulo=function(){var h=vm.apply(this,arguments),id=S.sub;
   if(cbTrailIdx(id)<0)return h;
   var tab=S.modTab&&S.modTab.id===id?S.modTab.t:(LESSON[id]?'aula':'resumo');
