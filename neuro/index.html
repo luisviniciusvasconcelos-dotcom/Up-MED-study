@@ -821,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.6.0';
+var APP_VERSION='3.7.0';
 var VERSIONS=[
+ {v:'3.7.0',date:'26/10/2026',changes:['Figuras para explorar nas aulas do cérebro: toque em cada ponto da peça para ver o nome e a função, percorra as estruturas em ordem ou faça um teste rápido de 5 toques.','Navegador de cortes: uma barra percorre 20 cortes frontais e 16 horizontais de ressonância de um cérebro real, com as estruturas marcadas em cada corte.','Circuitos passo a passo: Papez, vias direta e indireta dos núcleos da base, linguagem, leitura, trato corticospinal, tato fino, eixo do cortisol, ADH, medo e memória.','Lesão → sintoma: toque no local da lesão para ver o quadro clínico, ou leia o caso e encontre a lesão (face lateral, face medial e estruturas profundas).','Novos quadros comparativos (partes do diencéfalo, lobos, vias direta e indireta, tipos de fibras, hemisférios, amígdala e hipocampo, diabetes insípido e SIADH, artérias do tálamo).','Pegadinhas de prova em cada seção das aulas do cérebro.','Trilha do cérebro: ordem sugerida dos 9 módulos, com mini-teste de 5 questões no fim de cada aula e o progresso marcado.'],tests:['Abrir uma aula do cérebro, tocar nos pontos da figura e fazer o teste rápido.','Arrastar a barra do navegador de cortes e trocar entre frontais e horizontais.','Seguir um circuito até o fim e fazer o desafio de lesões.','Fazer o mini-teste e ver o passo marcado na trilha.'],analysis:'Recursos acrescentados às aulas existentes, sem reescrever o conteúdo.'},
  {v:'3.6.0',date:'26/10/2026',changes:['Bloco completo do cérebro (telencéfalo e diencéfalo): nove módulos com aula, resumo e cerca de 40 questões cada — Diencéfalo, Telencéfalo, Hipotálamo, Tálamo, Núcleos da base, Substância branca e córtex, Áreas funcionais do córtex, Sistema límbico e Anatomia da memória.','Explicações em três níveis (curta, completa e clínica) em todas as novas questões, com casos clínicos e vários formatos: múltipla escolha, caso, verdadeiro ou falso, associação, asserção-razão, ordenação e lacuna.','Novas figuras de alta resolução nas aulas, feitas a partir de dados reais de neuroimagem: faces lateral, medial, inferior e superior do hemisfério, áreas funcionais, sistema límbico, fascículos de substância branca, núcleos da base em 3D e cortes frontal, horizontal e sagital de ressonância.','12 novas estações de identificação do cérebro, com 161 estruturas para reconhecer e localizar por toque.','Os flashcards dos novos módulos são gerados automaticamente a partir das questões.'],tests:['Abrir a aula de cada módulo do cérebro e conferir texto, figuras e questões de fixação.','Treinar 10 questões de cada módulo e ver as três explicações.','Fazer a prática de estações nos modos Identifique e Localize com as estações do cérebro.'],analysis:'Imagens geradas a partir de dados abertos de neuroimagem (modelo fsaverage do FreeSurfer, distribuído com o projeto NiiVue, licença BSD-2), com crédito em cada estação.'},
  {v:'3.5.1',date:'24/10/2026',changes:['Progresso salvo com segurança: cada resposta fica guardada na hora neste aparelho e vai para o servidor em meio segundo, e também no instante em que você fecha ou minimiza o app. Antes, quem respondia (por exemplo, a estação do dia) e fechava logo em seguida podia perder a resposta.','Ao abrir, se este aparelho tiver progresso mais novo que o do servidor, ele é recuperado e reenviado.','Rede de segurança: qualquer mudança de progresso que não tenha sido salva é detectada depois do toque e salva.','Continuar neste aparelho, depois de a conta ser aberta em outro, agora busca o progresso mais novo antes de seguir, sem sobrescrever o que foi feito no outro aparelho.','Sair grava o que estiver pendente antes de desconectar.'],tests:['Responder a estação do dia e fechar o app em menos de 1 segundo: ao abrir, a resposta continua lá.','Responder questões, fechar e abrir: acertos, pontos e revisão mantidos.','Usar em dois aparelhos e tocar em Continuar neste aparelho: o progresso do outro aparelho aparece.'],analysis:'O app esperava 1,2 s antes de salvar e não salvava ao fechar; no celular, fechar logo após responder perdia a gravação.'},
  {v:'3.5.0',date:'24/10/2026',changes:['Conteúdo protegido: o app passa a ser entregue pelo portal de entrada só para quem tem acesso válido; o código público não traz mais as questões.','Verificação de acesso falha fechada: sem confirmar o acesso, o app não abre.','Telas de acesso pendente e vencido ganham o botão para assinar ou renovar.','Tela de entrada sem o nome da faculdade, já que a plataforma atende várias turmas.'],tests:['Conta sem acesso vê a tela de assinatura e não chega ao conteúdo.','Conta com acesso abre o app normalmente.','Sem internet, quem já tinha acesso confirmado no aparelho abre a cópia salva.'],analysis:'A proteção agora está no banco (regras) e na entrega, não só na tela.'},
@@ -5255,6 +5256,538 @@ LESSON.memoria=[
 ];
 RESUMO.memoria={pts:['Operacional: pré-frontal dorsolateral.','Declarativa (episódica e semântica): lobo temporal medial e diencéfalo; armazenamento no neocórtex.','Não declarativa: procedural (estriado e cerebelo), priming (neocórtex), condicionamento e emocional (amígdala).','Etapas: aquisição, consolidação (hipocampo, sono), armazenamento, evocação.','LTP no hipocampo: glutamato e receptor NMDA.','Amnésia anterógrada: não forma novas; retrógrada: perde antigas (as recentes primeiro).'],
  clin:['H.M.: lobo temporal medial bilateral; anterógrada pura.','Korsakoff: corpos mamilares e dorsomedial; confabulação; tiamina.','Alzheimer: entorrinal e hipocampo precoces; perda colinérgica.','Amnésia global transitória: reversível em horas.']};
+
+/* ===== Bloco cérebro v3.7: recursos didáticos =====
+   Figuras para explorar, navegador de cortes, circuitos passo a passo, lesão → sintoma,
+   quadros comparativos, pegadinhas de prova e trilha com mini-teste. */
+(function(){var s=document.createElement('style');s.textContent=[
+'.cbw{border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:10px;background:var(--surface);margin:14px 0}',
+'.cbw-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}',
+'.cbw-tabs{display:flex;gap:6px;flex-wrap:wrap}',
+'.cbw-tabs button,.cbw-btn{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface2);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}',
+'.cbw-tabs button[aria-pressed=true],.cbw-btn.pri{background:var(--accent);color:var(--accentInk);border-color:var(--accent)}',
+'.cbw-btn[disabled]{opacity:.45;cursor:default}',
+'.cbw-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}',
+'.cbx-stage{position:relative;border-radius:12px;overflow:hidden;background:#0c0e0d;touch-action:manipulation}',
+'.cbx-stage img{width:100%;height:auto;display:block}',
+'.cbx-dot{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:0;padding:0;background:transparent;cursor:pointer}',
+'.cbx-dot::after{content:"";position:absolute;left:7px;top:7px;width:12px;height:12px;border-radius:50%;background:#f4c84a;box-shadow:0 0 0 2px rgba(0,0,0,.55);transition:transform .15s}',
+'.cbx-dot.on::after{background:#fff;transform:scale(1.35);box-shadow:0 0 0 3px var(--accent),0 0 0 5px rgba(0,0,0,.4)}',
+'.cbx-dot.ok::after{background:#3fbf7f;transform:scale(1.3)}.cbx-dot.bad::after{background:#e5534b;transform:scale(1.3)}',
+'.cbx-dot.les::after{background:#e5534b;box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(229,83,75,.35)}',
+'.cbx-dot.les.on::after{background:#fff;box-shadow:0 0 0 3px #e5534b,0 0 0 6px rgba(229,83,75,.35)}',
+'.cbx-tag{position:absolute;transform:translate(14px,-50%);background:rgba(12,14,13,.88);color:#fff;font-size:12px;font-weight:600;line-height:1.25;padding:4px 8px;border-radius:8px;pointer-events:none;max-width:46%;white-space:normal}',
+'.cbx-tag.l{transform:translate(calc(-100% - 14px),-50%)}',
+'.cbx-tag.sm{font-size:10.5px;padding:2px 6px;opacity:.92}',
+'.cbx-panel{min-height:52px;font-size:15px;line-height:1.5}.cbx-panel p{margin:4px 0 0}',
+'.cbx-fb{border-radius:10px;padding:8px 12px;margin-top:6px}.cbx-fb.good{background:color-mix(in srgb,var(--ok) 14%,transparent)}.cbx-fb.bad{background:color-mix(in srgb,var(--bad) 14%,transparent)}',
+'.cbw-cap{font-size:13px;color:var(--muted)}.cbw-cap a{color:inherit}',
+'.cbs-range{width:100%;accent-color:var(--accent)}',
+'.cbc svg{width:100%;height:auto;display:block}',
+'.cbc .nd rect{fill:var(--surface2);stroke:var(--line);stroke-width:1.5}.cbc .nd text{fill:var(--ink);font-size:12.5px;font-weight:600;font-family:inherit}',
+'.cbc .nd.v rect{fill:color-mix(in srgb,var(--accent) 16%,var(--surface));stroke:var(--accent)}',
+'.cbc .nd.a rect{fill:var(--accent);stroke:var(--accent)}.cbc .nd.a text{fill:var(--accentInk)}',
+'.cbc .ar{stroke:var(--line);stroke-width:2;fill:none}.cbc .ar.v{stroke:var(--accent);stroke-width:2.6}',
+'.cbc .ah{fill:var(--line)}.cbc .ah.v{fill:var(--accent)}',
+'.callout.peg{background:color-mix(in srgb,var(--warn) 12%,var(--surface));border-color:color-mix(in srgb,var(--warn) 45%,var(--line))}',
+'.callout.peg .cl-t{color:var(--ink)}',
+'.cbtrail{display:grid;gap:8px;margin-bottom:14px}',
+'.cbtrail-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}',
+'.cbt{flex:0 0 auto;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);border-radius:999px;padding:5px 10px 5px 5px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}',
+'.cbt i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);font-size:12px}',
+'.cbt.done i{background:var(--ok);border-color:var(--ok);color:#fff}',
+'.cbt.cur{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent)}',
+'.cbt small{font-weight:500;color:var(--muted)}'
+].join('\n');document.head.appendChild(s)})();
+
+/* ---------- textos curtos das estruturas (usados quando o marcador não tem descrição) ---------- */
+var CB_INFO={
+'Adeno-hipófise':'Parte anterior da hipófise. Produz GH, prolactina, TSH, ACTH, FSH e LH sob comando dos hormônios hipotalâmicos que chegam pelo sistema porta.',
+'Neuro-hipófise':'Parte posterior da hipófise. Não produz hormônios: guarda e libera o ADH e a ocitocina feitos no hipotálamo.',
+'Infundíbulo':'Haste que liga o hipotálamo à hipófise. Leva os axônios dos núcleos supraóptico e paraventricular.',
+'Bulbo':'Parte mais baixa do tronco encefálico, contínua com a medula. Centros da respiração e do controle cardiovascular.',
+'Ponte':'Parte do tronco entre mesencéfalo e bulbo. Sua base liga o córtex ao cerebelo.',
+'Mesencéfalo':'Parte mais alta do tronco encefálico. Contém a substância negra e o aqueduto cerebral.',
+'Tronco encefálico':'Mesencéfalo, ponte e bulbo. Por ele passam todas as vias entre cérebro e medula.',
+'Cerebelo':'Coordenação, equilíbrio e aprendizado motor. Fica atrás do tronco, abaixo da tenda do cerebelo.',
+'Cabeça do núcleo caudado':'Parte mais volumosa do caudado, na parede lateral do corno anterior. Atrofia na doença de Huntington.',
+'Corpo do núcleo caudado':'Continuação do caudado sobre o tálamo, no assoalho da parte central do ventrículo lateral.',
+'Núcleo caudado':'Núcleo da base em forma de C que acompanha o ventrículo lateral. Com o putame, forma o neoestriado.',
+'Núcleo caudado (corpo)':'Parte do caudado acima do tálamo, junto à parede do ventrículo lateral.',
+'Claustro e cápsulas externa e extrema':'Lâmina fina de substância cinzenta (claustro) entre duas faixas brancas: a cápsula externa (medial) e a extrema (lateral, junto à ínsula).',
+'Comissura anterior':'Feixe que cruza a linha média à frente das colunas do fórnice. Une principalmente os lobos temporais.',
+'Corno anterior do ventrículo lateral':'Parte do ventrículo à frente do forame interventricular. A cabeça do caudado forma sua parede lateral.',
+'Corno inferior do ventrículo lateral':'Parte do ventrículo dentro do lobo temporal. O hipocampo forma seu assoalho.',
+'Ventrículo lateral':'Cavidade de cada hemisfério, com parte central, átrio e cornos anterior, posterior e inferior.',
+'Ventrículo lateral (corno anterior)':'Parte anterior do ventrículo, entre o septo pelúcido (medial) e a cabeça do caudado (lateral).',
+'Ventrículo lateral (parte central)':'Parte do ventrículo acima do tálamo, sob o corpo caloso.',
+'Corpo amigdaloide':'Conjunto de núcleos no lobo temporal, profundo ao unco. Medo e valor emocional dos estímulos.',
+'Corpo caloso':'Maior comissura do encéfalo: une áreas correspondentes dos dois hemisférios.',
+'Esplênio do corpo caloso':'Parte posterior e mais espessa do corpo caloso. Une os lobos occipitais e parietais.',
+'Joelho do corpo caloso':'Curva anterior do corpo caloso. Une os lobos frontais.',
+'Tronco do corpo caloso':'Parte média do corpo caloso, entre o joelho e o esplênio.',
+'Cápsula interna':'Faixa de fibras de projeção entre o caudado/tálamo e o lentiforme. Pequenas lesões aí causam grandes déficits.',
+'Cápsula interna (perna anterior)':'Entre a cabeça do caudado e o lentiforme. Leva fibras frontopontinas e a radiação talâmica anterior.',
+'Cápsula interna (perna posterior)':'Entre o tálamo e o lentiforme. Leva o trato corticospinal e as fibras sensitivas do tálamo ao córtex.',
+'Fissura longitudinal do cérebro':'Fenda que separa os dois hemisférios. A foice do cérebro fica dentro dela.',
+'Fórnice (coluna)':'Parte final do fórnice, que desce à frente do forame interventricular até o corpo mamilar.',
+'Giro do cíngulo':'Giro acima do corpo caloso, parte do lobo límbico. Motivação, atenção e componente afetivo da dor.',
+'Giro frontal médio':'Entre os sulcos frontais superior e inferior. Sua parte posterior contém o campo ocular frontal (área 8).',
+'Giro frontal superior':'Giro mais alto do lobo frontal, junto à fissura longitudinal.',
+'Giro frontal superior (face medial)':'Parte medial do giro frontal superior. Contém a área motora suplementar.',
+'Giro fusiforme':'Giro occipitotemporal lateral, na face inferior. Importante para reconhecer rostos e palavras escritas.',
+'Giro occipitotemporal lateral (fusiforme)':'Na face inferior, entre os sulcos occipitotemporal e colateral. Reconhecimento de rostos e objetos.',
+'Giro lingual':'Abaixo do sulco calcarino. Seu lábio forma parte da área visual primária (campo visual superior oposto).',
+'Giro para-hipocampal':'Giro da face medial/inferior do lobo temporal, parte do lobo límbico. Sua parte anterior é o córtex entorrinal.',
+'Giro pré-central':'Área motora primária (área 4), à frente do sulco central.',
+'Giro pós-central':'Área somestésica primária (áreas 3, 1 e 2), atrás do sulco central.',
+'Giro reto':'Na face inferior do lobo frontal, medial ao sulco olfatório.',
+'Giro supramarginal':'Contorna a extremidade do sulco lateral. No lado dominante, lesão causa afasia de condução.',
+'Giro temporal inferior':'Giro mais baixo da face lateral do lobo temporal. Via visual do reconhecimento de objetos.',
+'Giro temporal médio':'Entre os sulcos temporais superior e inferior.',
+'Giro temporal superior':'Abaixo do sulco lateral. Sua parte posterior, no lado dominante, é a área de Wernicke.',
+'Giros orbitais':'Na face inferior do lobo frontal, sobre o teto da órbita. Comportamento social e tomada de decisão.',
+'Globo pálido':'Parte medial do lentiforme. Principal saída dos núcleos da base para o tálamo (segmento medial).',
+'Hipocampo':'Arquicórtex no assoalho do corno inferior do ventrículo lateral. Essencial para formar memórias declarativas.',
+'Hipotálamo':'Abaixo do sulco hipotalâmico. Controla a hipófise, o sistema nervoso autônomo e a homeostase.',
+'Hipotálamo e subtálamo (diencéfalo ventral)':'Parte inferior do diencéfalo: hipotálamo junto ao III ventrículo e, mais lateral e posterior, o subtálamo.',
+'Subtálamo (diencéfalo ventral)':'Abaixo do tálamo, lateral ao hipotálamo. Contém o núcleo subtalâmico; lesão causa hemibalismo do lado oposto.',
+'III ventrículo':'Fenda mediana entre os dois diencéfalos. Comunica-se com os ventrículos laterais e, pelo aqueduto, com o IV.',
+'IV ventrículo':'Cavidade entre o tronco encefálico e o cerebelo.',
+'Lâmina terminal':'Parede anterior do III ventrículo, do quiasma à comissura anterior. Pertence ao telencéfalo.',
+'Lóbulo paracentral':'Na face medial, ao redor do fim do sulco central. Motricidade e sensibilidade da perna e do pé.',
+'Lóbulo parietal superior':'Acima do sulco intraparietal. Esquema corporal e localização do corpo no espaço.',
+'Núcleo accumbens':'Estriado ventral, onde caudado e putame se unem embaixo. Recompensa e motivação.',
+'Núcleo dorsomedial':'Núcleo do hipotálamo ligado ao comportamento alimentar e ao ritmo de atividade.',
+'Núcleo lateral dorsal':'Núcleo do grupo lateral do tálamo (parte dorsal). Liga-se ao cíngulo e ao pré-cúneo.',
+'Núcleo lateral posterior':'Núcleo do grupo lateral do tálamo (parte dorsal). Liga-se ao lóbulo parietal superior.',
+'Parte orbital do giro frontal inferior':'Parte mais anterior e inferior do giro frontal inferior.',
+'Parte triangular do giro frontal inferior':'Com a parte opercular, forma a área de Broca no hemisfério dominante.',
+'Polo temporal':'Ponta anterior do lobo temporal. Integra memória semântica e emoção.',
+'Pré-cúneo':'Face medial do lobo parietal, à frente do sulco parieto-occipital. Imagem mental e orientação espacial.',
+'Putame':'Parte lateral do lentiforme. Com o caudado, forma o neoestriado. Local frequente de hemorragia hipertensiva.',
+'Quiasma óptico':'Cruzamento das fibras nasais das duas retinas. Compressão causa hemianopsia bitemporal.',
+'Septo pelúcido':'Lâmina fina entre os cornos anteriores dos ventrículos laterais.',
+'Sulco central':'Separa os lobos frontal e parietal, entre os giros pré-central e pós-central.',
+'Sulco frontal superior':'Separa os giros frontais superior e médio.',
+'Sulco hipotalâmico':'Sulco na parede do III ventrículo que separa o tálamo (acima) do hipotálamo (abaixo).',
+'Sulco intraparietal':'Separa os lóbulos parietais superior e inferior.',
+'Trato mamilotalâmico':'Leva fibras do corpo mamilar ao núcleo anterior do tálamo (circuito de Papez).',
+'Trato óptico':'Continua o quiasma até o corpo geniculado lateral.',
+'Tálamo':'Grande massa do diencéfalo acima do sulco hipotalâmico. Estação de passagem para o córtex.',
+'Tálamo (parte anterior)':'Polo anterior do tálamo, onde fica o núcleo anterior (circuito de Papez).',
+'Ínsula':'Lobo escondido no fundo do sulco lateral. Interocepção, paladar e emoção.',
+'Substância branca (centro branco medular)':'Fibras mielinizadas de associação, comissurais e de projeção abaixo do córtex.',
+'Córtex cerebral (substância cinzenta)':'Lâmina de neurônios de 2 a 4 mm que reveste os giros e sulcos.'
+};
+function cbInfo(p){return (p&&p.i)||CB_INFO[p.n]||''}
+function cbSt(id){for(var i=0;i<CB_STATIONS.length;i++)if(CB_STATIONS[i].id===id)return CB_STATIONS[i];return null}
+function cbE(t){return esc(String(t==null?'':t))}
+
+/* ---------- séries de cortes (dados gerados das imagens) ---------- */
+var CB_SERIE={"cor":{"w":667,"h":693,"frames":[{"f":"cor_00.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.5622,"y":0.57},{"n":"Córtex cerebral (substância cinzenta)","x":0.5427,"y":0.4271}]},{"f":"cor_01.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.5742,"y":0.482},{"n":"Córtex cerebral (substância cinzenta)","x":0.5262,"y":0.5714}]},{"f":"cor_02.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.6042,"y":0.5455},{"n":"Córtex cerebral (substância cinzenta)","x":0.5322,"y":0.518}]},{"f":"cor_03.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.6147,"y":0.5065},{"n":"Córtex cerebral (substância cinzenta)","x":0.6102,"y":0.3102}]},{"f":"cor_04.webp","l":[{"n":"Ventrículo lateral","x":0.5697,"y":0.6118},{"n":"Corpo caloso","x":0.4843,"y":0.583},{"n":"Substância branca (centro branco medular)","x":0.6582,"y":0.4719},{"n":"Córtex cerebral (substância cinzenta)","x":0.6552,"y":0.3723},{"n":"Giro do cíngulo","x":0.5472,"y":0.4127}]},{"f":"cor_05.webp","l":[{"n":"Ventrículo lateral","x":0.5157,"y":0.5902},{"n":"Núcleo caudado","x":0.5742,"y":0.6104},{"n":"Corpo caloso","x":0.4918,"y":0.5325},{"n":"Substância branca (centro branco medular)","x":0.6357,"y":0.4271},{"n":"Córtex cerebral (substância cinzenta)","x":0.6657,"y":0.254},{"n":"Giro do cíngulo","x":0.5427,"y":0.4545}]},{"f":"cor_06.webp","l":[{"n":"Ventrículo lateral","x":0.5142,"y":0.5397},{"n":"Núcleo caudado","x":0.5652,"y":0.5613},{"n":"Putame","x":0.6402,"y":0.6263},{"n":"Núcleo accumbens","x":0.5472,"y":0.6652},{"n":"Corpo caloso","x":0.4918,"y":0.482},{"n":"Substância branca (centro branco medular)","x":0.6477,"y":0.43},{"n":"Córtex cerebral (substância cinzenta)","x":0.7376,"y":0.3781},{"n":"Cápsula interna","x":0.6282,"y":0.557},{"n":"Ínsula","x":0.7286,"y":0.6306},{"n":"Giro do cíngulo","x":0.5502,"y":0.4271}]},{"f":"cor_07.webp","l":[{"n":"Ventrículo lateral","x":0.5187,"y":0.5123},{"n":"Núcleo caudado","x":0.5712,"y":0.5079},{"n":"Putame","x":0.6477,"y":0.6205},{"n":"Globo pálido","x":0.5892,"y":0.6133},{"n":"Núcleo accumbens","x":0.5292,"y":0.6566},{"n":"Corpo caloso","x":0.4918,"y":0.4473},{"n":"Substância branca (centro branco medular)","x":0.6717,"y":0.43},{"n":"Córtex cerebral (substância cinzenta)","x":0.7001,"y":0.29},{"n":"Cápsula interna","x":0.5937,"y":0.5584},{"n":"Ínsula","x":0.7511,"y":0.6234},{"n":"Giro do cíngulo","x":0.5382,"y":0.2785}]},{"f":"cor_08.webp","l":[{"n":"Ventrículo lateral","x":0.5307,"y":0.4877},{"n":"Núcleo caudado","x":0.5937,"y":0.4632},{"n":"Putame","x":0.6642,"y":0.5541},{"n":"Globo pálido","x":0.6177,"y":0.6089},{"n":"Tálamo","x":0.5412,"y":0.5527},{"n":"Hipotálamo e subtálamo (diencéfalo ventral)","x":0.5157,"y":0.6696},{"n":"III ventrículo","x":0.4888,"y":0.6147},{"n":"Corpo caloso","x":0.4918,"y":0.4531},{"n":"Quiasma óptico","x":0.4873,"y":0.7273},{"n":"Substância branca (centro branco medular)","x":0.6927,"y":0.404},{"n":"Córtex cerebral (substância cinzenta)","x":0.8036,"y":0.2915},{"n":"Cápsula interna","x":0.6222,"y":0.5065},{"n":"Ínsula","x":0.7811,"y":0.5873},{"n":"Giro do cíngulo","x":0.5337,"y":0.3348}]},{"f":"cor_09.webp","l":[{"n":"Ventrículo lateral","x":0.5697,"y":0.4488},{"n":"Núcleo caudado","x":0.6027,"y":0.4517},{"n":"Putame","x":0.6957,"y":0.6046},{"n":"Globo pálido","x":0.6372,"y":0.6017},{"n":"Tálamo","x":0.5382,"y":0.5455},{"n":"Corpo amigdaloide","x":0.6207,"y":0.7128},{"n":"Hipotálamo e subtálamo (diencéfalo ventral)","x":0.5232,"y":0.6609},{"n":"III ventrículo","x":0.4873,"y":0.596},{"n":"Corpo caloso","x":0.4918,"y":0.4459},{"n":"Substância branca (centro branco medular)","x":0.6897,"y":0.4026},{"n":"Córtex cerebral (substância cinzenta)","x":0.7016,"y":0.1833},{"n":"Cápsula interna","x":0.6387,"y":0.4848},{"n":"Ínsula","x":0.7586,"y":0.5801},{"n":"Giro do cíngulo","x":0.5652,"y":0.3261}]},{"f":"cor_10.webp","l":[{"n":"Ventrículo lateral","x":0.5772,"y":0.4387},{"n":"Putame","x":0.6897,"y":0.5599},{"n":"Globo pálido","x":0.6642,"y":0.5988},{"n":"Tálamo","x":0.5712,"y":0.5253},{"n":"Hipocampo","x":0.6282,"y":0.697},{"n":"Hipotálamo e subtálamo (diencéfalo ventral)","x":0.5382,"y":0.6508},{"n":"III ventrículo","x":0.4918,"y":0.583},{"n":"Corpo caloso","x":0.4993,"y":0.4315},{"n":"Tronco encefálico","x":0.5187,"y":0.7561},{"n":"Substância branca (centro branco medular)","x":0.7121,"y":0.3492},{"n":"Córtex cerebral (substância cinzenta)","x":0.5982,"y":0.3319},{"n":"Fissura longitudinal do cérebro","x":0.5262,"y":0.1053},{"n":"Cápsula interna","x":0.6222,"y":0.6003},{"n":"Ínsula","x":0.7436,"y":0.5657},{"n":"Giro do cíngulo","x":0.5982,"y":0.3319}]},{"f":"cor_11.webp","l":[{"n":"Ventrículo lateral","x":0.6162,"y":0.43},{"n":"Tálamo","x":0.5817,"y":0.5368},{"n":"Hipocampo","x":0.6597,"y":0.6739},{"n":"Hipotálamo e subtálamo (diencéfalo ventral)","x":0.5337,"y":0.6291},{"n":"III ventrículo","x":0.4963,"y":0.5354},{"n":"Corpo caloso","x":0.4993,"y":0.417},{"n":"Tronco encefálico","x":0.4633,"y":0.7561},{"n":"Substância branca (centro branco medular)","x":0.6912,"y":0.3579},{"n":"Córtex cerebral (substância cinzenta)","x":0.919,"y":0.4113},{"n":"Giro do cíngulo","x":0.6057,"y":0.3074}]},{"f":"cor_12.webp","l":[{"n":"Ventrículo lateral","x":0.6207,"y":0.4387},{"n":"Corno inferior do ventrículo lateral","x":0.7286,"y":0.6075},{"n":"Tálamo","x":0.5892,"y":0.5455},{"n":"Hipocampo","x":0.6822,"y":0.6003},{"n":"Corpo caloso","x":0.4993,"y":0.4098},{"n":"Tronco encefálico","x":0.4858,"y":0.7316},{"n":"Cerebelo","x":0.5967,"y":0.759},{"n":"Substância branca (centro branco medular)","x":0.6777,"y":0.3434},{"n":"Córtex cerebral (substância cinzenta)","x":0.8096,"y":0.3694},{"n":"Giro do cíngulo","x":0.5367,"y":0.2193}]},{"f":"cor_13.webp","l":[{"n":"Ventrículo lateral","x":0.6537,"y":0.469},{"n":"IV ventrículo","x":0.4888,"y":0.6984},{"n":"Corpo caloso","x":0.4993,"y":0.4315},{"n":"Tronco encefálico","x":0.4918,"y":0.7922},{"n":"Cerebelo","x":0.6432,"y":0.7677},{"n":"Substância branca (centro branco medular)","x":0.7421,"y":0.3766},{"n":"Córtex cerebral (substância cinzenta)","x":0.8561,"y":0.2742},{"n":"Giro do cíngulo","x":0.5862,"y":0.3218}]},{"f":"cor_14.webp","l":[{"n":"Ventrículo lateral","x":0.6912,"y":0.4848},{"n":"IV ventrículo","x":0.4933,"y":0.7345},{"n":"Tronco encefálico","x":0.4933,"y":0.8701},{"n":"Cerebelo","x":0.6657,"y":0.7706},{"n":"Substância branca (centro branco medular)","x":0.6327,"y":0.3752},{"n":"Córtex cerebral (substância cinzenta)","x":0.5427,"y":0.3579}]},{"f":"cor_15.webp","l":[{"n":"IV ventrículo","x":0.5352,"y":0.7085},{"n":"Cerebelo","x":0.6687,"y":0.7561},{"n":"Substância branca (centro branco medular)","x":0.6942,"y":0.4098},{"n":"Córtex cerebral (substância cinzenta)","x":0.8861,"y":0.4098},{"n":"Fissura longitudinal do cérebro","x":0.4948,"y":0.1587}]},{"f":"cor_16.webp","l":[{"n":"Cerebelo","x":0.6282,"y":0.7345},{"n":"Substância branca (centro branco medular)","x":0.7346,"y":0.4372},{"n":"Córtex cerebral (substância cinzenta)","x":0.5337,"y":0.3723}]},{"f":"cor_17.webp","l":[{"n":"Cerebelo","x":0.6657,"y":0.7143},{"n":"Substância branca (centro branco medular)","x":0.6432,"y":0.3391},{"n":"Córtex cerebral (substância cinzenta)","x":0.5607,"y":0.4834}]},{"f":"cor_18.webp","l":[{"n":"Cerebelo","x":0.6417,"y":0.6782},{"n":"Substância branca (centro branco medular)","x":0.5967,"y":0.4315},{"n":"Córtex cerebral (substância cinzenta)","x":0.7841,"y":0.3925}]},{"f":"cor_19.webp","l":[{"n":"Cerebelo","x":0.6057,"y":0.6681},{"n":"Substância branca (centro branco medular)","x":0.5937,"y":0.3564},{"n":"Córtex cerebral (substância cinzenta)","x":0.7061,"y":0.3954}]}]},"axi":{"w":668,"h":903,"frames":[{"f":"axi_00.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.4446,"y":0.4928},{"n":"Córtex cerebral (substância cinzenta)","x":0.4207,"y":0.4341},{"n":"Fissura longitudinal do cérebro","x":0.4251,"y":0.3499}]},{"f":"axi_01.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.4326,"y":0.485},{"n":"Córtex cerebral (substância cinzenta)","x":0.3503,"y":0.3987},{"n":"Fissura longitudinal do cérebro","x":0.4162,"y":0.3068}]},{"f":"axi_02.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.2799,"y":0.4574},{"n":"Córtex cerebral (substância cinzenta)","x":0.4596,"y":0.3012}]},{"f":"axi_03.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.3323,"y":0.505},{"n":"Córtex cerebral (substância cinzenta)","x":0.4386,"y":0.3965}]},{"f":"axi_04.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.3353,"y":0.4972},{"n":"Córtex cerebral (substância cinzenta)","x":0.4386,"y":0.5116}]},{"f":"axi_05.webp","l":[{"n":"Substância branca (centro branco medular)","x":0.3787,"y":0.3776},{"n":"Córtex cerebral (substância cinzenta)","x":0.3877,"y":0.1761}]},{"f":"axi_06.webp","l":[{"n":"Ventrículo lateral","x":0.3638,"y":0.6334},{"n":"Corpo caloso","x":0.5,"y":0.5703},{"n":"Substância branca (centro branco medular)","x":0.3353,"y":0.4396},{"n":"Córtex cerebral (substância cinzenta)","x":0.226,"y":0.2824}]},{"f":"axi_07.webp","l":[{"n":"Ventrículo lateral","x":0.4147,"y":0.5792},{"n":"Núcleo caudado","x":0.3982,"y":0.4817},{"n":"Corpo caloso","x":0.5075,"y":0.3754},{"n":"Substância branca (centro branco medular)","x":0.2979,"y":0.4286},{"n":"Córtex cerebral (substância cinzenta)","x":0.2171,"y":0.3511}]},{"f":"axi_08.webp","l":[{"n":"Ventrículo lateral","x":0.3503,"y":0.6434},{"n":"Núcleo caudado","x":0.4177,"y":0.3898},{"n":"Tálamo","x":0.4147,"y":0.536},{"n":"Corpo caloso","x":0.5075,"y":0.3533},{"n":"Substância branca (centro branco medular)","x":0.3548,"y":0.3101},{"n":"Córtex cerebral (substância cinzenta)","x":0.4731,"y":0.0797}]},{"f":"axi_09.webp","l":[{"n":"Ventrículo lateral","x":0.3009,"y":0.6445},{"n":"Núcleo caudado","x":0.4266,"y":0.3599},{"n":"Putame","x":0.3278,"y":0.4529},{"n":"Tálamo","x":0.4251,"y":0.5316},{"n":"Hipocampo","x":0.4177,"y":0.6346},{"n":"III ventrículo","x":0.5045,"y":0.5659},{"n":"Corpo caloso","x":0.5075,"y":0.309},{"n":"Cerebelo","x":0.4671,"y":0.732},{"n":"Substância branca (centro branco medular)","x":0.3189,"y":0.2979},{"n":"Córtex cerebral (substância cinzenta)","x":0.1437,"y":0.3931},{"n":"Cápsula interna","x":0.3937,"y":0.4131},{"n":"Ínsula","x":0.2201,"y":0.4618}]},{"f":"axi_10.webp","l":[{"n":"Ventrículo lateral","x":0.4925,"y":0.3256},{"n":"Núcleo caudado","x":0.4311,"y":0.3355},{"n":"Putame","x":0.3473,"y":0.3998},{"n":"Globo pálido","x":0.3757,"y":0.4563},{"n":"Tálamo","x":0.4491,"y":0.5138},{"n":"Hipocampo","x":0.3144,"y":0.619},{"n":"III ventrículo","x":0.5075,"y":0.5305},{"n":"Corpo caloso","x":0.515,"y":0.2757},{"n":"Tronco encefálico","x":0.5314,"y":0.5869},{"n":"Cerebelo","x":0.4326,"y":0.8018},{"n":"Substância branca (centro branco medular)","x":0.3683,"y":0.2204},{"n":"Córtex cerebral (substância cinzenta)","x":0.1422,"y":0.4241},{"n":"Cápsula interna","x":0.3293,"y":0.557},{"n":"Ínsula","x":0.2275,"y":0.4341}]},{"f":"axi_11.webp","l":[{"n":"Ventrículo lateral","x":0.4356,"y":0.2835},{"n":"Núcleo caudado","x":0.4416,"y":0.3355},{"n":"Putame","x":0.3563,"y":0.3832},{"n":"Globo pálido","x":0.3802,"y":0.4529},{"n":"Tálamo","x":0.4775,"y":0.4574},{"n":"Hipocampo","x":0.2994,"y":0.5936},{"n":"Hipotálamo e subtálamo (diencéfalo ventral)","x":0.4716,"y":0.5393},{"n":"III ventrículo","x":0.512,"y":0.4463},{"n":"Corpo caloso","x":0.515,"y":0.2536},{"n":"Tronco encefálico","x":0.515,"y":0.608},{"n":"Cerebelo","x":0.3862,"y":0.8195},{"n":"Substância branca (centro branco medular)","x":0.3862,"y":0.2038},{"n":"Córtex cerebral (substância cinzenta)","x":0.262,"y":0.1816},{"n":"Cápsula interna","x":0.4237,"y":0.4917},{"n":"Ínsula","x":0.2126,"y":0.423}]},{"f":"axi_12.webp","l":[{"n":"Núcleo caudado","x":0.4207,"y":0.3245},{"n":"Putame","x":0.3877,"y":0.3865},{"n":"Hipocampo","x":0.3308,"y":0.5504},{"n":"Corpo amigdaloide","x":0.3772,"y":0.4817},{"n":"Núcleo accumbens","x":0.4626,"y":0.3942},{"n":"Hipotálamo e subtálamo (diencéfalo ventral)","x":0.4581,"y":0.5305},{"n":"III ventrículo","x":0.512,"y":0.4385},{"n":"IV ventrículo","x":0.5075,"y":0.6412},{"n":"Tronco encefálico","x":0.5284,"y":0.598},{"n":"Cerebelo","x":0.3653,"y":0.7874},{"n":"Substância branca (centro branco medular)","x":0.3817,"y":0.2326},{"n":"Córtex cerebral (substância cinzenta)","x":0.262,"y":0.3544},{"n":"Cápsula interna","x":0.3847,"y":0.3289},{"n":"Ínsula","x":0.265,"y":0.3843}]},{"f":"axi_13.webp","l":[{"n":"Corno inferior do ventrículo lateral","x":0.3039,"y":0.5127},{"n":"Hipocampo","x":0.3713,"y":0.526},{"n":"Corpo amigdaloide","x":0.3862,"y":0.474},{"n":"Hipotálamo e subtálamo (diencéfalo ventral)","x":0.4626,"y":0.4529},{"n":"IV ventrículo","x":0.5105,"y":0.6822},{"n":"Quiasma óptico","x":0.5284,"y":0.4496},{"n":"Tronco encefálico","x":0.518,"y":0.5925},{"n":"Cerebelo","x":0.3488,"y":0.8062},{"n":"Substância branca (centro branco medular)","x":0.268,"y":0.289},{"n":"Córtex cerebral (substância cinzenta)","x":0.2874,"y":0.1251}]},{"f":"axi_14.webp","l":[{"n":"Hipocampo","x":0.3728,"y":0.5017},{"n":"Corpo amigdaloide","x":0.3638,"y":0.4751},{"n":"IV ventrículo","x":0.494,"y":0.6877},{"n":"Tronco encefálico","x":0.515,"y":0.5825},{"n":"Cerebelo","x":0.3204,"y":0.7652},{"n":"Substância branca (centro branco medular)","x":0.4177,"y":0.2148},{"n":"Córtex cerebral (substância cinzenta)","x":0.3458,"y":0.2658}]},{"f":"axi_15.webp","l":[{"n":"IV ventrículo","x":0.4985,"y":0.6988},{"n":"Tronco encefálico","x":0.5075,"y":0.5936},{"n":"Cerebelo","x":0.3099,"y":0.7519},{"n":"Substância branca (centro branco medular)","x":0.4686,"y":0.1905},{"n":"Córtex cerebral (substância cinzenta)","x":0.4431,"y":0.1085}]}]}};
+
+/* ---------- circuitos ---------- */
+var CB_CIRC={
+papez:{t:'Circuito de Papez',loop:true,n:[
+ ['Hipocampo','A informação sai da formação hipocampal, que recebeu do córtex entorrinal.'],
+ ['Fórnice','Feixe em arco sob o corpo caloso: fímbria, pilar, corpo e coluna.'],
+ ['Corpo mamilar','A coluna do fórnice termina no corpo mamilar, no hipotálamo.'],
+ ['Fascículo mamilotalâmico','Sobe do corpo mamilar até o tálamo.'],
+ ['Núcleo anterior do tálamo','Recebe o fascículo e projeta para o giro do cíngulo.'],
+ ['Giro do cíngulo','Córtex límbico acima do corpo caloso.'],
+ ['Fascículo do cíngulo','Corre dentro do giro do cíngulo, para trás e para baixo.'],
+ ['Córtex entorrinal','Na parte anterior do giro para-hipocampal; devolve a informação ao hipocampo e fecha o circuito.']],
+ fim:'Lesão de qualquer ponto do circuito (hipocampo, fórnice, corpos mamilares, tálamo anterior) pode causar amnésia anterógrada.'},
+medo:{t:'Resposta de medo pela amígdala',loop:false,n:[
+ ['Estímulo ameaçador','Visão ou som de algo perigoso.'],
+ ['Tálamo sensorial','Manda uma cópia rápida e grosseira direto à amígdala, antes de o córtex analisar.'],
+ ['Núcleo lateral da amígdala','Associa o estímulo a uma consequência ruim (aprendizado do medo).'],
+ ['Núcleo central da amígdala','Saída da amígdala para as respostas do corpo.'],
+ ['Hipotálamo','Pela estria terminal: ativa o simpático e o eixo do cortisol (coração acelera, pressão sobe).'],
+ ['Substância cinzenta periaquedutal','No mesencéfalo: congelamento e reações de defesa.']],
+ fim:'O córtex pré-frontal medial regula essa resposta. Quando ele falha e a amígdala fica hiperativa, aparecem quadros como o estresse pós-traumático.'},
+direta:{t:'Via direta (facilita o movimento)',loop:true,n:[
+ ['Córtex motor','Envia glutamato (excitação) ao estriado.'],
+ ['Estriado (receptor D1)','Neurônios com receptor D1, excitados pela dopamina da substância negra compacta.'],
+ ['Globo pálido medial e substância negra reticulada','São inibidos pelo estriado (GABA). Normalmente eles freiam o tálamo.'],
+ ['Tálamo (VA e VL)','Com o freio aliviado, o tálamo excita o córtex motor, e o circuito volta ao começo: o movimento desejado é facilitado.']],
+ fim:'A dopamina reforça a via direta. Na doença de Parkinson, sem dopamina, essa via fica fraca e o movimento fica lento (bradicinesia).'},
+indireta:{t:'Via indireta (freia o movimento)',loop:true,n:[
+ ['Córtex motor','Envia glutamato ao estriado.'],
+ ['Estriado (receptor D2)','Neurônios com receptor D2, que a dopamina inibe.'],
+ ['Globo pálido lateral','É inibido pelo estriado.'],
+ ['Núcleo subtalâmico','Sem o freio do pálido lateral, fica mais ativo e excita (glutamato) a saída.'],
+ ['Globo pálido medial e substância negra reticulada','Mais excitados, inibem mais o tálamo.'],
+ ['Tálamo (VA e VL)','Mais freado, excita menos o córtex motor: movimentos que não interessam são suprimidos.']],
+ fim:'Lesão do núcleo subtalâmico tira esse freio: aparecem movimentos amplos e involuntários do lado oposto (hemibalismo). No Parkinson, a via indireta fica hiperativa.'},
+linguagem:{t:'Ouvir e repetir uma palavra',loop:false,n:[
+ ['Cóclea e via auditiva','O som chega ao corpo geniculado medial do tálamo.'],
+ ['Área auditiva primária','Giros temporais transversos (de Heschl), áreas 41 e 42.'],
+ ['Área de Wernicke','Parte posterior do giro temporal superior: reconhece e compreende a palavra.'],
+ ['Fascículo arqueado','Contorna o fim do sulco lateral levando a palavra para a frente.'],
+ ['Área de Broca','Partes opercular e triangular do giro frontal inferior: monta o programa da fala.'],
+ ['Área motora da face e da laringe','Parte inferior do giro pré-central.'],
+ ['Fala','Nervos cranianos movem lábios, língua, palato e laringe.']],
+ fim:'Lesão em Wernicke prejudica a compreensão; no fascículo arqueado, a repetição; em Broca, a fala fluente. Todas no hemisfério dominante.'},
+leitura:{t:'Ler uma palavra em voz alta',loop:false,n:[
+ ['Retina','A palavra escrita forma imagem nas duas retinas.'],
+ ['Corpo geniculado lateral','Estação da via óptica no tálamo.'],
+ ['Área visual primária','Lábios do sulco calcarino (área 17).'],
+ ['Áreas visuais de associação','Reconhecem a forma das letras (giro fusiforme e áreas 18 e 19).'],
+ ['Giro angular','Liga a forma da palavra ao seu som e significado.'],
+ ['Área de Wernicke','Compreensão da palavra.'],
+ ['Fascículo arqueado','Leva à área de Broca.'],
+ ['Área de Broca e córtex motor','Programa e executa a fala.']],
+ fim:'Lesão do giro angular causa alexia com agrafia. Lesão do córtex visual esquerdo com o esplênio do corpo caloso causa alexia sem agrafia.'},
+motora:{t:'Trato corticospinal: do córtex ao músculo',loop:false,n:[
+ ['Giro pré-central (área 4)','Neurônio motor superior; também contribuem áreas pré-motoras e parietais.'],
+ ['Coroa radiada','As fibras descem em leque pela substância branca.'],
+ ['Perna posterior da cápsula interna','Fibras concentradas: lesão pequena causa hemiplegia completa.'],
+ ['Base do pedúnculo cerebral','No mesencéfalo, terço médio da base.'],
+ ['Base da ponte','As fibras se dividem em feixes entre os núcleos pontinos.'],
+ ['Pirâmide do bulbo','As fibras se juntam de novo na face anterior do bulbo.'],
+ ['Decussação das pirâmides','Cerca de 85% das fibras cruzam para o lado oposto.'],
+ ['Funículo lateral da medula','Trato corticospinal lateral desce até o segmento certo.'],
+ ['Neurônio motor do corno anterior','Neurônio motor inferior, que vai ao músculo.']],
+ fim:'Lesão acima da decussação causa fraqueza do lado oposto; abaixo dela, do mesmo lado.'},
+sensitiva:{t:'Tato fino: do receptor ao córtex',loop:false,n:[
+ ['Receptor na pele','Tato discriminativo, vibração e posição.'],
+ ['Gânglio da raiz dorsal','Corpo do primeiro neurônio.'],
+ ['Fascículos grácil e cuneiforme','Sobem pelo funículo posterior da medula, do mesmo lado.'],
+ ['Núcleos grácil e cuneiforme','No bulbo: segundo neurônio.'],
+ ['Lemnisco medial','As fibras cruzam no bulbo e sobem pelo tronco.'],
+ ['Núcleo ventral posterolateral do tálamo','Terceiro neurônio (a face chega ao ventral posteromedial).'],
+ ['Perna posterior da cápsula interna','Radiação talâmica sensitiva.'],
+ ['Giro pós-central','Área somestésica primária, com o mapa do corpo.']],
+ fim:'Lesão do tálamo lateral tira a sensibilidade de todo o lado oposto; depois pode surgir dor talâmica (Dejerine-Roussy).'},
+cortisol:{t:'Eixo do estresse (hipotálamo, hipófise e suprarrenal)',loop:true,n:[
+ ['Núcleo paraventricular','Neurônios do hipotálamo liberam CRH.'],
+ ['Eminência mediana','O CRH entra nos capilares do sistema porta.'],
+ ['Sistema porta-hipofisário','Leva o CRH direto à adeno-hipófise, sem passar pela circulação geral.'],
+ ['Adeno-hipófise','Libera ACTH no sangue.'],
+ ['Córtex da suprarrenal','Produz cortisol.'],
+ ['Retroalimentação negativa','O cortisol inibe o hipotálamo e a hipófise, fechando o ciclo.']],
+ fim:'Por causa dessa retroalimentação, corticoide tomado por muito tempo suprime o eixo; parar de repente pode causar insuficiência suprarrenal.'},
+adh:{t:'Controle da água pelo ADH',loop:true,n:[
+ ['Osmolalidade alta','Desidratação deixa o sangue mais concentrado.'],
+ ['Osmorreceptores','Na região anterior do hipotálamo, junto à lâmina terminal; ativam também a sede.'],
+ ['Núcleos supraóptico e paraventricular','Produzem o ADH.'],
+ ['Trato hipotálamo-hipofisário','Os axônios descem pelo infundíbulo.'],
+ ['Neuro-hipófise','Libera o ADH no sangue.'],
+ ['Rins','O ADH faz o ducto coletor reabsorver água; a urina fica concentrada.'],
+ ['Osmolalidade volta ao normal','O estímulo diminui e o ciclo se fecha.']],
+ fim:'Sem ADH (diabetes insípido central), o paciente urina litros de urina diluída. Com ADH em excesso (SIADH), retém água e o sódio cai.'},
+memoria:{t:'Do córtex ao hipocampo e de volta',loop:false,n:[
+ ['Áreas de associação','Visão, audição, tato e linguagem já processados.'],
+ ['Córtex entorrinal','Reúne essas informações e as envia ao hipocampo.'],
+ ['Giro denteado','Recebe pela via perfurante.'],
+ ['CA3','Recebe as fibras musgosas do giro denteado.'],
+ ['CA1','Recebe as colaterais de Schaffer de CA3. Muito sensível à falta de oxigênio.'],
+ ['Subículo','Saída do hipocampo: para o fórnice e de volta ao entorrinal.'],
+ ['Neocórtex','Com o tempo e o sono, a memória passa a depender mais do neocórtex (consolidação).']],
+ fim:'Na doença de Alzheimer, o entorrinal é atingido cedo e isola o hipocampo do resto do córtex: a memória recente é a primeira a falhar.'}
+};
+
+/* ---------- lesão → sintoma ---------- */
+var CB_LES={
+lateral:{st:'cb-lateral',t:'Face lateral (hemisfério esquerdo, dominante)',s:[
+ {n:'Área de Broca',x:.29,y:.565,q:'Fala lenta, com esforço e frases curtas. Compreende bem e percebe os próprios erros. Muitas vezes há fraqueza da face e do braço direitos.',d:'Afasia de Broca (de expressão).',a:'Ramo superior da artéria cerebral média esquerda.'},
+ {n:'Área de Wernicke',x:.67,y:.59,q:'Fala fluente, cheia de palavras trocadas e sem sentido. Não compreende o que ouve e não percebe o erro. Geralmente sem fraqueza.',d:'Afasia de Wernicke (de compreensão).',a:'Ramo inferior da artéria cerebral média esquerda.'},
+ {p:'Giro supramarginal',n:'Giro supramarginal e fascículo arqueado',q:'Fala fluente e compreende bem, mas não consegue repetir frases; troca sons das palavras.',d:'Afasia de condução: a informação não passa de Wernicke para Broca.',a:'Artéria cerebral média esquerda.'},
+ {p:'Giro angular',n:'Giro angular',q:'Não consegue ler nem escrever. Erra contas simples, não reconhece os próprios dedos e confunde direita com esquerda.',d:'Alexia com agrafia e síndrome de Gerstmann.',a:'Ramo angular da artéria cerebral média esquerda.'},
+ {p:'Giro pré-central',n:'Giro pré-central (área da mão e da face)',q:'Fraqueza da face e da mão direitas, muito mais que da perna.',d:'Lesão da área motora primária na face lateral, onde estão mão e face no homúnculo.',a:'Artéria cerebral média esquerda.'},
+ {p:'Giro pós-central',n:'Giro pós-central',q:'Não reconhece objetos pelo tato na mão direita e não sabe onde foi tocado, embora sinta dor.',d:'Perda da sensibilidade discriminativa (astereognosia) por lesão somestésica.',a:'Artéria cerebral média esquerda.'},
+ {n:'Campo ocular frontal',x:.39,y:.30,q:'Na fase aguda, os olhos ficam desviados para a esquerda e o paciente não consegue olhar voluntariamente para a direita.',d:'Lesão da área 8: os olhos “olham para a lesão”.',a:'Artéria cerebral média esquerda.'}]},
+medial:{st:'cb-medial',t:'Face medial (hemisfério esquerdo)',s:[
+ {p:'Lóbulo paracentral',n:'Lóbulo paracentral',q:'Fraqueza e perda sensitiva na perna e no pé direitos, com o braço quase normal. Às vezes, incontinência urinária.',d:'Lesão da representação da perna, na face medial.',a:'Artéria cerebral anterior esquerda.'},
+ {p:'Sulco calcarino',n:'Córtex visual (sulco calcarino)',q:'Perdeu a visão da metade direita do campo visual nos dois olhos; a visão central muitas vezes está preservada.',d:'Hemianopsia homônima direita com preservação macular.',a:'Artéria cerebral posterior esquerda.'},
+ {n:'Esplênio do corpo caloso',x:.375,y:.52,q:'Escreve normalmente, mas não consegue ler, nem o que ele mesmo acabou de escrever. Também perdeu a visão do lado direito.',d:'Alexia sem agrafia: lesão do córtex visual esquerdo e do esplênio desconecta a visão que resta do giro angular esquerdo.',a:'Artéria cerebral posterior esquerda.'},
+ {n:'Giro do cíngulo anterior',x:.72,y:.37,q:'Apatia, quase não fala nem se move por iniciativa própria; responde pouco. Quando a lesão é bilateral, o quadro é grave (mutismo acinético).',d:'Lesão do cíngulo anterior e da face medial do lobo frontal.',a:'Artéria cerebral anterior (de um ou dos dois lados).'},
+ {p:'Área entorrinal e unco',n:'Lobo temporal medial (entorrinal e hipocampo)',q:'Esquece o que aconteceu há poucos minutos e repete as mesmas perguntas. Se for dos dois lados, não forma novas memórias.',d:'Amnésia anterógrada por lesão do lobo temporal medial.',a:'Artéria cerebral posterior, encefalite herpética, hipóxia ou doença de Alzheimer.'},
+ {p:'Giro reto',n:'Giro reto e córtex orbitofrontal',q:'Ficou desinibido, impulsivo e faz comentários inadequados, com memória quase normal. Pode ter perdido o olfato.',d:'Síndrome orbitofrontal; o trato olfatório passa logo abaixo.',a:'Contusão em traumatismo craniano ou meningioma do sulco olfatório.'}]},
+profundo:{st:'cb-horiz',t:'Estruturas profundas (corte horizontal)',s:[
+ {p:'Cápsula interna (perna posterior)',n:'Perna posterior da cápsula interna',q:'Fraqueza igual da face, do braço e da perna do lado oposto, sem alteração de linguagem nem de campo visual.',d:'Hemiplegia completa e proporcionada: as fibras corticospinais estão concentradas aqui.',a:'Infarto lacunar das artérias lenticuloestriadas (hipertensão).'},
+ {p:'Tálamo',n:'Tálamo (parte lateral)',q:'Perdeu todas as sensibilidades do lado oposto do corpo. Semanas depois, passou a ter dor intensa e espontânea nesse lado.',d:'Lesão do núcleo ventral posterior; depois, síndrome de Dejerine-Roussy.',a:'Ramos talamogeniculados da artéria cerebral posterior.'},
+ {p:'Putame',n:'Putame',q:'Cefaleia súbita e fraqueza do lado oposto que piora em minutos; nos casos grandes, os olhos desviam para o lado da lesão.',d:'Hemorragia putaminal comprimindo a cápsula interna.',a:'Ruptura de artéria lenticuloestriada por hipertensão.'},
+ {p:'Cabeça do núcleo caudado',n:'Cabeça do núcleo caudado',q:'Movimentos involuntários rápidos e irregulares, mudanças de comportamento e declínio cognitivo, com história familiar. O corno anterior do ventrículo parece alargado.',d:'Atrofia do caudado na doença de Huntington.',a:'Doença genética autossômica dominante (expansão CAG).'},
+ {p:'Globo pálido',n:'Globo pálido (dos dois lados)',q:'Após intoxicação por monóxido de carbono, ficou rígido, lento e apático.',d:'O globo pálido é muito sensível a essa intoxicação.',a:'Lesão bilateral por hipóxia tóxica.'},
+ {p:'Hipocampo',n:'Hipocampo',q:'Após parada cardíaca, não consegue guardar informações novas por mais de alguns minutos.',d:'Os neurônios de CA1 são os mais sensíveis à falta de oxigênio.',a:'Hipóxia global; também esclerose mesial na epilepsia temporal.'},
+ {p:'Ínsula',n:'Ínsula',q:'Na tomografia feita 2 horas após um AVC grave com hemiplegia e afasia, a faixa cinzenta da ínsula sumiu de um lado.',d:'Apagamento da faixa insular: sinal precoce de infarto extenso.',a:'Oclusão proximal da artéria cerebral média.'}]}
+};
+
+/* ---------- estado dos componentes ---------- */
+var CBW={};
+function cbPins(st){return st.pins}
+function cbDot(p,cls,id,act,k,lab){return '<button type="button" class="cbx-dot '+cls+'" style="left:'+(p.x*100)+'%;top:'+(p.y*100)+'%" data-cbw="'+id+'|'+act+'|'+k+'" aria-label="'+cbE(lab||'Estrutura '+(k+1))+'"></button>'}
+function cbTag(p,txt,sm){return '<span class="cbx-tag'+(p.x>.58?' l':'')+(sm?' sm':'')+'" style="left:'+(p.x*100)+'%;top:'+(p.y*100)+'%">'+cbE(txt)+'</span>'}
+function cbCredit(st){return st&&st.credit?' · <a href="'+st.credit+'" target="_blank" rel="noopener">fonte e licença</a>':''}
+
+/* explorar uma peça */
+function cbExp(id){
+ var w=CBW[id],st=cbSt(w.st);if(!st)return '';var P=st.pins,h='';
+ if(w.mode==='quiz'){var Q=w.q;
+  if(Q.i>=Q.list.length){h='<div class="cbx-panel"><b>Resultado: '+Q.ok+' de '+Q.list.length+'.</b><p class="small muted">'+(Q.ok===Q.list.length?'Perfeito. Tente outra figura ou a estação completa em Games.':'Volte ao modo Explorar e revise as que errou.')+'</p></div><div class="cbw-row"><button class="cbw-btn pri" data-cbw="'+id+'|quiz|1">Novo teste</button><button class="cbw-btn" data-cbw="'+id+'|mode|tour">Explorar</button></div>'}
+  else{var tgt=P[Q.list[Q.i]];
+   h='<div class="cbx-panel"><span class="small muted">'+(Q.i+1)+' de '+Q.list.length+'</span><p>Toque em: <b>'+cbE(tgt.n)+'</b></p>'+(Q.ans!=null?'<div class="cbx-fb '+(Q.ans===Q.list[Q.i]?'good':'bad')+'">'+(Q.ans===Q.list[Q.i]?'<b>Isso.</b> ':'<b>Não é aí.</b> Você tocou em '+cbE(P[Q.ans].n)+'. ')+cbE(cbInfo(tgt))+'</div>':'')+'</div>'+
+   (Q.ans!=null?'<div class="cbw-row"><button class="cbw-btn pri" data-cbw="'+id+'|qnext|1">'+(Q.i+1>=Q.list.length?'Ver resultado':'Próxima')+'</button></div>':'')}
+ }else{var k=w.i;
+  h='<div class="cbx-panel">'+(k<0?'<span class="muted">Toque num ponto amarelo para ver o nome e a função, ou use as setas para percorrer as '+P.length+' estruturas em ordem.</span>':'<b>'+cbE(P[k].n)+'</b>'+(cbInfo(P[k])?'<p>'+cbE(cbInfo(P[k]))+'</p>':''))+'</div>'+
+  '<div class="cbw-row"><button class="cbw-btn" data-cbw="'+id+'|step|-1" aria-label="Estrutura anterior">‹</button><span class="small muted num">'+(k<0?'–':(k+1))+' de '+P.length+'</span><button class="cbw-btn" data-cbw="'+id+'|step|1" aria-label="Próxima estrutura">›</button><button class="cbw-btn" data-cbw="'+id+'|names|1" aria-pressed="'+!!w.names+'">'+(w.names?'Esconder nomes':'Mostrar todos os nomes')+'</button></div>'}
+ var dots=P.map(function(p,j){var c='';
+  if(w.mode==='quiz'){var Q=w.q;if(Q.ans!=null&&Q.i<Q.list.length){if(j===Q.list[Q.i])c='ok';else if(j===Q.ans)c='bad'}}
+  else if(j===w.i)c='on';
+  return cbDot(p,c,id,w.mode==='quiz'?'tap':'pin',j,w.mode==='quiz'?'':p.n)}).join('');
+ var tags='';
+ if(w.mode!=='quiz'){if(w.names)tags=P.map(function(p){return cbTag(p,p.n,true)}).join('');else if(w.i>=0)tags=cbTag(P[w.i],P[w.i].n)}
+ return '<div class="cbw cbx" id="'+id+'"><div class="cbw-h"><span class="cl-t">Explore a peça</span><div class="cbw-tabs"><button data-cbw="'+id+'|mode|tour" aria-pressed="'+(w.mode!=='quiz')+'">Explorar</button><button data-cbw="'+id+'|mode|quiz" aria-pressed="'+(w.mode==='quiz')+'">Teste rápido</button></div></div>'+
+ '<div class="cbx-stage"><img src="'+st.src+'" alt="'+cbE(st.t)+'" loading="lazy" decoding="async">'+dots+tags+'</div>'+h+
+ '<div class="cbw-cap">'+cbE(w.cap||st.t)+(st.note?' '+cbE(st.note):'')+cbCredit(st)+'</div></div>';
+}
+
+/* navegador de cortes */
+function cbSerieStage(id){
+ var w=CBW[id],S=CB_SERIE[w.ax],fr=S.frames[w.f];
+ var dots=fr.l.map(function(p,j){return cbDot(p,j===w.sel?'on':'',id,'spin',j,p.n)}).join('');
+ var tags=w.names?fr.l.map(function(p){return cbTag(p,p.n,true)}).join(''):(w.sel!=null&&fr.l[w.sel]?cbTag(fr.l[w.sel],fr.l[w.sel].n):'');
+ return '<img src="'+CB_IMG+'serie/'+fr.f+'" alt="Corte '+(w.f+1)+'" decoding="async">'+dots+tags;
+}
+function cbSeriePanel(id){
+ var w=CBW[id],S=CB_SERIE[w.ax],fr=S.frames[w.f],p=w.sel!=null?fr.l[w.sel]:null,N=S.frames.length;
+ var pos=w.ax==='cor'?['frente (polo frontal)','trás (cerebelo)']:['cima (vértice)','baixo (ponte e cerebelo)'];
+ return '<div class="cbw-row" style="justify-content:space-between"><span class="small muted num">Corte '+(w.f+1)+' de '+N+'</span><span class="small muted">'+fr.l.length+' estrutura'+(fr.l.length===1?'':'s')+' marcada'+(fr.l.length===1?'':'s')+'</span></div>'+
+ '<div class="cbx-panel">'+(p?'<b>'+cbE(p.n)+'</b><p>'+cbE(CB_INFO[p.n]||'')+'</p>':'<span class="muted">Arraste a barra de '+pos[0]+' para '+pos[1]+'. Toque num ponto para ver o nome.</span>')+'</div>';
+}
+function cbSerie(id){
+ var w=CBW[id],S=CB_SERIE[w.ax],N=S.frames.length;
+ var note=w.ax==='cor'?'Cortes frontais vistos de frente: o lado direito do paciente fica à esquerda da imagem. Os nomes estão marcados no hemisfério esquerdo (à direita da imagem).':'Cortes horizontais vistos de cima, anterior em cima: o lado esquerdo do paciente fica à esquerda da imagem, onde estão os nomes.';
+ return '<div class="cbw cbs" id="'+id+'"><div class="cbw-h"><span class="cl-t">Passe pelos cortes</span><div class="cbw-tabs"><button data-cbw="'+id+'|ax|cor" aria-pressed="'+(w.ax==='cor')+'">Frontais</button><button data-cbw="'+id+'|ax|axi" aria-pressed="'+(w.ax==='axi')+'">Horizontais</button></div></div>'+
+ '<div class="cbx-stage" id="'+id+'_st">'+cbSerieStage(id)+'</div>'+
+ '<input class="cbs-range" type="range" min="0" max="'+(N-1)+'" value="'+w.f+'" data-cbwr="'+id+'" aria-label="Escolher o corte">'+
+ '<div id="'+id+'_pn">'+cbSeriePanel(id)+'</div>'+
+ '<div class="cbw-row"><button class="cbw-btn" data-cbw="'+id+'|fs|-1" aria-label="Corte anterior">‹</button><button class="cbw-btn" data-cbw="'+id+'|fs|1" aria-label="Próximo corte">›</button><button class="cbw-btn" data-cbw="'+id+'|snames|1" aria-pressed="'+!!w.names+'">'+(w.names?'Esconder nomes':'Mostrar todos os nomes')+'</button></div>'+
+ '<div class="cbw-cap">'+cbE(w.cap||'')+' '+note+' Ressonância de um cérebro real (FreeSurfer, via NiiVue)'+cbCredit({credit:'https://github.com/niivue/niivue/tree/main/packages/niivue/demos/images'})+'</div></div>';
+}
+function cbPreload(id){var w=CBW[id],S=CB_SERIE[w.ax];[w.f-1,w.f+1,w.f+2].forEach(function(f){if(f>=0&&f<S.frames.length){var im=new Image();im.src=CB_IMG+'serie/'+S.frames[f].f}})}
+
+/* circuito passo a passo */
+function cbWrap(s,max){var w=s.split(' '),L=[''];w.forEach(function(x){var c=L[L.length-1];if(c&&(c+' '+x).length>max)L.push(x);else L[L.length-1]=c?c+' '+x:x});return L}
+function cbCircSvg(c,k){
+ var N=c.n.length,W=360,pos=[],H,nw,nh,maxc,svg='';
+ if(c.loop){nw=140;nh=44;maxc=18;var R=Math.ceil(N/2),Lc=N-R,rowH=74;H=R*rowH;
+  for(var i=0;i<R;i++)pos.push([265,rowH/2+i*rowH]);
+  for(var j=0;j<Lc;j++){var row=Lc>1?(R-1)-j*(R-1)/(Lc-1):(R-1)/2;pos.push([95,rowH/2+row*rowH])}}
+ else{nw=300;nh=36;maxc=40;var gap=20;H=N*(nh+gap)-gap+8;for(var j=0;j<N;j++)pos.push([180,4+nh/2+j*(nh+gap)])}
+ var edges=[];for(var e=0;e<N-1;e++)edges.push([e,e+1]);if(c.loop)edges.push([N-1,0]);
+ edges.forEach(function(E){var A=pos[E[0]],B=pos[E[1]],dx=B[0]-A[0],dy=B[1]-A[1],L=Math.sqrt(dx*dx+dy*dy)||1,ux=dx/L,uy=dy/L;
+  var ra=Math.min(Math.abs(nw/2/(ux||1e-6)),Math.abs(nh/2/(uy||1e-6)))+4,x1=A[0]+ux*ra,y1=A[1]+uy*ra,x2=B[0]-ux*(ra+6),y2=B[1]-uy*(ra+6);
+  var cls=(E[1]!==0?E[1]<=k:k>=N)?' v':'';
+  svg+='<line class="ar'+cls+'" x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'"/>';
+  var hx=x2+ux*6,hy=y2+uy*6,px=-uy,py=ux;svg+='<path class="ah'+cls+'" d="M'+hx.toFixed(1)+' '+hy.toFixed(1)+' L'+(x2+px*5).toFixed(1)+' '+(y2+py*5).toFixed(1)+' L'+(x2-px*5).toFixed(1)+' '+(y2-py*5).toFixed(1)+'Z"/>'});
+ c.n.forEach(function(nd,i){var p=pos[i],cls=i===k?' a':i<k?' v':'',L=cbWrap(nd[0],maxc).slice(0,4),lh=14;
+  var hh=Math.max(nh,L.length*lh+12);
+  svg+='<g class="nd'+cls+'"><rect x="'+(p[0]-nw/2).toFixed(1)+'" y="'+(p[1]-hh/2).toFixed(1)+'" width="'+nw+'" height="'+hh+'" rx="10"/>'+L.map(function(t,li){return '<text x="'+p[0].toFixed(1)+'" y="'+(p[1]-(L.length-1)*lh/2+li*lh+4.5).toFixed(1)+'" text-anchor="middle">'+cbE(t)+'</text>'}).join('')+'</g>'});
+ return '<svg viewBox="0 0 '+W+' '+Math.ceil(H)+'" role="img" aria-label="'+cbE(c.t)+'">'+svg+'</svg>';
+}
+function cbCirc(id){
+ var w=CBW[id],c=CB_CIRC[w.c];if(!c)return '';var N=c.n.length,k=w.k;
+ var txt=k<0?'<span class="muted">Toque em <b>Próximo passo</b> para seguir o caminho'+(c.loop?' até ele se fechar.':'.')+'</span>':k>=N?'<b>'+(c.loop?'O circuito se fecha.':'Caminho completo.')+'</b><p>'+cbE(c.fim)+'</p>':'<span class="small muted">Passo '+(k+1)+' de '+N+'</span><p><b>'+cbE(c.n[k][0])+':</b> '+cbE(c.n[k][1])+'</p>';
+ return '<div class="cbw cbc" id="'+id+'"><div class="cbw-h"><span class="cl-t">Circuito passo a passo</span><b style="font-size:14px">'+cbE(c.t)+'</b></div>'+cbCircSvg(c,Math.min(k,N))+
+ '<div class="cbx-panel">'+txt+'</div><div class="cbw-row"><button class="cbw-btn" data-cbw="'+id+'|cstep|-1" '+(k<0?'disabled':'')+'>‹ Anterior</button><button class="cbw-btn pri" data-cbw="'+id+'|cstep|1" '+(k>=N?'disabled':'')+'>'+(k<0?'Começar':k>=N?'Concluído':k>=N-1?(c.loop?'Fechar o circuito':'Concluir'):'Próximo passo')+' ›</button><button class="cbw-btn" data-cbw="'+id+'|call|1">'+(k>=N?'Recomeçar':'Ver tudo')+'</button></div>'+(w.cap?'<div class="cbw-cap">'+cbE(w.cap)+'</div>':'')+'</div>';
+}
+
+/* lesão → sintoma */
+function cbLesSites(set){var st=cbSt(set.st);return set.s.map(function(s){if(s.p&&st){for(var i=0;i<st.pins.length;i++)if(st.pins[i].n===s.p)return{x:st.pins[i].x,y:st.pins[i].y,s:s}}return{x:s.x,y:s.y,s:s}})}
+function cbLes(id){
+ var w=CBW[id],set=CB_LES[w.set],st=cbSt(set.st);if(!st)return '';var S=cbLesSites(set),h='';
+ if(w.mode==='des'){var Q=w.q;
+  if(Q.i>=Q.list.length)h='<div class="cbx-panel"><b>Resultado: '+Q.ok+' de '+Q.list.length+'.</b></div><div class="cbw-row"><button class="cbw-btn pri" data-cbw="'+id+'|des|1">Novo desafio</button><button class="cbw-btn" data-cbw="'+id+'|lmode|exp">Explorar</button></div>';
+  else{var c=S[Q.list[Q.i]].s;
+   h='<div class="cbx-panel"><span class="small muted">Caso '+(Q.i+1)+' de '+Q.list.length+' · toque no local da lesão</span><p>'+cbE(c.q)+'</p>'+(Q.ans!=null?'<div class="cbx-fb '+(Q.ans===Q.list[Q.i]?'good':'bad')+'"><b>'+(Q.ans===Q.list[Q.i]?'Isso: ':'A lesão está em: ')+cbE(c.n)+'.</b> '+cbE(c.d)+' <span class="muted">Causa típica: '+cbE(c.a)+'</span></div>':'')+'</div>'+
+   (Q.ans!=null?'<div class="cbw-row"><button class="cbw-btn pri" data-cbw="'+id+'|lnext|1">'+(Q.i+1>=Q.list.length?'Ver resultado':'Próximo caso')+'</button></div>':'')}
+ }else{var k=w.sel,s=k!=null?S[k].s:null;
+  h='<div class="cbx-panel">'+(s?'<b>Lesão: '+cbE(s.n)+'</b><p>'+cbE(s.q)+'</p><p class="small"><b>Por quê:</b> '+cbE(s.d)+'</p><p class="small muted"><b>Causa típica:</b> '+cbE(s.a)+'</p>':'<span class="muted">Toque num ponto vermelho para ver o quadro clínico que uma lesão ali causa. Depois, teste-se no modo Desafio.</span>')+'</div>'}
+ var dots=S.map(function(p,j){var c='les';if(w.mode==='des'){var Q=w.q;if(Q.ans!=null&&Q.i<Q.list.length){if(j===Q.list[Q.i])c='ok';else if(j===Q.ans)c='bad'}}else if(j===w.sel)c+=' on';
+  return cbDot(p,c,id,w.mode==='des'?'ltap':'lsel',j,w.mode==='des'?'':p.s.n)}).join('');
+ var tag=w.mode!=='des'&&w.sel!=null?cbTag(S[w.sel],S[w.sel].s.n):'';
+ return '<div class="cbw cbl" id="'+id+'"><div class="cbw-h"><span class="cl-t">Lesão → sintoma</span><div class="cbw-tabs"><button data-cbw="'+id+'|lmode|exp" aria-pressed="'+(w.mode!=='des')+'">Explorar</button><button data-cbw="'+id+'|lmode|des" aria-pressed="'+(w.mode==='des')+'">Desafio</button></div></div>'+
+ '<div class="cbx-stage"><img src="'+st.src+'" alt="'+cbE(set.t)+'" loading="lazy" decoding="async">'+dots+tag+'</div>'+h+
+ '<div class="cbw-cap">'+cbE(w.cap||set.t)+'. '+cbE(st.note||'')+' Déficits motores e sensitivos aparecem do lado oposto à lesão.'+cbCredit(st)+'</div></div>';
+}
+
+function cbRender(id){var w=CBW[id];if(!w)return '';return w.type==='exp'?cbExp(id):w.type==='cortes'?cbSerie(id):w.type==='circ'?cbCirc(id):w.type==='les'?cbLes(id):''}
+function cbRR(id){var el=document.getElementById(id);if(el)el.outerHTML=cbRender(id)}
+function cbShuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+
+/* novos tipos de bloco na aula */
+(function(){var _b=block;block=function(b,mod,si,bi){var t=b[0],id='cbw_'+mod+'_'+si+'_'+bi;
+ if(t==='peg')return '<aside class="callout peg"><span class="cl-t">⚠ Pegadinha de prova</span><p>'+inl(b[1])+'</p></aside>';
+ if(t==='exp'){if(!CBW[id])CBW[id]={type:'exp',st:b[1],cap:b[2],mode:'tour',i:-1};return cbExp(id)}
+ if(t==='cortes'){if(!CBW[id])CBW[id]={type:'cortes',ax:b[1],f:b[2]||0,cap:b[3],sel:null};return cbSerie(id)}
+ if(t==='circ'){if(!CBW[id])CBW[id]={type:'circ',c:b[1],cap:b[2],k:-1};return cbCirc(id)}
+ if(t==='les'){if(!CBW[id])CBW[id]={type:'les',set:b[1],cap:b[2],mode:'exp',sel:null};return cbLes(id)}
+ return _b(b,mod,si,bi)}})();
+
+document.addEventListener('click',function(e){
+ var b=e.target.closest('[data-cbw]');
+ if(b){var a=b.getAttribute('data-cbw').split('|'),id=a[0],act=a[1],v=a[2],w=CBW[id];if(!w)return;e.preventDefault();
+  if(w.type==='exp'){var P=cbSt(w.st).pins;
+   if(act==='mode'){w.mode=v;if(v==='quiz')w.q={list:cbShuffle(P.map(function(_,i){return i})).slice(0,Math.min(5,P.length)),i:0,ok:0,ans:null}}
+   else if(act==='quiz')w.q={list:cbShuffle(P.map(function(_,i){return i})).slice(0,Math.min(5,P.length)),i:0,ok:0,ans:null};
+   else if(act==='pin')w.i=+v;
+   else if(act==='step')w.i=w.i<0?(+v>0?0:P.length-1):(w.i+(+v)+P.length)%P.length;
+   else if(act==='names')w.names=!w.names;
+   else if(act==='tap'){var Q=w.q;if(Q.ans!=null||Q.i>=Q.list.length)return;Q.ans=+v;if(Q.ans===Q.list[Q.i]){Q.ok++;if(window.sfx)try{sfx('ok')}catch(x){}}}
+   else if(act==='qnext'){w.q.i++;w.q.ans=null}}
+  else if(w.type==='cortes'){var N=CB_SERIE[w.ax].frames.length;
+   if(act==='ax'){if(w.ax!==v){var r=w.f/(N-1);w.ax=v;w.f=Math.round(r*(CB_SERIE[v].frames.length-1));w.sel=null}}
+   else if(act==='fs'){w.f=Math.max(0,Math.min(N-1,w.f+(+v)));w.sel=null}
+   else if(act==='spin')w.sel=+v;
+   else if(act==='snames')w.names=!w.names;
+   cbPreload(id)}
+  else if(w.type==='circ'){var Nn=CB_CIRC[w.c].n.length;
+   if(act==='cstep')w.k=Math.max(-1,Math.min(Nn,w.k+(+v)));else if(act==='call')w.k=w.k>=Nn?-1:Nn}
+  else if(w.type==='les'){var S=CB_LES[w.set].s;
+   var mk=function(){return{list:cbShuffle(S.map(function(_,i){return i})).slice(0,Math.min(5,S.length)),i:0,ok:0,ans:null}};
+   if(act==='lmode'){w.mode=v;if(v==='des')w.q=mk()}
+   else if(act==='des')w.q=mk();
+   else if(act==='lsel')w.sel=+v;
+   else if(act==='ltap'){var Q2=w.q;if(Q2.ans!=null||Q2.i>=Q2.list.length)return;Q2.ans=+v;if(Q2.ans===Q2.list[Q2.i])Q2.ok++}
+   else if(act==='lnext'){w.q.i++;w.q.ans=null}}
+  cbRR(id);return}
+ var m=e.target.closest('[data-cbmini]');
+ if(m){e.preventDefault();var mid=m.getAttribute('data-cbmini');startQuiz(pickQuestions(QB.filter(function(q){return q.m===mid}),5),'Mini-teste · '+MOD[mid].n,{kind:'mini',meta:{m:mid}});return}
+});
+document.addEventListener('input',function(e){var r=e.target;if(!r.matches||!r.matches('[data-cbwr]'))return;var id=r.getAttribute('data-cbwr'),w=CBW[id];if(!w)return;w.f=+r.value;w.sel=null;
+ var st=document.getElementById(id+'_st'),pn=document.getElementById(id+'_pn');if(st)st.innerHTML=cbSerieStage(id);if(pn)pn.innerHTML=cbSeriePanel(id);cbPreload(id)});
+
+/* ---------- trilha do cérebro ---------- */
+var CB_TRAIL=[['diencefalo','Diencéfalo'],['telencefalo','Telencéfalo'],['cortex','Substância branca e córtex'],['cortfunc','Áreas funcionais'],['nucbase','Núcleos da base'],['talamo','Tálamo'],['hipotal','Hipotálamo'],['limbico','Sistema límbico'],['memoria','Memória']];
+function cbTrailIdx(id){for(var i=0;i<CB_TRAIL.length;i++)if(CB_TRAIL[i][0]===id)return i;return -1}
+function cbTrailHTML(id){
+ var cur=cbTrailIdx(id),c=S.priv.c||{};
+ return '<section class="card cbtrail"><div class="cbw-h"><span class="cl-t">Trilha do cérebro · passo '+(cur+1)+' de '+CB_TRAIL.length+'</span></div><div class="cbtrail-row">'+CB_TRAIL.map(function(t,i){var mi=c['mini_'+t[0]],done=!!c['read_'+t[0]]||!!mi;
+  return '<button class="cbt'+(i===cur?' cur':'')+(done?' done':'')+'" data-mod="'+t[0]+'"><i>'+(done?'✓':(i+1))+'</i><span>'+cbE(t[1])+(mi?' <small>'+mi.ok+'/'+mi.n+'</small>':'')+'</span></button>'}).join('')+'</div>'+
+ '<p class="small muted">Siga nesta ordem: leia a aula, explore as figuras e faça o mini-teste de 5 questões no fim. O ✓ aparece quando a aula é marcada como lida ou o mini-teste é feito.</p></section>';
+}
+function cbMiniHTML(id){
+ var cur=cbTrailIdx(id),nx=CB_TRAIL[cur+1],mi=(S.priv.c||{})['mini_'+id];
+ return '<div class="card cbmini" style="display:grid;gap:8px;margin-bottom:12px"><h3>Mini-teste do passo '+(cur+1)+'</h3><p class="small muted">5 questões rápidas para ver se a aula fixou.'+(mi?' Último resultado: <b>'+mi.ok+' de '+mi.n+'</b>.':'')+'</p><div class="actions"><button class="btn pri" data-cbmini="'+id+'">Fazer o mini-teste</button>'+(nx?'<button class="btn ghost" data-mod="'+nx[0]+'">Próximo passo: '+cbE(nx[1])+' →</button>':'')+'</div></div>';
+}
+function cbInstall(){
+ if(window.__cbInst)return;window.__cbInst=1;
+ var vm=VIEWS.modulo;VIEWS.modulo=function(){var h=vm.apply(this,arguments),id=S.sub;
+  if(cbTrailIdx(id)<0)return h;
+  var tab=S.modTab&&S.modTab.id===id?S.modTab.t:(LESSON[id]?'aula':'resumo');
+  if(tab==='aula'){afterFns.push(function(){var c=document.querySelector('.cbt.cur'),r=document.querySelector('.cbtrail-row');if(c&&r)r.scrollLeft=c.offsetLeft-r.offsetLeft-12});h=h.replace('<div class="lbar"',cbTrailHTML(id)+'<div class="lbar"');h=h.replace('<div class="card lend" id="lend">',cbMiniHTML(id)+'<div class="card lend" id="lend">')}
+  return h};
+ var qe=window.__quizEnd;window.__quizEnd=function(Z){if(Z.kind==='mini'&&Z.meta)S.priv.c['mini_'+Z.meta.m]={ok:Z.ok,n:Z.list.length,t:Date.now()};if(qe)return qe(Z)};
+ var qr=window.quizResult;window.quizResult=function(Z){var h=qr(Z);if(Z.kind!=='mini'||!Z.meta)return h;var id=Z.meta.m,cur=cbTrailIdx(id),nx=CB_TRAIL[cur+1],ok=Z.ok>=4;
+  var card='<div class="card" style="display:grid;gap:8px;margin:12px 0"><h3>'+(ok?'Passo '+(cur+1)+' concluído':'Vale revisar antes de seguir')+'</h3><p class="small muted">'+(ok?'Você acertou '+Z.ok+' de '+Z.list.length+'. Pode seguir na trilha.':'Releia as pegadinhas e os pontos-chave da aula e refaça o mini-teste.')+'</p><div class="actions">'+(nx&&ok?'<button class="btn pri" data-mod="'+nx[0]+'">Próximo passo: '+cbE(nx[1])+' →</button>':'')+'<button class="btn ghost" data-x="cont" data-xv="'+id+'|0">Voltar à aula</button></div></div>';
+  return h.replace('<div class="actions">',card+'<div class="actions">')};
+}
+setTimeout(cbInstall,0);
+
+/* ---------- inserção nas aulas: figuras para explorar, cortes, circuitos, lesões, quadros e pegadinhas ---------- */
+(function(){
+ function ins(mod,si,blk,after){var L=LESSON[mod];if(!L||!L[si])return;var B=L[si].b,pos=-1;
+  if(after==='fig'){for(var i=B.length-1;i>=0;i--)if(B[i][0]==='fig'){pos=i+1;break}}
+  if(pos<0){pos=B.length;for(var j=0;j<B.length;j++)if(B[j][0]==='chk'){pos=j;break}}
+  B.splice(pos,0,blk)}
+ /* figuras para explorar (logo depois da figura da seção) */
+ [['telencefalo',1,'cb-lateral','Face superolateral: percorra lobos, giros e sulcos.'],['telencefalo',2,'cb-sup','Vista superior.'],['telencefalo',4,'cb-medial','Face medial.'],['telencefalo',6,'cb-inf','Base do cérebro.'],
+  ['telencefalo',8,'cb-corfrontA','Corte frontal no nível do quiasma óptico.'],['diencefalo',0,'cb-sagital','Corte sagital paramediano.'],['hipotal',0,'cb-hipot','Hipotálamo e hipófise.'],
+  ['talamo',1,'cb-talamo','Núcleos do tálamo.'],['nucbase',0,'cb-nb_lat','Núcleos da base em 3D.'],['nucbase',1,'cb-horiz','Corte horizontal na cápsula interna.'],['limbico',1,'cb-corfrontB','Corte frontal no nível do hipocampo.']]
+ .forEach(function(x){ins(x[0],x[1],['exp',x[2],x[3]],'fig')});
+ /* navegador de cortes */
+ ins('telencefalo',8,['cortes','cor',7,'Do polo frontal ao cerebelo, veja como os núcleos da base, a cápsula interna e os ventrículos aparecem e somem.'],'fig');
+ ins('diencefalo',2,['cortes','cor',10,'Encontre o tálamo, o III ventrículo e o diencéfalo ventral em cada corte.']);
+ ins('nucbase',1,['cortes','axi',10,'De cima para baixo: o caudado aparece antes do lentiforme, e a cápsula interna fica entre eles.'],'fig');
+ ins('limbico',1,['cortes','cor',11,'Siga o hipocampo e o corpo amigdaloide no lobo temporal.'],'fig');
+ /* circuitos */
+ ins('limbico',2,['circ','papez']);ins('limbico',3,['circ','medo']);
+ ins('nucbase',2,['circ','direta']);ins('nucbase',2,['circ','indireta']);
+ ins('cortfunc',4,['circ','linguagem']);ins('cortfunc',4,['circ','leitura']);
+ ins('cortex',3,['circ','motora']);ins('talamo',2,['circ','sensitiva']);
+ ins('hipotal',4,['circ','cortisol']);ins('hipotal',4,['circ','adh']);
+ ins('memoria',2,['circ','memoria']);
+ /* lesão → sintoma */
+ ins('cortex',3,['les','profundo','Toque nas estruturas profundas']);
+ if(LESSON.cortfunc)LESSON.cortfunc.push({t:'Onde está a lesão?',b:[
+  ['p','Agora junte tudo: cada ponto vermelho é um local de lesão. No modo **Explorar**, veja o quadro clínico que ela causa; no **Desafio**, leia o caso e toque no local certo.'],
+  ['les','lateral','Lesões na face lateral do hemisfério dominante'],['les','medial','Lesões na face medial'],
+  ['key','Para localizar uma lesão, pergunte: que parte do corpo foi atingida (face e braço x perna), se há alteração de linguagem (hemisfério esquerdo) ou de atenção espacial (direito) e se há defeito no campo visual.']]});
+ /* quadros comparativos */
+ ins('diencefalo',0,['tbl',[['Parte','Posição','Componentes','Função principal'],['Tálamo','Acima do sulco hipotalâmico','Núcleos anterior, mediais, laterais, pulvinar e corpos geniculados','Estação para o córtex (sensibilidade, movimento, memória)'],['Hipotálamo','Abaixo do sulco hipotalâmico, no assoalho do III ventrículo','Quiasma, túber cinéreo, infundíbulo e corpos mamilares','Homeostase e comando da hipófise'],['Epitálamo','Parte posterior e superior do III ventrículo','Glândula pineal, habênulas e comissura posterior','Ritmo circadiano (melatonina) e ligação com o sistema límbico'],['Subtálamo','Abaixo do tálamo, lateral ao hipotálamo','Núcleo subtalâmico e zona incerta','Controle do movimento com os núcleos da base']]]);
+ ins('telencefalo',1,['tbl',[['Lobo','Onde fica','Giros de destaque','Função'],['Frontal','À frente do sulco central, acima do sulco lateral','Pré-central; frontais superior, médio e inferior','Movimento, fala (Broca), planejamento e comportamento'],['Parietal','Entre o sulco central e a linha parieto-occipital','Pós-central, supramarginal e angular','Sensibilidade, atenção espacial, leitura e cálculo'],['Temporal','Abaixo do sulco lateral','Temporais superior, médio e inferior; para-hipocampal','Audição, compreensão (Wernicke) e memória'],['Occipital','Atrás da linha parieto-occipital','Cúneo e lingual','Visão'],['Ínsula','No fundo do sulco lateral','Giros curtos e longos','Interocepção, paladar e emoção'],['Límbico','Anel na face medial','Cíngulo e para-hipocampal','Emoção e memória']]]);
+ ins('nucbase',2,['tbl',[['','Via direta','Via indireta'],['Receptor de dopamina no estriado','D1 (a dopamina excita)','D2 (a dopamina inibe)'],['Caminho','Estriado → pálido medial','Estriado → pálido lateral → subtalâmico → pálido medial'],['Efeito no tálamo','Libera','Freia mais'],['Resultado','Facilita o movimento','Suprime movimentos indesejados'],['Sem dopamina (Parkinson)','Fica fraca','Fica hiperativa']]]);
+ ins('cortex',0,['tbl',[['Tipo de fibra','Liga','Exemplos','Lesão típica'],['Associação','Áreas do mesmo hemisfério','Arqueado, uncinado, cíngulo, longitudinais, fibras em U','Síndromes de desconexão (afasia de condução)'],['Comissural','Os dois hemisférios','Corpo caloso, comissura anterior, comissura do fórnice','Desconexão entre hemisférios (alexia sem agrafia)'],['Projeção','Córtex ↔ tálamo, tronco e medula','Coroa radiada, cápsula interna, radiação óptica','Hemiplegia, hemianestesia, hemianopsia']]]);
+ ins('cortex',5,['tbl',[['Tipo','Camadas','Exemplo'],['Arquicórtex','3','Hipocampo e giro denteado'],['Paleocórtex','3 a 5','Córtex olfatório (piriforme, unco)'],['Neocórtex (isocórtex)','6','Mais de 90% do córtex, como o giro pré-central']]]);
+ ins('cortfunc',5,['tbl',[['Função','Lesão à esquerda (dominante)','Lesão à direita'],['Linguagem','Afasia','Fala sem entonação emocional (aprosódia)'],['Atenção espacial','Negligência rara e leve','Negligência do lado esquerdo, anosognosia'],['Gestos e construção','Apraxia ideomotora','Apraxia de vestir e construtiva'],['Leitura e cálculo','Alexia, agrafia, acalculia (Gerstmann)','Pouco afetados'],['Rostos','Pouco afetado','Prosopagnosia (mais com lesão direita ou bilateral)']]]);
+ ins('limbico',3,['tbl',[['','Corpo amigdaloide','Hipocampo'],['Posição','Profundo ao unco, à frente do corno inferior','Assoalho do corno inferior'],['Estrutura','Conjunto de núcleos','Córtex de 3 camadas (arquicórtex)'],['Saída principal','Estria terminal e via amigdalofugal ventral','Fórnice'],['Função','Medo e valor emocional','Memória declarativa e espacial'],['Lesão bilateral','Klüver-Bucy: perde o medo','Amnésia anterógrada']]]);
+ ins('hipotal',6,['tbl',[['','Diabetes insípido central','SIADH'],['ADH','Falta','Excesso'],['Urina','Muita e diluída','Pouca e concentrada'],['Sódio no sangue','Tende a subir','Cai (hiponatremia)'],['Causas comuns','Trauma, cirurgia da hipófise, tumores suprasselares','Doenças pulmonares e do SNC, medicamentos'],['Tratamento','Desmopressina','Restringir água e tratar a causa']]]);
+ ins('talamo',4,['tbl',[['Artéria','Parte do tálamo','Quadro típico'],['Tuberotalâmica (da comunicante posterior)','Anterior','Alterações de memória e de comportamento'],['Paramediana (da cerebral posterior)','Medial e intralaminar','Sonolência, amnésia, alteração do olhar vertical'],['Talamogeniculada (da cerebral posterior)','Lateral (ventral posterior)','Perda sensitiva do lado oposto; depois, dor talâmica'],['Coroidea posterior (da cerebral posterior)','Pulvinar e geniculados','Alterações do campo visual']]]);
+ /* pegadinhas de prova */
+ var PEG={
+ diencefalo:['“Cérebro” não é o mesmo que encéfalo: o encéfalo inclui também cerebelo e tronco. E o diencéfalo faz parte do cérebro, não do tronco encefálico.',
+  'A **lâmina terminal**, parede anterior do III ventrículo, é telencéfalo e não diencéfalo. A aderência intertalâmica falta em parte das pessoas e não é uma comissura importante.',
+  'O tálamo não é só estação sensitiva: tem núcleos para movimento (VA e VL), memória (anterior) e cognição (dorsomedial). E o **olfato** é a única sensação que chega ao córtex sem passar antes por ele.',
+  'A **neuro-hipófise não produz** ADH nem ocitocina: só guarda e libera. Quem produz são os núcleos supraóptico e paraventricular do hipotálamo.',
+  'O **hemibalismo** aparece do lado OPOSTO ao núcleo subtalâmico lesado. E a pineal calcificada no adulto é achado normal, não tumor.'],
+ telencefalo:['Cada hemisfério tem três faces (superolateral, medial e inferior) e três polos: frontal, temporal e occipital. Não existe “polo parietal”.',
+  'A **ínsula** é um lobo que não aparece na superfície. E o limite entre os lobos parietal e occipital, na face lateral, é uma linha imaginária, não um sulco completo.',
+  'Giro **pré**-central fica À FRENTE do sulco central (motor); **pós**-central, ATRÁS (sensitivo). Trocar os dois é o erro mais comum na prova prática.',
+  'Quem delimita a ínsula é o **sulco circular**; os opérculos frontal, parietal e temporal só a escondem.',
+  '**Septo pelúcido** é uma lâmina fina entre os ventrículos laterais. **Área septal** é outra estrutura, com núcleos, abaixo do rostro do corpo caloso.',
+  'O sulco calcarino separa o **cúneo** (acima) do **giro lingual** (abaixo). A área visual primária fica nos lábios do calcarino, na face medial.',
+  'O **unco** é a ponta anterior do giro para-hipocampal, não do hipocampo. O hipocampo nem aparece na superfície: está dentro do corno inferior do ventrículo lateral.',
+  'Os cornos anterior e posterior **não têm plexo corioide**. O forame interventricular liga o ventrículo lateral ao III ventrículo, não ao IV.',
+  'Cápsula **externa**: entre putame e claustro. Cápsula **extrema**: entre claustro e ínsula. A cápsula **interna** fica do lado medial do lentiforme.'],
+ hipotal:['O hipotálamo forma o assoalho e a parte baixa das paredes do III ventrículo. O teto do ventrículo é a tela corioide.',
+  'Os **corpos mamilares** pertencem ao hipotálamo (região mamilar), mesmo parecendo estruturas separadas na base.',
+  'Lesão do hipotálamo **lateral** tira a fome; do **ventromedial**, causa fome exagerada e obesidade. É fácil inverter.',
+  'O **fórnice** leva fibras do hipocampo ao corpo mamilar, no hipotálamo, e não diretamente ao tálamo.',
+  'A **adeno-hipófise não recebe axônios** do hipotálamo: o comando chega por hormônios, pelo sistema porta. Só a neuro-hipófise recebe fibras nervosas.',
+  'Febre não é defeito do termostato: é o hipotálamo **subindo o ponto de ajuste** por ação de prostaglandinas. Por isso antitérmicos que bloqueiam prostaglandinas funcionam.',
+  'Diabetes **insípido** não tem nada a ver com glicose: é falta de ADH (ou resposta ao ADH). O nome vem da urina sem gosto doce.'],
+ talamo:['A **lâmina medular interna** tem forma de Y e divide o tálamo em grupos anterior, medial e lateral; o grupo anterior fica entre os braços do Y.',
+  'O **pulvinar** é a maior parte do tálamo, atrás. Os corpos geniculados ficam abaixo dele e formam o metatálamo.',
+  'VPL recebe do corpo; **VPM** recebe da face e do paladar. Geniculado **lateral** = visão; **medial** = audição (M de música).',
+  'O **núcleo reticular** envolve o tálamo e regula os outros núcleos, mas não envia fibras para o córtex.',
+  'Na síndrome talâmica, a dor costuma aparecer **semanas depois** do AVC e sempre do lado OPOSTO à lesão.',
+  'O núcleo subtalâmico é **excitatório** (glutamato). Por isso sua lesão “solta” movimentos e a estimulação dele melhora o Parkinson.',
+  'A pineal não recebe fibras do nervo óptico: a informação de luz chega pelo núcleo supraquiasmático e por uma via simpática.'],
+ nucbase:['**Corpo estriado** = caudado + lentiforme. **Lentiforme** = putame + globo pálido. **Neoestriado** = caudado + putame. Decore as quatro somas.',
+  'O **caudado** fica medial à perna anterior da cápsula interna; o **tálamo**, medial à perna posterior. O lentiforme está sempre do lado lateral.',
+  'Os núcleos da base **não mandam fibras para a medula**: agem pelo tálamo, que volta ao córtex motor.',
+  'Os núcleos da base também participam de cognição e motivação (estriado ventral e accumbens), não só de movimento.',
+  'No Parkinson, quem morre são os neurônios da **substância negra compacta**, no mesencéfalo. Na doença de Huntington, o mais atingido é o **caudado**.',
+  'O **corpo amigdaloide** já foi contado entre os núcleos da base pela posição, mas funcionalmente pertence ao sistema límbico.'],
+ cortex:['Coroa radiada e cápsula interna são fibras de **projeção**; o corpo caloso é **comissural**; o fascículo arqueado é de **associação**.',
+  'O **uncinado** faz um gancho entre o frontal e o temporal anterior; o **arqueado** contorna o fim do sulco lateral. Os dois são curvos: não confunda pelo formato.',
+  'A **comissura anterior** une principalmente os lobos temporais; a **comissura do fórnice** une os hipocampos. Nenhuma faz parte do corpo caloso.',
+  '**Joelho** da cápsula interna = fibras corticonucleares (face). **Perna posterior** = corticospinais e sensitivas. A perna anterior não leva o trato corticospinal.',
+  'Camada **IV** (granular interna) RECEBE do tálamo; camada **V** (piramidal interna) ENVIA para tronco e medula. Granular = entrada; piramidal = saída.',
+  'Hipocampo é **arquicórtex** (3 camadas); córtex olfatório é **paleocórtex**. Isocórtex é o neocórtex de 6 camadas.'],
+ cortfunc:['Área primária não quer dizer “mais importante”: as áreas de associação ocupam a maior parte do córtex humano e explicam as funções complexas.',
+  'A área **motora suplementar** fica na face MEDIAL; a **pré-motora**, na face lateral. As duas são área 6 de Brodmann.',
+  'A área auditiva recebe das **duas orelhas**: lesão de um lado não causa surdez. A área visual recebe só o hemicampo oposto.',
+  'A **negligência** é mais comum e mais grave em lesão do lado DIREITO, que faz o paciente ignorar o lado esquerdo.',
+  'Na afasia de **condução**, o sinal-chave é a **repetição** ruim com fala fluente e boa compreensão. Não confunda com Wernicke, em que a compreensão falha.',
+  'Hemisfério “dominante” é o da **linguagem**, não o mais inteligente. O direito domina atenção espacial e entonação da fala.'],
+ limbico:['**Lobo límbico** (cíngulo e para-hipocampal) é anatômico. **Sistema límbico** é funcional e inclui estruturas de fora do lobo, como amígdala, hipotálamo e núcleo anterior do tálamo.',
+  'O hipocampo fica no assoalho do corno **INFERIOR** do ventrículo lateral, não do corno posterior.',
+  'No circuito de Papez, o núcleo do tálamo é o **ANTERIOR** (não o dorsomedial), e quem chega a ele é o fascículo **mamilotalâmico**.',
+  '**Klüver-Bucy** exige lesão **bilateral** das amígdalas. Amígdala = medo; hipocampo = memória.',
+  'A dopamina da recompensa sai da **área tegmental ventral** (via mesolímbica), não da substância negra (via nigroestriatal).',
+  'Quem executa a resposta da emoção (coração, pressão, hormônios) é o **hipotálamo**; o pré-frontal regula. Emoção não é só córtex.'],
+ memoria:['**Memória de trabalho** não é memória guardada: é segurar e manipular informação por segundos, e depende do pré-frontal, não do hipocampo.',
+  'As memórias **mais recentes** são as mais perdidas após lesão do hipocampo (lei de Ribot): as antigas já dependem mais do neocórtex.',
+  'Na amnésia hipocampal, inteligência, linguagem e **aprendizado motor** continuam normais. Só falha a memória declarativa nova.',
+  'A potenciação de longo prazo depende de receptores **NMDA** de glutamato, não de acetilcolina. A acetilcolina entra na história pelo núcleo basal de Meynert.',
+  '**Korsakoff**: amnésia com confabulação por falta de tiamina (corpos mamilares e tálamo medial). **Alzheimer**: começa no entorrinal e no hipocampo, sem relação com tiamina.']};
+ Object.keys(PEG).forEach(function(m){PEG[m].forEach(function(t,si){ins(m,si,['peg',t])})});
+})();
 
 /* ---------- hipotálamo (cap. 21) ---------- */
 QB.push(
