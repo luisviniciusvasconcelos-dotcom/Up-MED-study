@@ -821,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.7.1';
+var APP_VERSION='3.7.2';
 var VERSIONS=[
+ {v:'3.7.2',date:'26/10/2026',changes:['Ranking ao vivo: as pontuações da turma atualizam sozinhas enquanto o ranking está aberto, sem precisar sair e voltar.','Sua própria pontuação aparece no ranking na hora em que você responde.','Corrigido: o ranking podia ficar preso numa versão antiga quando a leitura e o envio da pontuação aconteciam ao mesmo tempo.','Se a pontuação não conseguir ser enviada, o ranking avisa em vez de falhar em silêncio. O botão Atualizar refaz a conexão.','Estação do dia de hoje trocada para uma das imagens novas, mesmo para quem já tinha respondido a antiga.'],tests:['Responder uma questão e abrir o ranking: a pontuação já aparece atualizada.','Com dois aparelhos, responder num e ver o ranking do outro mudar sozinho.','Abrir o painel e ver a estação do dia com imagem nova.'],analysis:'O ranking era lido uma vez e apagado a cada envio; uma leitura em andamento podia devolver dados antigos e travar a lista até a próxima resposta.'},
  {v:'3.7.1',date:'26/10/2026',changes:['Estação do dia com as imagens novas: agora ela sorteia só entre as peças 3D e os cortes de ressonância de cérebro real (12 estações e 27 cortes), no mesmo padrão das aulas do cérebro.','Se a estação de hoje ainda não tinha sido respondida, ela já vem no novo padrão; quem já respondeu hoje mantém o resultado.'],tests:['Abrir o painel e conferir a estação do dia com imagem 3D ou corte de ressonância.','Responder e fechar o app: a resposta continua salva.'],analysis:'Pedido de padronizar as imagens das estações no modelo das aulas do cérebro.'},
  {v:'3.7.0',date:'26/10/2026',changes:['Figuras para explorar nas aulas do cérebro: toque em cada ponto da peça para ver o nome e a função, percorra as estruturas em ordem ou faça um teste rápido de 5 toques.','Navegador de cortes: uma barra percorre 20 cortes frontais e 16 horizontais de ressonância de um cérebro real, com as estruturas marcadas em cada corte.','Circuitos passo a passo: Papez, vias direta e indireta dos núcleos da base, linguagem, leitura, trato corticospinal, tato fino, eixo do cortisol, ADH, medo e memória.','Lesão → sintoma: toque no local da lesão para ver o quadro clínico, ou leia o caso e encontre a lesão (face lateral, face medial e estruturas profundas).','Novos quadros comparativos (partes do diencéfalo, lobos, vias direta e indireta, tipos de fibras, hemisférios, amígdala e hipocampo, diabetes insípido e SIADH, artérias do tálamo).','Pegadinhas de prova em cada seção das aulas do cérebro.','Trilha do cérebro: ordem sugerida dos 9 módulos, com mini-teste de 5 questões no fim de cada aula e o progresso marcado.'],tests:['Abrir uma aula do cérebro, tocar nos pontos da figura e fazer o teste rápido.','Arrastar a barra do navegador de cortes e trocar entre frontais e horizontais.','Seguir um circuito até o fim e fazer o desafio de lesões.','Fazer o mini-teste e ver o passo marcado na trilha.'],analysis:'Recursos acrescentados às aulas existentes, sem reescrever o conteúdo.'},
  {v:'3.6.0',date:'26/10/2026',changes:['Bloco completo do cérebro (telencéfalo e diencéfalo): nove módulos com aula, resumo e cerca de 40 questões cada — Diencéfalo, Telencéfalo, Hipotálamo, Tálamo, Núcleos da base, Substância branca e córtex, Áreas funcionais do córtex, Sistema límbico e Anatomia da memória.','Explicações em três níveis (curta, completa e clínica) em todas as novas questões, com casos clínicos e vários formatos: múltipla escolha, caso, verdadeiro ou falso, associação, asserção-razão, ordenação e lacuna.','Novas figuras de alta resolução nas aulas, feitas a partir de dados reais de neuroimagem: faces lateral, medial, inferior e superior do hemisfério, áreas funcionais, sistema límbico, fascículos de substância branca, núcleos da base em 3D e cortes frontal, horizontal e sagital de ressonância.','12 novas estações de identificação do cérebro, com 161 estruturas para reconhecer e localizar por toque.','Os flashcards dos novos módulos são gerados automaticamente a partir das questões.'],tests:['Abrir a aula de cada módulo do cérebro e conferir texto, figuras e questões de fixação.','Treinar 10 questões de cada módulo e ver as três explicações.','Fazer a prática de estações nos modos Identifique e Localize com as estações do cérebro.'],analysis:'Imagens geradas a partir de dados abertos de neuroimagem (modelo fsaverage do FreeSurfer, distribuído com o projeto NiiVue, licença BSD-2), com crédito em cada estação.'},
@@ -4921,7 +4922,7 @@ var FirebaseStore={
   return this.auth.createUserWithEmailAndPassword(email.trim(),pass).then(function(cred){
    return Promise.all([cred.user.updateProfile({displayName:name}),self.db.ref('profiles/'+cred.user.uid).set({name:name,turma:turma,createdAt:Date.now()})]).then(function(){return{uid:cred.user.uid,name:name,email:cred.user.email,turma:turma}})})},
  signIn:function(email,pass){return this.auth.signInWithEmailAndPassword(email.trim(),pass)},
- signOut:function(){return this.auth.signOut()},
+ signOut:function(){stopScoresWatch();S.scores=null;return this.auth.signOut()},
  reset:function(email){return this.auth.sendPasswordResetEmail(email.trim())},
  isAdmin:function(uid){return this.db.ref('admins/'+uid).once('value').then(function(s){return s.val()===true}).catch(function(){return false})},
  loadPrivate:function(uid){return this.db.ref('private/'+uid).once('value').then(function(s){return s.val()})},
@@ -5690,7 +5691,8 @@ function cbInstall(){
  if(window.__cbInst)return;window.__cbInst=1;
  stationOfDay=function(){var dk=dayKey(),c=S.priv.c,sv=c.sdPick,answered=!!(c.sd&&c.sd.day===dk);
   if(sv&&sv.day===dk){var all=cbDailyStations().concat(allStations()),st0=null;for(var i=0;i<all.length;i++)if(all[i].id===sv.st){st0=all[i];break}
-   var pin0=st0&&st0.pins.find(function(p){return p.n===sv.n});if(pin0&&sv.opts&&sv.opts.length&&(/^cb-/.test(st0.id)||answered))return{st:st0,pin:pin0,opts:sv.opts}}
+   var pin0=st0&&st0.pins.find(function(p){return p.n===sv.n});if(pin0&&sv.opts&&sv.opts.length&&/^cb-/.test(st0.id))return{st:st0,pin:pin0,opts:sv.opts}}
+  if(answered&&!(sv&&sv.day===dk&&/^cb-/.test(sv.st||'')))delete c.sd;
   var r=cbPickDay();c.sdPick={day:dk,st:r.st.id,n:r.pin.n,opts:r.opts};afterFns.push(function(){try{persist()}catch(e){}});return r};
  var vm=VIEWS.modulo;VIEWS.modulo=function(){var h=vm.apply(this,arguments),id=S.sub;
   if(cbTrailIdx(id)<0)return h;
@@ -6139,7 +6141,9 @@ function saveNow(){
   var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
   var done=Store.savePrivate(S.user.uid,p).catch(function(e){console.warn(e)});
   var mods={};Object.keys(st.mods).forEach(function(k){mods[k]={a:st.mods[k].a,c:st.mods[k].c,xp:st.mods[k].xp||0}});
-  Store.saveScore(S.user.uid,{name:S.user.name,turma:S.user.turma||'',fac:S.user.fac||'',av:S.user.av||'',wk2:p.weekly&&p.weekly.id===weekId()?{id:p.weekly.id,best:p.weekly.best||0}:null,xp:st.xp,answered:st.answered,correct:st.correct,week:st.week,mods:mods,at:Date.now()}).then(function(){S.scores=null}).catch(function(e){console.warn(e)});
+  var sc={name:S.user.name,turma:S.user.turma||'',fac:S.user.fac||'',av:S.user.av||'',wk2:p.weekly&&p.weekly.id===weekId()?{id:p.weekly.id,best:p.weekly.best||0}:null,xp:st.xp,answered:st.answered,correct:st.correct,week:st.week,mods:mods,at:Date.now()};
+  if(S.scores)S.scores[S.user.uid]=JSON.parse(JSON.stringify(sc));
+  Store.saveScore(S.user.uid,sc).then(function(){S.scoreSaveErr=null;if(!S._scoreWatch)S.scores=null}).catch(function(e){S.scoreSaveErr=errMsg(e);console.warn(e)});
   return done;
 }
 /* rede de segurança: depois de qualquer toque ou digitação, se o progresso mudou e ninguém salvou, salva */
@@ -6310,7 +6314,16 @@ function vPainel(){
  '<div class="grid g3">'+MODULES.map(function(m){var s=modStats(m.id);return '<button class="mod" data-mod="'+m.id+'"><div class="row"><h3>'+esc(m.n)+'</h3></div><p class="muted small">'+esc(m.s)+'</p>'+meter(s.acc,s.a)+'<div class="row small muted num"><span>'+s.seen+'/'+s.tot+' vistas</span><span>'+(s.a?s.acc+'% de acerto':'não iniciado')+'</span></div></button>'}).join('')+'</div>';
 }
 function myPos(){if(!S.scores)return 0;var arr=Object.keys(S.scores).map(function(k){return{uid:k,xp:S.scores[k].xp||0}}).sort(function(a,b){return b.xp-a.xp});var i=arr.findIndex(function(r){return r.uid===S.user.uid});return i<0?0:i+1}
-function loadScores(){if(S._loadingScores)return;S._loadingScores=true;Store.listScores().then(function(s){S.scores=s||{};S._loadingScores=false;if(S.view==='painel'||S.view==='ranking'){S.keepScroll=true;render()}}).catch(function(e){S._loadingScores=false;S.scores={};S.scoreErr=errMsg(e)})}
+/* ranking ao vivo (v3.7.2): no Firebase, escuta as pontuações e atualiza sozinho quando qualquer colega responde */
+function scoresChanged(s){var first=!S.scores,before=S.view==='painel'?myPos():0;S.scores=s||{};S.scoreErr=null;S._loadingScores=false;
+ if(first&&(S.view==='ranking'||S.view==='painel')){S.keepScroll=true;render();return}
+ if(S.view==='ranking'||(S.view==='painel'&&myPos()!==before)){clearTimeout(S._rkT);S._rkT=setTimeout(function(){if(S.view==='ranking'||S.view==='painel'){S.keepScroll=true;render()}},300)}}
+function stopScoresWatch(){if(S._scoreWatch){try{S._scoreWatch.off()}catch(e){}S._scoreWatch=null}}
+function loadScores(){
+ if(Store.mode==='firebase'&&Store.db&&S.user){if(S._scoreWatch)return;var ref=Store.db.ref('scores');S._scoreWatch=ref;S._loadingScores=true;
+  ref.on('value',function(sn){scoresChanged(sn.val())},function(e){if(S._scoreWatch===ref)S._scoreWatch=null;S._loadingScores=false;if(!S.scores)S.scores={};S.scoreErr=errMsg(e);if(S.view==='ranking'){S.keepScroll=true;render()}});return}
+ if(S._loadingScores)return;S._loadingScores=true;var t=setTimeout(function(){S._loadingScores=false},10000);
+ Store.listScores().then(function(s){clearTimeout(t);scoresChanged(s);S.keepScroll=true;if(S.view==='painel'||S.view==='ranking')render()}).catch(function(e){clearTimeout(t);S._loadingScores=false;S.scores=S.scores||{};S.scoreErr=errMsg(e)})}
 
 /* =========================================================
    ESTUDAR (filtros) e QUIZ
@@ -6647,7 +6660,7 @@ document.addEventListener('click',function(e){
  /* ranking */
  if(d.rk){RK.tab=d.rk;if(d.rk==='modulo'&&!RK.mod)RK.mod=MODULES[0].id;S.keepScroll=true;render();return}
  if(d.act==='rkTurma'){RK.turma=!RK.turma;S.keepScroll=true;render();return}
- if(d.act==='rkRefresh'){S.scores=null;render();return}
+ if(d.act==='rkRefresh'){stopScoresWatch();S.scores=null;S._loadingScores=false;render();return}
  /* perfil */
  if(d.themeSet){lsSet('upmed2_theme',d.themeSet);applyTheme(d.themeSet);S.keepScroll=true;render();return}
  if(d.act==='logout'){var uid0=S.user&&S.user.uid;Promise.race([flushSave(),new Promise(function(res){setTimeout(res,2500)})]).then(function(){try{localStorage.removeItem('upmed2_bk_'+uid0)}catch(e){}Store.signOut()});return}
@@ -6974,6 +6987,7 @@ VIEWS.perfil=function(){
 var RK2={tab:'geral',mod:MODULES[0].id,turma:false,fac:false};
 VIEWS.ranking=function(){
  if(!S.scores){loadScores();return '<div class="top"><h1>Ranking</h1></div><p class="muted">Carregando o ranking…</p>'}
+ var rkErr=S.scoreSaveErr?'<div class="banner">Sua pontuação mais recente não chegou ao ranking ('+esc(S.scoreSaveErr)+'). Ela é enviada de novo na próxima resposta.</div>':(S.scoreErr?'<div class="banner">Não foi possível atualizar o ranking agora ('+esc(S.scoreErr)+'). Toque em Atualizar.</div>':'');
  var wid=weekId();
  var arr=Object.keys(S.scores).map(function(k){var s=S.scores[k]||{};var v,a;
   if(RK2.tab==='geral'){v=s.xp||0;a=pct(s.correct||0,s.answered||0)}
@@ -6986,7 +7000,7 @@ VIEWS.ranking=function(){
  arr=arr.filter(function(r){return r.v>0||r.uid===S.user.uid}).sort(function(a,b){return b.v-a.v});
  var unit=RK2.tab==='desafio'?'/10':' pts',top=arr.slice(0,3);
  var pod=top.length>=3?'<div class="podium">'+[1,0,2].map(function(i){var r=top[i];return '<div class="pod p'+(i+1)+'">'+avatar(r,i===0?56:44)+'<b>'+(i+1)+'º</b><span class="nm">'+esc(r.name)+'</span><span class="num small muted">'+r.v+unit+'</span></div>'}).join('')+'</div>':'';
- return '<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Versão de teste · só este aparelho')+'</div><h1>Ranking</h1></div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
+ return rkErr+'<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Versão de teste · só este aparelho')+'</div><h1>Ranking</h1></div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
  '<div class="chips">'+[['geral','Geral'],['semana','Esta semana'],['desafio','Desafio da semana'],['modulo','Por módulo']].map(function(t){return '<button class="chip" data-x="rk" data-xv="'+t[0]+'" aria-pressed="'+(RK2.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>'+
  '<div class="chips">'+(S.user.turma?'<button class="chip" data-x="rkf" data-xv="turma" aria-pressed="'+RK2.turma+'">Só '+esc(S.user.turma)+'</button>':'')+(S.user.fac?'<button class="chip" data-x="rkf" data-xv="fac" aria-pressed="'+RK2.fac+'">Só '+esc(S.user.fac)+'</button>':'<button class="chip" data-nav="perfil">Informe sua faculdade no perfil</button>')+'</div>'+
  (RK2.tab==='modulo'?'<select class="in" id="rk2Mod" aria-label="Módulo">'+MODULES.map(function(m){return '<option value="'+m.id+'" '+(RK2.mod===m.id?'selected':'')+'>'+esc(m.n)+'</option>'}).join('')+'</select>':'')+
