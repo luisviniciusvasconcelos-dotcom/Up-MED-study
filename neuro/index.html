@@ -821,8 +821,9 @@ function gp(m,d,q,a,e){return{m:m,d:d,t:'gp',q:q,a:a,e:e}}
 function L(q,e2,c){q.e2=e2;q.c=c;return q}
 var LESSON={};
 
-var APP_VERSION='3.12.0';
+var APP_VERSION='3.12.1';
 var VERSIONS=[
+ {v:'3.12.1',date:'03/11/2026',changes:['Ranking: quando a conexão ao vivo cai, o app religa sozinho em poucos segundos, em vez de ficar parado até alguém tocar em Atualizar.','Ao voltar para o app depois de um tempo, ou quando a internet volta, o ranking reconecta e confere as pontuações.','Se o envio da sua pontuação falha, o app tenta de novo sozinho; antes ele só tentava na próxima resposta, e alguns erros nem apareciam.','Contadores de pontos corrompidos são consertados sem perder pontos, e não travam mais o envio para o ranking.','Sua própria linha não volta mais para um valor antigo enquanto o envio está em andamento.','O ranking mostra se está ao vivo e a hora da última atualização.'],tests:['Responder questões com o ranking aberto em outro aparelho e ver a pontuação subir.','Deixar o app em segundo plano por alguns minutos, voltar e conferir a hora da última atualização.'],analysis:'Correção do ranking que parava de atualizar.'},
  {v:'3.12.0',date:'03/11/2026',changes:['Evolução, desenvolvimento e tecido nervoso no padrão novo: todas as figuras das aulas no visual novo e quatro esquemas para explorar (neurônio, sinapse, glia e neurulação).','Circuitos passo a passo: neurulação, migração neuronal, potencial de ação, sinapse química, regeneração do nervo, reflexo patelar e reflexo de retirada.','Lesão → sintoma: anencefalia, mielomeningocele e Hirschsprung; ELA, Guillain-Barré, anestésico local, raiva e tétano; Lambert-Eaton, botulismo, organofosforados e miastenia.','Quadros comparativos: arcos intra x intersegmentar, tipos de neurônio na evolução, derivados do tubo e da crista neural, lâmina alar x basal, cinzenta x branca, neurônio x glia, sinapse química x elétrica, receptor ionotrópico x metabotrópico, regeneração no SNP x SNC.','Pegadinhas em todas as seções e trilha dos fundamentos com mini-teste.','Filogenia agora tem 40 questões, todas com explicação em três níveis.','Textos dentro dos quadros das figuras ficaram mais legíveis.'],tests:['Explorar a sinapse e fazer o desafio das doenças da sinapse.','Seguir o potencial de ação passo a passo.','Fazer o mini-teste da trilha dos fundamentos.'],analysis:'Quinto e último lote da aplicação da metodologia aos conteúdos anteriores.'},
  {v:'3.11.0',date:'03/11/2026',changes:['Nervos, nervos cranianos e sistema autônomo no padrão novo: esquemas do nervo espinal, do fuso neuromuscular, da língua e do autônomo, e as figuras das aulas, todos no visual novo e para explorar.','Circuitos: reflexo patelar, junção neuromuscular, reflexos fotomotor e corneano, via gustativa, vias simpática e parassimpática, via simpática da pupila e micção.','Lesão → sintoma: herpes-zóster, radiculopatia, poliomielite, simpatectomia; nervo óptico, quiasma, trato óptico, anosmia, III e trigêmeo; Bell, schwannoma, VI, forame jugular e hipoglosso; Horner, choque neurogênico, bexiga sacral e Chagas.','Quadros comparativos: lesões de nervo (Seddon), fuso x órgão de Golgi, raízes C5–S1, paralisias do III, IV e VI, nervos IX a XII, receptores do autônomo, Horner x III.','Pegadinhas em todas as seções e trilha do sistema nervoso periférico com mini-teste.','Nervos cranianos e os dois módulos do autônomo agora têm 40 questões; todas as questões dos quatro módulos têm explicação em três níveis.','Nenhuma estação antiga ficou no visual anterior: todas foram substituídas pelas versões novas.'],tests:['Fazer o desafio dos nervos cranianos na base do encéfalo.','Seguir a via simpática da pupila.','Fazer o mini-teste da trilha do sistema nervoso periférico.'],analysis:'Quarto lote da aplicação da metodologia aos conteúdos anteriores.'},
  {v:'3.10.0',date:'03/11/2026',changes:['Meninges e líquor no padrão novo: sistema ventricular real em 3D (vista lateral e superior, dentro do cérebro em transparência) e corte sagital mediano real com as cisternas pontina, superior e magna.','Esquemas da dura-máter, da circulação do líquor e dos ventrículos e as figuras da aula (seios, hérnias, hematomas) no visual novo.','Circuitos: circulação do líquor e drenagem venosa do encéfalo.','Lesão → sintoma: hidrocefalias (aqueduto, IV ventrículo, granulações, plexo corioide), hérnias subfalcina e do unco, trombose do seio sagital superior e do seio cavernoso.','Quadros comparativos: líquor nas meningites bacteriana, viral e tuberculosa; hérnias; conteúdo do seio cavernoso.','Pegadinhas em todas as seções, mini-teste e 40 questões com explicação em três níveis.','Os últimos esquemas antigos do encéfalo (face medial, face lateral e base com os nervos cranianos) também passaram ao visual novo.'],tests:['Explorar o sistema ventricular em 3D e o corte com as cisternas.','Fazer o desafio das hidrocefalias.','Fazer o mini-teste de meninges.'],analysis:'Terceiro lote da aplicação da metodologia aos conteúdos anteriores.'},
@@ -7085,19 +7086,42 @@ function flushSave(){if(saveT)return saveNow();return Promise.resolve()}
 function saveNow(){
   clearTimeout(saveT);saveT=null;
   if(!S.user||!S.priv||(typeof ACC!=='undefined'&&ACC.kicked))return Promise.resolve();
-  var p=S.priv,st=p.stats;if(st.week.id!==weekId())st.week={id:weekId(),xp:0};
+  var p=S.priv,st=p.stats;if(!st.week||st.week.id!==weekId())st.week={id:weekId(),xp:0};fixStats(st);
   var done=Store.savePrivate(S.user.uid,p).catch(function(e){console.warn(e)});
   var mods={};Object.keys(st.mods).forEach(function(k){mods[k]={a:st.mods[k].a,c:st.mods[k].c,xp:st.mods[k].xp||0}});
   var sc={name:S.user.name,turma:S.user.turma||'',fac:S.user.fac||'',av:S.user.av||'',wk2:p.weekly&&p.weekly.id===weekId()?{id:p.weekly.id,best:p.weekly.best||0}:null,xp:st.xp,answered:st.answered,correct:st.correct,week:st.week,mods:mods,at:Date.now()};
+  sc=cleanScore(sc);S._myScore=sc;
   if(S.scores)S.scores[S.user.uid]=JSON.parse(JSON.stringify(sc));
-  Store.saveScore(S.user.uid,sc).then(function(){S.scoreSaveErr=null;if(!S._scoreWatch)S.scores=null}).catch(function(e){S.scoreSaveErr=errMsg(e);console.warn(e)});
+  pushScore(sc);
   return done;
 }
+/* conserta contadores corrompidos (NaN ou vazios) sem perder pontos: usa a soma dos módulos ou a última pontuação publicada */
+function fixStats(st){var ok=function(v){return typeof v==='number'&&isFinite(v)};var sx=0,sa=0,sc=0;Object.keys(st.mods||{}).forEach(function(k){var m=st.mods[k]||{};if(!ok(m.a))m.a=0;if(!ok(m.c))m.c=0;if(!ok(m.xp))m.xp=0;sx+=m.xp;sa+=m.a;sc+=m.c});
+ var pub=(S.scores&&S.user&&S.scores[S.user.uid])||S._myScore||{};
+ if(!ok(st.xp))st.xp=Math.max(sx,ok(pub.xp)?pub.xp:0);if(!ok(st.answered))st.answered=Math.max(sa,ok(pub.answered)?pub.answered:0);if(!ok(st.correct))st.correct=Math.min(st.answered,Math.max(sc,ok(pub.correct)?pub.correct:0));
+ if(!ok(st.week.xp))st.week.xp=0}
+/* pontuação pública: só números válidos e nada indefinido (o Firebase recusa undefined) */
+function num(v){v=+v;return isFinite(v)&&v>0?Math.round(v):0}
+function cleanScore(sc){sc.xp=num(sc.xp);sc.answered=num(sc.answered);sc.correct=Math.min(num(sc.correct),sc.answered);sc.name=String(sc.name||'Estudante').slice(0,80);
+ sc.week=sc.week&&sc.week.id?{id:String(sc.week.id),xp:num(sc.week.xp)}:{id:weekId(),xp:0};
+ Object.keys(sc.mods||{}).forEach(function(k){var m=sc.mods[k]||{};sc.mods[k]={a:num(m.a),c:Math.min(num(m.c),num(m.a)),xp:num(m.xp)}});
+ return JSON.parse(JSON.stringify(sc))}
+/* envia e, se falhar, tenta de novo sozinho (10 s, 30 s, 60 s…) e quando a internet volta */
+function pushScore(sc){clearTimeout(S._scRetry);var uid=S.user&&S.user.uid;if(!uid)return;
+ var fail=function(e){console.warn(e);S.scoreSaveErr=errMsg(e);S._scTry=(S._scTry||0)+1;S._scRetry=setTimeout(function(){if(S.user&&S.user.uid===uid&&S._myScore)pushScore(S._myScore)},Math.min(60000,10000*S._scTry));if(S.view==='ranking'){S.keepScroll=true;render()}};
+ var pr;try{pr=Store.saveScore(uid,sc)}catch(e){fail(e);return}
+ Promise.resolve(pr).then(function(){var had=S.scoreSaveErr;S.scoreSaveErr=null;S._scTry=0;S._scoreOkAt=Date.now();if(!S._scoreWatch)S.scores=null;if(had&&S.view==='ranking'){S.keepScroll=true;render()}}).catch(fail)}
 /* rede de segurança: depois de qualquer toque ou digitação, se o progresso mudou e ninguém salvou, salva */
 var dirtyT=null;
 function dirtyCheck(){if(!S.user||!S.priv||(typeof ACC!=='undefined'&&ACC.kicked))return;var j;try{j=JSON.stringify(S.priv)}catch(e){return}if(j!==lastSnap)persist()}
 ['click','change','keyup','pointerup'].forEach(function(ev){document.addEventListener(ev,function(){clearTimeout(dirtyT);dirtyT=setTimeout(dirtyCheck,250)},true)});
-document.addEventListener('visibilitychange',function(){if(document.hidden){dirtyCheck();flushSave()}});
+document.addEventListener('visibilitychange',function(){if(document.hidden){dirtyCheck();flushSave();S._hiddenAt=Date.now()}else rankWake(Date.now()-(S._hiddenAt||Date.now())>20000)});
+window.addEventListener('online',function(){rankWake(true)});
+function rankWake(reconnect){if(!S.user||Store.mode!=='firebase'||!Store.db)return;
+ if(reconnect&&Store.db.goOffline){try{Store.db.goOffline();Store.db.goOnline()}catch(e){}}
+ if(S.scoreSaveErr&&S._myScore)pushScore(S._myScore);
+ if(!S._scoreWatch){if(S.scores&&(S.view==='ranking'||S.view==='painel'))loadScores();return}
+ if(reconnect)Store.listScores().then(function(s){scoresChanged(s)}).catch(function(){})}
 window.addEventListener('pagehide',function(){dirtyCheck();flushSave()});
 setInterval(function(){if(!document.hidden)dirtyCheck()},15000);
 function record(q,ok,partial){
@@ -7262,13 +7286,15 @@ function vPainel(){
 }
 function myPos(){if(!S.scores)return 0;var arr=Object.keys(S.scores).map(function(k){return{uid:k,xp:S.scores[k].xp||0}}).sort(function(a,b){return b.xp-a.xp});var i=arr.findIndex(function(r){return r.uid===S.user.uid});return i<0?0:i+1}
 /* ranking ao vivo (v3.7.2): no Firebase, escuta as pontuações e atualiza sozinho quando qualquer colega responde */
-function scoresChanged(s){var first=!S.scores,before=S.view==='painel'?myPos():0;S.scores=s||{};S.scoreErr=null;S._loadingScores=false;
+function scoresChanged(s){var first=!S.scores,before=S.view==='painel'?myPos():0;S.scores=s||{};S.scoreErr=null;S._loadingScores=false;S._scoresAt=Date.now();
+ if(S.user&&S._myScore){var mine=S.scores[S.user.uid];if(!mine||(mine.at||0)<(S._myScore.at||0)||(mine.xp||0)<S._myScore.xp)S.scores[S.user.uid]=JSON.parse(JSON.stringify(S._myScore))}
  if(first&&(S.view==='ranking'||S.view==='painel')){S.keepScroll=true;render();return}
  if(S.view==='ranking'||(S.view==='painel'&&myPos()!==before)){clearTimeout(S._rkT);S._rkT=setTimeout(function(){if(S.view==='ranking'||S.view==='painel'){S.keepScroll=true;render()}},300)}}
-function stopScoresWatch(){if(S._scoreWatch){try{S._scoreWatch.off()}catch(e){}S._scoreWatch=null}}
+function stopScoresWatch(){clearTimeout(S._rkRetry);if(S._scoreWatch){try{S._scoreWatch.off()}catch(e){}S._scoreWatch=null}}
 function loadScores(){
  if(Store.mode==='firebase'&&Store.db&&S.user){if(S._scoreWatch)return;var ref=Store.db.ref('scores');S._scoreWatch=ref;S._loadingScores=true;
-  ref.on('value',function(sn){scoresChanged(sn.val())},function(e){if(S._scoreWatch===ref)S._scoreWatch=null;S._loadingScores=false;if(!S.scores)S.scores={};S.scoreErr=errMsg(e);if(S.view==='ranking'){S.keepScroll=true;render()}});return}
+  ref.on('value',function(sn){S._rkFail=0;scoresChanged(sn.val())},function(e){console.warn(e);if(S._scoreWatch===ref)S._scoreWatch=null;S._loadingScores=false;if(!S.scores)S.scores={};S.scoreErr=errMsg(e);
+   S._rkFail=(S._rkFail||0)+1;clearTimeout(S._rkRetry);S._rkRetry=setTimeout(function(){if(S.user&&!S._scoreWatch)loadScores()},Math.min(60000,5000*S._rkFail));if(S.view==='ranking'){S.keepScroll=true;render()}});return}
  if(S._loadingScores)return;S._loadingScores=true;var t=setTimeout(function(){S._loadingScores=false},10000);
  Store.listScores().then(function(s){clearTimeout(t);scoresChanged(s);S.keepScroll=true;if(S.view==='painel'||S.view==='ranking')render()}).catch(function(e){clearTimeout(t);S._loadingScores=false;S.scores=S.scores||{};S.scoreErr=errMsg(e)})}
 
@@ -7487,7 +7513,7 @@ function vRanking(){
  arr=arr.filter(function(r){return r.v>0||r.uid===S.user.uid}).sort(function(a,b){return b.v-a.v});
  var top=arr.slice(0,3);
  var pod=top.length>=3?'<div class="podium">'+[1,0,2].map(function(i){var r=top[i];return '<div class="pod p'+(i+1)+'"><b>'+(i+1)+'º</b><span class="nm">'+esc(r.name)+'</span><span class="num small muted">'+r.v+' pts</span></div>'}).join('')+'</div>':'';
- return '<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Modo local · só este aparelho')+'</div><h1>Ranking</h1></div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
+ return '<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Modo local · só este aparelho')+'</div><h1>Ranking</h1>'+(Store.mode==='firebase'?'<div class="small muted">'+(S._scoreWatch&&!S.scoreErr?'Ao vivo':'Sem conexão ao vivo')+(S._scoresAt?' · atualizado às '+new Date(S._scoresAt).toTimeString().slice(0,5):'')+'</div>':'')+'</div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
  '<div class="chips">'+[['geral','Geral'],['semana','Esta semana'],['modulo','Por módulo']].map(function(t){return '<button class="chip" data-rk="'+t[0]+'" aria-pressed="'+(RK.tab===t[0])+'">'+t[1]+'</button>'}).join('')+(S.user.turma?'<button class="chip" data-act="rkTurma" aria-pressed="'+RK.turma+'">Só '+esc(S.user.turma)+'</button>':'')+'</div>'+
  (RK.tab==='modulo'?'<select class="in" id="rkMod" aria-label="Módulo">'+MODULES.map(function(m){return '<option value="'+m.id+'" '+(RK.mod===m.id?'selected':'')+'>'+esc(m.n)+'</option>'}).join('')+'</select>':'')+
  pod+'<div class="rank">'+(arr.length?arr.map(function(r,i){return '<div class="rrow'+(r.uid===S.user.uid?' me':'')+'"><span class="pos">'+(i+1)+'</span><span class="nm">'+esc(r.name)+(r.turma?' <span class="small muted" style="font-weight:400">· '+esc(r.turma)+'</span>':'')+'</span><span class="xp">'+r.v+'</span><span class="acc">'+r.acc+'%</span></div>'}).join(''):'<p class="muted">Ninguém pontuou ainda neste recorte.</p>')+'</div>'+
@@ -7645,7 +7671,7 @@ function refreshStations(){Store.listStations().then(function(s){var before=JSON
    INICIALIZAÇÃO
    ========================================================= */
 function onUser(u){
- if(!u){accessCleanup();S.user=null;S.priv=null;S.scores=null;S.admin=false;authMode='in';render();return}
+ if(!u){accessCleanup();stopScoresWatch();clearTimeout(S._scRetry);S._myScore=null;S.scoreSaveErr=null;S.user=null;S.priv=null;S.scores=null;S.admin=false;authMode='in';render();return}
  S.user=u;$('#app').innerHTML='<div style="padding:40px;text-align:center" class="muted">Carregando seu progresso…</div>';
  var lim=function(pr,v,ms){return Promise.race([Promise.resolve(pr).catch(function(e){console.warn(e);return v}),new Promise(function(res){setTimeout(function(){res(v)},ms||10000)})])};
  var loadErr=null;
@@ -7934,7 +7960,7 @@ VIEWS.perfil=function(){
 var RK2={tab:'geral',mod:MODULES[0].id,turma:false,fac:false};
 VIEWS.ranking=function(){
  if(!S.scores){loadScores();return '<div class="top"><h1>Ranking</h1></div><p class="muted">Carregando o ranking…</p>'}
- var rkErr=S.scoreSaveErr?'<div class="banner">Sua pontuação mais recente não chegou ao ranking ('+esc(S.scoreSaveErr)+'). Ela é enviada de novo na próxima resposta.</div>':(S.scoreErr?'<div class="banner">Não foi possível atualizar o ranking agora ('+esc(S.scoreErr)+'). Toque em Atualizar.</div>':'');
+ var rkErr=S.scoreSaveErr?'<div class="banner">Sua pontuação mais recente não chegou ao ranking ('+esc(S.scoreSaveErr)+'). O app tenta de novo sozinho; não precisa fazer nada.</div>':(S.scoreErr?'<div class="banner">Não foi possível atualizar o ranking agora ('+esc(S.scoreErr)+'). Toque em Atualizar.</div>':'');
  var wid=weekId();
  var arr=Object.keys(S.scores).map(function(k){var s=S.scores[k]||{};var v,a;
   if(RK2.tab==='geral'){v=s.xp||0;a=pct(s.correct||0,s.answered||0)}
@@ -7947,7 +7973,7 @@ VIEWS.ranking=function(){
  arr=arr.filter(function(r){return r.v>0||r.uid===S.user.uid}).sort(function(a,b){return b.v-a.v});
  var unit=RK2.tab==='desafio'?'/10':' pts',top=arr.slice(0,3);
  var pod=top.length>=3?'<div class="podium">'+[1,0,2].map(function(i){var r=top[i];return '<div class="pod p'+(i+1)+'">'+avatar(r,i===0?56:44)+'<b>'+(i+1)+'º</b><span class="nm">'+esc(r.name)+'</span><span class="num small muted">'+r.v+unit+'</span></div>'}).join('')+'</div>':'';
- return rkErr+'<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Versão de teste · só este aparelho')+'</div><h1>Ranking</h1></div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
+ return rkErr+'<div class="top"><div><div class="eyebrow">'+(Store.mode==='firebase'?'Turma conectada':'Versão de teste · só este aparelho')+'</div><h1>Ranking</h1>'+(Store.mode==='firebase'?'<div class="small muted">'+(S._scoreWatch&&!S.scoreErr?'Ao vivo':'Sem conexão ao vivo')+(S._scoresAt?' · atualizado às '+new Date(S._scoresAt).toTimeString().slice(0,5):'')+'</div>':'')+'</div><button class="btn ghost sm" data-act="rkRefresh">Atualizar</button></div>'+
  '<div class="chips">'+[['geral','Geral'],['semana','Esta semana'],['desafio','Desafio da semana'],['modulo','Por módulo']].map(function(t){return '<button class="chip" data-x="rk" data-xv="'+t[0]+'" aria-pressed="'+(RK2.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>'+
  '<div class="chips">'+(S.user.turma?'<button class="chip" data-x="rkf" data-xv="turma" aria-pressed="'+RK2.turma+'">Só '+esc(S.user.turma)+'</button>':'')+(S.user.fac?'<button class="chip" data-x="rkf" data-xv="fac" aria-pressed="'+RK2.fac+'">Só '+esc(S.user.fac)+'</button>':'<button class="chip" data-nav="perfil">Informe sua faculdade no perfil</button>')+'</div>'+
  (RK2.tab==='modulo'?'<select class="in" id="rk2Mod" aria-label="Módulo">'+MODULES.map(function(m){return '<option value="'+m.id+'" '+(RK2.mod===m.id?'selected':'')+'>'+esc(m.n)+'</option>'}).join('')+'</select>':'')+
